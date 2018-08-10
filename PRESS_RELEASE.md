@@ -1,13 +1,8 @@
-# Heading
-```
-Infection
-```
-## Sub-Heading
-```
-Infection has gone viral, and the fun is contagious
-```
+# Infection
 
-## Summary
+## Infection has gone viral, and the fun is contagious
+
+## Description
 ```
 Disease is running rampant and bioterrorists are among us, working to prevent the administration of a cure. Should we fail 
 to contain more than three outbreaks, the world will fall into chaos. Your job as a scientist on our task force is to develop
