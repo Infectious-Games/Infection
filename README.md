@@ -13,8 +13,9 @@ Note: Some features may not work until you add your API keys
 * [Mysql](https://www.mysql.com/)
 * [Redux](https://redux.js.org/)
 * [Azure](https://azure.microsoft.com/en-us/services/)
+```
 ![TechStack](https://image.ibb.co/g2MkT9/stack.png)
-
+```
 ## Prerequisites  
 
 ```
