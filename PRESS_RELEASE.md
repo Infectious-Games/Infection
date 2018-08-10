@@ -1,11 +1,13 @@
-#Heading
+# Heading
 ```
 Infection
 ```
-##Sub-Heading
-```Infection has gone viral, and the fun is contagious```
+## Sub-Heading
+```
+Infection has gone viral, and the fun is contagious
+```
 
-##Summary
+## Summary
 ```
 Disease is running rampant and bioterrorists are among us, working to prevent the administration of a cure. Should we fail 
 to contain more than three outbreaks, the world will fall into chaos. Your job as a scientist on our task force is to develop
@@ -14,11 +16,11 @@ have access to advanced technology to aid you in your investigation, including f
 advanced lie detecting software, and Pal 3000 (an advanced AI whose programmed purpose is to protect humanity).
 ```
 
-##Problem
+## Problem
 ``` 
 
 ```
-##Solution
+## Solution
 
 Quote from You
 
