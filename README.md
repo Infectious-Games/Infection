@@ -29,9 +29,9 @@ npm install
 app.db = mongoose.connect(<Your MongoDB DB here>);
 ```
 ### You will need the following API keys:
-```
+
   ** [Beyond Verbal](http://www.beyondverbal.com/)
-```
+
 # Getting started with your local development server  
 
 ### Starting the Server
