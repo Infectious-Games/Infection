@@ -7,12 +7,12 @@ A wine exploration application that allows the user to search for and favorite w
 Note: Some features may not work until you add your API keys
 
 ## Stack 
+* [ReactJS](https://reactjs.org)
+* [Node.js](http://nodejs.org/)
+* [Express.js](http://expressjs.com/)
+* [Mysql](https://www.mysql.com/)
+* [Redux](https://redux.js.org/)
 ![TechStack](https://image.ibb.co/g2MkT9/stack.png)
-* ReactJS: https://reactjs.org
-* Node.js: http://nodejs.org/
-* Express.js: http://expressjs.com/
-* Mysql: https://www.mysql.com/
-* Redux: https://redux.js.org/
 
 ## Prerequisites  
 
@@ -30,7 +30,7 @@ app.db = mongoose.connect(<Your MongoDB DB here>);
 ```
 ### You will need the following API keys:
 
-  ** [Beyond Verbal](http://www.beyondverbal.com/)
+  * [Beyond Verbal](http://www.beyondverbal.com/)
 
 # Getting started with your local development server  
 
@@ -62,10 +62,10 @@ Stop the web server press Ctrl+c in the Terminal window.
 ## Authors
 
 
-* Athena Turek - (https://github.com/athenaturek)
+* [Athena Turek](https://github.com/athenaturek)
 
-* Mark Stark - (https://github.com/markstarkart)
+* [Mark Stark](https://github.com/markstarkart)
 
-* Matthew Reid - (https://github.com/MatthewCReid)
+* [Matthew Reid](https://github.com/MatthewCReid)
 
-* Paul Marinaro - (https://github.com/PaulMarinaro)
+* [Paul Marinaro](https://github.com/PaulMarinaro)
