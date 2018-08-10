@@ -1,6 +1,8 @@
 # Infection
 
-## Infection has gone viral, and the fun is contagious
+```
+Infection has gone viral, and the fun is contagious
+```
 
 ## Description
 ```
