@@ -1,6 +1,6 @@
 # INFECTION
 
-A wine exploration application that allows the user to search for and favorite wines, find wines online, get food pairings based on food or wine preferences, chat with others about wine, and find local wine stores based on location.
+A full-stack javascript social deduction game where a team of scientists have been infiltrated by bioterrorists and both teams are trying either cure the world or destroy it. 
 
 ### Demo for this app is available at: xxxxx
 
@@ -12,6 +12,7 @@ Note: Some features may not work until you add your API keys
 * [Express.js](http://expressjs.com/)
 * [Mysql](https://www.mysql.com/)
 * [Redux](https://redux.js.org/)
+* [Azure](https://azure.microsoft.com/en-us/services/)
 ![TechStack](https://image.ibb.co/g2MkT9/stack.png)
 
 ## Prerequisites  
@@ -24,13 +25,14 @@ Download node.js if you have not already http://nodejs.org/. You can confirm tha
 ```
 npm install
 ```
-### You will need to create a MongoDB and link it in the server.js file. 
+### You will need to create your database and link it in the xxxx file. 
 ```
-app.db = mongoose.connect(<Your MongoDB DB here>);
+XXXXXXXXXXXX
 ```
 ### You will need the following API keys:
 
   * [Beyond Verbal](http://www.beyondverbal.com/)
+  * [Azure Face](https://azure.microsoft.com/en-us/services/cognitive-services/face/)
 
 # Getting started with your local development server  
 
@@ -55,7 +57,7 @@ Then, you can start the app with:
 ```
 npm run dev  // Defined in package.json
 ```
-Open web browser to http://localhost:9000 to view the web app.
+Open web browser to http://localhost:XXXX to view the web app.
 
 Stop the web server press Ctrl+c in the Terminal window.
 
