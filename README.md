@@ -72,3 +72,5 @@ Stop the web server press Ctrl+c in the Terminal window.
 * [Matthew Reid](https://github.com/MatthewCReid)
 
 * [Paul Marinaro](https://github.com/PaulMarinaro)
+
+## You can reach us at infectiousgamesnola@gmail.com
