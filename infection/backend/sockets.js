@@ -1,27 +1,26 @@
 const sockets = require('socket.io');
-// const { joinGame, 
-//         receiveRoleCard, 
-//         chooseTeam, 
-//         voteTeam, 
-//         cureOrSabotage, 
-//         sabotageMission,
-//         getMissionResults } = require('./gameEvents');
 
 module.exports = (server) => {
-    const game = sockets(server);
-    // Add the WebSocket handlers
+    const infection = sockets(server);
     //socket.on('eventName', callback)
         //e.g. (data) => console.log(data);
-    game.on('connection', (socket) => {
+    infection.on('connection', (socket) => {
       //io.on returns a socket, call methods on that socket below
       console.log('connected to Infection');
       //figure out all events that need to be handled in game
       //if event type === 'whatever'
-        socket.on('some event', (/**/) => {
-          //e.g. socket.on('say to someone', (id, msg) => {
-            // send a private message to the socket with the given id
-            //socket.to(id).emit('my message', msg);
-        });
+      socket.on('join game', (playerProps) => {
+        const game = playerProps.gameName;
+        const username = playerProps.username;
+        console.log(`${username} has joined ${game}`, playerProps);
+        socket.join(game);
+        //TODO: insert reducer function to handle storage of all players associated with game
+        //TODO: Once 
+        socket.to(game).emit('Welcome everyone to demo game. Sockets are working');
+        /* second optional arg in .emit is any data that needs to be passed to client */
+        socket.on('some event that I am listening to', callback);
+    
         socket.on('disconnect', () => {})
-    });
-}
+        });
+    })
+};
