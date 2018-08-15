@@ -5,25 +5,19 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-
     this.state = {
       value: ''
     };
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log(this.state.value);
-    console.log('hi');
-    
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.value, 'handleSubmit value');    
   }
 
   handleChange(e) {
     this.setState({ value: e.target.value });
-    console.log(this.state.value);
-    
+    console.log(this.state.value, 'handleChange value');
   }
 
   render() {
@@ -37,15 +31,14 @@ class Login extends React.Component {
             type="text" 
             placeholder="Your Name"
             value={this.state.value}
-            onChange={this.handleChange} 
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleSubmit.bind(this)}
+            onChange={this.handleChange.bind(this)} 
           />
         </FormGroup>{' '}
-          <Button type="submit">Enter Game</Button>
+        <Button type="submit" onClick={this.handleSubmit.bind(this)}>Enter Game</Button>
       </Form>
     );
   }
 }
-
 
 export default Login;
