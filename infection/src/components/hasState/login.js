@@ -1,5 +1,8 @@
 import React from 'react';
+import io from 'socket.io-client';
 import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
+
+const socket = io();
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -9,20 +12,20 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      value: ''
+      username: '',
+      game: 'demo'
     };
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state.value);
-    console.log('hi');
-    
+    console.log(this.state.username);
+    socket.emit('join game', { username: this.state.username, game: this.state.game});
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
-    console.log(this.state.value);
+    this.setState({ username: e.target.value });
+    //console.log(this.state.username);
     
   }
 
@@ -36,7 +39,7 @@ class Login extends React.Component {
           <FormControl 
             type="text" 
             placeholder="Your Name"
-            value={this.state.value}
+            value={this.state.username}
             onChange={this.handleChange} 
             onSubmit={this.handleSubmit}
           />
