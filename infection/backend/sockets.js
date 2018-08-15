@@ -33,9 +33,8 @@ module.exports = (server) => {
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
         //TODO: update state of game according to the choice submitted
-        let results; /* */
+        let results; /* TODO: assign results to the current mission results and game state */
         io.in(game).emit('results', results);
-
     })
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     socket.on('disconnect', () => {})
