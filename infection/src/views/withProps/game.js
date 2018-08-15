@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-
+import Roles from '../withProps/roles';
 
 class Game extends Component {
   constructor(props) {
@@ -9,7 +9,9 @@ class Game extends Component {
     }
   }
   render() {
-    return <div>Gimme some props</div>
+    return <div>Gimme some props
+      <Roles></Roles>
+    </div>
   }
 }
 
