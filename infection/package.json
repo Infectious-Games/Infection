@@ -19,7 +19,8 @@
     "socket.io-client": "^2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node ./backend/server.js",
+    "rstart": "react-scripts start",
     "dev": "node ./backend/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
