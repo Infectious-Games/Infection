@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Welcome from './views/welcome';
+import Welcome from './views/noProps/welcome';
 
 class App extends Component {
   render() {
