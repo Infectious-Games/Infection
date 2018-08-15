@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 import Welcome from './views/noProps/welcome';
-
+import Game from './views/withProps/game'
 
 const App = (props) => 
-  props.game ?
-    <div className="App">Game View</div>
+  props.user ?
+    <div className="App"><Game game={props} ></Game></div>
     : <div className="App">
         <Welcome></Welcome>
       </div>
