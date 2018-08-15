@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Welcome from './views/noProps/welcome';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
+
+const App = (props) => 
+  props.game ?
+    <div className="App">Game View</div>
+    : <div className="App">
         <Welcome></Welcome>
       </div>
-    );
-  }
-}
-
+  
 export default App;
