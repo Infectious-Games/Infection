@@ -3,6 +3,13 @@ import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 import infectionLogo from './Infection.jpg';
 import './App.css';
 
+// // socket in client setup
+// import io from 'socket.io-client';
+// // add to constructor of form input component 
+// const socket = io();
+// socket.emit('join game', this.props)
+
+
 class App extends Component {
   render() {
     return (
