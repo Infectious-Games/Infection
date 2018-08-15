@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Welcome from './views/welcome';
+import Welcome from './views/noProps/welcome';
 
 // // socket in client setup
 // import io from 'socket.io-client';
