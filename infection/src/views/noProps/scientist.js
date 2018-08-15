@@ -5,3 +5,4 @@ const Scientist = () =>
 
 
   export default Scientist;
+  
