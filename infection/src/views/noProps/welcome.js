@@ -1,6 +1,6 @@
 import React from 'react';
-import infectionLogo from '../Infection.jpg';
-import Login from '../components/login';
+import infectionLogo from '../../Infection.jpg';
+import Login from '../../components/hasState/login';
 
 const Welcome = () => {
  return <div>
