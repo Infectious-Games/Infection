@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { Component} from 'react';
 
-const Game = (props) => {
-  return <div>Gimme some props</div>
+
+class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      //game stuff
+    }
+  }
+  render() {
+    return <div>Gimme some props</div>
+  }
 }
+
 
 export default Game;
