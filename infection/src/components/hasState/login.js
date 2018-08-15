@@ -8,6 +8,9 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    
     this.state = {
       username: '',
       game: 'demo'
@@ -21,7 +24,7 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ username: e.target.username });
+    this.setState({ username: e.target.value });
     console.log(this.state.username, 'handleChange username');
   }
 

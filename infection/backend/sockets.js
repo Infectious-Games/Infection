@@ -5,10 +5,9 @@ module.exports = (server) => {
     //socket.on('eventName', callback)
         //e.g. (data) => console.log(data);
     io.on('connection', (socket) => {
-      //io.on returns a socket, call methods on that socket below
 
       socket.on('join game', (playerProps) => {
-        const game = playerProps.gameName;
+        const game = playerProps.game;
         const username = playerProps.username;
         console.log(`${username} has joined ${game}`, playerProps);
 
