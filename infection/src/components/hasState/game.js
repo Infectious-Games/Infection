@@ -25,9 +25,8 @@ class Game extends Component {
       team: 
         // this.props.team,
         ['Paul', 'Mark', 'Athena', 'Matt'],
-      // missionRoster: 
-      //   // this.props.missionRoster,
-      //   ['Paul', 'Mark', 'Athena'],
+      missionRoster: this.props.missionRoster || [],
+        // ['Paul', 'Mark', 'Athena'],
 
 
 
@@ -35,13 +34,20 @@ class Game extends Component {
     }
   }
 
-  //set up socket listeners. set received data to props
+  handleSelectRosterEntryClick(member) {
+    console.log(member);
+  }
+
+  
   render() {
     return <div className="game">Gimme some props
     {
       this.state.round < 1 
         ? <Roles infiltrator={this.state.infiltrator}></Roles> 
-        : <Round game={this.state}></Round>
+        : <Round 
+            game={this.state}
+            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+          ></Round>
       }
     </div>
   }

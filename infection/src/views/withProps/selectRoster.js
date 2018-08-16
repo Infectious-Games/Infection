@@ -2,9 +2,11 @@ import React from 'react';
 
 import SelectRosterEntry from './selectRosterEntry';
 
-const SelectRoster = ({ team }) => {
-  console.log(team);
-  return team.map(member => <SelectRosterEntry member={member}></SelectRosterEntry>)
-};
+const SelectRoster = ({ team, handleSelectRosterEntryClick }) => 
+  team.map(member => 
+    <SelectRosterEntry 
+      member={member}
+      handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+    ></SelectRosterEntry>)
 
 export default SelectRoster;
