@@ -20,16 +20,16 @@ const User = db.define('User', {
 // create user or update user
 const updateUser = (user) => {
   console.log(user, 'user in database');
-  User.sync()
-    .then(function() {
+  // User.sync()
+  //   .then(function() {
       // Now instantiate an object and save it:
       return User.findOrCreate({ username: user });
-    })
-    .then(function() {
-      // Retrieve objects from the database:
-      return User.findAll({ where: { username: user } });
-    });
-  db.close();
+    // })
+    // .then(function() {
+    //   // Retrieve objects from the database:
+    //   return User.findAll({ where: { username: user } });
+    // });
+  // db.close();
 }
 
 /* Sequelize comes with built in support for promises

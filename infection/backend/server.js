@@ -29,7 +29,8 @@ app.post('/checkUser', (req, res) => {
       res.sendStatus(500);
     } else {
       console.log('app.post db.updateUser called in server');
-      // res.json(data);
+      res.json(data);
+      console.log(data, 'data in server');
       // res.send(data);
     }
   });
