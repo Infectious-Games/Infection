@@ -2,7 +2,6 @@ import React, { Component} from 'react';
 
 import Roles from '../../views/withProps/roles';
 import socket from '../../socket';
-import { Button } from 'react-bootstrap';
 
 
 class Game extends Component {
