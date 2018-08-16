@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import Roles from '../withProps/roles';
+import Roles from '../../views/withProps/roles';
 
 class Game extends Component {
   constructor(props) {
