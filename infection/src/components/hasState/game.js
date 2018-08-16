@@ -1,14 +1,15 @@
 import React, { Component} from 'react';
-import io from 'socket.io-client';
 
 import Roles from '../../views/withProps/roles';
 import Round from './../../views/withProps/round';
-
-const socket = io();
+import socket from '../../socket';
 
 class Game extends Component {
   constructor(props) {
     super(props);
+
+    this.checkGameStatus = this.checkGameStatus.bind(this);
+
     this.state = {
       username: 
       // this.props.username,
@@ -32,6 +33,15 @@ class Game extends Component {
 
       
     }
+  }
+  componentDidMount() {
+    this.checkGameStatus();
+  }
+
+  checkGameStatus(){
+    socket.on('game start', (players)=>{
+      console.log(players, 'players');
+    })
   }
 
   handleSelectRosterEntryClick(member) {
