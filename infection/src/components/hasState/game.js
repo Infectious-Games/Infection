@@ -12,8 +12,8 @@ class Game extends Component {
     this.state = {
       username: this.props.username,
       infiltrator: this.props.infiltrator,
-      round: 0,
-      leader: undefined,
+      round: 1,
+      leader: "Paul",
       
     }
   }

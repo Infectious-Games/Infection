@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Round = (game) => {
-  return <div>Round</div>
+const Round = ({ game }) => {
+  console.log(game);
+  return <div>Round {game.round}</div>
 
 };
 
