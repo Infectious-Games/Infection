@@ -3,7 +3,7 @@ import React from 'react';
 
 const SelectRosterEntry = ({ member }) => {
   console.log(member);
-  return <div>You are {member}</div>
+  return <div>Team Member {member}</div>
 
 };
 
