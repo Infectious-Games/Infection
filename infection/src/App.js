@@ -11,12 +11,15 @@ class App extends Component {
     }
   }
 //pass a function to login to set state.
+  login() {
+    this.setState({ loggedIn: !this.state.loggedIn });
+  }
   render() {
     return (
       <div className="App">{
         this.state.loggedIn
           ? <Game game={this.props} ></Game>
-          : <Welcome login={this.props}></Welcome>
+          : <Welcome login={this.login.bind(this)}></Welcome>
       }
       </div>
     )
