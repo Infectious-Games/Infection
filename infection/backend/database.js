@@ -11,25 +11,20 @@ db.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-/* first define the data structure by giving property names and datatypes
- * See http://sequelizejs.com for other datatypes you can use besides STRING. */
 const User = db.define('User', {
   username: Sequelize.STRING
 });
 
-// create user or update user
-const updateUser = (user) => {
-  console.log(user, 'user in database');
-  // User.sync()
-  //   .then(function() {
-      // Now instantiate an object and save it:
-      return User.findOrCreate({ username: user });
-    // })
-    // .then(function() {
-    //   // Retrieve objects from the database:
-    //   return User.findAll({ where: { username: user } });
-    // });
-  // db.close();
+// find or create user
+const updateUser = (user, callback) => {
+  const {username} = user;
+  User.findOrCreate({ where: { username: username }})
+    .spread((user, created) => {
+      console.log(user.get({
+        plain: true
+      }))
+      callback(created);
+    })
 }
 
 /* Sequelize comes with built in support for promises

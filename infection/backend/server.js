@@ -19,20 +19,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 routes(app);
 
-app.post('/checkUser', (req, res) => {
-  console.log('app.post /checkUser in server');
-  // const body = req.body;
+// find or add a user to the db
+app.post('/user', (req, res) => {
   const { body } = req;
-  console.log(body, 'body app.post in server');
-  db.updateUser(body, (err, data) => {
-    if (err) {
-      res.sendStatus(500);
-    } else {
-      console.log('app.post db.updateUser called in server');
-      res.json(data);
-      console.log(data, 'data in server');
-      // res.send(data);
-    }
+  db.updateUser(body, (data) => {
+    // response is true if user has been added to db, or false if user already exists
+    res.json(data);
   });
 });
 
