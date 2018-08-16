@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import io from 'socket.io-client';
 
 import Roles from '../../views/withProps/roles';
+import Round from './../../views/withProps/round';
 
 const socket = io();
 
@@ -11,13 +12,20 @@ class Game extends Component {
     this.state = {
       username: this.props.username,
       infiltrator: this.props.infiltrator,
+      round: 0,
+      leader: undefined,
+      
     }
   }
 
   //set up socket listeners. set received data to props
   render() {
-    return <div>Gimme some props
-      <Roles infiltrator={ this.state.infiltrator }></Roles>
+    return <div className="game">Gimme some props
+    {
+      this.state.round < 1 
+        ? <Roles infiltrator={this.state.infiltrator}></Roles> 
+        : <Round game={this.state}></Round>
+      }
     </div>
   }
 }
