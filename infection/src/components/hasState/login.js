@@ -20,7 +20,9 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     console.log(this.state.username, 'handleSubmit username');  
-    socket.emit('join game', { username: this.state.username, game: this.state.game});  
+    socket.emit('join game', { username: this.state.username, game: this.state.game})
+    this.props.login();
+  
   }
 
   handleChange(e) {
