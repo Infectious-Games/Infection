@@ -13,7 +13,6 @@ app.use(express.static(join(__dirname, '../build')));
 const port = process.env.PORT || 3005;
 app.set('port', port);
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

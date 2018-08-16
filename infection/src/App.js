@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import Welcome from './views/noProps/welcome';
+import Welcome from './views/withProps/welcome';
+import Game from './components/hasState/game';
 
-
-const App = (props) => 
-  props.game ?
-    <div className="App">Game View</div>
-    : <div className="App">
-        <Welcome></Welcome>
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    loggedIn: false,
+    }
+  }
+//pass a function to login to set state.
+  login() {
+    this.setState({ loggedIn: !this.state.loggedIn });
+  }
+  render() {
+    return (
+      <div className="App">{
+        this.state.loggedIn
+          ? <Game ></Game>
+          : <Welcome login={this.login.bind(this)}></Welcome>
+      }
       </div>
-  
+    )
+  }
+}
+
+
 export default App;

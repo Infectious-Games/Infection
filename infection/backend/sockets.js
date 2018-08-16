@@ -5,11 +5,9 @@ module.exports = (server) => {
     //socket.on('eventName', callback)
         //e.g. (data) => console.log(data);
     io.on('connection', (socket) => {
-      //io.on returns a socket, call methods on that socket below
-      console.log('connected to Infection');
 
       socket.on('join game', (playerProps) => {
-        const game = playerProps.gameName;
+        const game = playerProps.game;
         const username = playerProps.username;
         console.log(`${username} has joined ${game}`, playerProps);
 
@@ -37,6 +35,6 @@ module.exports = (server) => {
         io.in(game).emit('results', results);
     })
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
-    socket.on('disconnect', () => {})
+    // socket.on('disconnect', () => {})
     })
 };
