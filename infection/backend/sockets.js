@@ -9,15 +9,15 @@ module.exports = (server) => {
             if (error) {
                 throw error;
             } else {
-                let players = clients.map(client => namespace.connected[client]);
-                console.log(players, 'players');
-        // FIXME: player sockets exist here. conditional below causes max call stack error
-                // if (players.length === 4) {
-                //     // send this array to store as players for the game
-                //     io.in(game).emit('start game', { players });
-                // } else {
-                //     io.in(game).emit('room not full');
-                // }
+                let players = clients.map(client => { 
+                    return {
+                        socketID: client, 
+                        username: namespace.connected[client].username, 
+                        game: namespace.connected[client].game 
+                    } 
+                });
+                console.log(players.length, 'players');
+                io.in(game).emit('game start', players);
             }
         });
     };
@@ -35,6 +35,8 @@ module.exports = (server) => {
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
         console.log(gameStartStatus);
+        //socket.emit('game start', { player: 'Athena' });
+        //io.in(game)
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
