@@ -1,8 +1,7 @@
 import React from 'react';
-import io from 'socket.io-client';
+import socket from '../../socket';
 import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
 
-const socket = io();
 
 class Login extends React.Component {
   constructor(props, context) {
