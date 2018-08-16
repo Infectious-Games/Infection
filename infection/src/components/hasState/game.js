@@ -10,10 +10,16 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: this.props.username,
+      username: 
+      // this.props.username,
+      'Paul',
       infiltrator: this.props.infiltrator,
-      round: 1,
-      leader: "Paul",
+      round: 
+      // this.props.round,
+       1,
+      leader: 
+      // this.props.leader,
+       "Paul",
       
     }
   }
