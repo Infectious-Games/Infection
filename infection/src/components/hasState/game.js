@@ -35,10 +35,12 @@ class Game extends Component {
   }
 
   handleSelectRosterEntryClick(member) {
-    console.log(this.state.missionRoster);
-    this.state.missionRoster.includes(member)
-    ? console.log(this.state.missionRoster)
-      : this.setState({ missionRoster: [...this.state.missionRoster, member] });
+    this.state.missionRoster.length === 3
+      ? console.log(this.state.missionRoster)
+      : this.state.missionRoster.includes(member)
+        ? console.log(this.state.missionRoster)
+        : this.setState({ missionRoster: [...this.state.missionRoster, member] });
+    
     console.log(this.state.missionRoster);
   }
 
