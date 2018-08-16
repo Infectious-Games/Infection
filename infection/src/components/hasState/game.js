@@ -35,7 +35,9 @@ class Game extends Component {
   }
 
   handleSelectRosterEntryClick(member) {
-    console.log(member);
+    console.log(this.state.missionRoster);
+    this.setState({missionRoster: [...this.state.missionRoster, member]});
+    console.log(this.state.missionRoster);
   }
 
   
