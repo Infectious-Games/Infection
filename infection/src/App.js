@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
-import { Navbar, Jumbotron, Button } from 'react-bootstrap';
-import infectionLogo from './Infection.jpg';
 import './App.css';
+import Welcome from './views/withProps/welcome';
+import Game from './components/hasState/game';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    loggedIn: false,
+    }
+  }
+//pass a function to login to set state.
+  login() {
+    this.setState({ loggedIn: !this.state.loggedIn });
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={infectionLogo} className="App-infection-logo" alt="logo" />
-          <h1 className="App-title">INFECTION</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="App">{
+        this.state.loggedIn
+          ? <Game ></Game>
+          : <Welcome login={this.login.bind(this)}></Welcome>
+      }
       </div>
-    );
+    )
   }
 }
+
 
 export default App;
