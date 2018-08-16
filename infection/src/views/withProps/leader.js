@@ -1,9 +1,9 @@
 import React from 'react';
 
+import SelectRoster from './selectRoster';
 
-const Leader = ({ game }) => {
-  console.log(game);
-  return <div>Leader {game.leader}</div>
+const Leader = ({ team }) => {
+  return <SelectRoster team={team}></SelectRoster>
 
 };
 

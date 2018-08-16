@@ -6,7 +6,7 @@ import NotLeader from './notLeader';
 const Round = ({ game }) => {
   console.log(game);
   return game.leader === game.username
-  ? <Leader game={game}></Leader>
+  ? <Leader team={game.team}></Leader>
   : <NotLeader leader={ game.leader }></NotLeader>
 
 };

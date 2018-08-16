@@ -12,14 +12,25 @@ class Game extends Component {
     this.state = {
       username: 
       // this.props.username,
-      'Paul',
-      infiltrator: this.props.infiltrator,
+        'Paul',
+      infiltrator: 
+        this.props.infiltrator,
+        // true,
       round: 
       // this.props.round,
-       1,
+        1,
       leader: 
       // this.props.leader,
-       "Paul",
+        "Paul",
+      team: 
+        // this.props.team,
+        ['Paul', 'Mark', 'Athena', 'Matt'],
+      // missionRoster: 
+      //   // this.props.missionRoster,
+      //   ['Paul', 'Mark', 'Athena'],
+
+
+
       
     }
   }
