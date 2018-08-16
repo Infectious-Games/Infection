@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div className="App">{
         this.state.loggedIn
-          ? <Game game={this.props} ></Game>
+          ? <Game ></Game>
           : <Welcome login={this.login.bind(this)}></Welcome>
       }
       </div>
