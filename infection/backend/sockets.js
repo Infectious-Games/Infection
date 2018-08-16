@@ -17,7 +17,8 @@ module.exports = (server) => {
                     } 
                 });
                 console.log(players.length, 'players');
-                io.in(game).emit('game start', players);
+                return players.length === 4 ? io.in(game).emit('game start', players)
+                : io.in(game).emit('waiting on players to join', {gameStatus: 'waiting on players to join'});
             }
         });
     };
@@ -35,8 +36,6 @@ module.exports = (server) => {
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
         console.log(gameStartStatus);
-        //socket.emit('game start', { player: 'Athena' });
-        //io.in(game)
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
