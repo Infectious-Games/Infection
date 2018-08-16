@@ -7,7 +7,7 @@ const Round = ({ game }) => {
   console.log(game);
   return game.leader === game.username
   ? <Leader game={game}></Leader>
-  : <NotLeader game={game}></NotLeader>
+  : <NotLeader leader={ game.leader }></NotLeader>
 
 };
 

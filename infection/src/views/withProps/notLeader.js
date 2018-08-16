@@ -1,9 +1,8 @@
 import React from 'react';
 
 
-const NotLeader = ({ game }) => {
-  console.log(game);
-  return <div>{game.leader} is Leader not You Womp Womp!</div>
+const NotLeader = ({ leader }) => {
+  return <div>{leader} is Leader not You Womp Womp!</div>
 
 };
 
