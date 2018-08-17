@@ -8,7 +8,7 @@ const sayHello = (hello) => ({
 const sayGoodbye = (hello) => ({
   type: GOODBYE_WORLD,
   hello
-})ss
+})
 
 module.exports = {
   sayHello,
