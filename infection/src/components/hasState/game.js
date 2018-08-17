@@ -24,10 +24,13 @@ class Game extends Component {
       // this.props.leader,
         "Paul",
       team: 
-        // this.props.team,
+        // this.props.team || [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: this.props.missionRoster || [],
         // ['Paul', 'Mark', 'Athena'],
+      missionActive:
+        false,
+        // true,
 
 
 
@@ -50,8 +53,15 @@ class Game extends Component {
       : this.state.missionRoster.includes(member)
         ? console.log(this.state.missionRoster)
         : this.setState({ missionRoster: [...this.state.missionRoster, member] });
-    
+  }
+
+  handleSubmitRoster() {
     console.log(this.state.missionRoster);
+    //emit this.missionRoster to server
+    this.setState({missionActive: true});
+    console.log(this.state.missionActive);
+    
+
   }
   
   render() {
@@ -62,6 +72,7 @@ class Game extends Component {
         : <Round 
             game={this.state}
             handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
           ></Round>
       }
     </div>
