@@ -28,6 +28,9 @@ class Game extends Component {
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: this.props.missionRoster || [],
         // ['Paul', 'Mark', 'Athena'],
+      missionActive:
+        false,
+        // true,
 
 
 
@@ -54,6 +57,10 @@ class Game extends Component {
 
   handleSubmitRoster() {
     console.log(this.state.missionRoster);
+    //emit this.missionRoster to server
+    this.setState({missionActive: true});
+    console.log(this.state.missionActive);
+    
 
   }
   
