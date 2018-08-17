@@ -1,3 +1,4 @@
 module.exports = {
-  hello: ''
+  hello: '',
+  completed: false
 }

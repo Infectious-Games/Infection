@@ -18,4 +18,4 @@ module.exports = combineReducers({
   test
 });
 
-module.exports = { rootReducer };
+// module.exports = { rootReducer };

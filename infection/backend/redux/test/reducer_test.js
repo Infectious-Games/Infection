@@ -8,7 +8,6 @@ const howdy = (state = initialState, action) => {
         hello: 'world',
         completed: true
       }
-      break;
       case GOODBYE_WORLD:
       return {
         hello: 'goodbye',
