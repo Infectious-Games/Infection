@@ -36,9 +36,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form 
-      
-        inline>
+      <Form inline>
         <FormGroup controlId="formInlineName">
           <ControlLabel>Name</ControlLabel>{' '}
           <FormControl 
