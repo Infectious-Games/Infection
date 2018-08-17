@@ -43,14 +43,19 @@ module.exports = (server) => {
         //TODO: insert reducer function to handle storage of all players associated with game
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
+        // SET TIMEOUT 30 SEC
+        setTimeout(function () { 
+            socket.emit('start round', 'Paul');
+        }, 3000);
+        //
+        
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
     //instead of a new round event, put the leader chosen emitter in a setTimeout here and below which implicitely starts new round
-    socket.on('start round', () => {
+    // START ROUND WITH LEADER CHOSEN
         //TODO: get leader from store
-        io.in(game).emit('leader chosen', 'Paul'); /* TODO: second arg will be leader's username */
-    });
+    // socket.emit('start round', 'Paul');
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
         console.log(team, 'team');
