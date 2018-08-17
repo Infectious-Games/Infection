@@ -1,3 +1,4 @@
+const { UPDATE_USER, ADD_NEW_USER, SET_USERNAME } = require('./actions_users');
 
 const updateUser = (id, room, username) => ({
   

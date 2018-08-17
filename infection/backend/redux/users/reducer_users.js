@@ -1,6 +1,6 @@
-const { UPDATE_USERS, } = require('actions_users.js')
+const { UPDATE_USERS, } = require('./actions_users.js')
   
-const initialState = require('initialState_users.js');
+const initialState = require('./initialState_users.js');
 
 
 const users = (state = initialState, action) => {
