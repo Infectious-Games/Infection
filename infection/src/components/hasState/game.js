@@ -24,7 +24,7 @@ class Game extends Component {
       // this.props.leader,
         "Paul",
       team: 
-        // this.props.team,
+        // this.props.team || [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: this.props.missionRoster || [],
         // ['Paul', 'Mark', 'Athena'],
@@ -50,10 +50,12 @@ class Game extends Component {
       : this.state.missionRoster.includes(member)
         ? console.log(this.state.missionRoster)
         : this.setState({ missionRoster: [...this.state.missionRoster, member] });
-    
-    console.log(this.state.missionRoster);
   }
 
+  handleSubmitRoster() {
+    console.log(this.state.missionRoster);
+
+  }
   
   render() {
     return <div className="game">Gimme some props
@@ -63,6 +65,7 @@ class Game extends Component {
         : <Round 
             game={this.state}
             handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
           ></Round>
       }
     </div>
