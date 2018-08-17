@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
 
-import Roles from '../../views/withProps/roles';
-import Round from './../../views/withProps/round';
-import socket from '../../socket';
+import Roles from '../views/game/roles/roles';
+import Round from '../views/game/round/round';
+import socket from '../socket';
 
 class Game extends Component {
   constructor(props) {
