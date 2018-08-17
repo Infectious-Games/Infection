@@ -52,13 +52,9 @@ module.exports = (server) => {
         io.in(game).emit('leader chosen'); /* TODO: second arg will be leader's username */
     });
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
-    // socket.on('deploy team', (team) => {
-    //     console.log(team, 'team');
-    //     io.in(game).emit('team chosen', team);
-    // })
     socket.on('deploy team', (team) => {
         console.log(team, 'team');
-        io.in(game).emit('team chosen', team);
+        // io.in(game).emit('team chosen', team);   
     })
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
