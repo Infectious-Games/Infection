@@ -66,9 +66,6 @@ class Game extends Component {
     this.setState({ missionActive: true }, () => {
       console.log(this.state.missionActive)
     });
-    
-    
-
   }
   
   render() {
