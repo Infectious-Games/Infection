@@ -8,6 +8,7 @@
     "bootstrap": "^3.3.7",
     "express": "^4.16.3",
     "mysql2": "^1.6.1",
+    "nodemon": "^1.18.3",
     "react": "^16.4.2",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.4.2",
