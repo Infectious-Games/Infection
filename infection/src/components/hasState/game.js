@@ -44,9 +44,12 @@ class Game extends Component {
       console.log(players, 'players');
     })
     socket.on('start round', (data) => {
-      console.log(data.leader, 'leader');
-      console.log(data.round, 'round');
       this.setState({ round: data.round, leader: data.leader })
+    })
+    socket.on('team chosen', (team) => {
+      this.setState({ missionRoster: team }, () => {
+        console.log(this.state.missionRoster, 'missionRoster updated from server');
+      })
     })
   }
 
@@ -59,14 +62,10 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(this.state.missionRoster, 'missionRoster');
     socket.emit('deploy team', this.state.missionRoster)
     this.setState({ missionActive: true }, () => {
       console.log(this.state.missionActive)
     });
-    
-    
-
   }
   
   render() {
