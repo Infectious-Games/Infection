@@ -3,7 +3,6 @@ import socket from '../../socket';
 import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
 const axios = require('axios');
 
-
 class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
