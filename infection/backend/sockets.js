@@ -45,10 +45,9 @@ module.exports = (server) => {
         let gameStartStatus = storeUsers(game);
         // SET TIMEOUT 30 SEC
         setTimeout(function () { 
-            socket.emit('start round', 'Paul');
+            // SET LEADER AND ROUND for start of round
+            socket.emit('start round', { leader: 'Bob', round: 1 });
         }, 3000);
-        //
-        
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------

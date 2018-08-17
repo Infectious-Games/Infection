@@ -43,9 +43,10 @@ class Game extends Component {
     socket.on('game start', (players) => {
       console.log(players, 'players');
     })
-    // listen for 'leader chosen' from server
-    socket.on('start round', (leader) => {
-      console.log(leader, 'leader');
+    socket.on('start round', (data) => {
+      console.log(data.leader, 'leader');
+      console.log(data.round, 'round');
+      this.setState({ round: data.round, leader: data.leader })
     })
   }
 
