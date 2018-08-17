@@ -19,18 +19,21 @@ class Game extends Component {
         // true,
       round: 
       // this.props.round,
-        1,
+        0,
       leader: 
-      // this.props.leader,
-        "Paul",
+      this.props.leader,
+        // "Paul",
       team: 
         // this.props.team || [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: this.props.missionRoster || [],
         // ['Paul', 'Mark', 'Athena'],
       missionActive:
-        false,
-        // true,
+        // false,
+        true,
+      missionResults:
+        this.props.missionResults || [],
+        // ['success', 'fail', undefined],
 
 
 
@@ -58,24 +61,33 @@ class Game extends Component {
   handleSubmitRoster() {
     console.log(this.state.missionRoster);
     //emit this.missionRoster to server
-    this.setState({missionActive: true});
+    this.setState({missionActive: true});//? maybe this should be set on the server
     console.log(this.state.missionActive);
     
 
   }
   
   render() {
-    return <div className="game">Gimme some props
-    {
-      this.state.round < 1 
-        ? <Roles infiltrator={this.state.infiltrator}></Roles> 
-        : <Round 
-            game={this.state}
-            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-          ></Round>
+    const game = this.state;
+
+    if (game.round === 0) {
+      return <Roles infiltrator={this.state.infiltrator}></Roles>
+    }else {
+      if (!game.missionActive) {
+        return <Round
+          game={this.state}
+          handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+          handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+        ></Round>
+      } else {
+        if (game.missionResults[game.round] === undefined){
+          return <div> mission</div>
+        } else {
+          return <div>Results</div>
+        }
       }
-    </div>
+
+      }
   }
 }
 
