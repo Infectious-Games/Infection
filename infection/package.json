@@ -2,7 +2,19 @@
   "name": "infection",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3005/",
+  "proxy": {
+    "/": {
+      "target": "http://localhost:3005"
+    },
+    "/socket.io": {
+      "target": "http://localhost:3005",
+      "ws": true
+    },
+    "/sockjs-node": {
+      "target": "ws://localhost:3005",
+      "ws": true
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "babel-preset-react-app": "^3.1.2",

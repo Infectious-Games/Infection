@@ -17,14 +17,16 @@ module.exports = (server) => {
                     } 
                 });
                 console.log(players.length, 'players');
-                return players.length === 4 ? io.in(game).emit('game start', players)
-                : io.in(game).emit('waiting on players to join', {gameStatus: 'waiting on players to join'});
+                return players.length === 4
+                ? io.in(game).emit('game start', players)
+                : io.in(game).emit('game start', {gameStatus: 'waiting on players to join'});
             }
         });
     };
     io.on('connection', (socket) => {
+        console.log('SOMEONE IS CONNECTED!!!')
 
-      socket.on('join game', (playerProps) => {
+        socket.on('join game', (playerProps) => {
         const game = playerProps.game;
         const username = playerProps.username;
         socket.game = game;
@@ -35,7 +37,6 @@ module.exports = (server) => {
         //TODO: insert reducer function to handle storage of all players associated with game
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
-        console.log(gameStartStatus);
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
