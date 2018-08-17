@@ -11,14 +11,14 @@ const updateUser = (id, room, username) => ({
   id, 
 });
 
-const newUser = (username, game, role, leader, securityOfficer) => {
+const newUser = (username, game, id, role, securityOfficer) => {
   return {
     type: ADD_NEW_USER,
     username,
     game,
-    role = null,
-    leader = false,
-    securityOfficer = false
+    id,
+    role,
+    securityOfficer
   }  
 }
 
