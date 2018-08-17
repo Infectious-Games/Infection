@@ -23,6 +23,7 @@ class Game extends Component {
       leader: 
       // this.props.leader,
         "Paul",
+        // null,
       team: 
         // this.props.team || [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
@@ -32,14 +33,19 @@ class Game extends Component {
         false,
         // true,
     }
+    
   }
   componentDidMount() {
     this.checkGameStatus();
   }
 
   checkGameStatus(){
-    socket.on('game start', (players)=>{
+    socket.on('game start', (players) => {
       console.log(players, 'players');
+    })
+    // listen for 'leader chosen' from server
+    socket.on('start round', (leader) => {
+      console.log(leader, 'leader');
     })
   }
 

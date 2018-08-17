@@ -19,7 +19,7 @@ const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }
       bsSize="large" 
       onClick={()=> handleSubmitRoster()}
     >
-      SUMBIT ROSTER
+      SUBMIT ROSTER
     </Button>
   </div>
 
