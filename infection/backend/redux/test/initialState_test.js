@@ -1,4 +1,3 @@
 module.exports = {
-  hello: '',
-  completed: false
+  hello: null
 }

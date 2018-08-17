@@ -1,4 +1,4 @@
-const { HEY_WORLD } = require('./actions_test');
+const { HEY_WORLD, GOODBYE_WORLD } = require('./actions_test');
 
 const sayHello = (hello) => ({
   type: HEY_WORLD,

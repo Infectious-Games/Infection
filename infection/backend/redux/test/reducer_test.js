@@ -1,21 +1,19 @@
 const { HEY_WORLD, GOODBYE_WORLD } = require('./actions_test');
 const initialState = require('./initialState_test')
 
-const howdy = (state = initialState, action) => {
+const hello = (state = initialState, action) => {
   switch (action.type) {
     case HEY_WORLD:
-      return {
-        hello: 'world',
-        completed: true
-      }
+      return Object.assign({}, state, {
+        hello:'world'
+      })
       case GOODBYE_WORLD:
-      return {
-        hello: 'goodbye',
-        completed: true
-      }
+      return Object.assign({}, state, {
+        hello: 'goodbye'
+      })
     default:
       return state;
   }
 }
 
-module.exports = howdy;
+module.exports = hello;

@@ -1,4 +1,3 @@
 module.exports = {
-  round: 0,
-  users: []
+  round: 0
 }
