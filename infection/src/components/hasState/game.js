@@ -48,7 +48,7 @@ class Game extends Component {
     })
     socket.on('team chosen', (team) => {
       this.setState({ missionRoster: team }, () => {
-        console.log(this.state.missionRoster, 'missionRoster');
+        console.log(this.state.missionRoster, 'missionRoster updated from server');
       })
     })
   }
@@ -62,7 +62,6 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(this.state.missionRoster, 'missionRoster');
     socket.emit('deploy team', this.state.missionRoster)
     this.setState({ missionActive: true }, () => {
       console.log(this.state.missionActive)
