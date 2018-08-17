@@ -15,8 +15,8 @@ class Game extends Component {
       // this.props.username,
         'Paul',
       infiltrator: 
-        this.props.infiltrator,
-        // true,
+        // this.props.infiltrator,
+        true,
       round: 
       // this.props.round,
         1,
@@ -31,10 +31,6 @@ class Game extends Component {
       missionActive:
         false,
         // true,
-
-
-
-      
     }
   }
   componentDidMount() {
@@ -56,10 +52,12 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(this.state.missionRoster);
-    //emit this.missionRoster to server
-    this.setState({missionActive: true});
-    console.log(this.state.missionActive);
+    console.log(this.state.missionRoster, 'missionRoster');
+    socket.emit('deploy team', this.state.missionRoster)
+    this.setState({ missionActive: true }, () => {
+      console.log(this.state.missionActive)
+    });
+    
     
 
   }
