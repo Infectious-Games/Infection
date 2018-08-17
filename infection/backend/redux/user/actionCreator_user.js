@@ -1,4 +1,4 @@
-const User = (username, game, role, leader, securityOfficer) => {
+const newUser = (username, game, role, leader, securityOfficer) => {
   return {
     username,
     game,
