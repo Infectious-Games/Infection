@@ -49,7 +49,7 @@ module.exports = (server) => {
     //instead of a new round event, put the leader chosen emitter in a setTimeout here and below which implicitely starts new round
     socket.on('start round', () => {
         //TODO: get leader from store
-        io.in(game).emit('leader chosen'); /* TODO: second arg will be leader's username */
+        io.in(game).emit('leader chosen', 'Paul'); /* TODO: second arg will be leader's username */
     });
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {

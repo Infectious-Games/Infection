@@ -10,6 +10,11 @@ class Game extends Component {
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
+    // listen for 'leader chosen' from server
+    socket.on('leader chosen', (leader) => {
+      console.log(leader, 'leader');
+    })
+
     this.state = {
       username: 
       // this.props.username,
