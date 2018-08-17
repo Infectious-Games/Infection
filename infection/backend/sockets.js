@@ -9,11 +9,19 @@ module.exports = (server) => {
             if (error) {
                 throw error;
             } else {
-                let players = clients.map(client => { 
+                let players = clients.map((client, index) => { 
+        //TODO: Add a function for more elegant role assignment
+                    let evil;
+                    if (index === 0) {
+                        evil = true;
+                    } else {
+                        evil = false;
+                    }
                     return {
                         socketID: client, 
                         username: namespace.connected[client].username, 
-                        game: namespace.connected[client].game 
+                        game: namespace.connected[client].game,
+                        infiltrator: evil 
                     } 
                 });
                 console.log(players.length, 'players');
