@@ -21,7 +21,7 @@ class Login extends React.Component {
     const user = {"username": this.state.username};
     axios.post('/user', user)
       .then((response) => {
-        console.log(response, 'response from POST /user in login');
+        console.log(response, 'true: added user to db, false: user aleady in db');
         socket.emit('join game', { username: this.state.username, game: this.state.game})
         this.props.login();
       })
