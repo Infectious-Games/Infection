@@ -1,8 +1,10 @@
 import React, { Component} from 'react';
 
+import socket from '../socket';
+
 import Roles from '../views/game/roles/roles';
 import Round from '../views/game/round/round';
-import socket from '../socket';
+import Mission from '../views/game/mission/mission';
 
 class Game extends Component {
   constructor(props) {
@@ -19,15 +21,16 @@ class Game extends Component {
         // true,
       round: 
       // this.props.round,
-        0,
+        1,
       leader: 
       this.props.leader,
         // "Paul",
       team: 
         // this.props.team || [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
-      missionRoster: this.props.missionRoster || [],
-        // ['Paul', 'Mark', 'Athena'],
+      missionRoster: 
+      // this.props.missionRoster || [],
+        ['Paul', 'Mark', 'Athena'],
       missionActive:
         // false,
         true,
@@ -81,7 +84,10 @@ class Game extends Component {
         ></Round>
       } else {
         if (game.missionResults[game.round] === undefined){
-          return <div> mission</div>
+          return <Mission 
+                  roster={game.missionRoster}
+                  username={game.username}
+                ></Mission>
         } else {
           return <div>Results</div>
         }
