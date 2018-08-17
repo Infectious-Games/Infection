@@ -31,10 +31,6 @@ class Game extends Component {
       missionActive:
         false,
         // true,
-
-
-
-      
     }
   }
   componentDidMount() {
@@ -56,10 +52,14 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(this.state.missionRoster);
+    console.log(this.state.missionRoster, 'missionRoster');
     //emit this.missionRoster to server
-    this.setState({missionActive: true});
-    console.log(this.state.missionActive);
+    socket.emit('deploy team', this.state.missionRoster)
+
+    this.setState({ missionActive: true }, () => {
+      console.log(this.state.missionActive)
+    });
+    
     
 
   }

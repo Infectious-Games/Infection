@@ -32,8 +32,6 @@ module.exports = (server) => {
         });
     };
     io.on('connection', (socket) => {
-        console.log('SOMEONE IS CONNECTED!!!')
-
         socket.on('join game', (playerProps) => {
         const game = playerProps.game;
         const username = playerProps.username;
@@ -54,7 +52,12 @@ module.exports = (server) => {
         io.in(game).emit('leader chosen'); /* TODO: second arg will be leader's username */
     });
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
+    // socket.on('deploy team', (team) => {
+    //     console.log(team, 'team');
+    //     io.in(game).emit('team chosen', team);
+    // })
     socket.on('deploy team', (team) => {
+        console.log(team, 'team');
         io.in(game).emit('team chosen', team);
     })
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------

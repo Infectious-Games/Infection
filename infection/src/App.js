@@ -3,15 +3,14 @@ import './App.css';
 import Welcome from './views/withProps/welcome';
 import Game from './components/hasState/game';
 
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
     this.state = {
     loggedIn: 
-    true,
-    // false,
+    // true,
+    false,
     }
   }
 //pass a function to login to set state.
