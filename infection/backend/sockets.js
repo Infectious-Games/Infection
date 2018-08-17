@@ -44,10 +44,10 @@ module.exports = (server) => {
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
         // SET TIMEOUT 30 SEC
-        setTimeout(function () { 
-            // SET LEADER AND ROUND for start of round
-            socket.emit('start round', { leader: 'Bob', round: 1 });
-        }, 3000);
+        // setTimeout(function () { 
+        //     // SET LEADER AND ROUND for start of round
+        //     socket.emit('start round', { leader: 'Bob', round: 1 });
+        // }, 3000);
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ module.exports = (server) => {
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
         console.log(team, 'team');
-        // io.in(game).emit('team chosen', team);   
+        io.in(socket.game).emit('team chosen', team);   
     })
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
