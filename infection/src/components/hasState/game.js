@@ -53,7 +53,6 @@ class Game extends Component {
     
     console.log(this.state.missionRoster);
   }
-
   
   render() {
     return <div className="game">Gimme some props

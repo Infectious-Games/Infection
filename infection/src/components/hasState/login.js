@@ -2,6 +2,7 @@ import React from 'react';
 import socket from '../../socket';
 import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
 const axios = require('axios');
+const socket = io();
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -36,7 +37,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form inline>
+      <Form 
+      
+        inline>
         <FormGroup controlId="formInlineName">
           <ControlLabel>Name</ControlLabel>{' '}
           <FormControl 
