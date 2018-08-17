@@ -1,0 +1,9 @@
+const UPDATE_USER = 'UPDATE_PLAYERS';
+const ADD_NEW_USER = 'ADD_NEW_USER';
+const SET_USERNAME = 'SET_USERNAME';
+
+module.exports = {
+  UPDATE_USER,
+  ADD_NEW_USER, 
+  SET_USERNAME
+};
