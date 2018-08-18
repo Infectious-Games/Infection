@@ -31,13 +31,15 @@ class Game extends Component {
       // [],
         ['Paul', 'Mark', 'Athena'],
       missionActive:
-        false,
-        // true,
-      gameResult: '', 
+        // false,
+        true,
+      gameResult: undefined, 
+      choiceMade: undefined,
       missionResults:
-        // [undefined, undefined, undefined],
-        ['success', 'fail', undefined],
+        [undefined, undefined, undefined],
+        // ['success', 'fail', undefined],
     }
+    
   }
   componentDidMount() {
     this.checkGameStatus();
@@ -81,6 +83,12 @@ class Game extends Component {
       console.log(this.state.missionActive, 'missionActive');
     });
   }
+
+  handleOnMissionClick(choice) {
+    this.setState({choiceMade: choice }, () =>
+      console.log(this.state.choiceMade, 'choice' ));
+      //send choice to server
+  }
   
   render() {
     const game = this.state;
@@ -96,7 +104,9 @@ class Game extends Component {
           ></Round>
       } else {
         if (game.missionResults[game.round - 1] === undefined){
-          return <Mission 
+          return <Mission
+                  choose={this.handleOnMissionClick.bind(this)}
+                  choiceMade={game.choiceMade} 
                   roster={game.missionRoster}
                   username={game.username}
                   ></Mission>
