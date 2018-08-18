@@ -4,7 +4,7 @@ import Leader from './leader';
 import NotLeader from './notLeader';
 
 const Round = ({ game, handleSelectRosterEntryClick, handleSubmitRoster }) => {
-  console.log(game);
+  console.log(game, 'game');
   return game.leader === game.username
   ? <Leader 
       team={game.team}
