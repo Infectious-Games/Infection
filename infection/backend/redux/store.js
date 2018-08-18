@@ -37,9 +37,12 @@ module.exports = store;
 // store.dispatch(newUser('Matt','demo',346,false,false))
 // store.dispatch(newUser('Athena','demo',347,false,true))
 // store.dispatch(newUser('Paul','demo',348,false,false))
-// store.dispatch(voteCure());
-// store.dispatch(voteCure());
-// store.dispatch(voteSabotage());
-// store.dispatch(voteCure());
-console.log(store.getState());
+
+
+
+
+// console.log(store.getState().cureOrSabotage.deployedVoteCount);
+console.log(store.getState(), 'STORE in STORE - initial');
+
+
 // console.log((store.getState().users.length === 4) ? store.getState().users : 'waiting for users')
