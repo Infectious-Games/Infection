@@ -29,7 +29,7 @@ module.exports = (server) => {
         setTimeout(() => {
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
-          let leaderLoop = leaderLoopCreator(store.getState().users);
+          var leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round} 
@@ -68,22 +68,27 @@ module.exports = (server) => {
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
             if (scientistWinTotal === 2) {
+              console.log('if hit');
               winner = true;
               io.in(socket.game).emit('game over', winner);
             } else if (infiltratorWinTotal === 2) {
+              console.log('else if hit');
               winner = false;
               io.in(socket.game).emit('game over', winner);
-            } else {
+            } else { 
+              console.log('else hit');    
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
+              let round = store.getState().round.round;
+              var leaderLoop = leaderLoopCreator(store.getState().users);
               let roundLeader = leaderLoop[round - 1];
-              io.in(game).emit('start round', {leader: roundLeader.username, round}); 
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});      
             }
           }, 5000)
 
         : console.log('Waiting for more votes');
-
     });
+    console.log(store.getState(), 'store.getState() at end of round');
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
   });
