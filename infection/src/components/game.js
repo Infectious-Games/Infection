@@ -30,8 +30,8 @@ class Game extends Component {
         // "Paul",
         undefined,
       teamAssembled: 
-      // false,
-      true,
+      false,
+      // true,
       team: 
         [],
         // ['Paul', 'Mark', 'Athena', 'Matt'],
@@ -59,12 +59,16 @@ class Game extends Component {
   }
 
   checkGameStatus() {
-    socket.on('game start', (players) => {
-      console.log(players, 'players');
+    socket.on('game start', (playerInfo) => {
+      console.log(playerInfo, 'playerInfo');
+      this.setState({ teamAssembled: true, infiltrator: playerInfo.infiltrator }, () => {
+        console.log(this.state.teamAssembled, 'teamAssembled updated from server');
+      })
+
     })
     socket.on('start round', (data) => {
-      console.log(data);
-      // this.setState({ round: data.round, leader: data.leader })
+      console.log(data, 'leader and round #');
+      this.setState({ round: data.round, leader: data.leader })
     })
     socket.on('team chosen', (team) => {
       this.setState({ missionRoster: team }, () => {
@@ -100,9 +104,9 @@ class Game extends Component {
 
   handleOnMissionClick(choice) {
     this.setState({choiceMade: choice }, () =>
-      console.log(this.state.choiceMade, 'choice' ));
+      console.log(this.state.choiceMade, 'choice in client'));
       //send choice to server
-    
+      socket.emit('chose cure or sabotage', this.state.choiceMade)
   }
   
   render() {

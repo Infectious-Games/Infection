@@ -34,10 +34,10 @@ module.exports = (server) => {
                     io.to(user.socketID).emit('game start', data);
                 });
                 setTimeout(() => { 
-                    socket.emit('start round', 
-                        {username: roundLeader.username, socketID: roundLeader.socketID, roundNumber: round} 
+                    io.in(game).emit('start round', 
+                        {leader: roundLeader.username, round: round} 
                     );
-                }, 30000);  
+                }, 10000);  
             }         
             store.getState().users.length === 4 
             ? store.dispatch(incrementRound()) && store.dispatch(assignRoles()) && getPlayerProfile()
@@ -58,15 +58,17 @@ module.exports = (server) => {
     })
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
+        console.log(choice, 'choice collected in server');
         //TODO: update state of game according to the choice submitted
         let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
         io.in(game).emit('mission result', results);
         //setTimeout on start round emitter to start next round IF results are not final game results
         setTimeout(function () {
-            if (winner) { /*TODO: (who won) gameRusult: scientists or infiltrators */
+            if (winner) { /*TODO: winner: scientists or infiltrators */
                 io.in(game).emit('game over', winner);
             } else {
                 socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN LEADER AND ROUND */
+                console.log('new round started in server');
             }
         }, 3000);
     })
