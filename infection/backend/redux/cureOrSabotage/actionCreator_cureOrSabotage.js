@@ -16,7 +16,7 @@ const resetVotes = (voteStatus, deployedVoteCount) => ({
   type: RESET_VOTES,
   voteStatus,
   deployedVoteCount
-})
+});
 
 module.exports = {
   voteCure,
