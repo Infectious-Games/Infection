@@ -2,8 +2,6 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const OnMission = ({ choose, choiceMade }) =>{
-console.log(choiceMade);
-
   return !choiceMade
     ? <div>
         <div>
@@ -28,8 +26,5 @@ console.log(choiceMade);
     : <div>
         YOUR HARD WORK IS APPRECIATED!
       </div>}
-
- 
   
-
 export default OnMission;
