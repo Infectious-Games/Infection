@@ -32,6 +32,8 @@ class Game extends Component {
       missionActive:
         false,
         // true,
+      missionResult: '',
+      gameResult: '' 
     }
     
   }
@@ -51,6 +53,16 @@ class Game extends Component {
         console.log(this.state.missionRoster, 'missionRoster updated from server');
       })
     })
+    socket.on('mission result', (missionResult) => {
+      this.setState({ missionResult: missionResult }, () => {
+        console.log(this.state.missionResult, 'missionResult from server');
+      })
+    })
+    socket.on('game over', (gameResult) => {
+      this.setState({ gameResult: gameResult }, () => {
+        console.log(this.state.gameResult, 'gameResult from server');
+      })
+    })
   }
 
   handleSelectRosterEntryClick(member) {
@@ -64,7 +76,7 @@ class Game extends Component {
   handleSubmitRoster() {
     socket.emit('deploy team', this.state.missionRoster)
     this.setState({ missionActive: true }, () => {
-      console.log(this.state.missionActive)
+      console.log(this.state.missionActive, 'missionActive');
     });
   }
   
