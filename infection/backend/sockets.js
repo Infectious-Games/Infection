@@ -1,7 +1,7 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
 const { newUser, assignRoles } = require('./redux/users/actionCreator_users');
-const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users')
+const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users');
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
@@ -16,13 +16,13 @@ module.exports = (server) => {
       socket.game = game;
       socket.username = username;
 
-      store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
+      store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID: socket.id });
 
       const getPlayerProfile = () => {
         let team = store.getState().users.map(user => user.username);
         store.getState().users.forEach(user => {
           let data = user;
-          data.team = team
+          data.team = team;
           io.to(user.socketID).emit('game start', data);
         });
         setTimeout(() => {
@@ -34,18 +34,18 @@ module.exports = (server) => {
             {leader: roundLeader.username, round} 
           );
         }, 3000);  
-      }         
+      };         
       store.getState().users.length === 4 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : console.log('waiting for more users');
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
       socket.join(game);
-    })
+    });
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
       console.log(team, 'team');
       io.in(socket.game).emit('team chosen', team);   
-    })
+    });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
       console.log(choice, 'choice collected in server');
@@ -61,8 +61,8 @@ module.exports = (server) => {
           console.log('new round started in server');
         }
       }, 3000);
-    })
+    });
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
-  })
+  });
 };
