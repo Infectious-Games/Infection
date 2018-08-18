@@ -1,4 +1,4 @@
-const { UPDATE_USER, ADD_NEW_USER, SET_USERNAME } = require('./actions_users');
+const { UPDATE_USER, ADD_NEW_USER, SET_USERNAME, ASSIGN_ROLES } = require('./actions_users');
 
 const updateUser = (id, room, username) => ({
   
@@ -22,16 +22,22 @@ const newUser = (username, game, id, role, securityOfficer) => {
   }  
 }
 
-const setUsername = (id, room, username) => ( {
+const setUsername = (id, room, username) => ({
   type: SET_USERNAME,
   id,
   username,
   room
 })
 
+const assignRoles = (infiltrator) => ({
+  type: ASSIGN_ROLES,
+  infiltrator
+})
+
 module.exports = {
   updateUser, 
   setUsername, 
-  newUser
+  newUser,
+  assignRoles
 }
 
