@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import { Grid } from 'react-bootstrap';
 
 import socket from '../socket';
 
@@ -6,7 +7,7 @@ import Roles from '../views/game/roles/roles';
 import Round from '../views/game/round/round';
 import Mission from '../views/game/mission/mission';
 import MissionResults from '../views/game/missionResults/missionResults';
-import WaitingForTeam from '../views/game/waitingForTeam/waitingForTeam';
+import WaitingForTeam from '../views/game/waiting/waitingForTeam';
 import GameOver from '../views/game/gameOver/gameOver';
 import GameStatus from '../views/game/gameStatus/gameStatus';
 
@@ -112,8 +113,8 @@ class Game extends Component {
   render() {
     const game = this.state;
 
-    return <div>
-      <div>
+    return <Grid className="game">
+      <Grid>
         {
           !game.teamAssembled
             ? <WaitingForTeam></WaitingForTeam>
@@ -138,11 +139,11 @@ class Game extends Component {
                     ></MissionResults>
                     : <GameOver scientistsWin={game.scientistsWin}></GameOver>
         }
-      </div>
-      <div>
+      </Grid>
+      <Grid className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   }
 }
 

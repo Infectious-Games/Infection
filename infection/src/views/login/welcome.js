@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Image, Grid, Row, Col } from 'react-bootstrap';
 
 import infectionLogo from '../../images/Infection.jpg';
 import Login from '../../components/login';
@@ -7,12 +7,14 @@ import Login from '../../components/login';
 const Welcome = ({ login }) =>
   <Grid className="welcome">
     <Row className="welcome">
+      <Col md={2}></Col>
       <Col
         className="welcome"
-        md={12}
+        md={8}
       >
-        <img src={infectionLogo} className="App-infection-logo" alt="logo" />
+        <Image src={infectionLogo} alt="logo" responsive />
       </Col>
+      <Col md={2}></Col>
     </Row >
     <Row>
       <Col md={2}></Col>

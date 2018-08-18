@@ -1,11 +1,17 @@
 .App {
   text-align: center;
   background-color: rgb(24, 23, 23);
+  color: #eb410d;
   height: 100%;
 }
 
-.welcome {
+.welcome, .game {
   color: #eb410d; 
+}
+
+.gameStatus {
+  background-color: antiquewhite;
+  color:  #eb410d;
 }
 
 
