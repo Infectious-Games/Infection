@@ -20,7 +20,10 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">{
+      <div 
+        className="container-fluid"
+        className="App"
+      >{
         this.state.loggedIn
           ? <Game></Game>
           : <Welcome login={this.login.bind(this)}></Welcome>

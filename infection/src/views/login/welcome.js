@@ -1,5 +1,5 @@
 import React from 'react';
-import infectionLogo from '../../Infection.jpg';
+import infectionLogo from '../../images/Infection.jpg';
 import Login from '../../components/login';
 
 const Welcome = ({ login }) => {
