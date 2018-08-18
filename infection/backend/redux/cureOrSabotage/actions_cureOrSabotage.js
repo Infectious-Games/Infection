@@ -1,7 +1,9 @@
 const VOTE_CURE = 'VOTE_CURE';
 const VOTE_SABOTAGE = 'VOTE_SABOTAGE';
+const RESET_VOTES = 'RESET_VOTES';
 
 module.exports = {
   VOTE_CURE,
-  VOTE_SABOTAGE
+  VOTE_SABOTAGE,
+  RESET_VOTES
 };

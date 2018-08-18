@@ -1,4 +1,4 @@
-const { VOTE_SABOTAGE, VOTE_CURE } = require('./actions_cureOrSabotage');
+const { VOTE_SABOTAGE, VOTE_CURE, RESET_VOTES } = require('./actions_cureOrSabotage');
 const initialState = require('./initialState_cureOrSabotage');
 
 const submitVote = (state = initialState, action) => {
@@ -12,6 +12,11 @@ const submitVote = (state = initialState, action) => {
     return Object.assign({}, state, {
       voteStatus: 1,
       deployedVoteCount: state.deployedVoteCount + 1
+    });
+    case RESET_VOTES:
+    return Object.assign({}, state, {
+      voteStatus: 0,
+      deployedVoteCount: 0
     });
     default: 
       return state;
