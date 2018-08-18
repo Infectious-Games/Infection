@@ -36,11 +36,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form 
-      
-        inline>
+      <Form inline>
         <FormGroup controlId="formInlineName">
-          <ControlLabel>Name</ControlLabel>{' '}
+          <ControlLabel></ControlLabel>{' '}
           <FormControl 
             type="text" 
             placeholder="Your Name"
@@ -49,7 +47,10 @@ class Login extends React.Component {
             onChange={this.handleChange.bind(this)} 
           />
         </FormGroup>{' '}
-        <Button type="submit" onClick={this.handleSubmit.bind(this)}>Enter Game</Button>
+        <Button 
+          bsStyle="danger" 
+          onClick={this.handleSubmit.bind(this)}
+        >Enter Game</Button>
       </Form>
     );
   }
