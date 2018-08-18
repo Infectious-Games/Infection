@@ -73,13 +73,8 @@ module.exports = (server) => {
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
         //TODO: update state of game according to the choice submitted
-<<<<<<< HEAD
-        let result; /* TODO: assign result to the current mission result and game state */
-        io.in(game).emit('mission result', result);
-=======
         let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
         io.in(game).emit('mission result', results);
->>>>>>> master
         //setTimeout on start round emitter to start next round IF results are not final game results
         setTimeout(function () {
             if (winner) { /*TODO: (who won) gameRusult: scientists or infiltrators */
