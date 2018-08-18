@@ -59,10 +59,10 @@ class Game extends Component {
   }
 
   checkGameStatus() {
-    socket.on('game start', (playerInfo) => {
-      console.log(playerInfo, 'playerInfo');
-      this.setState({ teamAssembled: true, infiltrator: playerInfo.infiltrator }, () => {
-        console.log(this.state.teamAssembled, 'teamAssembled updated from server');
+    socket.on('game start', ({username, infiltrator, team}) => {
+      console.log('username:', username, 'infiltrator:', infiltrator, 'team:', team, 'FROM SERVER');
+      this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
+        console.log('username:', this.state.username, 'teamAssembled:', this.state.teamAssembled, 'infiltrator:', this.state.infiltrator, 'SET STATE IN GAME');
       })
 
     })
@@ -71,8 +71,8 @@ class Game extends Component {
       this.setState({ round: data.round, leader: data.leader })
     })
     socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team }, () => {
-        console.log(this.state.missionRoster, 'missionRoster updated from server');
+      this.setState({ missionRoster: team , missionActive: true}, () => {
+        console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
       })
     })
     socket.on('mission result', (MissionResults) => {
