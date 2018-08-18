@@ -37,7 +37,7 @@ module.exports = (server) => {
                     socket.emit('start round', 
                         {username: roundLeader.username, socketID: roundLeader.socketID, roundNumber: round} 
                     );
-                }, 3000);  
+                }, 30000);  
             }         
             store.getState().users.length === 4 
             ? store.dispatch(incrementRound()) && store.dispatch(assignRoles()) && getPlayerProfile()
