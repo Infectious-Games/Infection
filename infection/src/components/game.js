@@ -136,7 +136,7 @@ class Game extends Component {
               }
             </div>
             <div>
-              <GameStatus></GameStatus>
+              <GameStatus missionResults={game.missionResults}></GameStatus>
             </div>
           </div>
   }
