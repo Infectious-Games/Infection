@@ -31,15 +31,12 @@ class Game extends Component {
       // [],
         ['Paul', 'Mark', 'Athena'],
       missionActive:
-        // false,
-        true,
+        false,
+        // true,
+      gameResult: '', 
       missionResults:
         // [undefined, undefined, undefined],
         ['success', 'fail', undefined],
-
-
-
-      
     }
   }
   componentDidMount() {
@@ -58,6 +55,16 @@ class Game extends Component {
         console.log(this.state.missionRoster, 'missionRoster updated from server');
       })
     })
+    socket.on('mission result', (MissionResults) => {
+      this.setState({ MissionResults: MissionResults }, () => {
+        console.log(this.state.MissionResults, 'MissionResults from server');
+      })
+    })
+    socket.on('game over', (gameResult) => {
+      this.setState({ gameResult: gameResult }, () => {
+        console.log(this.state.gameResult, 'gameResult from server');
+      })
+    })
   }
 
   handleSelectRosterEntryClick(member) {
@@ -71,7 +78,7 @@ class Game extends Component {
   handleSubmitRoster() {
     socket.emit('deploy team', this.state.missionRoster)
     this.setState({ missionActive: true }, () => {
-      console.log(this.state.missionActive)
+      console.log(this.state.missionActive, 'missionActive');
     });
   }
   
