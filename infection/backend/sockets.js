@@ -7,58 +7,44 @@ const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator
 
 module.exports = (server) => {
     const io = sockets(server);
-    const storeUsers = (game) => {
-        const namespace = io.of('/');
-        namespace.in(game).clients((error, clients) => {
-            if (error) {
-                throw error;
-            } else {
-                let players = clients.map((client, index) => { 
-        //TODO: Add a function for more elegant role assignment
-                    let evil;
-                    if (index === 0) {
-                        evil = true;
-                    } else {
-                        evil = false;
-                    }
-                    return {
-                        socketID: client, 
-                        username: namespace.connected[client].username, 
-                        game: namespace.connected[client].game,
-                        infiltrator: evil 
-                    } 
-                });
-                console.log(players.length, 'players');
-                return players.length === 4
-                ? io.in(game).emit('game start', players)
-                : io.in(game).emit('game start', {gameStatus: 'waiting on players to join'});
-            }
-        });
-    };
+    
     io.on('connection', (socket) => {
         socket.on('join game', (playerProps) => {
-        const game = playerProps.game;
-        const username = playerProps.username;
-        socket.game = game;
-        socket.username = username;
-        store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
-        store.getState().users.length === 4 ? 
-        store.dispatch(incrementRound()) && store.dispatch(assignRoles()) : 
-        console.log('waiting for more users')
-        console.log(store.getState().users);
+            const game = playerProps.game;
+            const username = playerProps.username;
+            socket.game = game;
+            socket.username = username;
 
-        console.log(`${username} has joined ${game}`, playerProps);
-    //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
-        socket.join(game);
-        //TODO: insert reducer function to handle storage of all players associated with game
-        //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
-        let gameStartStatus = storeUsers(game);
-        // SET TIMEOUT 30 SEC
-        // setTimeout(function () { 
-        //     // SET LEADER AND ROUND for start of round
-        //     socket.emit('start round', { leader: 'Bob', round: 1 });
-        // }, 3000);
-    });
+            store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
+
+            const leaderLoopCreator = (users) => {
+                let users2 = Array(3).fill(users, 0);
+                return users2.concat.apply([], users2);
+            };
+            
+            const leader = leaderLoopCreator(store.getState().users);
+            const round = store.getState().round.round;
+
+            const getPlayerProfile = () => {
+                let roundLeader = leader[round];
+                let team = store.getState().users.map(user => user.username);
+                store.getState().users.forEach(user => {
+                    let data = user;
+                    data.team = team
+                    io.to(user.socketID).emit('game start', data);
+                });
+                setTimeout(() => { 
+                    socket.emit('start round', 
+                        {username: roundLeader.username, socketID: roundLeader.socketID, roundNumber: round} 
+                    );
+                }, 30000);  
+            }         
+            store.getState().users.length === 4 
+            ? store.dispatch(incrementRound()) && store.dispatch(assignRoles()) && getPlayerProfile()
+            : console.log('waiting for more users');
+        //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
+            socket.join(game);
+    })
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
     //instead of a new round event, put the leader chosen emitter in a setTimeout here and below which implicitely starts new round
