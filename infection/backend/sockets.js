@@ -1,5 +1,9 @@
 const sockets = require('socket.io');
-
+const store = require('./redux/store');
+const { newUser } = require('./redux/users/actionCreator_users');
+const { ADD_NEW_USER } = require('./redux/users/actions_users')
+const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
+const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 
 module.exports = (server) => {
     const io = sockets(server);
@@ -37,6 +41,12 @@ module.exports = (server) => {
         const username = playerProps.username;
         socket.game = game;
         socket.username = username;
+        store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
+        store.getState().users.length === 4 ? 
+        store.dispatch(incrementRound()) : 
+        console.log('waiting for more users')
+        console.log(store.getState().users[0]);
+
         console.log(`${username} has joined ${game}`, playerProps);
     //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
         socket.join(game);
@@ -63,7 +73,8 @@ module.exports = (server) => {
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
         //TODO: update state of game according to the choice submitted
-        let results; /* TODO: assign results to the current mission results and game state */
+        
+        let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
         io.in(game).emit('results', results);
         //setTimeout on leader chosen emitter to start next round IF results are not final game results
     })
