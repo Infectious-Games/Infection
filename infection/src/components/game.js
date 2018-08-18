@@ -66,6 +66,7 @@ class Game extends Component {
         console.log('username:', this.state.username, 'teamAssembled:', this.state.teamAssembled, 'infiltrator:', this.state.infiltrator, 'SET STATE IN GAME');
       })
     })
+    console.log('Setting up listen for start round');
     socket.on('start round', (data) => {
       console.log(data, 'leader and round #');
       this.setState({ round: data.round, leader: data.leader })
