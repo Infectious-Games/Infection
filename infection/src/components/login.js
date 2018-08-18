@@ -1,5 +1,5 @@
 import React from 'react';
-import socket from '../../socket';
+import socket from '../socket';
 import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
 const axios = require('axios');
 
