@@ -3,8 +3,9 @@ const store = require('./redux/store');
 const { newUser, assignRoles } = require('./redux/users/actionCreator_users');
 const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users');
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
-const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
+const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
+const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
 
 module.exports = (server) => {
   const io = sockets(server);
@@ -28,7 +29,7 @@ module.exports = (server) => {
         setTimeout(() => {
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
-          let leaderLoop = leaderLoopCreator(store.getState().users);
+          var leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round} 
@@ -48,21 +49,46 @@ module.exports = (server) => {
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
-        console.log(choice, 'choice collected in server');
-        //TODO: update state of game according to the choice submitted
-        let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
-        io.in(socket.game).emit('mission result', results);
-        //setTimeout on start round emitter to start next round IF results are not final game results
-        setTimeout(function () {
-            const winner = true; // true: scientist, false: infiltrators
-            if (winner) { /*TODO: winner: scientists or infiltrators */
-                io.in(socket.game).emit('game over', winner);
-            } else {
-                socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN NEW LEADER AND ROUND */
-                console.log('new round started in server');
+      console.log(choice, 'choice collected in server');
+      choice === 'CURE'
+        ? store.dispatch(voteCure())
+        : store.dispatch(voteSabotage());
+      
+      let results = store.getState().cureOrSabotage.voteStatus;
+      let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
+      
+      console.log(results, 'results ... 1 for sabotage ... 0 for cure');
+      console.log(totalVotes, 'totalVotes');
+      console.log(store.getState(), 'STORE after vote dispatch');
+        
+      totalVotes === 3
+        ? io.in(socket.game).emit('mission result', results) &&
+          setTimeout(function () {
+            let scientistWinTotal = store.getState().game.scientistWins;  
+            let infiltratorWinTotal = store.getState().game.infiltratorWins;  
+            let winner;
+            if (scientistWinTotal === 2) {
+              console.log('if hit');
+              winner = true;
+              io.in(socket.game).emit('game over', winner);
+            } else if (infiltratorWinTotal === 2) {
+              console.log('else if hit');
+              winner = false;
+              io.in(socket.game).emit('game over', winner);
+            } else { 
+              console.log('else hit');    
+              store.dispatch(incrementRound());
+              store.dispatch(resetVotes());
+              let round = store.getState().round.round;
+              var leaderLoop = leaderLoopCreator(store.getState().users);
+              let roundLeader = leaderLoop[round - 1];
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});      
             }
-        }, 3000);
-    })
+          }, 5000)
+
+        : console.log('Waiting for more votes');
+    });
+    console.log(store.getState(), 'store.getState() at end of round');
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
   });
