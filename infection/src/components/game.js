@@ -31,13 +31,14 @@ class Game extends Component {
       // [],
         ['Paul', 'Mark', 'Athena'],
       missionActive:
-        false,
-        // true,
-      gameResult: '', 
+        // false,
+        true,
+      gameResult: undefined, 
       missionResults:
-        // [undefined, undefined, undefined],
-        ['success', 'fail', undefined],
+        [undefined, undefined, undefined],
+        // ['success', 'fail', undefined],
     }
+    
   }
   componentDidMount() {
     this.checkGameStatus();
@@ -81,6 +82,10 @@ class Game extends Component {
       console.log(this.state.missionActive, 'missionActive');
     });
   }
+
+  handleOnMissionClick(choice) {
+    console.log(choice);
+  }
   
   render() {
     const game = this.state;
@@ -96,7 +101,8 @@ class Game extends Component {
           ></Round>
       } else {
         if (game.missionResults[game.round - 1] === undefined){
-          return <Mission 
+          return <Mission
+                  choose={this.handleOnMissionClick.bind(this)} 
                   roster={game.missionRoster}
                   username={game.username}
                   ></Mission>
