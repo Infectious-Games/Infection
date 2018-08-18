@@ -34,6 +34,7 @@ class Game extends Component {
         // false,
         true,
       gameResult: undefined, 
+      choiceMade: undefined,
       missionResults:
         [undefined, undefined, undefined],
         // ['success', 'fail', undefined],
@@ -84,7 +85,9 @@ class Game extends Component {
   }
 
   handleOnMissionClick(choice) {
-    console.log(choice);
+    this.setState({choiceMade: choice }, () =>
+      console.log(this.state.choiceMade, 'choice' ));
+      //send choice to server
   }
   
   render() {
@@ -102,7 +105,8 @@ class Game extends Component {
       } else {
         if (game.missionResults[game.round - 1] === undefined){
           return <Mission
-                  choose={this.handleOnMissionClick.bind(this)} 
+                  choose={this.handleOnMissionClick.bind(this)}
+                  choiceMade={game.choiceMade} 
                   roster={game.missionRoster}
                   username={game.username}
                   ></Mission>
