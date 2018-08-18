@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Welcome from './views/login/welcome';
 import Game from './components/game';
+import { Grid } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div 
+      <Grid 
         className="container-fluid"
         className="App"
       >{
@@ -28,7 +29,7 @@ class App extends Component {
           ? <Game></Game>
           : <Welcome login={this.login.bind(this)}></Welcome>
       }
-      </div>
+      </Grid>
     )
   }
 }
