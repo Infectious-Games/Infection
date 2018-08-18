@@ -1,8 +1,11 @@
 import React, { Component} from 'react';
 
-import Roles from '../../views/withProps/roles';
-import Round from './../../views/withProps/round';
-import socket from '../../socket';
+import socket from '../socket';
+
+import Roles from '../views/game/roles/roles';
+import Round from '../views/game/round/round';
+import Mission from '../views/game/mission/mission';
+import MissionResults from '../views/game/missionResults/missionResults';
 
 class Game extends Component {
   constructor(props) {
@@ -11,37 +14,36 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
-      username: 
-      // this.props.username,
+      username:
+        // undefined, 
         'Paul',
-      infiltrator: 
-        // this.props.infiltrator,
-        true,
-      round: 
-      // this.props.round,
-        1,
+      infiltrator:
+        undefined, 
+        // true,
+      round: 1,
       leader: 
-      // this.props.leader,
         "Paul",
-        // null,
+        // undefined,
       team: 
-        // this.props.team || [],
+        // [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
-      missionRoster: this.props.missionRoster || [],
-        // ['Paul', 'Mark', 'Athena'],
+      missionRoster: 
+      // [],
+        ['Paul', 'Mark', 'Athena'],
       missionActive:
         false,
         // true,
-      missionResult: '',
-      gameResult: '' 
+      gameResult: '', 
+      missionResults:
+        // [undefined, undefined, undefined],
+        ['success', 'fail', undefined],
     }
-    
   }
   componentDidMount() {
     this.checkGameStatus();
   }
 
-  checkGameStatus(){
+  checkGameStatus() {
     socket.on('game start', (players) => {
       console.log(players, 'players');
     })
@@ -53,9 +55,9 @@ class Game extends Component {
         console.log(this.state.missionRoster, 'missionRoster updated from server');
       })
     })
-    socket.on('mission result', (missionResult) => {
-      this.setState({ missionResult: missionResult }, () => {
-        console.log(this.state.missionResult, 'missionResult from server');
+    socket.on('mission result', (MissionResults) => {
+      this.setState({ MissionResults: MissionResults }, () => {
+        console.log(this.state.MissionResults, 'MissionResults from server');
       })
     })
     socket.on('game over', (gameResult) => {
@@ -81,17 +83,31 @@ class Game extends Component {
   }
   
   render() {
-    return <div className="game">Gimme some props
-    {
-      this.state.round < 1 
-        ? <Roles infiltrator={this.state.infiltrator}></Roles> 
-        : <Round 
-            game={this.state}
-            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+    const game = this.state;
+
+    if (game.round === 0) {
+      return <Roles infiltrator={game.infiltrator}></Roles>
+    }else {
+      if (!game.missionActive) {
+        return <Round
+          game={game}
+          handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+          handleSubmitRoster={this.handleSubmitRoster.bind(this)}
           ></Round>
+      } else {
+        if (game.missionResults[game.round - 1] === undefined){
+          return <Mission 
+                  roster={game.missionRoster}
+                  username={game.username}
+                  ></Mission>
+        } else {
+          return <MissionResults
+                  result={game.missionResults[game.round - 1]}
+                  ></MissionResults>
+        }
       }
-    </div>
+
+      }
   }
 }
 
