@@ -73,14 +73,8 @@ module.exports = (server) => {
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
         //TODO: update state of game according to the choice submitted
-<<<<<<< HEAD
-        
         let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
-        io.in(game).emit('results', results);
-        //setTimeout on leader chosen emitter to start next round IF results are not final game results
-=======
-        let result; /* TODO: assign result to the current mission result and game state */
-        io.in(game).emit('mission result', result);
+        io.in(game).emit('mission result', results);
         //setTimeout on start round emitter to start next round IF results are not final game results
         setTimeout(function () {
             if (winner) { /*TODO: (who won) gameRusult: scientists or infiltrators */
@@ -89,7 +83,6 @@ module.exports = (server) => {
                 socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN LEADER AND ROUND */
             }
         }, 3000);
->>>>>>> master
     })
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
