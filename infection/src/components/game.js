@@ -5,6 +5,7 @@ import socket from '../socket';
 import Roles from '../views/game/roles/roles';
 import Round from '../views/game/round/round';
 import Mission from '../views/game/mission/mission';
+import MissionResults from '../views/game/missionResults/missionResults';
 
 class Game extends Component {
   constructor(props) {
@@ -13,30 +14,28 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
-      username: 
-      // this.props.username,
+      username:
+        // undefined, 
         'Paul',
-      infiltrator: 
-        this.props.infiltrator,
+      infiltrator:
+        undefined, 
         // true,
-      round: 
-      // this.props.round,
-        1,
+      round: 1,
       leader: 
-      this.props.leader,
-        // "Paul",
+        "Paul",
+        // undefined,
       team: 
-        // this.props.team || [],
+        // [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
-      // this.props.missionRoster || [],
+      // [],
         ['Paul', 'Mark', 'Athena'],
       missionActive:
         // false,
         true,
       missionResults:
-        this.props.missionResults || [],
-        // ['success', 'fail', undefined],
+        // [undefined, undefined, undefined],
+        ['success', 'fail', undefined],
 
 
 
@@ -74,22 +73,24 @@ class Game extends Component {
     const game = this.state;
 
     if (game.round === 0) {
-      return <Roles infiltrator={this.state.infiltrator}></Roles>
+      return <Roles infiltrator={game.infiltrator}></Roles>
     }else {
       if (!game.missionActive) {
         return <Round
-          game={this.state}
+          game={game}
           handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
           handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-        ></Round>
+          ></Round>
       } else {
-        if (game.missionResults[game.round] === undefined){
+        if (game.missionResults[game.round - 1] === undefined){
           return <Mission 
                   roster={game.missionRoster}
                   username={game.username}
-                ></Mission>
+                  ></Mission>
         } else {
-          return <div>Results</div>
+          return <MissionResults
+                  result={game.missionResults[game.round - 1]}
+                  ></MissionResults>
         }
       }
 
