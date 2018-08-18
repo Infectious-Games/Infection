@@ -16,6 +16,7 @@ class App extends Component {
 //pass a function to login to set state.
   login() {
     this.setState({ loggedIn: !this.state.loggedIn });
+    //this should be handled in the store
   }
   render() {
     return (

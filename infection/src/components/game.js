@@ -8,6 +8,7 @@ import Mission from '../views/game/mission/mission';
 import MissionResults from '../views/game/missionResults/missionResults';
 import WaitingForTeam from '../views/game/waitingForTeam/waitingForTeam';
 import GameOver from '../views/game/gameOver/gameOver';
+import GameStatus from '../views/game/gameStatus/gameStatus';
 
 
 
@@ -30,8 +31,8 @@ class Game extends Component {
         // "Paul",
         undefined,
       teamAssembled: 
-      // false,
-      true,
+      false,
+      // true,
       team: 
         [],
         // ['Paul', 'Mark', 'Athena', 'Matt'],
@@ -59,16 +60,20 @@ class Game extends Component {
   }
 
   checkGameStatus() {
-    socket.on('game start', (players) => {
-      console.log(players, 'players');
+    socket.on('game start', ({username, infiltrator, team}) => {
+      console.log('username:', username, 'infiltrator:', infiltrator, 'team:', team, 'FROM SERVER');
+      this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
+        console.log('username:', this.state.username, 'teamAssembled:', this.state.teamAssembled, 'infiltrator:', this.state.infiltrator, 'SET STATE IN GAME');
+      })
+
     })
     socket.on('start round', (data) => {
-      console.log(data);
-      // this.setState({ round: data.round, leader: data.leader })
+      console.log(data, 'leader and round #');
+      this.setState({ round: data.round, leader: data.leader })
     })
     socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team }, () => {
-        console.log(this.state.missionRoster, 'missionRoster updated from server');
+      this.setState({ missionRoster: team , missionActive: true}, () => {
+        console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
       })
     })
     socket.on('mission result', (MissionResults) => {
@@ -100,46 +105,45 @@ class Game extends Component {
 
   handleOnMissionClick(choice) {
     this.setState({choiceMade: choice }, () =>
-      console.log(this.state.choiceMade, 'choice' ));
+      console.log(this.state.choiceMade, 'choice in client'));
       //send choice to server
+      socket.emit('chose cure or sabotage', this.state.choiceMade)
   }
   
   render() {
     const game = this.state;
 
-    if (!game.teamAssembled) {
-      return <WaitingForTeam></WaitingForTeam>
-    } else {
-      if (game.round === 0) {
-        return <Roles infiltrator={game.infiltrator}></Roles>
-      } else {
-        if (!game.missionActive) {
-          return <Round
-            game={game}
-            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-          ></Round>
-        } else {
-          if (game.missionResults[game.round - 1] === undefined) {
-            return <Mission
-              choose={this.handleOnMissionClick.bind(this)}
-              choiceMade={game.choiceMade}
-              roster={game.missionRoster}
-              username={game.username}
-            ></Mission>
-          } else {
-            if (!game.gameOver) {
-              return <MissionResults
-                result={game.missionResults[game.round - 1]}
-              ></MissionResults>
-            } else {
-              return <GameOver scientistsWin={game.scientistsWin}></GameOver>
-            }
-            
-          }
-        }
-      }
-    }
+    return <div>
+            <div>
+              {
+                !game.teamAssembled
+                ? <WaitingForTeam></WaitingForTeam>
+                : game.round === 0
+                  ? <Roles infiltrator={game.infiltrator}></Roles>
+                  : !game.missionActive
+                    ? <Round
+                      game={game}
+                      handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+                      handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+                    ></Round>
+                    : game.missionResults[game.round - 1] === undefined
+                      ? <Mission
+                        choose={this.handleOnMissionClick.bind(this)}
+                        choiceMade={game.choiceMade}
+                        roster={game.missionRoster}
+                        username={game.username}
+                      ></Mission>
+                      : !game.gameOver
+                        ? <MissionResults
+                          result={game.missionResults[game.round - 1]}
+                        ></MissionResults>
+                        : <GameOver scientistsWin={game.scientistsWin}></GameOver>
+              }
+            </div>
+            <div>
+              <GameStatus missionResults={game.missionResults}></GameStatus>
+            </div>
+          </div>
   }
 }
 
