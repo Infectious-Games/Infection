@@ -46,9 +46,17 @@ class Game extends Component {
     this.checkGameStatus();
   }
 
-  checkGameStatus(){
-    socket.on('game start', (players)=>{
+  checkGameStatus() {
+    socket.on('game start', (players) => {
       console.log(players, 'players');
+    })
+    socket.on('start round', (data) => {
+      this.setState({ round: data.round, leader: data.leader })
+    })
+    socket.on('team chosen', (team) => {
+      this.setState({ missionRoster: team }, () => {
+        console.log(this.state.missionRoster, 'missionRoster updated from server');
+      })
     })
   }
 
@@ -61,12 +69,10 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(this.state.missionRoster);
-    //emit this.missionRoster to server
-    this.setState({missionActive: true});//? maybe this should be set on the server
-    console.log(this.state.missionActive);
-    
-
+    socket.emit('deploy team', this.state.missionRoster)
+    this.setState({ missionActive: true }, () => {
+      console.log(this.state.missionActive)
+    });
   }
   
   render() {

@@ -9,11 +9,19 @@ module.exports = (server) => {
             if (error) {
                 throw error;
             } else {
-                let players = clients.map(client => { 
+                let players = clients.map((client, index) => { 
+        //TODO: Add a function for more elegant role assignment
+                    let evil;
+                    if (index === 0) {
+                        evil = true;
+                    } else {
+                        evil = false;
+                    }
                     return {
                         socketID: client, 
                         username: namespace.connected[client].username, 
-                        game: namespace.connected[client].game 
+                        game: namespace.connected[client].game,
+                        infiltrator: evil 
                     } 
                 });
                 console.log(players.length, 'players');
@@ -24,8 +32,6 @@ module.exports = (server) => {
         });
     };
     io.on('connection', (socket) => {
-        console.log('SOMEONE IS CONNECTED!!!')
-
         socket.on('join game', (playerProps) => {
         const game = playerProps.game;
         const username = playerProps.username;
@@ -37,17 +43,22 @@ module.exports = (server) => {
         //TODO: insert reducer function to handle storage of all players associated with game
         //STARTS GAME WITH ROLE ASSIGNMENTS---------------------------------------------------------------------------        
         let gameStartStatus = storeUsers(game);
+        // SET TIMEOUT 30 SEC
+        // setTimeout(function () { 
+        //     // SET LEADER AND ROUND for start of round
+        //     socket.emit('start round', { leader: 'Bob', round: 1 });
+        // }, 3000);
     });
 
     //NEW ROUND-------------------------------------------------------------------------------------------------
     //instead of a new round event, put the leader chosen emitter in a setTimeout here and below which implicitely starts new round
-    socket.on('start round', () => {
+    // START ROUND WITH LEADER CHOSEN
         //TODO: get leader from store
-        io.in(game).emit('leader chosen'); /* TODO: second arg will be leader's username */
-    });
+    // socket.emit('start round', 'Paul');
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
-        io.in(game).emit('team chosen', team);
+        console.log(team, 'team');
+        io.in(socket.game).emit('team chosen', team);   
     })
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {

@@ -1,5 +1,21 @@
 {
-  "appService.showBuildDuringDeployPrompt": false,
-  "appService.deploySubpath": "infection",
-  "appService.defaultWebAppToDeploy": "/subscriptions/b8c8b4c4-0f11-48e2-b102-78615b55385b/resourceGroups/appsvc_rg_linux_southcentralus/providers/Microsoft.Web/sites/Infection-Game"
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/58bb5210-822b-42ec-a367-3031d7455f12/resourceGroups/appsvc_rg_linux_eastus/providers/Microsoft.Web/sites/Infection-App",
+  "appService.deploySubpath": "",
+  "cSpell.words": [
+    "amazonaws",
+    "backend",
+    "chupf",
+    "connor",
+    "datbase",
+    "js",
+    "name",
+    "playerids",
+    "rootreducer",
+    "senai",
+    "server",
+    "vrigvy"
+  ]
 }
