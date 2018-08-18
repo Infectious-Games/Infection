@@ -60,16 +60,20 @@ class Game extends Component {
   }
 
   checkGameStatus() {
-    socket.on('game start', (players) => {
-      console.log(players, 'players');
+    socket.on('game start', ({username, infiltrator, team}) => {
+      console.log('username:', username, 'infiltrator:', infiltrator, 'team:', team, 'FROM SERVER');
+      this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
+        console.log('username:', this.state.username, 'teamAssembled:', this.state.teamAssembled, 'infiltrator:', this.state.infiltrator, 'SET STATE IN GAME');
+      })
+
     })
     socket.on('start round', (data) => {
-      console.log(data);
-      // this.setState({ round: data.round, leader: data.leader })
+      console.log(data, 'leader and round #');
+      this.setState({ round: data.round, leader: data.leader })
     })
     socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team }, () => {
-        console.log(this.state.missionRoster, 'missionRoster updated from server');
+      this.setState({ missionRoster: team , missionActive: true}, () => {
+        console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
       })
     })
     socket.on('mission result', (MissionResults) => {
@@ -101,8 +105,9 @@ class Game extends Component {
 
   handleOnMissionClick(choice) {
     this.setState({choiceMade: choice }, () =>
-      console.log(this.state.choiceMade, 'choice' ));
+      console.log(this.state.choiceMade, 'choice in client'));
       //send choice to server
+      socket.emit('chose cure or sabotage', this.state.choiceMade)
   }
   
   render() {
