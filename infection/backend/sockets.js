@@ -17,19 +17,28 @@ module.exports = (server) => {
 
             store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
 
+            const leaderLoopCreator = (users) => {
+                let users2 = Array(3).fill(users, 0);
+                return users2.concat.apply([], users2);
+            };
+            
+            const leader = leaderLoopCreator(store.getState().users);
+            const round = store.getState().round.round;
+
             const getPlayerProfile = () => {
+                let roundLeader = leader[round];
                 let team = store.getState().users.map(user => user.username);
                 store.getState().users.forEach(user => {
                     let data = user;
                     data.team = team
                     io.to(user.socketID).emit('game start', data);
                 });
-            }
-        // SET LEADER--------------------------------------------------------------------------------------------
-                // setTimeout(() => { 
-                //     socket.emit('start round', { leader: 'Bob', round: 1 });
-                // }, 30000);
-            //}           
+                setTimeout(() => { 
+                    socket.emit('start round', 
+                        {username: roundLeader.username, socketID: roundLeader.socketID, roundNumber: round} 
+                    );
+                }, 3000);  
+            }         
             store.getState().users.length === 4 
             ? store.dispatch(incrementRound()) && store.dispatch(assignRoles()) && getPlayerProfile()
             : console.log('waiting for more users');
