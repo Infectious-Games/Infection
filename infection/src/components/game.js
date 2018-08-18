@@ -6,6 +6,10 @@ import Roles from '../views/game/roles/roles';
 import Round from '../views/game/round/round';
 import Mission from '../views/game/mission/mission';
 import MissionResults from '../views/game/missionResults/missionResults';
+import WaitingForTeam from '../views/game/waitingForTeam/waitingForTeam';
+import GameOver from '../views/game/gameOver/gameOver';
+
+
 
 class Game extends Component {
   constructor(props) {
@@ -14,30 +18,39 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
+      id: undefined,
       username:
-        // undefined, 
-        'Paul',
-      infiltrator:
         undefined, 
+        // 'Paul',
+      infiltrator:
+        false, 
         // true,
-      round: 1,
+      round: 0,
       leader: 
-        "Paul",
-        // undefined,
+        // "Paul",
+        undefined,
+      teamAssembled: 
+      // false,
+      true,
       team: 
-        // [],
-        ['Paul', 'Mark', 'Athena', 'Matt'],
+        [],
+        // ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
-      // [],
-        ['Paul', 'Mark', 'Athena'],
+      [],
+        // ['Paul', 'Mark', 'Athena'],
       missionActive:
-        // false,
-        true,
-      gameResult: undefined, 
+        false,
+        // true,
+      gameOver: 
+      // true,
+      false, 
       choiceMade: undefined,
       missionResults:
         [undefined, undefined, undefined],
         // ['success', 'fail', undefined],
+      scientistsWin:
+        true,
+        // false,
     }
     
   }
@@ -94,31 +107,39 @@ class Game extends Component {
   render() {
     const game = this.state;
 
-    if (game.round === 0) {
-      return <Roles infiltrator={game.infiltrator}></Roles>
-    }else {
-      if (!game.missionActive) {
-        return <Round
-          game={game}
-          handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-          handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-          ></Round>
+    if (!game.teamAssembled) {
+      return <WaitingForTeam></WaitingForTeam>
+    } else {
+      if (game.round === 0) {
+        return <Roles infiltrator={game.infiltrator}></Roles>
       } else {
-        if (game.missionResults[game.round - 1] === undefined){
-          return <Mission
-                  choose={this.handleOnMissionClick.bind(this)}
-                  choiceMade={game.choiceMade} 
-                  roster={game.missionRoster}
-                  username={game.username}
-                  ></Mission>
+        if (!game.missionActive) {
+          return <Round
+            game={game}
+            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+          ></Round>
         } else {
-          return <MissionResults
-                  result={game.missionResults[game.round - 1]}
-                  ></MissionResults>
+          if (game.missionResults[game.round - 1] === undefined) {
+            return <Mission
+              choose={this.handleOnMissionClick.bind(this)}
+              choiceMade={game.choiceMade}
+              roster={game.missionRoster}
+              username={game.username}
+            ></Mission>
+          } else {
+            if (!game.gameOver) {
+              return <MissionResults
+                result={game.missionResults[game.round - 1]}
+              ></MissionResults>
+            } else {
+              return <GameOver scientistsWin={game.scientistsWin}></GameOver>
+            }
+            
+          }
         }
       }
-
-      }
+    }
   }
 }
 

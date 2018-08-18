@@ -7,9 +7,9 @@ const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }
   <div>
     <h2>Set Your Mission Roster</h2>
     {
-      team.map((member, i) => 
+      team.map((member) => 
         <SelectRosterEntry
-          key={i} //change in future
+          key={member} //change in future
           member={member}
           handleSelectRosterEntryClick={handleSelectRosterEntryClick}
         ></SelectRosterEntry>)
