@@ -26,4 +26,4 @@ module.exports = {
   scientistRoundWin,
   infiltratorRoundWin,
   restartGame
-}
+};
