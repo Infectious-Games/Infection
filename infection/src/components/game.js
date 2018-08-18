@@ -8,6 +8,7 @@ import Mission from '../views/game/mission/mission';
 import MissionResults from '../views/game/missionResults/missionResults';
 import WaitingForTeam from '../views/game/waitingForTeam/waitingForTeam';
 import GameOver from '../views/game/gameOver/gameOver';
+import GameStatus from '../views/game/gameStatus/gameStatus';
 
 
 
@@ -30,8 +31,8 @@ class Game extends Component {
         // "Paul",
         undefined,
       teamAssembled: 
-      // false,
-      true,
+      false,
+      // true,
       team: 
         [],
         // ['Paul', 'Mark', 'Athena', 'Matt'],
@@ -107,39 +108,37 @@ class Game extends Component {
   render() {
     const game = this.state;
 
-    if (!game.teamAssembled) {
-      return <WaitingForTeam></WaitingForTeam>
-    } else {
-      if (game.round === 0) {
-        return <Roles infiltrator={game.infiltrator}></Roles>
-      } else {
-        if (!game.missionActive) {
-          return <Round
-            game={game}
-            handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-            handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-          ></Round>
-        } else {
-          if (game.missionResults[game.round - 1] === undefined) {
-            return <Mission
-              choose={this.handleOnMissionClick.bind(this)}
-              choiceMade={game.choiceMade}
-              roster={game.missionRoster}
-              username={game.username}
-            ></Mission>
-          } else {
-            if (!game.gameOver) {
-              return <MissionResults
-                result={game.missionResults[game.round - 1]}
-              ></MissionResults>
-            } else {
-              return <GameOver scientistsWin={game.scientistsWin}></GameOver>
-            }
-            
-          }
-        }
-      }
-    }
+    return <div>
+            <div>
+              {
+                !game.teamAssembled
+                ? <WaitingForTeam></WaitingForTeam>
+                : game.round === 0
+                  ? <Roles infiltrator={game.infiltrator}></Roles>
+                  : !game.missionActive
+                    ? <Round
+                      game={game}
+                      handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+                      handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+                    ></Round>
+                    : game.missionResults[game.round - 1] === undefined
+                      ? <Mission
+                        choose={this.handleOnMissionClick.bind(this)}
+                        choiceMade={game.choiceMade}
+                        roster={game.missionRoster}
+                        username={game.username}
+                      ></Mission>
+                      : !game.gameOver
+                        ? <MissionResults
+                          result={game.missionResults[game.round - 1]}
+                        ></MissionResults>
+                        : <GameOver scientistsWin={game.scientistsWin}></GameOver>
+              }
+            </div>
+            <div>
+              <GameStatus></GameStatus>
+            </div>
+          </div>
   }
 }
 

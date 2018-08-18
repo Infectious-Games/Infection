@@ -9,13 +9,14 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.state = {
     loggedIn: 
-    // true,
-    false,
+    true,
+    // false,
     }
   }
 //pass a function to login to set state.
   login() {
     this.setState({ loggedIn: !this.state.loggedIn });
+    //this should be handled in the store
   }
   render() {
     return (
