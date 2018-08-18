@@ -1,4 +1,4 @@
-const { SCIENTIST_ROUND_WIN, INFILTRATOR_ROUND_WIN } = require('./actions_game');
+const { SCIENTIST_ROUND_WIN, INFILTRATOR_ROUND_WIN, RESTART_GAME } = require('./actions_game');
 const initialState = require('./initialState_game');
 
 const game = (state = initialState, action) => {

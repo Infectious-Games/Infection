@@ -48,20 +48,21 @@ module.exports = (server) => {
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
-      console.log(choice, 'choice collected in server');
-      //TODO: update state of game according to the choice submitted
-      let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
-      io.in(socket.game).emit('mission result', results);
-      //setTimeout on start round emitter to start next round IF results are not final game results
-      setTimeout(function () {
-        if (winner) { /*TODO: winner: scientists or infiltrators */
-          io.in(socket.game).emit('game over', winner);
-        } else {
-          socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN LEADER AND ROUND */
-          console.log('new round started in server');
-        }
-      }, 3000);
-    });
+        console.log(choice, 'choice collected in server');
+        //TODO: update state of game according to the choice submitted
+        let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
+        io.in(socket.game).emit('mission result', results);
+        //setTimeout on start round emitter to start next round IF results are not final game results
+        setTimeout(function () {
+            const winner = true; // true: scientist, false: infiltrators
+            if (winner) { /*TODO: winner: scientists or infiltrators */
+                io.in(socket.game).emit('game over', winner);
+            } else {
+                socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN NEW LEADER AND ROUND */
+                console.log('new round started in server');
+            }
+        }, 3000);
+    })
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
   });

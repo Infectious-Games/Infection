@@ -65,7 +65,6 @@ class Game extends Component {
       this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
         console.log('username:', this.state.username, 'teamAssembled:', this.state.teamAssembled, 'infiltrator:', this.state.infiltrator, 'SET STATE IN GAME');
       })
-
     })
     socket.on('start round', (data) => {
       console.log(data, 'leader and round #');
@@ -81,9 +80,9 @@ class Game extends Component {
         console.log(this.state.MissionResults, 'MissionResults from server');
       })
     })
-    socket.on('game over', (gameResult) => {
-      this.setState({ gameResult: gameResult }, () => {
-        console.log(this.state.gameResult, 'gameResult from server');
+    socket.on('game over', (winner) => {
+      this.setState({ gameOver: true, scientistsWin: winner }, () => {
+        console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
       })
     })
   }
