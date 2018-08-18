@@ -4,6 +4,7 @@ const { newUser, assignRoles } = require('./redux/users/actionCreator_users');
 const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users')
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
+const { leaderLoopCreator } = require('./assignLeaderHelper');
 
 module.exports = (server) => {
     const io = sockets(server);
@@ -17,13 +18,6 @@ module.exports = (server) => {
 
             store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
 
-            const leaderLoopCreator = (users) => {
-                let users2 = Array(3).fill(users, 0);
-                return users2.concat.apply([], users2);
-            };
-            
-            const leader = leaderLoopCreator(store.getState().users);
-
             const getPlayerProfile = () => {
                 let team = store.getState().users.map(user => user.username);
                 store.getState().users.forEach(user => {
@@ -34,7 +28,8 @@ module.exports = (server) => {
                 setTimeout(() => {
                     store.dispatch(incrementRound());
                     let round = store.getState().round.round;
-                    let roundLeader = leader[round - 1];
+                    let leaderLoop = leaderLoopCreator(store.getState().users);
+                    let roundLeader = leaderLoop[round - 1];
                     io.in(game).emit('start round', 
                         {leader: roundLeader.username, round} 
                     );
@@ -46,12 +41,6 @@ module.exports = (server) => {
         //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
             socket.join(game);
     })
-
-    //NEW ROUND-------------------------------------------------------------------------------------------------
-    //instead of a new round event, put the leader chosen emitter in a setTimeout here and below which implicitely starts new round
-    // START ROUND WITH LEADER CHOSEN
-        //TODO: get leader from store
-    // socket.emit('start round', 'Paul');
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
         console.log(team, 'team');
