@@ -106,7 +106,7 @@ class Game extends Component {
     this.setState({choiceMade: choice }, () =>
       console.log(this.state.choiceMade, 'choice in client'));
       //send choice to server
-      socket.emit('chose cure or sabotage', this.state.choiceMade)
+      socket.emit('chose cure or sabotage', choice)
   }
   
   render() {
