@@ -88,6 +88,7 @@ class Game extends Component {
     this.setState({choiceMade: choice }, () =>
       console.log(this.state.choiceMade, 'choice' ));
       //send choice to server
+    
   }
   
   render() {
