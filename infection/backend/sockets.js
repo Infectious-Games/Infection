@@ -54,11 +54,11 @@ module.exports = (server) => {
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
       
-      let results = store.getState().voteStatus;
+      let results = store.getState().cureOrSabotage.voteStatus;
       let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
       
-      console.log(results);
-      console.log(totalVotes);
+      console.log(results, 'results ... 1 for sabotage ... 0 for cure');
+      console.log(totalVotes, 'totalVotes');
       console.log(store.getState(), 'STORE after vote dispatch');
         
       totalVotes === 3
