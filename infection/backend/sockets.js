@@ -1,7 +1,7 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
-const { newUser } = require('./redux/users/actionCreator_users');
-const { ADD_NEW_USER } = require('./redux/users/actions_users')
+const { newUser, assignRoles } = require('./redux/users/actionCreator_users');
+const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users')
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 
@@ -43,9 +43,9 @@ module.exports = (server) => {
         socket.username = username;
         store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID:socket.id })
         store.getState().users.length === 4 ? 
-        store.dispatch(incrementRound()) : 
+        store.dispatch(incrementRound()) && store.dispatch(assignRoles()) : 
         console.log('waiting for more users')
-        console.log(store.getState().users[0]);
+        console.log(store.getState().users);
 
         console.log(`${username} has joined ${game}`, playerProps);
     //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
@@ -73,12 +73,6 @@ module.exports = (server) => {
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
         //TODO: update state of game according to the choice submitted
-<<<<<<< HEAD
-        
-        let results = store.getState().voteStatus; /* TODO: assign results to the current mission results and game state */
-        io.in(game).emit('results', results);
-        //setTimeout on leader chosen emitter to start next round IF results are not final game results
-=======
         let result; /* TODO: assign result to the current mission result and game state */
         io.in(game).emit('mission result', result);
         //setTimeout on start round emitter to start next round IF results are not final game results
@@ -89,7 +83,6 @@ module.exports = (server) => {
                 socket.emit('start round', { leader: 'Bob', round: 1 }); /* TODO: ASSIGN LEADER AND ROUND */
             }
         }, 3000);
->>>>>>> master
     })
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
