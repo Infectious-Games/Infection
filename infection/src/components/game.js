@@ -14,6 +14,7 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
+      id: 1,
       username:
         // undefined, 
         'Paul',
