@@ -9,9 +9,13 @@
   color: #eb410d; 
 }
 
+
+
 .gameStatus {
   background-color: antiquewhite;
   color:  #eb410d;
+  /* position: relative; */
+  /* top: 10%; */
 }
 
 

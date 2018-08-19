@@ -140,7 +140,10 @@ class Game extends Component {
                     : <GameOver scientistsWin={game.scientistsWin}></GameOver>
         }
       </Grid>
-      <Grid className="gameStatus">
+      <Grid 
+        className="fluid"
+        className="gameStatus"
+      >
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Grid>
     </Grid>

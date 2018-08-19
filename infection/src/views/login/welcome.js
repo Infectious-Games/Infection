@@ -24,7 +24,7 @@ const Welcome = ({ login }) =>
       </Col>
       <Col md={2}></Col>
     </Row>
-    <Row>
+    <Row className="login">
       <Col md={4}></Col>
       <Col md={4}>
         <Login login={login}></Login>
