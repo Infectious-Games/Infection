@@ -6,16 +6,10 @@
 }
 
 .welcome, .game {
-  color: #eb410d; 
+  color: #eb410d;
+  background-color: rgb(24, 23, 23);
 }
 
-/* .welcome {
-  height: 60%;
-} */
-
-/* .login {
-  height: 70%;
-} */
 
 .gameStatus {
   background-color: antiquewhite;
