@@ -5,20 +5,14 @@
   height: 100%;
 }
 
-.welcome, .game {
-  color: #eb410d; 
+.welcome, .game .list-group-item {
+  color: #eb410d;
+  background-color: rgb(24, 23, 23);
 }
 
-/* .welcome {
-  height: 60%;
-} */
-
-/* .login {
-  height: 70%;
-} */
 
 .gameStatus {
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
   color:  #eb410d;
   /* position: relative; */
   /* top: 10%; */

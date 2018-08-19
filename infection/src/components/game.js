@@ -12,8 +12,6 @@ import GameOver from '../views/game/gameOver/gameOver';
 import GameStatus from '../views/game/gameStatus/gameStatus';
 import Header from '../views/game/shared/header';
 
-
-
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -21,39 +19,21 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
+      
       id: undefined,
-      username:
-        undefined, 
-        // 'Paul',
-      infiltrator:
-        false, 
-        // true,
+      username: undefined,
+      infiltrator: false,
       round: 0,
-      leader: 
-        // "Paul",
-        undefined,
-      teamAssembled: 
-      false,
-      // true,
-      team: 
-        [],
-        // ['Paul', 'Mark', 'Athena', 'Matt'],
-      missionRoster: 
-      [],
-        // ['Paul', 'Mark', 'Athena'],
-      missionActive:
-        false,
-        // true,
-      gameOver: 
-      // true,
-      false, 
+      leader: undefined,
+      teamAssembled: false,
+      team: [],
+      missionRoster: [],
+      missionActive: false,
+      gameOver: false, 
       choiceMade: undefined,
-      missionResults:
-        [undefined, undefined, undefined],
-        // ['success', 'fail', undefined],
-      scientistsWin:
-        true,
-        // false,
+      missionResults: [undefined, undefined, undefined],
+      scientistsWin: true,
+        
     }
     
   }
@@ -63,19 +43,15 @@ class Game extends Component {
 
   checkGameStatus() {
     socket.on('game start', ({username, infiltrator, team}) => {
-      console.log('PLAYER INFO: username:', username, 'infiltrator:', infiltrator, 'team:', team);
       this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
       })
     })
     socket.on('start round', (data) => {
-      console.log('START ROUND:', data);
       this.setState({ round: data.round, leader: data.leader, missionRoster: [], missionActive: false, 
         choiceMade: undefined })
     })
     socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team , missionActive: true}, () => {
-        console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
-      })
+      this.setState({ missionRoster: team , missionActive: true})
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
@@ -83,20 +59,17 @@ class Game extends Component {
       } else if (result === 1) {
         result = 'fail'
       }
-      // let index = this.state.missionResults.indexOf(undefined);
       const updatedResults = this.state.missionResults.map((current, i) => {
-        console.log(current, 'current');
         if (i === this.state.round - 1) {
           return result;
         } else {
           return current;
         }
       }) 
-      this.setState({ missionResults: updatedResults }, () => {
-        console.log(this.state.missionResults, 'missionResults updated');
-      })
+      this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
+      console.log(winner, 'winner in client');
       this.setState({ gameOver: true, scientistsWin: winner }, () => {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
       })
@@ -113,9 +86,7 @@ class Game extends Component {
 
   handleSubmitRoster() {
     socket.emit('deploy team', this.state.missionRoster)
-    this.setState({ missionActive: true }, () => {
-      console.log(this.state.missionActive, 'missionActive');
-    });
+    this.setState({ missionActive: true });
   }
 
   handleOnMissionClick(choice) {
@@ -128,7 +99,9 @@ class Game extends Component {
     const game = this.state;
 
     return <Grid className="game">
+      <br></br>
       <Header></Header>
+      <br></br>
       <Row>
         <Col med={2}></Col>
         <Col med={8}>
@@ -159,9 +132,18 @@ class Game extends Component {
         </Col>
         <Col med={2}></Col>
       </Row>
-      <Row className="gameStatus">
-        <GameStatus missionResults={game.missionResults}></GameStatus>
+      <Row>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </Row>
+          <GameStatus missionResults={game.missionResults}></GameStatus>
     </Grid>
   }
 }

@@ -68,7 +68,6 @@ module.exports = (server) => {
         ${store.getState()}, 'STORE after vote dispatch'`
       ));
       
-
       (totalVotes === 3 && results === 1)
         ? store.dispatch(infiltratorRoundWin())
         : log(chalk.magenta('not a great day to be a scientist'));

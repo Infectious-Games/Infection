@@ -1,15 +1,28 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
+
 
 import SelectRoster from './selectRoster';
 
 const Leader = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
-  <div>
-    <h1>Congratulations You are Leader</h1>
+  <Grid>
+    <Row>
+      <Col med={12}>
+        <h1>Congratulations You are Leader</h1>
+      </Col>
+    </Row>
+    <Row>
+      <Col med={12}>
+        <h2>Set Your Mission Roster</h2>
+      </Col>
+    </Row>
+    <Row>
     <SelectRoster 
       team={team}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}
     ></SelectRoster>
-  </div>
+    </Row>
+  </Grid>
 
 export default Leader;
