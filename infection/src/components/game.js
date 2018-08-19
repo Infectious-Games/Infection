@@ -19,39 +19,21 @@ class Game extends Component {
     this.checkGameStatus = this.checkGameStatus.bind(this);
 
     this.state = {
+      
       id: undefined,
-      username: 
-      // undefined,
-      'Paul',
-      infiltrator:
-        false, 
-        // true,
-      round: 2,
-      leader: 
-        // "Paul",
-        undefined,
-      teamAssembled: 
-      // false,
-      true,
-      team: 
-        // [],
-        ['Paul', 'Mark', 'Athena', 'Matt'],
-      missionRoster: 
-      // [],
-        ['Paul', 'Mark', 'Athena'],
-      missionActive:
-        // false,
-        true,
-      gameOver: 
-      true,
-      // false, 
+      username: undefined,
+      infiltrator: false,
+      round: 0,
+      leader: undefined,
+      teamAssembled: false,
+      team: [],
+      missionRoster: [],
+      missionActive: false,
+      gameOver: false, 
       choiceMade: undefined,
-      missionResults:
-        // [undefined, undefined, undefined],
-        ['success', 'fail', undefined],
-      scientistsWin:
-        // true,
-        false,
+      missionResults: [undefined, undefined, undefined],
+      scientistsWin: true,
+        
     }
     
   }
@@ -119,6 +101,7 @@ class Game extends Component {
     return <Grid className="game">
       <br></br>
       <Header></Header>
+      <br></br>
       <Row>
         <Col med={2}></Col>
         <Col med={8}>
@@ -159,22 +142,8 @@ class Game extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </Row>
-
-      <Row className="gameStatus">
-        <GameStatus missionResults={game.missionResults}></GameStatus>
-      </Row>
+          <GameStatus missionResults={game.missionResults}></GameStatus>
     </Grid>
   }
 }
