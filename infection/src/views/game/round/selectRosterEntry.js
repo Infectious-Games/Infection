@@ -1,9 +1,12 @@
 import React from 'react';
+import { ListGroupItem } from "react-bootstrap";
+import '../../../App.css';
 
-
-const SelectRosterEntry = ({ member, handleSelectRosterEntryClick }) => 
-  <div onClick={() => handleSelectRosterEntryClick(member)}>
+const SelectRosterEntry = ({ member, handleSelectRosterEntryClick }) =>
+  <ListGroupItem 
+    onClick={() => handleSelectRosterEntryClick(member)}
+  >
     Team Member {member}
-  </div>
+  </ListGroupItem>
 
 export default SelectRosterEntry;

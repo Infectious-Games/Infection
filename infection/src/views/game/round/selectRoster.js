@@ -1,26 +1,40 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Grid, Col, Row, Button, ListGroup } from 'react-bootstrap';
 
 import SelectRosterEntry from './selectRosterEntry';
 
 const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
-  <div>
-    <h2>Set Your Mission Roster</h2>
-    {
-      team.map((member) => 
-        <SelectRosterEntry
-          key={member} //change in future
-          member={member}
-          handleSelectRosterEntryClick={handleSelectRosterEntryClick}
-        ></SelectRosterEntry>)
-    }
-    <Button 
-      bsStyle="danger" 
-      bsSize="large" 
-      onClick={()=> handleSubmitRoster()}
-    >
-      SUBMIT ROSTER
-    </Button>
-  </div>
+  <Grid>
+    <Row>
+      <Col med={5}></Col>
+      <Col med={2}>
+        <ListGroup>
+          {
+            team.map((member) => 
+            <SelectRosterEntry
+            key={member} //change in future
+            member={member}
+            handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+            ></SelectRosterEntry>)
+          }
+        </ListGroup>
+      </Col>
+        <Col med={5}></Col>
+    </Row>
+    <Row>
+      <br></br>
+    </Row>
+    <Row>
+      <Col med={12}>
+        <Button 
+          bsStyle="danger" 
+          bsSize="large" 
+          onClick={()=> handleSubmitRoster()}
+        >
+          SUBMIT ROSTER
+        </Button>
+      </Col>
+    </Row>
+  </Grid>
 
 export default SelectRoster;
