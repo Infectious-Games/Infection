@@ -24,22 +24,22 @@ class Game extends Component {
       infiltrator:
         false, 
         // true,
-      round: 0,
+      round: 1,
       leader: 
         // "Paul",
         undefined,
       teamAssembled: 
-      false,
-      // true,
+      // false,
+      true,
       team: 
-        [],
-        // ['Paul', 'Mark', 'Athena', 'Matt'],
+        // [],
+        ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
       [],
         // ['Paul', 'Mark', 'Athena'],
       missionActive:
-        false,
-        // true,
+        // false,
+        true,
       gameOver: 
       // true,
       false, 
