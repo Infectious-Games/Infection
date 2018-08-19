@@ -33,8 +33,8 @@ class Game extends Component {
         // "Paul",
         undefined,
       teamAssembled: 
-      false,
-      // true,
+      // false,
+      true,
       team: 
         [],
         // ['Paul', 'Mark', 'Athena', 'Matt'],

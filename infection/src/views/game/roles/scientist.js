@@ -1,7 +1,10 @@
 import React from 'react';
+import { Image } from 'react-bootstrap';
+
+import scientist from '../../../images/Scientist.png';
 
 const Scientist = () => 
-  <div>I'm a Scientist</div>
+  <Image src={scientist} responsive></Image>
 
 
   export default Scientist;
