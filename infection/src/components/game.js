@@ -26,7 +26,7 @@ class Game extends Component {
       infiltrator:
         false, 
         // true,
-      round: 1,
+      round: 2,
       leader: 
         // "Paul",
         undefined,
