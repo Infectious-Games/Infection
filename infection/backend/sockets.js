@@ -12,6 +12,7 @@ const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
+  var leaderLoop;
     
   io.on('connection', (socket) => {
     socket.on('join game', (playerProps) => {
@@ -33,7 +34,7 @@ module.exports = (server) => {
         setTimeout(() => {
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
-          var leaderLoop = leaderLoopCreator(store.getState().users);
+          leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round} 
@@ -50,12 +51,10 @@ module.exports = (server) => {
     log(chalk.bold.bgCyan(users, 'users'));
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
-      console.log(team, 'team');
       io.in(socket.game).emit('team chosen', team);   
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
-      log(chalk.bold.underline.green(choice, 'choice collected in server'));
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
@@ -87,22 +86,17 @@ module.exports = (server) => {
             let winner;
 
             if (scientistWinTotal === 2) {
-              log(chalk.cyan('if hit'));
               winner = true;
               io.in(socket.game).emit('game over', winner);
             } else if (infiltratorWinTotal === 2) {
-              log(chalk.cyan('else if hit'));
               winner = false;
               io.in(socket.game).emit('game over', winner);
             } else { 
-              log(chalk.cyan('else hit'));    
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
               let round = store.getState().round.round;
-              console.log(store.getState().users);
-              var leaderLoop = leaderLoopCreator(store.getState().users);
               let roundLeader = leaderLoop[round - 1];
-              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});      
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});     
             }
           }, 5000)
 

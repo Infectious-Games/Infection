@@ -1,8 +1,10 @@
 import React from 'react';
+import { Image } from 'react-bootstrap';
 
-const Infiltrator = (props) => 
-  <div>I'm a Infiltrator, I will have props someday</div>
+import infiltrator from '../../../images/Infiltrator.png';
 
+const Infiltrator = () => 
+  <Image src={infiltrator} responsive></Image>
 
   export default Infiltrator;
   
