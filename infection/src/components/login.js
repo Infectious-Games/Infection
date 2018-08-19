@@ -48,6 +48,7 @@ class Login extends React.Component {
           />
         </FormGroup>{' '}
         <Button 
+          type="submit"
           bsStyle="danger" 
           onClick={this.handleSubmit.bind(this)}
         >Enter Game</Button>
