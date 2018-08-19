@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Grid } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 import socket from '../socket';
 
@@ -10,6 +10,7 @@ import MissionResults from '../views/game/missionResults/missionResults';
 import WaitingForTeam from '../views/game/waiting/waitingForTeam';
 import GameOver from '../views/game/gameOver/gameOver';
 import GameStatus from '../views/game/gameStatus/gameStatus';
+import Header from '../views/game/shared/header';
 
 
 
@@ -114,36 +115,38 @@ class Game extends Component {
     const game = this.state;
 
     return <Grid className="game">
-      <Grid>
-        {
-          !game.teamAssembled
-            ? <WaitingForTeam></WaitingForTeam>
-            : game.round === 0
-              ? <Roles infiltrator={game.infiltrator}></Roles>
-              : !game.missionActive
-                ? <Round
-                  game={game}
-                  handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
-                  handleSubmitRoster={this.handleSubmitRoster.bind(this)}
-                ></Round>
-                : game.missionResults[game.round - 1] === undefined
-                  ? <Mission
-                    choose={this.handleOnMissionClick.bind(this)}
-                    choiceMade={game.choiceMade}
-                    roster={game.missionRoster}
-                    username={game.username}
-                  ></Mission>
-                  : !game.gameOver
-                    ? <MissionResults
-                      result={game.missionResults[game.round - 1]}
-                    ></MissionResults>
-                    : <GameOver scientistsWin={game.scientistsWin}></GameOver>
-        }
-      </Grid>
-      <Grid 
-        className="fluid"
-        className="gameStatus"
-      >
+      <Header></Header>
+      <Row>
+        <Col med={2}></Col>
+        <Col med={8}>
+          {
+            !game.teamAssembled
+              ? <WaitingForTeam></WaitingForTeam>
+              : game.round === 0
+                ? <Roles infiltrator={game.infiltrator}></Roles>
+                : !game.missionActive
+                  ? <Round
+                    game={game}
+                    handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+                    handleSubmitRoster={this.handleSubmitRoster.bind(this)}
+                  ></Round>
+                  : game.missionResults[game.round - 1] === undefined
+                    ? <Mission
+                      choose={this.handleOnMissionClick.bind(this)}
+                      choiceMade={game.choiceMade}
+                      roster={game.missionRoster}
+                      username={game.username}
+                    ></Mission>
+                    : !game.gameOver
+                      ? <MissionResults
+                        result={game.missionResults[game.round - 1]}
+                      ></MissionResults>
+                      : <GameOver scientistsWin={game.scientistsWin}></GameOver>
+          }
+        </Col>
+        <Col med={2}></Col>
+      </Row>
+      <Grid className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Grid>
     </Grid>
