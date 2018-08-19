@@ -67,16 +67,31 @@ class Game extends Component {
     })
     socket.on('start round', (data) => {
       console.log('START ROUND:', data);
-      this.setState({ round: data.round, leader: data.leader })
+      this.setState({ round: data.round, leader: data.leader, missionRoster: [], missionActive: false, 
+        choiceMade: undefined })
     })
     socket.on('team chosen', (team) => {
       this.setState({ missionRoster: team , missionActive: true}, () => {
         console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
       })
     })
-    socket.on('mission result', (MissionResults) => {
-      this.setState({ MissionResults: MissionResults }, () => {
-        console.log(this.state.MissionResults, 'MissionResults from server');
+    socket.on('mission result', (result) => {
+      if (result === 0) {
+        result = 'success'
+      } else if (result === 1) {
+        result = 'fail'
+      }
+      // let index = this.state.missionResults.indexOf(undefined);
+      const updatedResults = this.state.missionResults.map((current, i) => {
+        console.log(current, 'current');
+        if (i === this.state.round - 1) {
+          return result;
+        } else {
+          return current;
+        }
+      }) 
+      this.setState({ missionResults: updatedResults }, () => {
+        console.log(this.state.missionResults, 'missionResults updated');
       })
     })
     socket.on('game over', (winner) => {
