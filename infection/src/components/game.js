@@ -20,7 +20,9 @@ class Game extends Component {
 
     this.state = {
       id: undefined,
-      username: undefined, 
+      username: 
+      // undefined,
+      'Paul',
       infiltrator:
         false, 
         // true,
@@ -35,8 +37,8 @@ class Game extends Component {
         // [],
         ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
-      [],
-        // ['Paul', 'Mark', 'Athena'],
+      // [],
+        ['Paul', 'Mark', 'Athena'],
       missionActive:
         // false,
         true,
