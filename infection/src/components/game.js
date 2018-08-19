@@ -146,9 +146,9 @@ class Game extends Component {
         </Col>
         <Col med={2}></Col>
       </Row>
-      <Grid className="gameStatus">
+      <Row className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
-      </Grid>
+      </Row>
     </Grid>
   }
 }
