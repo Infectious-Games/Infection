@@ -87,9 +87,13 @@ module.exports = (server) => {
             if (scientistWinTotal === 2) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
+            //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
+              socket.disconnect(true);
             } else if (infiltratorWinTotal === 2) {
               winner = false;
               io.in(socket.game).emit('game over', winner);
+            //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
+              socket.disconnect(true);
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
@@ -97,12 +101,10 @@ module.exports = (server) => {
               let roundLeader = leaderLoop[round - 1];
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round});     
             }
-          }, 5000)
+          }, 3000)
 
         : log(chalk.red('Waiting for more votes'));
     });
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
-    //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
-    // socket.on('disconnect', () => {})
   });
 };
