@@ -47,8 +47,8 @@ class Game extends Component {
       false, 
       choiceMade: undefined,
       missionResults:
-        [undefined, undefined, undefined],
-        // ['success', 'fail', undefined],
+        // [undefined, undefined, undefined],
+        ['success', 'fail', undefined],
       scientistsWin:
         true,
         // false,
@@ -117,6 +117,7 @@ class Game extends Component {
     const game = this.state;
 
     return <Grid className="game">
+      <br></br>
       <Header></Header>
       <Row>
         <Col med={2}></Col>
@@ -148,8 +149,28 @@ class Game extends Component {
         </Col>
         <Col med={2}></Col>
       </Row>
-      <br></br>
-      <br></br>
+      <Row>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </Row>
 
       <Row className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
