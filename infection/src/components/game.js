@@ -22,16 +22,14 @@ class Game extends Component {
 
     this.state = {
       id: undefined,
-      username:
-        undefined, 
-        // 'Paul',
+      username: undefined, 
       infiltrator:
         // false, 
         true,
-      round: 0,
+      round: 1,
       leader: 
-        // "Paul",
-        undefined,
+        "Paul",
+        // undefined,
       teamAssembled: 
       // false,
       true,
