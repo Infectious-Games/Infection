@@ -43,8 +43,8 @@ class Game extends Component {
         // false,
         true,
       gameOver: 
-      // true,
-      false, 
+      true,
+      // false, 
       choiceMade: undefined,
       missionResults:
         // [undefined, undefined, undefined],
