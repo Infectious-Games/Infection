@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Grid 
-        className="container-fluid"
+        // className="container-fluid"
         className="App"
       >{
         this.state.loggedIn
