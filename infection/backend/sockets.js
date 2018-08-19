@@ -65,8 +65,10 @@ module.exports = (server) => {
           setTimeout(function () {
             let scientistWinTotal = store.getState().game.scientistWins;  
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
+            console.log('scientistWinTotal', scientistWinTotal, 'infiltratorWinTotal', infiltratorWinTotal);
             let winner;
             if (scientistWinTotal === 2) {
+              console.log(scientistWinTotal, 'SCIENTIST WIN TOTAL === 2');
               winner = true;
               io.in(socket.game).emit('game over', winner);
             } else if (infiltratorWinTotal === 2) {

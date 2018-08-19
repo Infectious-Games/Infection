@@ -97,6 +97,7 @@ class Game extends Component {
       })
     })
     socket.on('game over', (winner) => {
+      console.log(winner, 'winner in client');
       this.setState({ gameOver: true, scientistsWin: winner }, () => {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
       })
