@@ -12,8 +12,6 @@ import GameOver from '../views/game/gameOver/gameOver';
 import GameStatus from '../views/game/gameStatus/gameStatus';
 import Header from '../views/game/shared/header';
 
-
-
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -24,16 +22,18 @@ class Game extends Component {
       id: undefined,
       username: undefined, 
       infiltrator:
-        // false, 
-        true,
-      round: 1,
-      leader: undefined,
+        false, 
+        // true,
+      round: 0,
+      leader: 
+        // "Paul",
+        undefined,
       teamAssembled: 
-      // false,
-      true,
+      false,
+      // true,
       team: 
-        // [],
-        ['Paul', 'Mark', 'Athena', 'Matt'],
+        [],
+        // ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
       [],
         // ['Paul', 'Mark', 'Athena'],
@@ -59,25 +59,33 @@ class Game extends Component {
 
   checkGameStatus() {
     socket.on('game start', ({username, infiltrator, team}) => {
-      console.log('PLAYER INFO: username:', username, 'infiltrator:', infiltrator, 'team:', team);
       this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
       })
     })
     socket.on('start round', (data) => {
-      console.log('START ROUND:', data);
-      this.setState({ round: data.round, leader: data.leader })
+      this.setState({ round: data.round, leader: data.leader, missionRoster: [], missionActive: false, 
+        choiceMade: undefined })
     })
     socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team , missionActive: true}, () => {
-        console.log(this.state.missionRoster, this.state.missionActive, 'missionRoster and missionActive updated from server');
-      })
+      this.setState({ missionRoster: team , missionActive: true})
     })
-    socket.on('mission result', (MissionResults) => {
-      this.setState({ MissionResults: MissionResults }, () => {
-        console.log(this.state.MissionResults, 'MissionResults from server');
-      })
+    socket.on('mission result', (result) => {
+      if (result === 0) {
+        result = 'success'
+      } else if (result === 1) {
+        result = 'fail'
+      }
+      const updatedResults = this.state.missionResults.map((current, i) => {
+        if (i === this.state.round - 1) {
+          return result;
+        } else {
+          return current;
+        }
+      }) 
+      this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
+      console.log(winner, 'winner in client');
       this.setState({ gameOver: true, scientistsWin: winner }, () => {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
       })
@@ -94,9 +102,7 @@ class Game extends Component {
 
   handleSubmitRoster() {
     socket.emit('deploy team', this.state.missionRoster)
-    this.setState({ missionActive: true }, () => {
-      console.log(this.state.missionActive, 'missionActive');
-    });
+    this.setState({ missionActive: true });
   }
 
   handleOnMissionClick(choice) {
@@ -142,7 +148,7 @@ class Game extends Component {
       </Row>
       <br></br>
       <br></br>
-      
+
       <Row className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Row>

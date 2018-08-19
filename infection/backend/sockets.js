@@ -1,11 +1,14 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
-const { newUser, assignRoles } = require('./redux/users/actionCreator_users');
-const { ADD_NEW_USER, ASSIGN_ROLES } = require('./redux/users/actions_users');
-const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
+const { assignRoles } = require('./redux/users/actionCreator_users');
+const { ADD_NEW_USER } = require('./redux/users/actions_users');
+const { newUser } = require('./redux/users/actionCreator_users');
+const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
+const chalk = require('chalk');
+const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
@@ -18,7 +21,8 @@ module.exports = (server) => {
       socket.game = game;
       socket.username = username;
 
-      store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID: socket.id });
+      store.dispatch(newUser(username, game, socket.id));
+      // store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID: socket.id });
 
       const getPlayerProfile = () => {
         let team = store.getState().users.map(user => user.username);
@@ -39,10 +43,12 @@ module.exports = (server) => {
       };         
       store.getState().users.length === 4 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
-        : console.log('waiting for more users');
+        : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
       socket.join(game);
     });
+    const users = store.getState().users;
+    log(chalk.bold.bgCyan(users, 'users'));
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
       io.in(socket.game).emit('team chosen', team);   
@@ -56,16 +62,28 @@ module.exports = (server) => {
       let results = store.getState().cureOrSabotage.voteStatus;
       let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
       
-      console.log(results, 'results ... 1 for sabotage ... 0 for cure');
-      console.log(totalVotes, 'totalVotes');
-      console.log(store.getState(), 'STORE after vote dispatch');
+      log(chalk.bold.black(`
+        ${results}, 'results ... 1 for sabotage ... 0 for cure', 
+        ${totalVotes}, 'totalVotes', 
+        ${store.getState()}, 'STORE after vote dispatch'`
+      ));
+      
+      (totalVotes === 3 && results === 1)
+        ? store.dispatch(infiltratorRoundWin())
+        : log(chalk.magenta('not a great day to be a scientist'));
         
+      (totalVotes === 3 && results === 0)
+        ? store.dispatch(scientistRoundWin())
+        : log(chalk.magenta('great day to be a scientist'));  
+
       totalVotes === 3
         ? io.in(socket.game).emit('mission result', results) &&
+
           setTimeout(function () {
             let scientistWinTotal = store.getState().game.scientistWins;  
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
+
             if (scientistWinTotal === 2) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
@@ -81,9 +99,9 @@ module.exports = (server) => {
             }
           }, 5000)
 
-        : console.log('Waiting for more votes');
+        : log(chalk.red('Waiting for more votes'));
     });
-    console.log(store.getState(), 'store.getState() at end of round');
+    log(chalk.blue(store.getState(), 'store.getState() at end of round'));
     //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
     // socket.on('disconnect', () => {})
   });
