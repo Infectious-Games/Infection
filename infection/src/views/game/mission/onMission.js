@@ -1,30 +1,50 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Grid, Row, Button } from 'react-bootstrap';
 
-const OnMission = ({ choose, choiceMade }) =>{
-  return !choiceMade
-    ? <div>
-        <div>
+const OnMission = ({ choose, choiceMade }) =>
+  !choiceMade
+    ? <Grid>
+        <Row>
+          <br></br>
+          <br></br>
+        </Row>
+        <Row>
           <h1>WHAT WILL YOU DO?</h1>
-        </div>
-        <div>
+        </Row>
+        <Row>
+          <br></br>
+          <br></br>
+        </Row>
+        <Row>
           <Button
             onClick={() => choose('CURE')}
             bsSize="large"
             bsStyle="success"
           >CURE</Button>
-        </div>
-        <div>---OR---</div>
-        <div>
+        </Row>
+        <Row>
+          <br></br>
+        </Row>
+        <Row>
+          ---OR---
+        </Row>
+        <Row>
+          <br></br>
+        </Row>
+        <Row>
           <Button
             onClick={() => choose('SABOTAGE')}
             bsSize="large"
             bsStyle="danger"
           >SABOTAGE</Button>
-        </div>
-      </div>
-    : <div>
-        YOUR HARD WORK IS APPRECIATED!
-      </div>}
+        </Row>
+      </Grid> 
+    : <Row>
+        <h1>
+          YOUR HARD WORK IS APPRECIATED!
+        </h1>
+      </Row>
+        
+      
   
 export default OnMission;

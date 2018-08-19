@@ -20,38 +20,38 @@ class Game extends Component {
 
     this.state = {
       id: undefined,
-      username:
-        undefined, 
-        // 'Paul',
+      username: 
+      // undefined,
+      'Paul',
       infiltrator:
         false, 
         // true,
-      round: 0,
+      round: 2,
       leader: 
         // "Paul",
         undefined,
       teamAssembled: 
-      false,
-      // true,
+      // false,
+      true,
       team: 
-        [],
-        // ['Paul', 'Mark', 'Athena', 'Matt'],
+        // [],
+        ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
-      [],
-        // ['Paul', 'Mark', 'Athena'],
+      // [],
+        ['Paul', 'Mark', 'Athena'],
       missionActive:
-        false,
-        // true,
+        // false,
+        true,
       gameOver: 
-      // true,
-      false, 
+      true,
+      // false, 
       choiceMade: undefined,
       missionResults:
-        [undefined, undefined, undefined],
-        // ['success', 'fail', undefined],
+        // [undefined, undefined, undefined],
+        ['success', 'fail', undefined],
       scientistsWin:
-        true,
-        // false,
+        // true,
+        false,
     }
     
   }
@@ -117,6 +117,7 @@ class Game extends Component {
     const game = this.state;
 
     return <Grid className="game">
+      <br></br>
       <Header></Header>
       <Row>
         <Col med={2}></Col>
@@ -148,6 +149,29 @@ class Game extends Component {
         </Col>
         <Col med={2}></Col>
       </Row>
+      <Row>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </Row>
+
       <Row className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Row>
