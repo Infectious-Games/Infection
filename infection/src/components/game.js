@@ -50,8 +50,8 @@ class Game extends Component {
         // [undefined, undefined, undefined],
         ['success', 'fail', undefined],
       scientistsWin:
-        true,
-        // false,
+        // true,
+        false,
     }
     
   }
