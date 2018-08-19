@@ -27,15 +27,13 @@ class Game extends Component {
         // false, 
         true,
       round: 1,
-      leader: 
-        "Paul",
-        // undefined,
+      leader: undefined,
       teamAssembled: 
       // false,
       true,
       team: 
-        [],
-        // ['Paul', 'Mark', 'Athena', 'Matt'],
+        // [],
+        ['Paul', 'Mark', 'Athena', 'Matt'],
       missionRoster: 
       [],
         // ['Paul', 'Mark', 'Athena'],
@@ -142,6 +140,9 @@ class Game extends Component {
         </Col>
         <Col med={2}></Col>
       </Row>
+      <br></br>
+      <br></br>
+      
       <Row className="gameStatus">
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Row>
