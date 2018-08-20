@@ -13,9 +13,9 @@ const teamCountByRound = {
   9: [3, 4, 4, 5, 5],
   // 10 People In Game
   10: [3, 4, 4, 5, 5]
-}
+};
 
 // This will go in it's own Redux directory
 
-GET_TEAM_COUNT_BY_ROUND
-teamCountBR = teamCountByRound.players.length
+// GET_TEAM_COUNT_BY_ROUND
+// teamCountBR = teamCountByRound.players.length
