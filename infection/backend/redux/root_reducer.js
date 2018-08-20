@@ -12,6 +12,5 @@ module.exports = combineReducers({
   game,
   cureOrSabotage,
   currentLeader,
-  test
 });
 
