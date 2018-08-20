@@ -108,7 +108,7 @@ class Game extends Component {
           {
             !game.teamAssembled
               ? <WaitingForTeam></WaitingForTeam>
-              : game.round === 0
+              : !game.round
                 ? <Roles infiltrator={game.infiltrator}></Roles>
                 : !game.missionActive
                   ? <Round
@@ -116,7 +116,7 @@ class Game extends Component {
                     handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
                     handleSubmitRoster={this.handleSubmitRoster.bind(this)}
                   ></Round>
-                  : game.missionResults[game.round - 1] === undefined
+                  : !game.missionResults[game.round - 1]
                     ? <Mission
                       choose={this.handleOnMissionClick.bind(this)}
                       choiceMade={game.choiceMade}
