@@ -135,13 +135,6 @@ class Game extends Component {
       <Row>
         <br></br>
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
       </Row>
           <GameStatus missionResults={game.missionResults}></GameStatus>
     </Grid>
