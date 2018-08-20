@@ -7,6 +7,7 @@ cache:
 before_script: cd infection
 script:
   # - npm run build
+  - yarn build
   - yarn start
   - yarn static
   - yarn test
