@@ -19,14 +19,12 @@ class App extends Component {
   }
   render() {
     return (
-      <Grid 
-        // className="container-fluid"
-        className="App"
-      >{
-        this.state.loggedIn
-          ? <Game></Game>
-          : <Welcome login={this.login.bind(this)}></Welcome>
-      }
+      <Grid className="App">
+        {
+          this.state.loggedIn
+            ? <Game></Game>
+            : <Welcome login={this.login.bind(this)}></Welcome>
+        }
       </Grid>
     )
   }
