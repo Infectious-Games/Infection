@@ -12,7 +12,7 @@ const GameStatus = ({ missionResults }) =>
     </Row>
     <Row>
         {missionResults.map((round, i) =>
-          <Col key={i}>
+          <tc key={i}>
             {
               round === 'success'
                 ? <Button bsStyle="success" bsSize="large" ></Button>
@@ -20,7 +20,7 @@ const GameStatus = ({ missionResults }) =>
                   ? <Button bsStyle="danger" bsSize="large" ></Button>
                   : <Button bsStyle="default" bsSize="large" ></Button>
             }
-          </Col>
+          </tc>
         )}
     </Row>
   </Grid>
