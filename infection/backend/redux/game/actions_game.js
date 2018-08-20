@@ -6,4 +6,4 @@ module.exports = {
   SCIENTIST_ROUND_WIN,
   INFILTRATOR_ROUND_WIN,
   RESTART_GAME
-}
+};
