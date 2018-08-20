@@ -4,6 +4,7 @@ node_js:
 cache:
   directories:
     - node_modules
+before_script: cd infection
 script:
   - npm run build
   - npm test
