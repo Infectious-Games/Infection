@@ -108,7 +108,7 @@ class Game extends Component {
           {
             !game.teamAssembled
               ? <WaitingForTeam></WaitingForTeam>
-              : game.round === 0
+              : !game.round
                 ? <Roles infiltrator={game.infiltrator}></Roles>
                 : !game.missionActive
                   ? <Round
