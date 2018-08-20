@@ -39,7 +39,7 @@ module.exports = (server) => {
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round} 
           );
-        }, 3000);  
+        }, 20000);  
       };         
       store.getState().users.length === 4 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
