@@ -7,9 +7,9 @@ const proposalVote = require('./teamVotes/reducer_teamVotes');
 
 module.exports = combineReducers({
   users,
-  round,
   game,
   cureOrSabotage,
-  proposalVote
+  currentLeader,
+  proposalVote,
 });
 
