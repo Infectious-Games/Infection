@@ -52,4 +52,5 @@ const updateUser = (user, callback) => {
 
 module.exports = {
   updateUser,
+  db,
 };
