@@ -41,7 +41,7 @@ class Login extends React.Component {
           <ControlLabel></ControlLabel>{' '}
           <FormControl 
             type="text" 
-            placeholder="Your Name"
+            placeholder="Your Handle"
             value={this.state.username}
             onSubmit={this.handleSubmit.bind(this)}
             onChange={this.handleChange.bind(this)} 

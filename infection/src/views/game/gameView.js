@@ -26,7 +26,10 @@ const GameView = ({
           !game.teamAssembled
             ? <WaitingForTeam></WaitingForTeam>
             : !game.round
-              ? <Roles infiltrator={game.infiltrator}></Roles>
+              ? <Roles 
+                  infiltrator={game.infiltrator}
+                  infiltrators={game.infiltrators}
+                ></Roles>
               : !game.missionActive
                 ? <Round
                   game={game}

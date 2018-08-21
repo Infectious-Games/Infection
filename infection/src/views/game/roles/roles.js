@@ -2,9 +2,9 @@ import React from 'react';
 import Scientist from './scientist';
 import Infiltrator from './infiltrator';
 
-const Roles = ({ infiltrator }) => 
+const Roles = ({ infiltrator, infiltrators }) => 
   infiltrator
-    ? <Infiltrator></Infiltrator>
+    ? <Infiltrator infiltrators={infiltrators}></Infiltrator>
     : <Scientist></Scientist>
 
 
