@@ -1,13 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+infection/node_modules
 
 # testing
-/coverage
+infection/coverage
 
 # production
-/build
+infection/build
 
 # misc
 .DS_Store
@@ -21,4 +21,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # Config
-config.js
+.env
+infection/.env
