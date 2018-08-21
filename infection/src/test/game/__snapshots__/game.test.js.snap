@@ -1,0 +1,1618 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should match the current state of the game should render Infiltrator if team is assembled, round one has not started, and user is an infiltrator 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <img
+        className="img-responsive"
+        src="Infiltrator-Card.png"
+      />
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render Infiltrator if team is assembled, round one has not started, and user is an infiltrator 2`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <img
+        className="img-responsive"
+        src="Infiltrator-Card.png"
+      />
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render Infiltrator's win view if the Infiltrator's win the game 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="row"
+      >
+        <br />
+        <br />
+        <img
+          className="img-responsive"
+          src="Infiltrator-Win.png"
+        />
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-danger"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render Scientist if team is assembled, round one has not started, and user is not an infiltrator 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <img
+        className="img-responsive"
+        src="Scientist-Card.png"
+      />
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render Scientist's win view if the Scientist's win the game 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="row"
+      >
+        <br />
+        <br />
+        <img
+          className="img-responsive"
+          src="Scientist-Win.png"
+        />
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-danger"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render a list of players if user is leader and a round has started 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h1>
+              Congratulations You are Leader
+            </h1>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h2>
+              Set Your Mission Roster
+            </h2>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="container"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={5}
+              />
+              <div
+                className=""
+                med={2}
+              >
+                <div
+                  className="list-group"
+                >
+                  <button
+                    className="list-group-item"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Team Member 
+                    test
+                  </button>
+                  <button
+                    className="list-group-item"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Team Member 
+                    test1
+                  </button>
+                  <button
+                    className="list-group-item"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Team Member 
+                    test2
+                  </button>
+                  <button
+                    className="list-group-item"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    Team Member 
+                    test3
+                  </button>
+                </div>
+              </div>
+              <div
+                className=""
+                med={5}
+              />
+            </div>
+            <div
+              className="row"
+            >
+              <br />
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={12}
+              >
+                <button
+                  className="btn btn-lg btn-danger"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  SUBMIT ROSTER
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render a waiting view if not selected for mission 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h2>
+              You Were Not Selected for This Mission!
+            </h2>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h3>
+              Stand By for Mission Result
+            </h3>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <img
+              className=""
+              src="waiting.gif"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render a waiting view if user not leader and a round has started 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h2>
+              test
+               is Leader not You Womp Womp!
+            </h2>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h3>
+              Try to Influence Your Leader's Choice for Mission Roster
+            </h3>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <img
+              className=""
+              src="waiting.gif"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render the mission fail view if mission is a failure 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="row"
+      >
+        <br />
+        <br />
+        <img
+          className="img-responsive"
+          src="Mission-Fail.png"
+        />
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-danger"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render the mission success view if mission is successful 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="row"
+      >
+        <br />
+        <br />
+        <img
+          className="img-responsive"
+          src="Mission-Success.png"
+        />
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-success"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should match the current state of the game should render the mission view if selected for mission 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <br />
+          <br />
+        </div>
+        <div
+          className="row"
+        >
+          <h1>
+            WHAT WILL YOU DO?
+          </h1>
+        </div>
+        <div
+          className="row"
+        >
+          <br />
+          <br />
+        </div>
+        <div
+          className="row"
+        >
+          <button
+            className="btn btn-lg btn-success"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            CURE
+          </button>
+        </div>
+        <div
+          className="row"
+        >
+          <br />
+        </div>
+        <div
+          className="row"
+        >
+          ---OR---
+        </div>
+        <div
+          className="row"
+        >
+          <br />
+        </div>
+        <div
+          className="row"
+        >
+          <button
+            className="btn btn-lg btn-danger"
+            disabled={false}
+            onClick={[Function]}
+            type="button"
+          >
+            SABOTAGE
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render Game 1`] = `
+<div
+  className="game container"
+>
+  <br />
+  <div
+    className="header row"
+  >
+    <div
+      className=""
+      med={5}
+    />
+    <div
+      className=""
+      med={2}
+    >
+      <img
+        className=""
+        height={64}
+        src="Infection-Fav.png"
+        width={64}
+      />
+    </div>
+    <div
+      className=""
+      med={5}
+    />
+  </div>
+  <br />
+  <div
+    className="row"
+  >
+    <div
+      className=""
+      med={2}
+    />
+    <div
+      className=""
+      med={8}
+    >
+      <div
+        className="waitingForTeam container"
+      >
+        <div
+          className="waitingForTeamTitle row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <h1>
+              Please Wait for the Team to Assemble
+            </h1>
+          </div>
+        </div>
+        <div
+          className="waiting-img row"
+        >
+          <div
+            className=""
+            med={12}
+          >
+            <img
+              className=""
+              src="waiting.gif"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className=""
+      med={2}
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <br />
+    <br />
+  </div>
+  <div
+    className="game-results container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={4}
+      />
+      <div
+        className=""
+        med={4}
+      >
+        <h4>
+          Mission Results
+        </h4>
+      </div>
+      <div
+        className=""
+        med={4}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+      <tc>
+        <button
+          className="btn btn-lg btn-default"
+          disabled={false}
+          type="button"
+        />
+      </tc>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render WaitingForTeam if all players are not present 1`] = `
+<div
+  className="waitingForTeam container"
+>
+  <div
+    className="waitingForTeamTitle row"
+  >
+    <div
+      className=""
+      med={12}
+    >
+      <h1>
+        Please Wait for the Team to Assemble
+      </h1>
+    </div>
+  </div>
+  <div
+    className="waiting-img row"
+  >
+    <div
+      className=""
+      med={12}
+    >
+      <img
+        className=""
+        src="waiting.gif"
+      />
+    </div>
+  </div>
+</div>
+`;
