@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.login = this.login.bind(this);
     this.state = {
-    loggedIn: false,
+    loggedIn: true,
     }
   }
 //pass a function to login to set state.
