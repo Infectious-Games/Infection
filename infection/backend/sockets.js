@@ -50,7 +50,6 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-
       store.getState().users.length === 5 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
@@ -118,4 +117,4 @@ module.exports = (server) => {
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
 };
-//is travis gone?
+//
