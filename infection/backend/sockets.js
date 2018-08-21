@@ -39,7 +39,8 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === 4 
+
+      store.getState().users.length === 5 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
