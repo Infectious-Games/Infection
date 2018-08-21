@@ -1,12 +1,7 @@
 import React from 'react';
-import { Image, Grid } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
-import infiltrator from '../../../images/Infiltrator-Card.png';
+const InfiltratorListEntry = ({ infiltrator }) =>
+ <Row>{infiltrator}</Row>
 
-const Infiltrator = ({ infiltrators }) =>
-  <Grid>
-    <Image src={infiltrator} responsive></Image>
-    {infiltrators.map(infiltrator => <div key={infiltrator}>{infiltrator}</div>)}
-  </Grid>
-
-export default Infiltrator;
+export default InfiltratorListEntry;

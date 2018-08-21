@@ -15,8 +15,8 @@ class Game extends Component {
       choiceMade: undefined,
       gameOver: false, 
       id: undefined,
-      infiltrator: true,
-      infiltrators: ['bob', 'jim'],
+      infiltrator: false,
+      infiltrators: [],
       leader: undefined,
       missionActive: false,
       missionResults: [undefined, undefined, undefined],
@@ -24,7 +24,7 @@ class Game extends Component {
       round: 0,
       scientistsWin: true,
       team: [],
-      teamAssembled: true,
+      teamAssembled: false,
       username: undefined,
       
     }
