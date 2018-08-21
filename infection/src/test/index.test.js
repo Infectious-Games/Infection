@@ -1,4 +1,4 @@
-import Index from './index.js';
+import Index from '../index.js';
 
 it('renders without crashing', () => {
   expect(JSON.stringify(

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from '../App';
 import renderer from 'react-test-renderer';
-import Welcome from './views/login/welcome';
-import Game from './components/game';
+import Welcome from '../views/login/welcome';
+import Game from '../components/game';
 
 
 it('renders without crashing', () => {
