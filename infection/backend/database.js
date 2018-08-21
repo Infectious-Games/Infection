@@ -12,13 +12,24 @@ db.authenticate()
   });
 
 const User = db.define('User', {
-  username: Sequelize.STRING
+  username: Sequelize.STRING,
+  gamesPlayed: Sequelize.INTEGER,
+  wins: Sequelize.INTEGER,
+  loses: Sequelize.INTEGER,
+  clearanceLevel: Sequelize.STRING,
 });
 
 // find or create user
 const updateUser = (user, callback) => {
   const {username} = user;
-  User.findOrCreate({ where: { username: username }})
+  User.findOrCreate({ where: { username: username },
+    defaults: { 
+      gamesPlayed: 0,
+      wins: 0,
+      loses: 0,
+      clearanceLevel: "Rookie"
+    }
+  })
     .spread((user, created) => {
       console.log(user.get({
         plain: true
@@ -27,30 +38,32 @@ const updateUser = (user, callback) => {
     })
 }
 
-/* Sequelize comes with built in support for promises
- * making it easy to chain asynchronous operations together */
-// User.sync()
-//   .then(function() {
-//     // Now instantiate an object and save it:
-//     return User.create({username: 'Jean Valjean'});
-//   })
-//   .then(function() {
-//     // Retrieve objects from the database:
-//     return User.findAll({ where: {username: 'Jean Valjean'} });
-//   })
-//   .then(function(users) {
-//     users.forEach(function(user) {
-//       console.log(user.username + ' exists');
-//     });
-//     db.close();
-//   })
-//   .catch(function(err) {
-//     // Handle any error in the chain
-//     console.error(err);
-//     db.close();
-//   });
+// update user stats
+const updateUserStats = (user, callback) => {
+  User.update({
+    wins: user.wins,
+    loses: user.loses,
+    clearanceLevel: user.clearanceLevel,
+  }, { where: { username: user.username }
+    })
+    .then(() => {
+      User.increment('gamesPlayed', { where: { username: user.username } })    
+      .then(() => {
+        User.findAll({ where: { username: user.username } })
+        .then(data => {
+          callback(data)
+        })
+      })
+    })
+}
+
+// drop the db
+User.sync({ force: true }).then(() => {
+  console.log('DATABASE DROPPED');
+});
 
 module.exports = {
   updateUser,
+  updateUserStats,
   db,
 };

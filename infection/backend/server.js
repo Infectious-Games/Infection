@@ -27,6 +27,14 @@ app.post('/user', (req, res) => {
   });
 });
 
+// update user's stats in the db
+app.post('/userStats', (req, res) => {
+  const { body } = req;
+  db.updateUserStats(body, (data) => {
+    res.json(data);
+  });
+});
+
 const server = app.listen(port, (err) => {
     if (err) {
       console.log(err);
