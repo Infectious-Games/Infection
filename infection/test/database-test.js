@@ -1,10 +1,10 @@
 const db = require('../backend/database');
 var expect = require('chai').expect;
 
-describe('User', function () {
+describe('Database Testing:', function () {
   after(() => db.db.close());
 
-  describe('database', function () {
+  describe('The database', function () {
     it('should save users to the database', function (done) {
       const user = {username: 'Testy'};
       db.updateUser(user, (data) => {
