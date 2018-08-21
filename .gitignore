@@ -22,3 +22,4 @@ yarn-error.log*
 
 # Config
 .env
+infection/.env
