@@ -12,7 +12,7 @@ describe('Database Testing:', function () {
         // false: if user was already in the db
         expect(data).to.be.a('boolean');
         done();
-      })
+      });
     });
   });
 });
