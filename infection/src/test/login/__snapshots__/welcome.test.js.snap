@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Welcome 1`] = `
+<div
+  className="welcome container"
+>
+  <div
+    className="welcome row"
+  >
+    <div
+      className="col-md-2"
+    />
+    <div
+      className="welcome col-md-8"
+    >
+      <img
+        alt="logo"
+        className="img-responsive"
+        src="Infection.jpg"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-2"
+    />
+    <div
+      className="col-md-8"
+    >
+      <h1
+        className="welcome"
+      >
+        Welcome to the team!
+      </h1>
+      <p>
+        Our mission is to stop infectious outbreaks threatening the United States
+      </p>
+    </div>
+    <div
+      className="col-md-2"
+    />
+  </div>
+  <div
+    className="login row"
+  >
+    <div
+      className="col-md-4"
+    />
+    <div
+      className="col-md-4"
+    >
+      <form
+        className="login form-inline"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="control-label"
+            htmlFor="formInlineName"
+          />
+           
+          <input
+            className="form-control"
+            id="formInlineName"
+            onChange={[Function]}
+            onSubmit={[Function]}
+            placeholder="Your Name"
+            type="text"
+            value=""
+          />
+        </div>
+         
+        <button
+          className="btn btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          type="submit"
+        >
+          Enter Game
+        </button>
+      </form>
+    </div>
+    <div
+      className="col-md-4"
+    />
+  </div>
+</div>
+`;
