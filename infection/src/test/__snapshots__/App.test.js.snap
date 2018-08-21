@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Game if logged in 1`] = `
+<div
+  className="App container"
+>
+  <div
+    className="game container"
+  >
+    <br />
+    <div
+      className="header row"
+    >
+      <div
+        className=""
+        med={5}
+      />
+      <div
+        className=""
+        med={2}
+      >
+        <img
+          className=""
+          height={64}
+          src="Infection-Fav.png"
+          width={64}
+        />
+      </div>
+      <div
+        className=""
+        med={5}
+      />
+    </div>
+    <br />
+    <div
+      className="row"
+    >
+      <div
+        className=""
+        med={2}
+      />
+      <div
+        className=""
+        med={8}
+      >
+        <div
+          className="waitingForTeam container"
+        >
+          <div
+            className="waitingForTeamTitle row"
+          >
+            <div
+              className=""
+              med={12}
+            >
+              <h1>
+                Please Wait for the Team to Assemble
+              </h1>
+            </div>
+          </div>
+          <div
+            className="waiting-img row"
+          >
+            <div
+              className=""
+              med={12}
+            >
+              <img
+                className=""
+                src="waiting.gif"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className=""
+        med={2}
+      />
+    </div>
+    <div
+      className="row"
+    >
+      <br />
+      <br />
+    </div>
+    <div
+      className="game-results container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className=""
+          med={4}
+        />
+        <div
+          className=""
+          med={4}
+        >
+          <h4>
+            Mission Results
+          </h4>
+        </div>
+        <div
+          className=""
+          med={4}
+        />
+      </div>
+      <div
+        className="row"
+      >
+        <tc>
+          <button
+            className="btn btn-lg btn-default"
+            disabled={false}
+            type="button"
+          />
+        </tc>
+        <tc>
+          <button
+            className="btn btn-lg btn-default"
+            disabled={false}
+            type="button"
+          />
+        </tc>
+        <tc>
+          <button
+            className="btn btn-lg btn-default"
+            disabled={false}
+            type="button"
+          />
+        </tc>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render Welcome if not logged in 1`] = `
+<div
+  className="welcome container"
+>
+  <div
+    className="welcome row"
+  >
+    <div
+      className="col-md-2"
+    />
+    <div
+      className="welcome col-md-8"
+    >
+      <img
+        alt="logo"
+        className="img-responsive"
+        src="Infection.jpg"
+      />
+    </div>
+    <div
+      className="col-md-2"
+    />
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-md-2"
+    />
+    <div
+      className="col-md-8"
+    >
+      <h1
+        className="welcome"
+      >
+        Welcome to the team!
+      </h1>
+      <p>
+        Our mission is to stop infectious outbreaks threatening the United States
+      </p>
+    </div>
+    <div
+      className="col-md-2"
+    />
+  </div>
+  <div
+    className="login row"
+  >
+    <div
+      className="col-md-4"
+    />
+    <div
+      className="col-md-4"
+    >
+      <form
+        className="login form-inline"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="control-label"
+            htmlFor="formInlineName"
+          />
+           
+          <input
+            className="form-control"
+            id="formInlineName"
+            onChange={[Function]}
+            onSubmit={[Function]}
+            placeholder="Your Name"
+            type="text"
+            value=""
+          />
+        </div>
+         
+        <button
+          className="btn btn-danger"
+          disabled={false}
+          onClick={[Function]}
+          type="submit"
+        >
+          Enter Game
+        </button>
+      </form>
+    </div>
+    <div
+      className="col-md-4"
+    />
+  </div>
+</div>
+`;

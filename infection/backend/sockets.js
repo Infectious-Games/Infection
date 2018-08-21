@@ -1,7 +1,6 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
 const { assignRoles } = require('./redux/users/actionCreator_users');
-const { ADD_NEW_USER } = require('./redux/users/actions_users');
 const { newUser } = require('./redux/users/actionCreator_users');
 const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
@@ -22,7 +21,6 @@ module.exports = (server) => {
       socket.username = username;
 
       store.dispatch(newUser(username, game, socket.id));
-      // store.dispatch({ type: ADD_NEW_USER, username, room: game, socketID: socket.id });
 
       const getPlayerProfile = () => {
         let team = store.getState().users.map(user => user.username);
