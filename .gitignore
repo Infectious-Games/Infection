@@ -21,11 +21,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Config
-<<<<<<< HEAD:.gitignore
 .env
-=======
 config.js
 
 # Istanbul
 /.nyc_output/
->>>>>>> 1ebab8c54c6c380e315b5b7d546ec663aa9ca32a:infection/.gitignore
