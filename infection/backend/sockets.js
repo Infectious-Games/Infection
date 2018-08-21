@@ -14,6 +14,7 @@ module.exports = (server) => {
   var leaderLoop;
     
   io.on('connection', (socket) => {
+    socket.on('create game', (gameSpecs))
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
       const username = playerProps.username;
@@ -117,3 +118,4 @@ module.exports = (server) => {
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
 };
+//is travis gone?
