@@ -36,9 +36,13 @@
     "server": "nodemon ./backend/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "test-backend": "nyc mocha test/",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-test-renderer": "^16.4.2"
+    "react-test-renderer": "^16.4.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   }
 }
