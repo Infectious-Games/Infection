@@ -22,3 +22,6 @@ yarn-error.log*
 
 # Config
 config.js
+
+# Istanbul
+/.nyc_output/
