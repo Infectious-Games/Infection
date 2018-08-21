@@ -1,8 +1,4 @@
 const Sequelize = require('sequelize');
-//const AWS = require('../config');
-
-const dotenv = require('dotenv');
-dotenv.load();
 
 const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {})
 
