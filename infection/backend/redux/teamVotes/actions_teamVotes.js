@@ -1,0 +1,9 @@
+const VOTE_YES = 'VOTE_YES';
+const VOTE_NO = 'VOTE_NO';
+const RESET_MISSION_VOTES = 'RESET_MISSION_VOTES';
+
+module.exports = {
+  VOTE_YES,
+  VOTE_NO,
+  RESET_MISSION_VOTES
+};
