@@ -18,9 +18,31 @@ const users = (state = initialState, action) => {
   
   case ASSIGN_ROLES:
     // TODO: When we go to 5 players, see below + change assignment
-    // let infiltratorCount = ~~(state.length * .44);
-    let ind = ~~(Math.random() * state.length);
-    state[ind].infiltrator = true;
+    let infiltratorCount = ~~(state.length * .44);
+    let scientistCount = state.length - infiltratorCount;
+    let arrayShuffled = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+      return array;
+    };
+    let shuffled = arrayShuffled(state);
+    let assigned = shuffled.map((user, index) => {
+      if (index < infiltratorCount) {
+        user.infiltrator = true;
+        return user;
+      } else {
+        user.infiltrator = false;
+        return user;
+      }
+    });
+
+    console.log(infiltratorCount);
+    console.log(scientistCount);
+    console.log(assigned);
       
   default:
     return state;
