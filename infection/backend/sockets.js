@@ -23,11 +23,21 @@ module.exports = (server) => {
       store.dispatch(newUser(username, game, socket.id));
 
       const getPlayerProfile = () => {
-        let team = store.getState().users.map(user => user.username);
-        store.getState().users.forEach(user => {
-          let data = user;
-          data.team = team;
-          io.to(user.socketID).emit('game start', data);
+        const playersInGame = store.getState().users;
+        const team = playersInGame.map(user => user.username);
+        log(chalk.bold.cyan(team, 'team'));
+        const infiltrators = [];
+        playersInGame.forEach(user => {
+          if (user.infiltrator === true) {
+            infiltrators.push(user.username);
+          }
+        });
+        playersInGame.forEach(user => {
+          if (user.infiltrator === true) {
+            user.infiltrators = infiltrators;
+          }
+          user.team = team;
+          io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
           store.dispatch(incrementRound());
@@ -39,7 +49,6 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-
       store.getState().users.length === 5 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
@@ -107,5 +116,4 @@ module.exports = (server) => {
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
 };
-
-//test Travis CI config
+//

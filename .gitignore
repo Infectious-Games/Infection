@@ -1,13 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+infection/node_modules
 
 # testing
-/coverage
+infection/coverage
 
 # production
-/build
+infection/build
 
 # misc
 .DS_Store
@@ -21,4 +21,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Config
+<<<<<<< HEAD:.gitignore
+.env
+=======
 config.js
+
+# Istanbul
+/.nyc_output/
+>>>>>>> 1ebab8c54c6c380e315b5b7d546ec663aa9ca32a:infection/.gitignore
