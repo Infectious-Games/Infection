@@ -19,19 +19,19 @@ const User = db.define('User', {
 });
 
 //game schema
-const Game = db.define('Game', {
+const Game = db.define('game', {
   numberOfPlayers: Sequelize.INTEGER,
-  winner: Sequelize.STRING,
-  results: {
-    type: Sequelize.STRING,
-    allowNull: true,
-      get() {
-        return this.getDataValue('results').split(';')
-      },
-      set(val) {
-        this.setDataValue('results',val.join(';'));
-      },
-  },
+  //winner: Sequelize.STRING,
+  // results: {
+  //   type: Sequelize.STRING,
+  //   allowNull: true,
+  //     get() {
+  //       return this.getDataValue('results').split(';')
+  //     },
+  //     set(val) {
+  //       this.setDataValue('results',val.join(';'));
+  //     },
+  // },
 });
 
 // find or create user
@@ -48,14 +48,12 @@ const updateUser = (user, callback) => {
 
 const createGameAndGetJoinCode = (count) => {
   //grab user id to pass into game
-  return Game.create({ numberOfPlayers: count })
-    .then(game => {
-      console.log(game);
-      socket.emit('join code', { joinCode: game.id });
-    })
-    .catch(error => {
-      console.error(error);
-    })
+  Game
+  .create({ numberOfPlayers: count })
+  .then(game => {
+    console.log(game.get('numberOfPlayers'));
+    return game.get('id');
+  })
 }
 /* Sequelize comes with built in support for promises
  * making it easy to chain asynchronous operations together */
