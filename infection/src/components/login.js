@@ -15,7 +15,7 @@ class Login extends React.Component {
     
     this.state = {
 
-      clearance: 'Unclassified',
+      clearance: 'top-secret',
       game: 'demo',
       handle: 'test',
       loggedIn: true,
