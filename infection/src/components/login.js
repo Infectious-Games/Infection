@@ -16,7 +16,7 @@ class Login extends React.Component {
     this.state = {
       loggedIn: false,
       username: '',
-      game: 'demo'
+      game: 'demo',
     };
   }
 

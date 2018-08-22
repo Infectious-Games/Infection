@@ -1,26 +1,7 @@
 import React from 'react';
-import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
+import { Button } from 'react-bootstrap'; 
 
-const LoginView = ({ login, handleSubmit, handleChange }) => 
-{
-  console.log(login, handleSubmit, handleChange );
-  
-  return <Form className="login" inline>
-    <FormGroup controlId="formInlineName">
-      <ControlLabel></ControlLabel>{' '}
-      <FormControl
-        type="text"
-        placeholder="Your Handle"
-        value={login.username} 
-        onSubmit={handleSubmit}
-        onChange={handleChange}
-      />
-    </FormGroup>{' '}
-    <Button
-      type="submit"
-      bsStyle="danger"
-      onClick={handleSubmit}
-    >Enter Game</Button>
-  </Form>}
+const LoginView = () => 
+  <Button href="/auth/google" bsStyle="info" bsSize="large" active>Login with in With Google</Button>
 
 export default LoginView;
