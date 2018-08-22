@@ -1,8 +1,9 @@
 import React from 'react';
 import socket from '../socket';
 import axios from 'axios';
-
+import { Grid } from 'react-bootstrap';
 import Welcome from '../views/login/welcome';
+import Dashboard from '../views/login/dashboard';
 
 
 class Login extends React.Component {
@@ -13,6 +14,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     
     this.state = {
+      loggedIn: false,
       username: '',
       game: 'demo'
     };
@@ -38,11 +40,17 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Welcome
-        login={this.state}
-        handleChange={this.handleChange.bind(this)}
-        handleSubmit={this.handleSubmit.bind(this)}
-      ></Welcome>
+      <Grid>
+        {
+          this.state.loggedIn
+          ? <Dashboard></Dashboard>
+          : <Welcome
+          login={this.state}
+          handleChange={this.handleChange.bind(this)}
+          handleSubmit={this.handleSubmit.bind(this)}
+        ></Welcome>
+        }
+      </Grid>
     );
   }
 }

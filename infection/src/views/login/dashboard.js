@@ -1,9 +1,11 @@
 import React from 'react';
+import { Grid, Row, Col } from 'react-bootstrap';
 
-const Dashboard = () => {
-  //user dashboard view
-  //create game 
-  // join game
-}
+const Dashboard = () =>
+  <Grid>
+    <Row>
+      USER DASHBOARD
+    </Row>
+  </Grid>
 
 export default Dashboard;
