@@ -21,17 +21,17 @@ const User = db.define('User', {
 //game schema
 const Game = db.define('game', {
   numberOfPlayers: Sequelize.INTEGER,
-  //winner: Sequelize.STRING,
-  // results: {
-  //   type: Sequelize.STRING,
-  //   allowNull: true,
-  //     get() {
-  //       return this.getDataValue('results').split(';')
-  //     },
-  //     set(val) {
-  //       this.setDataValue('results',val.join(';'));
-  //     },
-  // },
+  winner: Sequelize.STRING,
+  results: {
+    type: Sequelize.STRING,
+    allowNull: true,
+      get() {
+        return this.getDataValue('results').split(';')
+      },
+      set(val) {
+        this.setDataValue('results',val.join(';'));
+      },
+  },
 });
 
 Game.sync({force: true})
@@ -54,13 +54,13 @@ const updateUser = (user, callback) => {
     })
 }
 
-const createGameAndGetJoinCode = (count) => {
+const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
   Game
   .create({ numberOfPlayers: count })
   .then(game => {
-    console.log(game.get('numberOfPlayers'));
-    return game.get('id');
+    console.log(game.get('id'), 'game id');
+    cb(game.get('id'));
   })
   .catch(err => {
     console.error(err);
