@@ -7,8 +7,11 @@ import GameView from '../views/game/gameView';
 class Game extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
+
+    this.setInGameStatus = props.setInGameStatus;
 
     this.state = {
       
@@ -96,6 +99,7 @@ class Game extends Component {
         handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
         handleSubmitRoster={this.handleSubmitRoster.bind(this)}
         choose={this.handleOnMissionClick.bind(this)}
+        setInGameStatus={this.setInGameStatus}
       ></GameView>
     );
   }

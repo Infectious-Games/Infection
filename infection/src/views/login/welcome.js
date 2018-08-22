@@ -2,9 +2,9 @@ import React from 'react';
 import { Image, Grid, Row, Col } from 'react-bootstrap';
 
 import infectionLogo from '../../images/Infection.jpg';
-import Login from '../../components/login';
+import LoginView from './loginView';
 
-const Welcome = ({ login }) =>
+const Welcome = ({ login ,handleChange, handleSubmit }) =>
   <Grid className="welcome">
     <Row className="welcome">
       <Col md={2}></Col>
@@ -27,7 +27,11 @@ const Welcome = ({ login }) =>
     <Row className="login">
       <Col md={4}></Col>
       <Col md={4}>
-        <Login login={login}></Login>
+        <LoginView 
+          login={login}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        ></LoginView>
       </Col>
       <Col md={4}></Col>
     </Row>
