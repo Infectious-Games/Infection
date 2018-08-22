@@ -28,14 +28,18 @@ describe('should match the current state of the game', () => {
   
   test('should render Scientist if team is assembled, round one has not started, and user is not an infiltrator', () => {
 
-    gameStart.setState({ teamAssembled: true });
+    gameStart.setState({ 
+      teamAssembled: true,
+      username: 'test', 
+    });
 
     expect(game).toMatchSnapshot();
   });
 
   test('should render Infiltrator if team is assembled, round one has not started, and user is an infiltrator', () => {
 
-    gameStart.setState({ 
+    gameStart.setState({
+      username: 'test', 
       teamAssembled: true,
       infiltrator: true 
     });
@@ -46,6 +50,7 @@ describe('should match the current state of the game', () => {
   test('should render Infiltrator if team is assembled, round one has not started, and user is an infiltrator', () => {
 
     gameStart.setState({
+      username: 'test',
       teamAssembled: true,
       infiltrator: true
     });

@@ -1,29 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
-import Welcome from './views/login/welcome';
+import Login from './components/login';
 import Game from './components/game';
 import { Grid } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.login = this.login.bind(this);
+    this.setInGameStatus = this.setInGameStatus.bind(this);
     this.state = {
-    loggedIn: false,
+    inGame: false,
     }
   }
-//pass a function to login to set state.
-  login() {
-    this.setState({ loggedIn: !this.state.loggedIn });
+//pass a function to setInGameStatus to set state.
+  setInGameStatus() {
+    this.setState({ inGame: !this.state.inGame });
     //this should be handled in the store
   }
   render() {
     return (
       <Grid className="App">
         {
-          this.state.loggedIn
-            ? <Game></Game>
-            : <Welcome login={this.login.bind(this)}></Welcome>
+          this.state.inGame
+            ? <Game
+              setInGameStatus={this.setInGameStatus.bind(this)}
+              ></Game>
+            : <Login setInGameStatus={this.setInGameStatus.bind(this)}></Login>
         }
       </Grid>
     )
