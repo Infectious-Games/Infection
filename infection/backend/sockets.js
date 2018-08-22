@@ -1,4 +1,5 @@
 const sockets = require('socket.io');
+const { createGameAndGetJoinCode } = require('./database');
 const store = require('./redux/store');
 const { assignRoles } = require('./redux/users/actionCreator_users');
 const { newUser } = require('./redux/users/actionCreator_users');
@@ -12,9 +13,14 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-    
+  var playerCount;  
   io.on('connection', (socket) => {
-    socket.on('create game', (gameSpecs))
+    
+    socket.on('create game', (gameSpecs) => {
+      playerCount = gameSpecs.playerCount; //TODO: client should send a player count on create game
+      createGameAndGetJoinCode(playerCount);
+    })
+
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
       const username = playerProps.username;
@@ -50,7 +56,7 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === 5 
+      store.getState().users.length === playerCount //TODO: Number received from client 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
