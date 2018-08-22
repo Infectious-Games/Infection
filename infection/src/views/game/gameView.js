@@ -13,7 +13,8 @@ import Header from './shared/header';
 const GameView = ({ 
   game, 
   choose, 
-  handleSelectRosterEntryClick, handleSubmitRoster, 
+  handleSelectRosterEntryClick, handleSubmitRoster,
+  setInGameStatus
 }) => 
   <Grid className="game">
     <br></br>
@@ -47,7 +48,9 @@ const GameView = ({
                     ? <MissionResults
                       result={game.missionResults[game.round - 1]}
                     ></MissionResults>
-                    : <GameOver scientistsWin={game.scientistsWin}></GameOver>
+                    : <GameOver
+                      setInGameStatus={setInGameStatus}
+                    scientistsWin={game.scientistsWin}></GameOver>
         }
       </Col>
       <Col med={2}></Col>
