@@ -19,11 +19,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 routes(app);
 
 const server = app.listen(port, (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('listening on port', port);
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('listening on port', port);
+  }
 });
 
 sockets(server);
