@@ -1,5 +1,8 @@
 const db = require('./database');
 const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const session = require('cookie-session');
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
 
 module.exports = (app) => {        
 // find or add a user to the db
