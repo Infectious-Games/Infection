@@ -40,10 +40,62 @@ exports[`should match the current state of the game should render Infiltrator if
       className=""
       med={8}
     >
-      <img
-        className="img-responsive"
-        src="Infiltrator-Card.png"
-      />
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <img
+            className="img-responsive"
+            src="Infiltrator-Card.png"
+          />
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="container"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              >
+                <h4>
+                  Your Co-Conspiritors!
+                </h4>
+              </div>
+              <div
+                className=""
+                med={4}
+              />
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       className=""
@@ -148,10 +200,62 @@ exports[`should match the current state of the game should render Infiltrator if
       className=""
       med={8}
     >
-      <img
-        className="img-responsive"
-        src="Infiltrator-Card.png"
-      />
+      <div
+        className="container"
+      >
+        <div
+          className="row"
+        >
+          <img
+            className="img-responsive"
+            src="Infiltrator-Card.png"
+          />
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="container"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              >
+                <h4>
+                  Your Co-Conspiritors!
+                </h4>
+              </div>
+              <div
+                className=""
+                med={4}
+              />
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              />
+              <div
+                className=""
+                med={4}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       className=""
@@ -962,9 +1066,20 @@ exports[`should match the current state of the game should render a waiting view
             className=""
             med={12}
           >
+            <h1>
+              Congratulations You are Leader
+            </h1>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className=""
+            med={12}
+          >
             <h2>
-              test
-               is Leader not You Womp Womp!
+              Set Your Mission Roster
             </h2>
           </div>
         </div>
@@ -972,25 +1087,50 @@ exports[`should match the current state of the game should render a waiting view
           className="row"
         >
           <div
-            className=""
-            med={12}
+            className="container"
           >
-            <h3>
-              Try to Influence Your Leader's Choice for Mission Roster
-            </h3>
-          </div>
-        </div>
-        <div
-          className="row"
-        >
-          <div
-            className=""
-            med={12}
-          >
-            <img
-              className=""
-              src="waiting.gif"
-            />
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={5}
+              />
+              <div
+                className=""
+                med={2}
+              >
+                <ul
+                  className="list-group"
+                />
+              </div>
+              <div
+                className=""
+                med={5}
+              />
+            </div>
+            <div
+              className="row"
+            >
+              <br />
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className=""
+                med={12}
+              >
+                <button
+                  className="btn btn-lg btn-danger"
+                  disabled={false}
+                  onClick={[Function]}
+                  type="button"
+                >
+                  SUBMIT ROSTER
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

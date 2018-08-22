@@ -1,7 +1,9 @@
 import React from 'react';
 import socket from '../socket';
-import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'; 
-const axios = require('axios');
+import axios from 'axios';
+
+import Welcome from '../views/login/welcome';
+
 
 class Login extends React.Component {
   constructor(props, context) {
@@ -23,7 +25,7 @@ class Login extends React.Component {
       .then((response) => {
         response.data ? console.log(`user: ${user.username} added to db`) : console.log(`user: ${user.username} aleady in db`);
         socket.emit('join game', { username: this.state.username, game: this.state.game})
-        this.props.login();
+        this.props.setInGameStatus();
       })
       .catch((error) => {
         console.error(error, 'error in index.jsx');
@@ -36,23 +38,11 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Form className="login" inline>
-        <FormGroup controlId="formInlineName">
-          <ControlLabel></ControlLabel>{' '}
-          <FormControl 
-            type="text" 
-            placeholder="Your Handle"
-            value={this.state.username}
-            onSubmit={this.handleSubmit.bind(this)}
-            onChange={this.handleChange.bind(this)} 
-          />
-        </FormGroup>{' '}
-        <Button 
-          type="submit"
-          bsStyle="danger" 
-          onClick={this.handleSubmit.bind(this)}
-        >Enter Game</Button>
-      </Form>
+      <Welcome
+        login={this.state}
+        handleChange={this.handleChange.bind(this)}
+        handleSubmit={this.handleSubmit.bind(this)}
+      ></Welcome>
     );
   }
 }
