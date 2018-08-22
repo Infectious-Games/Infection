@@ -20,14 +20,13 @@ const User = db.define('User', {
 });
 
 // find or create user
-const updateUser = (user, callback) => {
-  const {username} = user;
-  User.findOrCreate({ where: { username: username },
+const updateUser = ({username}, callback) => {
+  User.findOrCreate({ where: { username },
     defaults: { 
       gamesPlayed: 0,
       wins: 0,
       loses: 0,
-      clearanceLevel: "Rookie"
+      clearanceLevel: 'Collateral Clearance'
     }
   })
     .spread((user, created) => {
@@ -54,43 +53,23 @@ const clearanceLevels = (wins => {
 
 // update user stats
 const updateUserStats = ({win, username} , callback) => {
+  // check for win or loss
   const result = win ? 'wins': 'loses';
+  // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
-  // console.log(data, 'data in database from server');
+  // find user
   User.find({ where: { username } })
+    // increment fields
     .then((user) => user.increment(toIncrement))
     .then((user) => {
-      // check for clearanceLevel
-      const wins = user.wins + 1;
+      const wins = user.wins;
+      // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
       return user.update({ clearanceLevel })
     })
     .then(() => User.find({ where: { username } }))
     .then((user) => callback(user))
 }
-
-// update user stats
-// const updateUserStats = (user, callback) => {
-//   console.log(user, 'user in database');
-//   // if win === true
-//     // increment wins
-//     // else increment loses
-//   User.update({
-//     wins: user.wins,
-//     loses: user.loses,
-//     clearanceLevel: user.clearanceLevel,
-//   }, { where: { username: user.username }
-//     })
-//     .then(() => {
-//       User.increment('gamesPlayed', { where: { username: user.username } })    
-//       .then(() => {
-//         User.findAll({ where: { username: user.username } })
-//         .then(data => {
-//           callback(data)
-//         })
-//       })
-//     })
-// }
 
 // drop the db
 User.sync({ force: true }).then(() => {
