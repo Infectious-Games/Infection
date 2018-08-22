@@ -14,9 +14,14 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     
     this.state = {
-      loggedIn: false,
-      username: '',
+
+      clearance: 'Unclassified',
       game: 'demo',
+      handle: 'test',
+      loggedIn: true,
+      losses: 0,
+      username: 'bob',
+      wins: 0,
     };
   }
 
@@ -39,13 +44,20 @@ class Login extends React.Component {
   }
 
   render() {
+    const user = this.state;
     return (
       <Grid>
         {
-          this.state.loggedIn
-          ? <Dashboard></Dashboard>
+          user.loggedIn
+          ? <Dashboard
+              clearance={user.clearance}
+              handle={user.handle}
+              losses={user.losses}
+              username={user.username}
+              wins={user.wins}
+            ></Dashboard>
           : <Welcome
-          login={this.state}
+          login={user}
           handleChange={this.handleChange.bind(this)}
           handleSubmit={this.handleSubmit.bind(this)}
         ></Welcome>
