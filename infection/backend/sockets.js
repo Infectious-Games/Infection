@@ -1,5 +1,5 @@
 const sockets = require('socket.io');
-const { createGameAndGetJoinCode } = require('./database');
+//const { createGameAndGetJoinCode } = require('./database');
 const store = require('./redux/store');
 const { assignRoles } = require('./redux/users/actionCreator_users');
 const { newUser } = require('./redux/users/actionCreator_users');
@@ -13,13 +13,13 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-  var playerCount;  
+  // var playerCount;  
   io.on('connection', (socket) => {
-    
-    socket.on('create game', (gameSpecs) => {
-      playerCount = gameSpecs.playerCount; //TODO: client should send a player count on create game
-      createGameAndGetJoinCode(playerCount);
-    })
+
+    // socket.on('create game', (gameSpecs) => {
+    //   playerCount = gameSpecs.playerCount; //TODO: client should send a player count on create game
+    //   createGameAndGetJoinCode(playerCount);
+    // })
 
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
