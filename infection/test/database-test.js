@@ -1,8 +1,14 @@
 const db = require('../backend/database');
 var expect = require('chai').expect;
+// const Sequelize = require('sequelize');
 
 describe('Database Testing:', function () {
-  after(() => db.db.close());
+  after(() => {
+    // db.User.destroy({ where: { username: 'Testy'} })
+    // .then(() => 
+    db.db.close()
+  // )
+  });
 
   describe('The database', function () {
     it('should save users to the database', function (done) {
@@ -14,5 +20,13 @@ describe('Database Testing:', function () {
         done();
       });
     });
+    // it(`should update a user's stats`, function (done) {
+    //   const update = { username: 'Testy', win: true };
+    //   db.updateUserStats(update, (data) => {
+    //     // if updated correctly, should increment wins by 1
+    //     expect(data).to.have.property('wins').to.equal(1);
+    //     done();
+    //   });
+    // });
   });
 });
