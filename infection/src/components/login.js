@@ -12,11 +12,17 @@ class Login extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    
-    this.state = {
+    //create new game event handlers
+    this.handleCreateGame = this.handleCreateGame.bind(this);
+    this.handlePlayerCountChange = this.handlePlayerCountChange.bind(this);
+    //join game event handlers
+    this.handleJoinGame = this.handleJoinGame.bind(this);
+    this.handleJoinCodeChange = this.handleJoinCodeChange.bind(this);
 
+    this.state = {
       clearance: 'Unclassified',
-      game: 'demo',
+      game: '',
+      playerCount: '',
       handle: 'test',
       loggedIn: true,
       losses: 0,
@@ -31,7 +37,6 @@ class Login extends React.Component {
     axios.post('/user', user)
       .then((response) => {
         response.data ? console.log(`user: ${user.username} added to db`) : console.log(`user: ${user.username} aleady in db`);
-        socket.emit('join game', { username: this.state.username, game: this.state.game})
         this.props.setInGameStatus();
       })
       .catch((error) => {
@@ -41,6 +46,34 @@ class Login extends React.Component {
 
   handleChange(e) {
     this.setState({ username: e.target.value });
+  }
+//TODO: plug in functions below to start game form. Needs to be tested
+  handleCreateGame(e) {
+    e.preventDefault();
+    const playerCount = {"playerCount": this.state.playerCount};
+    axios.post('/start', playerCount)
+      .then((joinCode) => {
+        console.log(joinCode);
+        //TODO: alert message for join code?
+      })
+      .catch((error) => {
+        console.error(error, 'error creating game in login.js');
+      });
+  }
+
+  handlePlayerCountChange(e) {
+    this.setState({ playerCount: e.target.value });
+  }
+
+  handleJoinGame(e) {
+    e.preventDefault();
+    // send username and game name to server TODO: test that this is working
+    socket.emit('join game', { username: this.state.username, game: this.state.game})
+  }
+
+  handleJoinCodeChange(e) {
+    //TODO: test if working
+    this.setState({ game: e.target.value });
   }
 
   render() {
