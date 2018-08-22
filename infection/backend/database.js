@@ -20,6 +20,30 @@ const User = db.define('User', {
   clearanceLevel: Sequelize.STRING,
 });
 
+//game schema
+const Game = db.define('game', {
+  numberOfPlayers: Sequelize.INTEGER,
+  winner: Sequelize.STRING,
+  results: {
+    type: Sequelize.STRING,
+    allowNull: true,
+      get() {
+        return this.getDataValue('results').split(';')
+      },
+      set(val) {
+        this.setDataValue('results',val.join(';'));
+      },
+  },
+});
+
+Game.sync({force: true})
+  .then(game => {
+    console.log('game model created in db')
+  })
+  .catch(err => {
+    console.error(err);
+  })
+
 // find or create user
 const updateUser = ({username}, callback) => {
   User.findOrCreate({ where: { username },
@@ -27,7 +51,7 @@ const updateUser = ({username}, callback) => {
       gamesPlayed: 0,
       wins: 0,
       loses: 0,
-      clearanceLevel: 'Collateral Clearance'
+      clearanceLevel: 'Confidential'
     }
   })
     .spread((user, created) => {
@@ -38,17 +62,53 @@ const updateUser = ({username}, callback) => {
     })
 }
 
+const createGameAndGetJoinCode = (count, cb) => {
+  //grab user id to pass into game
+  Game
+  .create({ numberOfPlayers: count })
+  .then(game => {
+    console.log(game.get('id'), 'game id');
+    cb(game.get('id'));
+  })
+  .catch(err => {
+    console.error(err);
+  })
+}
+/* Sequelize comes with built in support for promises
+ * making it easy to chain asynchronous operations together */
+// User.sync()
+//   .then(function() {
+//     // Now instantiate an object and save it:
+//     return User.create({username: 'Jean Valjean'});
+//   })
+//   .then(function() {
+//     // Retrieve objects from the database:
+//     return User.findAll({ where: {username: 'Jean Valjean'} });
+//   })
+//   .then(function(users) {
+//     users.forEach(function(user) {
+//       console.log(user.username + ' exists');
+//     });
+//     db.close();
+//   })
+//   .catch(function(err) {
+//     // Handle any error in the chain
+//     console.error(err);
+//     db.close();
+//   });
 const clearanceLevels = (wins => {
   if (wins < 10) {
-    return 'Collateral Clearance';
+    return 'Unclassified';
   } else if (wins > 9 && wins < 20) {
     return 'Confidential';
   } else if (wins > 19 && wins < 50) {
     return 'Secret';
   } else if (wins > 49 && wins < 100) {
     return 'Top Secret';
-  } else if (wins > 99) {
-    return 'Illuminati';
+  } else if (wins > 99 && wins < 1000) {
+    return 'Sensitive Compartmented Information(SCI)';
+  } else if (wins > 999) {
+    return 'Illuminati'
   }
 }) 
 
@@ -74,11 +134,12 @@ const updateUserStats = ({win, username} , callback) => {
 }
 
 // drop the db
-User.sync({ force: true }).then(() => {
-  console.log('DATABASE DROPPED');
-});
+// User.sync({ force: true }).then(() => {
+//   console.log('DATABASE DROPPED');
+// });
 
 module.exports = {
+  createGameAndGetJoinCode,
   updateUser,
   updateUserStats,
   db,
