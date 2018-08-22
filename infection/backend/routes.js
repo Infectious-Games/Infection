@@ -39,7 +39,7 @@ module.exports = (app) => {
 	
   app.get('/auth/google/callback', 
     passport.authenticate('google', { 
-      //TODO: 
+      //TODO: handle these properly
       successRedirect: '/',
       failureRedirect: '/login'
 
