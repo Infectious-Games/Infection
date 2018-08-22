@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 6
+cache:
+  directories:
+    - node_modules
+before_script: cd infection
+script:
+  # - npm run build
+  - yarn install
+  # - yarn build
+  - yarn start
+  - yarn static
+  - yarn test
