@@ -34,6 +34,14 @@ const Game = db.define('game', {
   // },
 });
 
+Game.sync({force: true})
+  .then(game => {
+    console.log('game model created in db')
+  })
+  .catch(err => {
+    console.error(err);
+  })
+
 // find or create user
 const updateUser = (user, callback) => {
   const {username} = user;
@@ -53,6 +61,9 @@ const createGameAndGetJoinCode = (count) => {
   .then(game => {
     console.log(game.get('numberOfPlayers'));
     return game.get('id');
+  })
+  .catch(err => {
+    console.error(err);
   })
 }
 /* Sequelize comes with built in support for promises
