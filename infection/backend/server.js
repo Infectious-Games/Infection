@@ -30,6 +30,7 @@ app.post('/user', (req, res) => {
 // update user's stats in the db
 app.post('/userStats', (req, res) => {
   const { body } = req;
+  console.log(body, 'body in server');
   db.updateUserStats(body, (data) => {
     res.json(data);
   });

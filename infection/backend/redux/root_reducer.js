@@ -9,7 +9,7 @@ module.exports = combineReducers({
   users,
   game,
   cureOrSabotage,
-  currentLeader,
   proposalVote,
+  round
 });
 
