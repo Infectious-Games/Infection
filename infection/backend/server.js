@@ -29,13 +29,13 @@ app.post('/user', (req, res) => {
 });
 
 app.post('/start', (req, res) => {
+  //take player count from body and use it to create game instance
   const { body } = req;
-  const playerCount = body.playerCount; //TODO: client should send a player count on create game
-  console.log(playerCount, 'playerCount from client');
-  let joinCode = db.createGameAndGetJoinCode(playerCount);
-  //console.log(joinCode);
-  // response is true if user has been added to db, or false if user already exists
-  res.json(joinCode);
+  const playerCount = body.playerCount;
+  //send join code (unique game id) back to client
+  db.createGameAndGetJoinCode(playerCount, (joinCode) => {
+    res.json(joinCode);
+  });
 });
 
 
