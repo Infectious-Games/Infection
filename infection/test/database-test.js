@@ -4,10 +4,9 @@ var expect = require('chai').expect;
 
 describe('Database Testing:', function () {
   after(() => {
-    // db.User.destroy({ where: { username: 'Testy'} })
-    // .then(() => 
-    db.db.close()
-  // )
+    db.User.find({ where: { username: 'Testy' } })
+    .then((user) => user.destroy())
+    .then(() => db.db.close())
   });
 
   describe('The database', function () {
@@ -20,13 +19,13 @@ describe('Database Testing:', function () {
         done();
       });
     });
-    // it(`should update a user's stats`, function (done) {
-    //   const update = { username: 'Testy', win: true };
-    //   db.updateUserStats(update, (data) => {
-    //     // if updated correctly, should increment wins by 1
-    //     expect(data).to.have.property('wins').to.equal(1);
-    //     done();
-    //   });
-    // });
+    it(`should update a user's stats`, function (done) {
+      const update = { username: 'Testy', win: true };
+      db.updateUserStats(update, (data) => {
+        // if updated correctly, should increment wins by 1
+        expect(data).to.have.property('wins').to.equal(1);
+        done();
+      });
+    });
   });
 });
