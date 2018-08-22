@@ -51,7 +51,7 @@ const updateUser = ({username}, callback) => {
       gamesPlayed: 0,
       wins: 0,
       loses: 0,
-      clearanceLevel: 'Collateral Clearance'
+      clearanceLevel: 'Confidential'
     }
   })
     .spread((user, created) => {
@@ -98,15 +98,17 @@ const createGameAndGetJoinCode = (count, cb) => {
 //   });
 const clearanceLevels = (wins => {
   if (wins < 10) {
-    return 'Collateral Clearance';
+    return 'Unclassified';
   } else if (wins > 9 && wins < 20) {
     return 'Confidential';
   } else if (wins > 19 && wins < 50) {
     return 'Secret';
   } else if (wins > 49 && wins < 100) {
     return 'Top Secret';
-  } else if (wins > 99) {
-    return 'Illuminati';
+  } else if (wins > 99 && wins < 1000) {
+    return 'Sensitive Compartmented Information(SCI)';
+  } else if (wins > 999) {
+    return 'Illuminati'
   }
 }) 
 
