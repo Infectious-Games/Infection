@@ -1,6 +1,8 @@
 import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
+
 import Header from '../game/shared/header';
+import Clearance from './clearance';
 
 const Dashboard = ({ username, handle, wins, losses, clearance }) =>
   <Grid>
@@ -11,7 +13,7 @@ const Dashboard = ({ username, handle, wins, losses, clearance }) =>
     <Row>
       <Col med={2}></Col>
       <Col med={8}>
-        <Row>{clearance} Clearance Level</Row>
+        <Clearance clearance={clearance}></Clearance>
       <Row>
         <ListGroup>
           <ListGroupItem>Username: {username}</ListGroupItem>
