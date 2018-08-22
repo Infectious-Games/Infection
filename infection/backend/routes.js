@@ -22,9 +22,16 @@ module.exports = (app) => {
 // update user's stats in the db
 	app.post('/userStats', (req, res) => {
 		const { body } = req;
-		console.log(body, 'body in server');
 		db.updateUserStats(body, (data) => {
 		res.json(data);
+		});
+	});
+// get user's stats from the db
+	app.get('/userStats', (req, res) => {
+		const query = req.query;
+		console.log(query, 'GET /userStats query in server');
+		db.getUserStats(query, (data) => {
+			res.json(data);
 		});
 	});
 }

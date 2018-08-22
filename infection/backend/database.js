@@ -74,41 +74,18 @@ const createGameAndGetJoinCode = (count, cb) => {
     console.error(err);
   })
 }
-/* Sequelize comes with built in support for promises
- * making it easy to chain asynchronous operations together */
-// User.sync()
-//   .then(function() {
-//     // Now instantiate an object and save it:
-//     return User.create({username: 'Jean Valjean'});
-//   })
-//   .then(function() {
-//     // Retrieve objects from the database:
-//     return User.findAll({ where: {username: 'Jean Valjean'} });
-//   })
-//   .then(function(users) {
-//     users.forEach(function(user) {
-//       console.log(user.username + ' exists');
-//     });
-//     db.close();
-//   })
-//   .catch(function(err) {
-//     // Handle any error in the chain
-//     console.error(err);
-//     db.close();
-//   });
+
 const clearanceLevels = (wins => {
   if (wins < 10) {
-    return 'Unclassified';
+    return 'unclassified';
   } else if (wins > 9 && wins < 20) {
-    return 'Confidential';
+    return 'confidential';
   } else if (wins > 19 && wins < 50) {
-    return 'Secret';
+    return 'secret';
   } else if (wins > 49 && wins < 100) {
-    return 'Top Secret';
+    return 'top-secret';
   } else if (wins > 99 && wins < 1000) {
-    return 'Sensitive Compartmented Information(SCI)';
-  } else if (wins > 999) {
-    return 'Illuminati'
+    return 'illuminati';
   }
 }) 
 
@@ -133,6 +110,14 @@ const updateUserStats = ({win, username} , callback) => {
     .then((user) => callback(user))
 }
 
+// get user stats
+const getUserStats = ({ username }, callback) => {
+  // find user
+  User.find({ where: { username } })
+    // return the user
+    .then((user) => callback(user))
+}
+
 // drop the db
 // User.sync({ force: true }).then(() => {
 //   console.log('DATABASE DROPPED');
@@ -142,6 +127,7 @@ module.exports = {
   createGameAndGetJoinCode,
   updateUser,
   updateUserStats,
+  getUserStats,
   db,
   User
 };

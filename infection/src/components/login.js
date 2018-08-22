@@ -38,12 +38,23 @@ class Login extends React.Component {
     this.setState({ username: e.target.value });
   }
 
+  getUserStats = () => {
+    const username = this.state.username;
+    axios.get('/userStats', {
+      params: { username },
+    }).then((response) => {
+      console.log(response, 'response from getUserStats in login');
+    })
+  }
+
   render() {
     return (
       <Grid>
         {
           this.state.loggedIn
-          ? <Dashboard></Dashboard>
+          ? <Dashboard
+          getUserStats={this.getUserStats.bind(this)}
+          ></Dashboard>
           : <Welcome
           login={this.state}
           handleChange={this.handleChange.bind(this)}

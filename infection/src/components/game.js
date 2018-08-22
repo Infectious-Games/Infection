@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import axios from 'axios';
 
 import socket from '../socket';
 
@@ -66,9 +67,26 @@ class Game extends Component {
       this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
-      console.log(winner, 'winner in client');
       this.setState({ gameOver: true, scientistsWin: winner }, () => {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
+        // update user stats
+        console.log(this.state.infiltrator, 'this.state.infiltrator in game');
+        // if player is a scientist and scientists have won the game, or
+        // if player is an infiltrator and infiltrators have won the game
+        if (this.state.infiltrator && !winner || !this.state.infiltrator && winner) {
+          const update = {username: this.state.username, win: true}
+          axios.post('/userStats', update)
+            .then((userStats) => {
+              console.log(userStats, 'userStats in game');
+            })
+        // otherwise the player has lost the game    
+        } else {
+          const update = { username: this.state.username, win: false }
+          axios.post('/userStats', update)
+            .then((userStats) => {
+              console.log(userStats, 'userStats in game');
+            })
+        }
       })
     })
   }
