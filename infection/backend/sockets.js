@@ -12,7 +12,6 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-    
   io.on('connection', (socket) => {
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
@@ -49,7 +48,7 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === 5 
+      store.getState().users.length === playerCount //TODO: Number received from client 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
