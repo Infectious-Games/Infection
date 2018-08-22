@@ -5,7 +5,6 @@ const { join } = require('path');
 const routes = require('./routes.js');
 const sockets = require('./sockets.js');
 const db = require('./database');
-// const { createGameAndGetJoinCode } = require('./database');
 
 const app = express();
 
