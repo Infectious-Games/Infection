@@ -1,4 +1,5 @@
 const db = require('./database');
+const passport = require('passport');
 
 module.exports = (app) => {        
 // find or add a user to the db
@@ -27,4 +28,20 @@ module.exports = (app) => {
       res.json(data);
     });
   });
-}
+	
+
+  app.get('/', (req, res) => res.send({ user: req.user || null} ));
+  
+  app.get('/auth/google',
+    passport.authenticate('google', { 
+      scope: ['profile'] 
+    }));
+	
+  app.get('/auth/google/callback', 
+    passport.authenticate('google', { 
+      //TODO: 
+      successRedirect: '/',
+      failureRedirect: '/login'
+
+    }));
+};
