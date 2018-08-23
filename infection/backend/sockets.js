@@ -13,15 +13,11 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-  var playerCount; //FIXME: this needs to be the number of players in game, which is now received through http request
+  var playerCount = 4; //FIXME: pull from state
   io.on('connection', (socket) => {
 
-    // socket.on('player count', (gameSpecs) => {
-
-    // });
-
     socket.on('join game', (playerProps) => {
-      const game = playerProps.game;
+      const game = String(playerProps.game);
       const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
@@ -55,7 +51,7 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === 4 //TODO: Number received from client 
+      store.getState().users.length === playerCount //TODO: Pull number received from client from state
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
