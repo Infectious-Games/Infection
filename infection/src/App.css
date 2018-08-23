@@ -9,6 +9,30 @@
   color: #eb410d;
   background-color: rgb(24, 23, 23);
 }
+.clearance-lvl {
+  color: black
+}
+.unclassified {
+  background-color: yellow
+}
+
+.confidential {
+  background-color: green
+}
+
+.secret {
+  background-color: blue
+}
+
+.top-secret {
+  background-color: red
+}
+
+.illuminati {
+  background-color: indigo
+}
+
+
 
 
 .gameStatus {

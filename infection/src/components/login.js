@@ -20,7 +20,7 @@ class Login extends React.Component {
     this.handleJoinCodeChange = this.handleJoinCodeChange.bind(this);
 
     this.state = {
-      clearance: 'Unclassified',
+      clearance: 'unclassified',
       game: '',
       playerCount: '',
       handle: 'test',
@@ -33,8 +33,8 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const user = {"username": this.state.username};
-    axios.post('/user', user)
+    const game = {"game": this.state.game};
+    axios.post('/game', game)
       .then((response) => {
         response.data ? console.log(`user: ${user.username} added to db`) : console.log(`user: ${user.username} aleady in db`);
         this.props.setInGameStatus();
@@ -45,7 +45,8 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ username: e.target.value });
+    this.setState({ game: e.target.value });
+    console.log(this.state.game)
   }
 //TODO: plug in functions below to start game form. Needs to be tested
   handleCreateGame(e) {
@@ -82,17 +83,15 @@ class Login extends React.Component {
         {
           user.loggedIn
           ? <Dashboard
+              game={user.game}
               clearance={user.clearance}
-              handle={user.handle}
               losses={user.losses}
               username={user.username}
               wins={user.wins}
+              handleChange={this.handleChange.bind(this)}
+              handleSubmit={this.handleSubmit.bind(this)}
             ></Dashboard>
-          : <Welcome
-          login={user}
-          handleChange={this.handleChange.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-        ></Welcome>
+          : <Welcome></Welcome>
         }
       </Grid>
     );
