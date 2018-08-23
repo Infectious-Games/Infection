@@ -18,8 +18,8 @@ const User = db.define('User', {
   wins: Sequelize.INTEGER,
   loses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
-  // photo: Sequelize.STRING,
-  // email: Sequelize.STRING,
+  photo: Sequelize.STRING,
+  email: Sequelize.STRING,
 });
 
 //game schema

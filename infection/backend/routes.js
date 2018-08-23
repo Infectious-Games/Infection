@@ -108,9 +108,11 @@ module.exports = (app) => {
     if (req.user) {
       // logged in
       console.log('logged in');
+      res.json(true)
     } else {
       // not logged in
       console.log('NOT logged in');
+      res.json(false);
     }
   });
 

@@ -29,13 +29,10 @@ class Login extends React.Component {
     };
   }
   componentDidMount() {
-    // GET TO SERVER /loggedIn
+    // check if user is logged in
     axios.get('/loggedIn', {
-      // params: { username },
-    }).then((response) => {
-      console.log(response, 'response from GET /loggedIn in login');
-      // this.setState({ loggedIn: true });
-    })
+    }).then((response) => 
+      response.data ? this.setState({ loggedIn: true }) : console.log('not logged in'))
   }
 
   handleSubmit(e) {
