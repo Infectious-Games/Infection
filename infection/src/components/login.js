@@ -15,33 +15,23 @@ class Login extends React.Component {
     //create new game event handlers
     this.handleCreateGame = this.handleCreateGame.bind(this);
     this.handlePlayerCountChange = this.handlePlayerCountChange.bind(this);
-    //join game event handlers
-    this.handleJoinGame = this.handleJoinGame.bind(this);
-    this.handleJoinCodeChange = this.handleJoinCodeChange.bind(this);
 
     this.state = {
       clearance: 'unclassified',
       game: '',
       playerCount: '',
       handle: 'test',
-      loggedIn: false,
+      loggedIn: true,
       losses: 0,
       username: 'bob',
       wins: 0,
     };
   }
 
+  //sends join code to server and triggers join game event
   handleSubmit(e) {
     e.preventDefault();
-    const game = {"game": this.state.game};
-    axios.post('/game', game)
-      .then((response) => {
-        response.data ? console.log(`user: ${user.username} added to db`) : console.log(`user: ${user.username} aleady in db`);
-        this.props.setInGameStatus();
-      })
-      .catch((error) => {
-        console.error(error, 'error in index.jsx');
-      });
+    socket.emit('join game', { username: this.state.username, game: this.state.game })
   }
 
   handleChange(e) {
@@ -56,6 +46,7 @@ class Login extends React.Component {
       .then((joinCode) => {
         console.log(joinCode);
         //TODO: alert message for join code?
+        socket.emit('player count', { game: joinCode, playerCount });
       })
       .catch((error) => {
         console.error(error, 'error creating game in login.js');
@@ -64,16 +55,6 @@ class Login extends React.Component {
 
   handlePlayerCountChange(e) {
     this.setState({ playerCount: e.target.value });
-  }
-
-  handleJoinGame(e) {
-    e.preventDefault();
-    // send username and game name to server TODO: test that this is working
-    socket.emit('join game', { username: this.state.username, game: this.state.game })
-  }
-
-  handleJoinCodeChange(e) {
-    this.setState({ game: e.target.value });
   }
 
   render() {
