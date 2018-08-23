@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.load();
 
-const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {})
+const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {});
 
 db.authenticate()
   .then(() => {
@@ -27,22 +27,22 @@ const Game = db.define('game', {
   results: {
     type: Sequelize.STRING,
     allowNull: true,
-      get() {
-        return this.getDataValue('results').split(';')
-      },
-      set(val) {
-        this.setDataValue('results',val.join(';'));
-      },
+    get() {
+      return this.getDataValue('results').split(';');
+    },
+    set(val) {
+      this.setDataValue('results', val.join(';'));
+    },
   },
 });
 
 Game.sync({force: true})
   .then(game => {
-    console.log('game model created in db')
+    console.log('game model created in db');
   })
   .catch(err => {
     console.error(err);
-  })
+  });
 
 // find or create user
 const updateUser = ({username}, callback) => {
@@ -57,23 +57,23 @@ const updateUser = ({username}, callback) => {
     .spread((user, created) => {
       console.log(user.get({
         plain: true
-      }))
+      }));
       callback(created);
-    })
-}
+    });
+};
 
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
   Game
-  .create({ numberOfPlayers: count })
-  .then(game => {
-    console.log(game.get('id'), 'game id');
-    cb(game.get('id'));
-  })
-  .catch(err => {
-    console.error(err);
-  })
-}
+    .create({ numberOfPlayers: count })
+    .then(game => {
+      console.log(game.get('id'), 'game id');
+      cb(game.get('id'));
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
 /* Sequelize comes with built in support for promises
  * making it easy to chain asynchronous operations together */
 // User.sync()
@@ -108,14 +108,14 @@ const clearanceLevels = (wins => {
   } else if (wins > 99 && wins < 1000) {
     return 'Sensitive Compartmented Information(SCI)';
   } else if (wins > 999) {
-    return 'Illuminati'
+    return 'Illuminati';
   }
-}) 
+});
 
 // update user stats
-const updateUserStats = ({win, username} , callback) => {
+const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
-  const result = win ? 'wins': 'loses';
+  const result = win ? 'wins' : 'loses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
   // find user
@@ -126,12 +126,12 @@ const updateUserStats = ({win, username} , callback) => {
       const wins = user.wins;
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
-      return user.update({ clearanceLevel })
+      return user.update({ clearanceLevel });
     })
     .then(() => User.find({ where: { username } }))
     // return the updated user
-    .then((user) => callback(user))
-}
+    .then((user) => callback(user));
+};
 
 // drop the db
 // User.sync({ force: true }).then(() => {
