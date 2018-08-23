@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col} from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
 const Clearance = ({ clearance }) => {
   return <Row
