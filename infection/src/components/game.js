@@ -22,7 +22,7 @@ class Game extends Component {
       infiltrators: [],
       leader: undefined,
       missionActive: false,
-      missionResults: [undefined, undefined, undefined],
+      missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
       round: 0,
       scientistsWin: true,

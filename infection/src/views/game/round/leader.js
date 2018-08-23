@@ -7,12 +7,12 @@ import SelectRoster from './selectRoster';
 const Leader = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
   <Grid>
     <Row>
-      <Col med={12}>
+      <Col md={12}>
         <h1>Congratulations You are Leader</h1>
       </Col>
     </Row>
     <Row>
-      <Col med={12}>
+      <Col md={12}>
         <h2>Set Your Mission Roster</h2>
       </Col>
     </Row>

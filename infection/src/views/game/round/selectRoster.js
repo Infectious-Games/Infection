@@ -6,8 +6,8 @@ import SelectRosterEntry from './selectRosterEntry';
 const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
   <Grid>
     <Row>
-      <Col med={5}></Col>
-      <Col med={2}>
+      <Col md={5}></Col>
+      <Col md={2}>
         <ListGroup>
           {
             team.map((member) => 
@@ -19,13 +19,13 @@ const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }
           }
         </ListGroup>
       </Col>
-        <Col med={5}></Col>
+        <Col md={5}></Col>
     </Row>
     <Row>
       <br></br>
     </Row>
     <Row>
-      <Col med={12}>
+      <Col md={12}>
         <Button 
           bsStyle="danger" 
           bsSize="large" 

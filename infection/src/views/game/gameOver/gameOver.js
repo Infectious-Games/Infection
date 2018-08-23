@@ -15,8 +15,8 @@ const GameOver = ({
         }
       </Row>
       <Row>
-        <Col med={4}></Col>
-        <Col med={4}>
+        <Col md={4}></Col>
+        <Col md={4}>
           <Button 
             bsStyle="primary"
             onClick={setInGameStatus}
@@ -24,7 +24,7 @@ const GameOver = ({
           LEAVE GAME
           </Button>
         </Col>
-        <Col med={4}></Col>
+        <Col md={4}></Col>
       </Row>
     </Grid>
 
