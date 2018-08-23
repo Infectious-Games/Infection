@@ -1,8 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
-
-// const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
 const { SESSION_OPTIONS } = require('../config');
 const dotenv = require('dotenv');
 dotenv.load();
@@ -46,26 +44,17 @@ module.exports = (app) => {
 		});
   });
   
-  
-
   //////////////////////////////////////////////////////
   // Passport
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.serializeUser((user, done) => {
-    console.log(user.id, 'user.id in serialize');
-    done(null, user.id)
-  });
+  passport.serializeUser((user, done) => done(null, user.id));
 
   passport.deserializeUser((id, done) => {
-    console.log(id, 'id in deserializeUser');
     db.User.findById(id)
-      .then(user => {
-        console.log(user, 'user in deserialize 2')
-        done(null, user)
-      })
+      .then(user => done(null, user))
       .catch(err => done(err));
   });
 
@@ -94,26 +83,12 @@ module.exports = (app) => {
       // TODO: Handle routes back to client properly
       failureRedirect: '/failure',
       successRedirect: '/'
-    }
-      // , (authenticatedUser) => {
-      //   log(authenticatedUser, 'authenticatedUser in cb');
-      //   // db.updateUser({ username: authenticatedUser.displayName }, (user) => {
-      //   //   log(`user is ${user}`);
-      //   // });
-      // }
-    ));
+    }));
 
   // check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
-    if (req.user) {
-      // logged in
-      console.log('logged in');
-      res.json(true)
-    } else {
-      // not logged in
-      console.log('NOT logged in');
-      res.json(false);
-    }
-  });
-
+    req.user ? res.json({loggedIn: true, user: req.user}) 
+    : res.json({ loggedIn: false, user: req.user });
+  })
+  
 };

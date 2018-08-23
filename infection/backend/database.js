@@ -123,9 +123,9 @@ const getUserStats = ({ username }, callback) => {
 }
 
 // drop the db
-User.sync({ force: true }).then(() => {
-  console.log('DATABASE DROPPED');
-});
+// User.sync({ force: true }).then(() => {
+//   console.log('DATABASE DROPPED');
+// });
 
 module.exports = {
   createGameAndGetJoinCode,

@@ -26,13 +26,17 @@ class Login extends React.Component {
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
+
     };
   }
   componentDidMount() {
     // check if user is logged in
     axios.get('/loggedIn', {
-    }).then((response) => 
-      response.data ? this.setState({ loggedIn: true }) : console.log('not logged in'))
+    }).then(({data}) => {
+      console.log(data, 'data in login');
+      data.loggedIn ? 
+      this.setState({ loggedIn: true, username: data.user.username }) : console.log('not logged in')
+    })
   }
 
   handleSubmit(e) {
