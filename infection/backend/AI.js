@@ -10,11 +10,9 @@ class PAL3000 {
   cureOrSabotage() {
     // if scientist
     if (this.scientist) {
-      // votes CURE
       return 'CURE'
       // if infiltrator
     } else {
-      // votes SABOTAGE
       return 'SABOTAGE'
     }
   }
@@ -24,17 +22,21 @@ class PAL3000 {
 
   }  
   // Voting for mission team
-  voteForMissionTeam() {
+  voteForMissionTeam(includesInfiltrator) { // true or false
     // if scientist
     if (this.scientist) {
       // 50/50 Yes/No
     // if infiltrator
     } else {
-      // votes YES for missions which include an infiltrator
-      // votes NO for missions which do NOT include an infiltrator
+      // if mission includes an infiltrator
+      if (includesInfiltrator) {
+        return 'YES';
+      // if mission does NOT include an infiltrator
+      } else {
+        return 'NO';
+      }
     }
   }
-
 };
 
 module.exports = {
