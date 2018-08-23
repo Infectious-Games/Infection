@@ -19,7 +19,7 @@ class Login extends React.Component {
     this.state = {
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       newGameCode: undefined,
       username: undefined,
