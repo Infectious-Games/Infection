@@ -7,17 +7,11 @@ const InfiltratorList = ({ infiltrators }) =>
   <Grid>
 
     <Row>
-      <Col md={4}></Col>
-      <Col md={4}>
+      <Col md={8}>
       <h4>
         Your Co-Conspiritors!
       </h4>
-      </Col>
-      <Col md={4}></Col>
-    </Row>
-    <Row>
-      <Col md={4}></Col>
-      <Col md={4}>
+      <Row>
         {
           infiltrators.map(infiltrator =>
           <InfiltratorListEntry  
@@ -25,8 +19,8 @@ const InfiltratorList = ({ infiltrators }) =>
             infiltrator={infiltrator}
           ></InfiltratorListEntry>)
         }
+      </Row>
       </Col>
-      <Col md={4}></Col>
     </Row>
   </Grid>
 
