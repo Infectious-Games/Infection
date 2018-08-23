@@ -71,20 +71,20 @@ class Game extends Component {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
         // update user stats
         console.log(this.state.infiltrator, 'this.state.infiltrator in game');
-        // if player is a scientist and scientists have won the game, or
         // if player is an infiltrator and infiltrators have won the game
+        // if player is a scientist and scientists have won the game, or
         if (this.state.infiltrator && !winner || !this.state.infiltrator && winner) {
           const update = {username: this.state.username, win: true}
           axios.post('/userStats', update)
             .then((userStats) => {
-              console.log(userStats, 'userStats in game');
+              console.log(userStats, 'updated userStats in game');
             })
         // otherwise the player has lost the game    
         } else {
           const update = { username: this.state.username, win: false }
           axios.post('/userStats', update)
             .then((userStats) => {
-              console.log(userStats, 'userStats in game');
+              console.log(userStats, 'updated userStats in game');
             })
         }
       })

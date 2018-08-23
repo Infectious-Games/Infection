@@ -18,6 +18,8 @@ const User = db.define('User', {
   wins: Sequelize.INTEGER,
   loses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
+  photo: Sequelize.STRING,
+  email: Sequelize.STRING,
 });
 
 //game schema
@@ -51,7 +53,9 @@ const updateUser = ({username}, callback) => {
       gamesPlayed: 0,
       wins: 0,
       loses: 0,
-      clearanceLevel: 'Confidential'
+      clearanceLevel: 'Confidential',
+      photo: '',
+      email: '',
     }
   })
     .spread((user, created) => {
@@ -119,9 +123,9 @@ const getUserStats = ({ username }, callback) => {
 }
 
 // drop the db
-// User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
-// });
+User.sync({ force: true }).then(() => {
+  console.log('DATABASE DROPPED');
+});
 
 module.exports = {
   createGameAndGetJoinCode,

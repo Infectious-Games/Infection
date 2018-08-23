@@ -4,6 +4,7 @@ module.exports = (app) => {
 // find or add a user to the db
 	app.post('/user', (req, res) => {
 		const { body } = req;
+		console.log(body, 'BODY');
 		db.updateUser(body, (data) => {
 		// response is true if user has been added to db, or false if user already exists
 		res.json(data);
