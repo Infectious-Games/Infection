@@ -143,5 +143,6 @@ module.exports = {
   updateUser,
   updateUserStats,
   db,
-  User
+  User,
+  Game
 };

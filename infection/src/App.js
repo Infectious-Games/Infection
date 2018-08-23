@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
     this.setInGameStatus = this.setInGameStatus.bind(this);
     this.state = {
-    inGame: false,
+      inGame: false,
     }
   }
 //pass a function to setInGameStatus to set state.

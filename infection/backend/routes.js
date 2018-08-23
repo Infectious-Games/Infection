@@ -47,9 +47,7 @@ module.exports = (app) => {
     db.User.findById(id)
       .then(user => done(null, user))
       .catch(err => done(err));
-    // done(null, {});
   });
-
 
   // Passport Google Strategy
   passport.use(new GoogleStrategy({
@@ -64,10 +62,7 @@ module.exports = (app) => {
       log(`user is ${user}`);
       return done(null, user);
     });
-    // return done(profile);
   }));
-
-
 
   app.get('/auth/google',
     passport.authenticate('google', {
@@ -87,29 +82,4 @@ module.exports = (app) => {
       //   // });
       // }
     ));
-  // , function (req, res) {
-  //   console.log('hit next in get auth/google/redirect');
-  //   res.redirect('/');
-  // });
-
-
-
-  // app.get('/failure', (req, res) => res.send('failure hit'));
-
-  // app.get('/success', (req, res) => {
-  //   res.send('success hit');
-  // });
-
-
-
-  // app.get('/success', (req, res) => {
-  //   log('success - sending back to dashboard')
-  //   res.send('success');
-  //   // TODO: 
-  // });
-
-  // app.get('/failure', (req, res) => {
-  //   log('failure - sending back to root');
-  //   res.send('failure');
-  // });
 };
