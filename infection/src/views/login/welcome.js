@@ -4,7 +4,7 @@ import { Image, Grid, Row, Col } from 'react-bootstrap';
 import infectionLogo from '../../images/Infection.jpg';
 import LoginView from './loginView';
 
-const Welcome = ({ login ,handleChange, handleSubmit }) =>
+const Welcome = () =>
   <Grid className="welcome">
     <Row className="welcome">
       <Col md={2}></Col>
@@ -27,11 +27,7 @@ const Welcome = ({ login ,handleChange, handleSubmit }) =>
     <Row className="login">
       <Col md={4}></Col>
       <Col md={4}>
-        <LoginView 
-          login={login}
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-        ></LoginView>
+        <LoginView></LoginView>
       </Col>
       <Col md={4}></Col>
     </Row>

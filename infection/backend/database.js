@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.load();
 
-const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {})
+const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {});
 
 db.authenticate()
   .then(() => {
@@ -29,22 +29,22 @@ const Game = db.define('game', {
   results: {
     type: Sequelize.STRING,
     allowNull: true,
-      get() {
-        return this.getDataValue('results').split(';')
-      },
-      set(val) {
-        this.setDataValue('results',val.join(';'));
-      },
+    get() {
+      return this.getDataValue('results').split(';');
+    },
+    set(val) {
+      this.setDataValue('results', val.join(';'));
+    },
   },
 });
 
 Game.sync({force: true})
   .then(game => {
-    console.log('game model created in db')
+    console.log('game model created in db');
   })
   .catch(err => {
     console.error(err);
-  })
+  });
 
 // find or create user
 const updateUser = ({username}, callback) => {
@@ -61,14 +61,15 @@ const updateUser = ({username}, callback) => {
     .spread((user, created) => {
       console.log(user.get({
         plain: true
-      }))
-      callback(created);
-    })
-}
+      }));
+      callback(user);
+    });
+};
 
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
   Game
+<<<<<<< HEAD
   .create({ numberOfPlayers: count })
   .then(game => {
     console.log(game.get('id'), 'game id');
@@ -79,6 +80,39 @@ const createGameAndGetJoinCode = (count, cb) => {
   })
 }
 
+=======
+    .create({ numberOfPlayers: count })
+    .then(game => {
+      console.log(game.get('id'), 'game id');
+      cb(game.get('id'));
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+/* Sequelize comes with built in support for promises
+ * making it easy to chain asynchronous operations together */
+// User.sync()
+//   .then(function() {
+//     // Now instantiate an object and save it:
+//     return User.create({username: 'Jean Valjean'});
+//   })
+//   .then(function() {
+//     // Retrieve objects from the database:
+//     return User.findAll({ where: {username: 'Jean Valjean'} });
+//   })
+//   .then(function(users) {
+//     users.forEach(function(user) {
+//       console.log(user.username + ' exists');
+//     });
+//     db.close();
+//   })
+//   .catch(function(err) {
+//     // Handle any error in the chain
+//     console.error(err);
+//     db.close();
+//   });
+>>>>>>> 83cd0a5fa838ded159432f70505c384cedf69079
 const clearanceLevels = (wins => {
   if (wins < 10) {
     return 'unclassified';
@@ -89,14 +123,20 @@ const clearanceLevels = (wins => {
   } else if (wins > 49 && wins < 100) {
     return 'top-secret';
   } else if (wins > 99 && wins < 1000) {
+<<<<<<< HEAD
     return 'illuminati';
+=======
+    return 'Sensitive Compartmented Information(SCI)';
+  } else if (wins > 999) {
+    return 'Illuminati';
+>>>>>>> 83cd0a5fa838ded159432f70505c384cedf69079
   }
-}) 
+});
 
 // update user stats
-const updateUserStats = ({win, username} , callback) => {
+const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
-  const result = win ? 'wins': 'loses';
+  const result = win ? 'wins' : 'loses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
   // find user
@@ -107,12 +147,12 @@ const updateUserStats = ({win, username} , callback) => {
       const wins = user.wins;
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
-      return user.update({ clearanceLevel })
+      return user.update({ clearanceLevel });
     })
     .then(() => User.find({ where: { username } }))
     // return the updated user
-    .then((user) => callback(user))
-}
+    .then((user) => callback(user));
+};
 
 // get user stats
 const getUserStats = ({ username }, callback) => {
@@ -133,5 +173,6 @@ module.exports = {
   updateUserStats,
   getUserStats,
   db,
-  User
+  User,
+  Game
 };

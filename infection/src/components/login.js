@@ -10,32 +10,53 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.setInGameStatus = props.setInGameStatus;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    
+    this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
+    this.handleCreateGame = this.handleCreateGame.bind(this);
+
     this.state = {
-      loggedIn: false,
-      username: '',
-      game: 'demo',
+      clearance: 'unclassified',
+      game: undefined,
+      loggedIn: true,
+      losses: 0,
+      newGameCode: undefined,
+      username: undefined,
+      wins: 0,
+      numOfPlayers: 4,
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const user = {"username": this.state.username};
-    axios.post('/user', user)
-      .then((response) => {
-        response.data ? console.log(`user: ${user.username} added to db`) : console.log(`user: ${user.username} aleady in db`);
-        socket.emit('join game', { username: this.state.username, game: this.state.game})
-        this.props.setInGameStatus();
-      })
-      .catch((error) => {
-        console.error(error, 'error in index.jsx');
-      });
+    this.setInGameStatus();
+    socket.emit('join game', { username: this.state.username, game: this.state.game })
   }
 
   handleChange(e) {
-    this.setState({ username: e.target.value });
+    this.setState({ game: e.target.value });
+    console.log(this.state.game, 'game in handleChange')
+  }
+
+  handleCreateGame(num) {
+    const playerCount = {"playerCount": num};
+    console.log(num, 'num sent to server in handleCreateGame');
+    axios.post('/start', playerCount)
+      .then((joinCode) => {
+        console.log(joinCode.data, 'joinCode in handleCreateGame');
+        this.setState({ newGameCode: joinCode.data });
+      })
+      .catch((error) => {
+        console.error(error, 'error creating game in login.js');
+      });
+  }
+
+  setNumOfPlayers(num) {
+    console.log(num, 'num taken as input in setNumOfPlayers');
+    this.setState({ numOfPlayers: num })
+    this.handleCreateGame(num);
   }
 
   getUserStats = () => {
@@ -48,9 +69,11 @@ class Login extends React.Component {
   }
 
   render() {
+    const user = this.state;
     return (
       <Grid>
         {
+<<<<<<< HEAD
           this.state.loggedIn
           ? <Dashboard
           getUserStats={this.getUserStats.bind(this)}
@@ -60,6 +83,22 @@ class Login extends React.Component {
           handleChange={this.handleChange.bind(this)}
           handleSubmit={this.handleSubmit.bind(this)}
         ></Welcome>
+=======
+          user.loggedIn
+          ? <Dashboard
+              game={user.game}
+              newGame={user.newGameCode}
+              clearance={user.clearance}
+              losses={user.losses}
+              username={user.username}
+              wins={user.wins}
+              handleChange={this.handleChange.bind(this)}
+              handleSubmit={this.handleSubmit.bind(this)}
+              setNumOfPlayers={this.setNumOfPlayers.bind(this)}
+              handleCreateGame={this.handleCreateGame.bind(this)}
+            ></Dashboard>
+          : <Welcome></Welcome>
+>>>>>>> 83cd0a5fa838ded159432f70505c384cedf69079
         }
       </Grid>
     );
