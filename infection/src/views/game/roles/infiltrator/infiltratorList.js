@@ -8,8 +8,11 @@ const InfiltratorList = ({ infiltrators }) =>
 
     <Row>
       <Col md={8}>
+      <h3>
+        This List Has All The Infiltrators!
+      </h3>
       <h4>
-        Your Co-Conspiritors!
+        Keep it hidden from the others!
       </h4>
       <Row>
         {
