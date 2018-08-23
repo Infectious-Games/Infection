@@ -6,16 +6,19 @@ const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
+const { findNumberOfPlayers } = require('./database');
 const chalk = require('chalk');
 const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
+  var playerCount = 4; //FIXME: pull from state
   io.on('connection', (socket) => {
+
     socket.on('join game', (playerProps) => {
-      const game = playerProps.game;
-      const username = playerProps.username;
+      const game = String(playerProps.game);
+      const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
 
@@ -48,7 +51,7 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === playerCount //TODO: Number received from client 
+      store.getState().users.length === playerCount //TODO: Pull number received from client from state
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
