@@ -8,8 +8,8 @@ const db = require('./database');
 
 const log = console.log;
 
-module.exports = (app) => {        
-// find or add a user to the db
+module.exports = (app) => {
+  // find or add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
     db.updateUser(body, (data) => {
@@ -39,17 +39,17 @@ module.exports = (app) => {
   app.use(session(SESSION_OPTIONS));
   app.use(passport.session());
 
-  passport.serializeUser((user, done) => 
+  passport.serializeUser((user, done) =>
     done(null, user.id));
-	
+
   passport.deserializeUser((id, done) => {
     console.log(id, 'id in deserialize');
     db.User.findById(id)
       .then(user => done(null, user))
-		  .catch(err => done(err));
+      .catch(err => done(err));
     // done(null, {});
   });
-	
+
 
   // Passport Google Strategy
   passport.use(new GoogleStrategy({
@@ -66,25 +66,25 @@ module.exports = (app) => {
     });
     // return done(profile);
   }));
-	
-  
-	
+
+
+
   app.get('/auth/google',
-    passport.authenticate('google', { 
-      scope: ['profile'] 
+    passport.authenticate('google', {
+      scope: ['profile']
     }));
-	
-  app.get('/auth/google/redirect', 
-    passport.authenticate('google', { 
+
+  app.get('/auth/google/redirect',
+    passport.authenticate('google', {
       // TODO: Handle routes back to client properly
       failureRedirect: '/failure',
       successRedirect: '/'
     }
       // , (authenticatedUser) => {
-    //   log(authenticatedUser, 'authenticatedUser in cb');
-    //   // db.updateUser({ username: authenticatedUser.displayName }, (user) => {
-    //   //   log(`user is ${user}`);
-    //   // });
+      //   log(authenticatedUser, 'authenticatedUser in cb');
+      //   // db.updateUser({ username: authenticatedUser.displayName }, (user) => {
+      //   //   log(`user is ${user}`);
+      //   // });
       // }
     ));
   // , function (req, res) {
@@ -92,22 +92,22 @@ module.exports = (app) => {
   //   res.redirect('/');
   // });
 
-  
+
 
   // app.get('/failure', (req, res) => res.send('failure hit'));
-	
+
   // app.get('/success', (req, res) => {
   //   res.send('success hit');
   // });
 
 
-		
+
   // app.get('/success', (req, res) => {
   //   log('success - sending back to dashboard')
   //   res.send('success');
   //   // TODO: 
   // });
-	
+
   // app.get('/failure', (req, res) => {
   //   log('failure - sending back to root');
   //   res.send('failure');
