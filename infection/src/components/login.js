@@ -49,7 +49,6 @@ class Login extends React.Component {
       .then((joinCode) => {
         console.log(joinCode);
         //TODO: alert message for join code?
-        socket.emit('player count', { game: joinCode, playerCount });
       })
       .catch((error) => {
         console.error(error, 'error creating game in login.js');
