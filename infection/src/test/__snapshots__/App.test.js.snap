@@ -13,11 +13,11 @@ exports[`should render Game if logged in 1`] = `
     >
       <div
         className=""
-        med={5}
+        md={5}
       />
       <div
         className=""
-        med={2}
+        md={2}
       >
         <img
           className=""
@@ -28,7 +28,7 @@ exports[`should render Game if logged in 1`] = `
       </div>
       <div
         className=""
-        med={5}
+        md={5}
       />
     </div>
     <br />
@@ -37,11 +37,11 @@ exports[`should render Game if logged in 1`] = `
     >
       <div
         className=""
-        med={2}
+        md={2}
       />
       <div
         className=""
-        med={8}
+        md={8}
       >
         <div
           className="waitingForTeam container"
@@ -51,7 +51,7 @@ exports[`should render Game if logged in 1`] = `
           >
             <div
               className=""
-              med={12}
+              md={12}
             >
               <h1>
                 Please Wait for the Team to Assemble
@@ -63,7 +63,7 @@ exports[`should render Game if logged in 1`] = `
           >
             <div
               className=""
-              med={12}
+              md={12}
             >
               <img
                 className=""
@@ -75,7 +75,7 @@ exports[`should render Game if logged in 1`] = `
       </div>
       <div
         className=""
-        med={2}
+        md={2}
       />
     </div>
     <div
@@ -92,11 +92,11 @@ exports[`should render Game if logged in 1`] = `
       >
         <div
           className=""
-          med={4}
+          md={4}
         />
         <div
           className=""
-          med={4}
+          md={4}
         >
           <h4>
             Mission Results
@@ -104,7 +104,7 @@ exports[`should render Game if logged in 1`] = `
         </div>
         <div
           className=""
-          med={4}
+          md={4}
         />
       </div>
       <div

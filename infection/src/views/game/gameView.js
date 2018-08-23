@@ -21,8 +21,8 @@ const GameView = ({
     <Header></Header>
     <br></br>
     <Row>
-      <Col med={2}></Col>
-      <Col med={8}>
+      <Col md={2}></Col>
+      <Col md={8}>
         {
           !game.teamAssembled
             ? <WaitingForTeam></WaitingForTeam>
@@ -53,7 +53,7 @@ const GameView = ({
                     scientistsWin={game.scientistsWin}></GameOver>
         }
       </Col>
-      <Col med={2}></Col>
+      <Col md={2}></Col>
     </Row>
     <Row>
       <br></br>

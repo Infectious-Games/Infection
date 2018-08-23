@@ -14,19 +14,20 @@ class Login extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    //create new game event handlers
-    this.handleCreateGame = this.handleCreateGame.bind(this);
-    this.handlePlayerCountChange = this.handlePlayerCountChange.bind(this);
+    this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
+
+    this.state = {
 
     this.state = {
       clearance: 'unclassified',
-      game: '',
-      playerCount: '',
-      handle: 'test',
-      loggedIn: true,
+      game: undefined,
+      loggedIn: false,
       losses: 0,
-      username: 'bob',
+      newGameCode: undefined,
+      username: undefined,
       wins: 0,
+      numOfPlayers: 4,
+
     };
   }
 
@@ -59,6 +60,12 @@ class Login extends React.Component {
     this.setState({ playerCount: e.target.value });
   }
 
+  setNumOfPlayers(num) {
+    console.log(num);
+    this.setState({ numOfPlayers: num })
+    console.log(this.state.numOfPlayers)
+  }
+
   render() {
     const user = this.state;
     return (
@@ -67,12 +74,14 @@ class Login extends React.Component {
           user.loggedIn
           ? <Dashboard
               game={user.game}
+              newGame={user.newGameCode}
               clearance={user.clearance}
               losses={user.losses}
               username={user.username}
               wins={user.wins}
               handleChange={this.handleChange.bind(this)}
               handleSubmit={this.handleSubmit.bind(this)}
+              setNumOfPlayers={this.setNumOfPlayers.bind(this)}
             ></Dashboard>
           : <Welcome></Welcome>
         }
