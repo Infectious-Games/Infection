@@ -1,8 +1,12 @@
-const db = require('./database');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('cookie-session');
+
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
+const { SESSION_OPTIONS } = require('../config');
+const db = require('./database');
+
+const log = console.log;
 
 module.exports = (app) => {        
 // find or add a user to the db
@@ -26,25 +30,64 @@ module.exports = (app) => {
   // update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
-    console.log(body, 'body in server');
+    log(body, 'body in server');
     db.updateUserStats(body, (data) => {
       res.json(data);
     });
   });
+  // Passport Google Strategy
+  passport.use(new GoogleStrategy({
+    callbackURL: '/auth/google/redirect',
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET
+  }, (accessToken, refreshToken, profile, done) => {
+    // log(`+ ACCESS TOKEN ++++ ${accessToken} ++++ ACCESS TOKEN +`);
+    log(profile.displayName, 'profile');
+    db.updateUser({ username: profile.displayName }, (user) => {
+      log(`user is ${user}`);
+      return done(user);
+    });
+  }));
 	
-
-  app.get('/', (req, res) => res.send({ user: req.user || null} ));
-  
+  passport.serializeUser((user, done) => 
+    done(null, user.id));
+	
+  passport.deserializeUser((id, done) => {
+    console.log(id, 'id in deserialize');
+    db.User.findById(id)
+      .then(user => done(null, user))
+      .catch(err => done(err));
+  });
+	
   app.get('/auth/google',
     passport.authenticate('google', { 
       scope: ['profile'] 
     }));
 	
-  app.get('/auth/google/callback', 
+  app.get('/auth/google/redirect', 
     passport.authenticate('google', { 
-      //TODO: handle these properly
-      successRedirect: '/',
-      failureRedirect: '/login'
+      // TODO: Handle routes back to client properly
+      failureRedirect: '/failure'
+    }), (req, res) => res.redirect('/success'));
+		
 
-    }));
+  app.use(session(SESSION_OPTIONS));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+	app.get('/failure', (req, res) => res.json({authenticated: false}));
+  app.get('/success', (req, res) => res.json({authenticated: true}));
+
+
+		
+  // app.get('/success', (req, res) => {
+  //   log('success - sending back to dashboard')
+  //   res.send('success');
+  //   // TODO: 
+  // });
+	
+  // app.get('/failure', (req, res) => {
+  //   log('failure - sending back to root');
+  //   res.send('failure');
+  // });
 };
