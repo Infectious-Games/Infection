@@ -69,13 +69,12 @@ module.exports = (app) => {
       // TODO: Handle routes back to client properly
       failureRedirect: '/failure'
     }), (req, res) => res.redirect('/success'));
-		
 
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
   app.use(passport.session());
 
-	app.get('/failure', (req, res) => res.json({authenticated: false}));
+  app.get('/failure', (req, res) => res.json({authenticated: false}));
   app.get('/success', (req, res) => res.json({authenticated: true}));
 
 
