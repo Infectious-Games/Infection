@@ -94,12 +94,12 @@ module.exports = (server) => {
             if (scientistWinTotal === 2) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
-            //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
+              //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
             } else if (infiltratorWinTotal === 2) {
               winner = false;
               io.in(socket.game).emit('game over', winner);
-            //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
+              //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
             } else { 
               store.dispatch(incrementRound());
