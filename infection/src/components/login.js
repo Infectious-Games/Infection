@@ -10,6 +10,8 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.setInGameStatus = props.setInGameStatus;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     //create new game event handlers
@@ -31,6 +33,7 @@ class Login extends React.Component {
   //sends join code to server and triggers join game event
   handleSubmit(e) {
     e.preventDefault();
+    this.setInGameStatus();
     socket.emit('join game', { username: this.state.username, game: this.state.game })
   }
 
