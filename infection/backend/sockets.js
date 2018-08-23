@@ -13,17 +13,18 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-  var playerCount;
+  var playerCount; //FIXME: this needs to be the number of players in game, which is now received through http request
   io.on('connection', (socket) => {
+
+    // socket.on('player count', (gameSpecs) => {
+
+    // });
+
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
       const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
-
-      findNumberOfPlayers(game, (numOfPlayers) => {
-        playerCount = numOfPlayers; //FIXME: confirm that this resolves before ternary hit below
-      });
 
       store.dispatch(newUser(username, game, socket.id));
 
@@ -54,7 +55,7 @@ module.exports = (server) => {
           );
         }, 20000);  
       };         
-      store.getState().users.length === playerCount //TODO: Number received from client 
+      store.getState().users.length === 4 //TODO: Number received from client 
         ? store.dispatch(assignRoles()) && getPlayerProfile()
         : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
