@@ -19,36 +19,47 @@ const Dashboard = ({
     <Row>
       <Header></Header>
     </Row>
-    
+    <br></br>
     <Row>
       <Col md={2}></Col>
       <Col md={8}>
-        <Clearance clearance={clearance}></Clearance>
+        <Row>
+          
+        </Row>
+
+        <Row>
+          <ListGroup>
+            <ListGroupItem>
+              <Clearance clearance={clearance}></Clearance> 
+            </ListGroupItem>
+            <ListGroupItem>Username: {username}</ListGroupItem>
+            <ListGroupItem>Wins: {wins}</ListGroupItem>
+            <ListGroupItem>Losses: {losses}</ListGroupItem>
+          </ListGroup>
+        </Row>
+
       </Col>
       <Col md={2}></Col>
     </Row>
+
     <Row>
-      <ListGroup>
-        <ListGroupItem>Username: {username}</ListGroupItem>
-        <ListGroupItem>Wins: {wins}</ListGroupItem>
-        <ListGroupItem>Losses: {losses}</ListGroupItem>
-      </ListGroup>
     </Row>
     <Row>
-        <Col md={2}></Col>
-        <Col md={4}>
-          <JoinGame
-            game={game}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-          >
-          </JoinGame>
-        </Col>
-        <Col md={4}>
-            <StartGame></StartGame>
-        </Col>
-        <Col md={2}></Col>
+      <Col md={1}></Col>
+      <Col md={5}>
+        <StartGame></StartGame>
+      </Col>
+      <Col md={5}>
+        <JoinGame
+          game={game}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        >
+        </JoinGame>
+          </Col>
+        <Col md={1}></Col>
     </Row>
+
   </Grid>
 
 export default Dashboard;
