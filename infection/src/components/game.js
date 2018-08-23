@@ -21,14 +21,14 @@ class Game extends Component {
       infiltrator: false,
       infiltrators: [],
       leader: undefined,
-      missionActive: false,
+      missionActive: true,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
-      missionRoster: [],
+      missionRoster: ['bob'],
       round: 1,
       scientistsWin: true,
       team: ['bob', 'jim'],
       teamAssembled: true,
-      username: undefined,
+      username: 'bob',
       
     }
     
