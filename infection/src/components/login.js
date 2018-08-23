@@ -18,12 +18,12 @@ class Login extends React.Component {
 
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       newGameCode: undefined,
-      username: 'bob',
+      username: undefined,
       wins: 0,
-      numOfPlayers:4,
+      numOfPlayers: 4,
 
     };
   }
