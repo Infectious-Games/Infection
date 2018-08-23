@@ -16,7 +16,7 @@ module.exports = (app) => {
 		const playerCount = body.playerCount;
 		//send join code (unique game id) back to client
 		db.createGameAndGetJoinCode(playerCount, (joinCode) => {
-		res.json(joinCode);
+			res.json(joinCode);
 		});
 	});
 // update user's stats in the db
