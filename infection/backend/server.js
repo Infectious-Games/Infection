@@ -8,7 +8,7 @@ const db = require('./database');
 
 const app = express();
 
-app.use(express.static(join(__dirname, '../build')));
+
 
 const port = process.env.PORT || 3005;
 app.set('port', port);
@@ -27,3 +27,5 @@ const server = app.listen(port, (err) => {
 });
 
 sockets(server);
+
+// app.use(express.static(join(__dirname, '../build')));
