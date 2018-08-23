@@ -24,7 +24,7 @@ class Login extends React.Component {
       game: '',
       playerCount: '',
       handle: 'test',
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       username: 'bob',
       wins: 0,
@@ -68,11 +68,10 @@ class Login extends React.Component {
   handleJoinGame(e) {
     e.preventDefault();
     // send username and game name to server TODO: test that this is working
-    socket.emit('join game', { username: this.state.username, game: this.state.game})
+    socket.emit('join game', { username: this.state.username, game: this.state.game })
   }
 
   handleJoinCodeChange(e) {
-    //TODO: test if working
     this.setState({ game: e.target.value });
   }
 
