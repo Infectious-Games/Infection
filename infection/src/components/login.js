@@ -19,7 +19,7 @@ class Login extends React.Component {
     this.state = {
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: false,
+      loggedIn: true,
       losses: 0,
       newGameCode: undefined,
       username: undefined,
@@ -37,15 +37,16 @@ class Login extends React.Component {
 
   handleChange(e) {
     this.setState({ game: e.target.value });
-    console.log(this.state.game)
+    console.log(this.state.game, 'game in handleChange')
   }
 //TODO: plug in functions below to start game form. Needs to be tested
   handleCreateGame(e) {
     e.preventDefault();
     const playerCount = {"playerCount": this.state.playerCount};
+    console.log(playerCount, 'num sent to server in handleCreateGame');
     axios.post('/start', playerCount)
       .then((joinCode) => {
-        console.log(joinCode);
+        console.log(joinCode, 'joinCode in handleCreateGame');
         //TODO: alert message for join code?
       })
       .catch((error) => {
@@ -58,9 +59,8 @@ class Login extends React.Component {
   }
 
   setNumOfPlayers(num) {
-    console.log(num);
+    console.log(num, 'num taken as input in setNumOfPlayers');
     this.setState({ numOfPlayers: num })
-    console.log(this.state.numOfPlayers)
   }
 
   render() {
