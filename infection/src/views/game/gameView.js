@@ -13,7 +13,8 @@ import Header from './shared/header';
 const GameView = ({ 
   game, 
   choose, 
-  handleSelectRosterEntryClick, handleSubmitRoster,
+  handleSelectRosterEntryClick, 
+  handleSubmitRoster,
   setInGameStatus
 }) => 
   <Grid className="game">

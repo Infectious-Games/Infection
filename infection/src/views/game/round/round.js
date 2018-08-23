@@ -1,15 +1,14 @@
 import React from 'react';
 
-import Leader from './leader'; 
-import NotLeader from './notLeader';
-
+import Roster from './roster/roster';
+import Fail from '../missionResults/fail';
 const Round = ({ game, handleSelectRosterEntryClick, handleSubmitRoster }) => 
-  game.leader === game.username
-    ? <Leader 
-        team={game.team}
-        handleSelectRosterEntryClick={handleSelectRosterEntryClick}
-        handleSubmitRoster={handleSubmitRoster}
-      ></Leader>
-    : <NotLeader leader={ game.leader }></NotLeader>
-
+  game.rosterApproved[game.rosterApproved.length - 1] === 'fail'
+    ? <Fail></Fail>
+    : <Roster
+      game={game}
+      handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+      handleSubmitRoster={handleSubmitRoster}
+    ></Roster>
+    
 export default Round;
