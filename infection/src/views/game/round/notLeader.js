@@ -7,17 +7,9 @@ import Waiting from '../waiting/waiting';
 const NotLeader = ({ leader }) => 
   <Grid>
     <Row>
-      <Col med ={12}>
-        <h2>{leader} is Leader not You Womp Womp!</h2>
-      </Col>
-    </Row>
-    <Row>
-      <Col md={12}>
-        <h3>Try to Influence Your Leader's Choice for Mission Roster</h3>
-      </Col>
-    </Row>
-    <Row>
-      <Col md={12}>
+      <Col md={8}>
+        <h1>{leader} is Leader not You Womp Womp!</h1>
+        <h4>Try to Influence Your Leader's Choice for Mission Roster</h4>
         <Waiting></Waiting>
       </Col>
     </Row>

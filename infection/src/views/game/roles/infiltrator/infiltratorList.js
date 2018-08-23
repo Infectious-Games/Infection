@@ -7,17 +7,14 @@ const InfiltratorList = ({ infiltrators }) =>
   <Grid>
 
     <Row>
-      <Col md={4}></Col>
-      <Col md={4}>
+      <Col md={8}>
+      <h3>
+        This List Has All The Infiltrators!
+      </h3>
       <h4>
-        Your Co-Conspiritors!
+        Keep it hidden from the others!
       </h4>
-      </Col>
-      <Col md={4}></Col>
-    </Row>
-    <Row>
-      <Col md={4}></Col>
-      <Col md={4}>
+      <Row>
         {
           infiltrators.map(infiltrator =>
           <InfiltratorListEntry  
@@ -25,8 +22,8 @@ const InfiltratorList = ({ infiltrators }) =>
             infiltrator={infiltrator}
           ></InfiltratorListEntry>)
         }
+      </Row>
       </Col>
-      <Col md={4}></Col>
     </Row>
   </Grid>
 
