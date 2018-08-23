@@ -15,11 +15,12 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
+    this.handleCreateGame = this.handleCreateGame.bind(this);
 
     this.state = {
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: false,
+      loggedIn: true,
       losses: 0,
       newGameCode: undefined,
       username: undefined,
@@ -28,7 +29,6 @@ class Login extends React.Component {
     };
   }
 
-  //sends join code to server and triggers join game event
   handleSubmit(e) {
     e.preventDefault();
     this.setInGameStatus();
@@ -37,30 +37,26 @@ class Login extends React.Component {
 
   handleChange(e) {
     this.setState({ game: e.target.value });
-    console.log(this.state.game)
+    console.log(this.state.game, 'game in handleChange')
   }
-//TODO: plug in functions below to start game form. Needs to be tested
-  handleCreateGame(e) {
-    e.preventDefault();
-    const playerCount = {"playerCount": this.state.playerCount};
+
+  handleCreateGame(num) {
+    const playerCount = {"playerCount": num};
+    console.log(num, 'num sent to server in handleCreateGame');
     axios.post('/start', playerCount)
       .then((joinCode) => {
-        console.log(joinCode);
-        //TODO: alert message for join code?
+        console.log(joinCode.data, 'joinCode in handleCreateGame');
+        this.setState({ newGameCode: joinCode.data });
       })
       .catch((error) => {
         console.error(error, 'error creating game in login.js');
       });
   }
 
-  handlePlayerCountChange(e) {
-    this.setState({ playerCount: e.target.value });
-  }
-
   setNumOfPlayers(num) {
-    console.log(num);
+    console.log(num, 'num taken as input in setNumOfPlayers');
     this.setState({ numOfPlayers: num })
-    console.log(this.state.numOfPlayers)
+    this.handleCreateGame(num);
   }
 
   render() {
@@ -79,6 +75,7 @@ class Login extends React.Component {
               handleChange={this.handleChange.bind(this)}
               handleSubmit={this.handleSubmit.bind(this)}
               setNumOfPlayers={this.setNumOfPlayers.bind(this)}
+              handleCreateGame={this.handleCreateGame.bind(this)}
             ></Dashboard>
           : <Welcome></Welcome>
         }
