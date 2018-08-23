@@ -17,8 +17,6 @@ class Login extends React.Component {
     this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
 
     this.state = {
-
-    this.state = {
       clearance: 'unclassified',
       game: undefined,
       loggedIn: false,
@@ -27,7 +25,6 @@ class Login extends React.Component {
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
-
     };
   }
 
