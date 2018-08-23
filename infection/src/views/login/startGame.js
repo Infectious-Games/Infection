@@ -1,17 +1,33 @@
 import React from 'react';
-import { Button, ControlLabel, Form, FormControl, FormGroup, Grid, Row, Col } from 'react-bootstrap';
+import { Button, ButtonGroup, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 
-const StartGame = ({ game, handleSubmit, handleChange }) =>
+const StartGame = ({ setNumOfPlayers }) =>
   <Grid>
     <Row>
       <Col md={5}>
-        <h4>START A GAME</h4>
+        <Row>
+          <h4>START A GAME</h4>
+        </Row>
+        <Row>
+          <h5>Select the number of Players for your Game</h5>
+        </Row>
       </Col>
     </Row>
     <Row>
-      <Col md={5}>
-      number of players buttn group
+      <Col md={1}></Col>
+      <Col md={3}>
+        <ButtonToolbar>
+          <ButtonGroup>
+            {[4, 5, 6, 7, 8, 9, 10].map(num => 
+              <Button
+                onClick={()=>setNumOfPlayers(num)}
+                key={num}
+                active
+              >{num}</Button>)}
+          </ButtonGroup>
+        </ButtonToolbar>
       </Col>
+      <Col md={1}></Col>
     </Row>
   </Grid>
 

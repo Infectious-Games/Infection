@@ -12,7 +12,8 @@ class Login extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    
+    this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
+
     this.state = {
 
       clearance: 'unclassified',
@@ -22,7 +23,7 @@ class Login extends React.Component {
       username: 'bob',
       wins: 0,
       numOfPlayers:4,
-      
+
     };
   }
 
@@ -45,6 +46,11 @@ class Login extends React.Component {
     console.log(this.state.game)
   }
 
+  setNumOfPlayers(num) {
+    console.log(num);
+    this.setState({ numOfPlayers: num })
+    console.log(this.state.numOfPlayers)
+  }
 
   render() {
     const user = this.state;
@@ -60,6 +66,7 @@ class Login extends React.Component {
               wins={user.wins}
               handleChange={this.handleChange.bind(this)}
               handleSubmit={this.handleSubmit.bind(this)}
+              setNumOfPlayers={this.setNumOfPlayers.bind(this)}
             ></Dashboard>
           : <Welcome></Welcome>
         }

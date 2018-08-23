@@ -13,7 +13,9 @@ const Dashboard = ({
   losses, 
   clearance, 
   handleChange, 
-  handleSubmit, 
+  handleSubmit,
+  setNumOfPlayers,
+
 }) =>
   <Grid>
     <Row>
@@ -47,7 +49,9 @@ const Dashboard = ({
     <Row>
       <Col md={1}></Col>
       <Col md={5}>
-        <StartGame></StartGame>
+        <StartGame
+          setNumOfPlayers={setNumOfPlayers}
+        ></StartGame>
       </Col>
       <Col md={5}>
         <JoinGame
