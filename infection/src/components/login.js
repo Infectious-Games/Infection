@@ -29,7 +29,6 @@ class Login extends React.Component {
     };
   }
 
-  //sends join code to server and triggers join game event
   handleSubmit(e) {
     e.preventDefault();
     this.setInGameStatus();
@@ -40,7 +39,7 @@ class Login extends React.Component {
     this.setState({ game: e.target.value });
     console.log(this.state.game, 'game in handleChange')
   }
-//TODO: plug in functions below to start game form. Needs to be tested
+
   handleCreateGame(num) {
     const playerCount = {"playerCount": num};
     console.log(num, 'num sent to server in handleCreateGame');
