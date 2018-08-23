@@ -8,23 +8,24 @@ const GameOver = ({
   }) => 
     <Grid>
       <Row>
-        {
-          scientistsWin
-            ? <ScientistsWin></ScientistsWin>
-            : <TerroristsWin></TerroristsWin>
-        }
-      </Row>
-      <Row>
-        <Col md={4}></Col>
-        <Col md={4}>
-          <Button 
-            bsStyle="primary"
-            onClick={setInGameStatus}
-          >
-          LEAVE GAME
-          </Button>
+        <Col md={8}>
+          <Row>
+            {
+              scientistsWin
+                ? <ScientistsWin></ScientistsWin>
+                : <TerroristsWin></TerroristsWin>
+            }
+          </Row>
+          <br></br>
+          <Row>
+            <Button 
+              bsStyle="primary"
+              onClick={setInGameStatus}
+            >
+            LEAVE GAME
+            </Button>
+          </Row>
         </Col>
-        <Col md={4}></Col>
       </Row>
     </Grid>
 
