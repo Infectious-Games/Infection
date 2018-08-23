@@ -5,6 +5,7 @@ import Header from '../game/shared/header';
 import Clearance from './clearance';
 import JoinGame from './joinGame';
 import StartGame from './startGame';
+import Logout from './logout';
 
 const Dashboard = ({
 
@@ -20,6 +21,7 @@ const Dashboard = ({
 
 }) =>
   <Grid>
+    <br></br>
     <Row>
       <Header></Header>
     </Row>
@@ -68,6 +70,9 @@ const Dashboard = ({
           </Col>
         <Col md={1}></Col>
     </Row>
+      <br></br>
+      <br></br>
+      <Logout></Logout>
 
   </Grid>
 
