@@ -2,8 +2,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
+// const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../config');
 const { SESSION_OPTIONS } = require('../config');
+const dotenv = require('dotenv');
+dotenv.load();
 const db = require('./database');
 
 const log = console.log;
@@ -42,26 +44,36 @@ module.exports = (app) => {
 		db.getUserStats(query, (data) => {
 			res.json(data);
 		});
-	});
-  app.use(passport.initialize());
+  });
+  
+  
+
+  //////////////////////////////////////////////////////
+  // Passport
   app.use(session(SESSION_OPTIONS));
+  app.use(passport.initialize());
   app.use(passport.session());
 
-  passport.serializeUser((user, done) =>
-    done(null, user.id));
+  passport.serializeUser((user, done) => {
+    console.log(user.id, 'user.id in serialize');
+    done(null, user.id)
+  });
 
   passport.deserializeUser((id, done) => {
-    console.log(id, 'id in deserialize');
+    console.log(id, 'id in deserializeUser');
     db.User.findById(id)
-      .then(user => done(null, user))
+      .then(user => {
+        console.log(user, 'user in deserialize 2')
+        done(null, user)
+      })
       .catch(err => done(err));
   });
 
   // Passport Google Strategy
   passport.use(new GoogleStrategy({
     callbackURL: '/auth/google/redirect',
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
   }, (accessToken, refreshToken, profile, done) => {
     log(`+ ACCESS TOKEN ++++ ${accessToken} ++++ ACCESS TOKEN +`);
     log(profile.displayName, 'profile');
@@ -90,4 +102,16 @@ module.exports = (app) => {
       //   // });
       // }
     ));
+
+  // check if user is loggedIn
+  app.get('/loggedIn', (req, res) => {
+    if (req.user) {
+      // logged in
+      console.log('logged in');
+    } else {
+      // not logged in
+      console.log('NOT logged in');
+    }
+  });
+
 };

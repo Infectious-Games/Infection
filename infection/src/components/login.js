@@ -20,13 +20,22 @@ class Login extends React.Component {
     this.state = {
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       newGameCode: undefined,
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
     };
+  }
+  componentDidMount() {
+    // GET TO SERVER /loggedIn
+    axios.get('/loggedIn', {
+      // params: { username },
+    }).then((response) => {
+      console.log(response, 'response from GET /loggedIn in login');
+      // this.setState({ loggedIn: true });
+    })
   }
 
   handleSubmit(e) {
@@ -73,17 +82,6 @@ class Login extends React.Component {
     return (
       <Grid>
         {
-<<<<<<< HEAD
-          this.state.loggedIn
-          ? <Dashboard
-          getUserStats={this.getUserStats.bind(this)}
-          ></Dashboard>
-          : <Welcome
-          login={this.state}
-          handleChange={this.handleChange.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-        ></Welcome>
-=======
           user.loggedIn
           ? <Dashboard
               game={user.game}
@@ -98,7 +96,6 @@ class Login extends React.Component {
               handleCreateGame={this.handleCreateGame.bind(this)}
             ></Dashboard>
           : <Welcome></Welcome>
->>>>>>> 83cd0a5fa838ded159432f70505c384cedf69079
         }
       </Grid>
     );
