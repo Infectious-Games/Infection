@@ -58,7 +58,7 @@ const updateUser = ({username}, callback) => {
       console.log(user.get({
         plain: true
       }));
-      callback(created);
+      callback(user);
     });
 };
 
@@ -134,9 +134,9 @@ const updateUserStats = ({win, username}, callback) => {
 };
 
 // drop the db
-// User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
-// });
+User.sync({ force: true }).then(() => {
+  console.log('DATABASE DROPPED');
+});
 
 module.exports = {
   createGameAndGetJoinCode,
