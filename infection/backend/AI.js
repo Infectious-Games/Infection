@@ -18,8 +18,10 @@ class PAL3000 {
   }
   // Leader Choosing Team
   chooseTeam() {
-    // choses self and x random players
-
+    setTimeout(() => {
+      // choses self and x random players
+      
+    }, 5000); 
   }  
   // Voting for mission team
   voteForMissionTeam(includesInfiltrator) { // true or false
