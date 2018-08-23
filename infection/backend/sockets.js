@@ -6,18 +6,24 @@ const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
+const { findNumberOfPlayers } = require('./database');
 const chalk = require('chalk');
 const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
+  var playerCount;
   io.on('connection', (socket) => {
     socket.on('join game', (playerProps) => {
       const game = playerProps.game;
-      const username = playerProps.username;
+      const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
+
+      findNumberOfPlayers(game, (numOfPlayers) => {
+        playerCount = numOfPlayers; //FIXME: confirm that this resolves before ternary hit below
+      });
 
       store.dispatch(newUser(username, game, socket.id));
 
