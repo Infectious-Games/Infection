@@ -10,11 +10,11 @@ exports[`should match the current state of the game should render Infiltrator if
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -25,7 +25,7 @@ exports[`should match the current state of the game should render Infiltrator if
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -34,11 +34,11 @@ exports[`should match the current state of the game should render Infiltrator if
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -62,11 +62,11 @@ exports[`should match the current state of the game should render Infiltrator if
             >
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               >
                 <h4>
                   Your Co-Conspiritors!
@@ -74,7 +74,7 @@ exports[`should match the current state of the game should render Infiltrator if
               </div>
               <div
                 className=""
-                med={4}
+                md={4}
               />
             </div>
             <div
@@ -82,15 +82,15 @@ exports[`should match the current state of the game should render Infiltrator if
             >
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               />
             </div>
           </div>
@@ -99,7 +99,7 @@ exports[`should match the current state of the game should render Infiltrator if
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -116,11 +116,11 @@ exports[`should match the current state of the game should render Infiltrator if
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -128,7 +128,7 @@ exports[`should match the current state of the game should render Infiltrator if
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -170,11 +170,11 @@ exports[`should match the current state of the game should render Infiltrator if
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -185,7 +185,7 @@ exports[`should match the current state of the game should render Infiltrator if
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -194,11 +194,11 @@ exports[`should match the current state of the game should render Infiltrator if
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -222,11 +222,11 @@ exports[`should match the current state of the game should render Infiltrator if
             >
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               >
                 <h4>
                   Your Co-Conspiritors!
@@ -234,7 +234,7 @@ exports[`should match the current state of the game should render Infiltrator if
               </div>
               <div
                 className=""
-                med={4}
+                md={4}
               />
             </div>
             <div
@@ -242,15 +242,15 @@ exports[`should match the current state of the game should render Infiltrator if
             >
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               />
               <div
                 className=""
-                med={4}
+                md={4}
               />
             </div>
           </div>
@@ -259,7 +259,7 @@ exports[`should match the current state of the game should render Infiltrator if
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -276,11 +276,11 @@ exports[`should match the current state of the game should render Infiltrator if
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -288,7 +288,7 @@ exports[`should match the current state of the game should render Infiltrator if
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -330,11 +330,11 @@ exports[`should match the current state of the game should render Infiltrator's 
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -345,7 +345,7 @@ exports[`should match the current state of the game should render Infiltrator's 
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -354,11 +354,11 @@ exports[`should match the current state of the game should render Infiltrator's 
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="row"
@@ -373,7 +373,7 @@ exports[`should match the current state of the game should render Infiltrator's 
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -390,11 +390,11 @@ exports[`should match the current state of the game should render Infiltrator's 
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -402,7 +402,7 @@ exports[`should match the current state of the game should render Infiltrator's 
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -444,11 +444,11 @@ exports[`should match the current state of the game should render Scientist if t
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -459,7 +459,7 @@ exports[`should match the current state of the game should render Scientist if t
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -468,11 +468,11 @@ exports[`should match the current state of the game should render Scientist if t
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <img
         className="img-responsive"
@@ -481,7 +481,7 @@ exports[`should match the current state of the game should render Scientist if t
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -498,11 +498,11 @@ exports[`should match the current state of the game should render Scientist if t
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -510,7 +510,7 @@ exports[`should match the current state of the game should render Scientist if t
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -552,11 +552,11 @@ exports[`should match the current state of the game should render Scientist's wi
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -567,7 +567,7 @@ exports[`should match the current state of the game should render Scientist's wi
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -576,11 +576,11 @@ exports[`should match the current state of the game should render Scientist's wi
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="row"
@@ -595,7 +595,7 @@ exports[`should match the current state of the game should render Scientist's wi
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -612,11 +612,11 @@ exports[`should match the current state of the game should render Scientist's wi
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -624,7 +624,7 @@ exports[`should match the current state of the game should render Scientist's wi
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -666,11 +666,11 @@ exports[`should match the current state of the game should render a list of play
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -681,7 +681,7 @@ exports[`should match the current state of the game should render a list of play
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -690,11 +690,11 @@ exports[`should match the current state of the game should render a list of play
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -704,7 +704,7 @@ exports[`should match the current state of the game should render a list of play
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h1>
               Congratulations You are Leader
@@ -716,7 +716,7 @@ exports[`should match the current state of the game should render a list of play
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h2>
               Set Your Mission Roster
@@ -734,11 +734,11 @@ exports[`should match the current state of the game should render a list of play
             >
               <div
                 className=""
-                med={5}
+                md={5}
               />
               <div
                 className=""
-                med={2}
+                md={2}
               >
                 <div
                   className="list-group"
@@ -779,7 +779,7 @@ exports[`should match the current state of the game should render a list of play
               </div>
               <div
                 className=""
-                med={5}
+                md={5}
               />
             </div>
             <div
@@ -792,7 +792,7 @@ exports[`should match the current state of the game should render a list of play
             >
               <div
                 className=""
-                med={12}
+                md={12}
               >
                 <button
                   className="btn btn-lg btn-danger"
@@ -810,7 +810,7 @@ exports[`should match the current state of the game should render a list of play
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -827,11 +827,11 @@ exports[`should match the current state of the game should render a list of play
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -839,7 +839,7 @@ exports[`should match the current state of the game should render a list of play
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -881,11 +881,11 @@ exports[`should match the current state of the game should render a waiting view
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -896,7 +896,7 @@ exports[`should match the current state of the game should render a waiting view
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -905,11 +905,11 @@ exports[`should match the current state of the game should render a waiting view
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -919,7 +919,7 @@ exports[`should match the current state of the game should render a waiting view
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h2>
               You Were Not Selected for This Mission!
@@ -931,7 +931,7 @@ exports[`should match the current state of the game should render a waiting view
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h3>
               Stand By for Mission Result
@@ -943,7 +943,7 @@ exports[`should match the current state of the game should render a waiting view
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <img
               className=""
@@ -955,7 +955,7 @@ exports[`should match the current state of the game should render a waiting view
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -972,11 +972,11 @@ exports[`should match the current state of the game should render a waiting view
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -984,7 +984,7 @@ exports[`should match the current state of the game should render a waiting view
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1026,11 +1026,11 @@ exports[`should match the current state of the game should render a waiting view
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -1041,7 +1041,7 @@ exports[`should match the current state of the game should render a waiting view
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -1050,11 +1050,11 @@ exports[`should match the current state of the game should render a waiting view
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -1064,7 +1064,7 @@ exports[`should match the current state of the game should render a waiting view
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h1>
               Congratulations You are Leader
@@ -1076,7 +1076,7 @@ exports[`should match the current state of the game should render a waiting view
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h2>
               Set Your Mission Roster
@@ -1094,11 +1094,11 @@ exports[`should match the current state of the game should render a waiting view
             >
               <div
                 className=""
-                med={5}
+                md={5}
               />
               <div
                 className=""
-                med={2}
+                md={2}
               >
                 <ul
                   className="list-group"
@@ -1106,7 +1106,7 @@ exports[`should match the current state of the game should render a waiting view
               </div>
               <div
                 className=""
-                med={5}
+                md={5}
               />
             </div>
             <div
@@ -1119,7 +1119,7 @@ exports[`should match the current state of the game should render a waiting view
             >
               <div
                 className=""
-                med={12}
+                md={12}
               >
                 <button
                   className="btn btn-lg btn-danger"
@@ -1137,7 +1137,7 @@ exports[`should match the current state of the game should render a waiting view
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -1154,11 +1154,11 @@ exports[`should match the current state of the game should render a waiting view
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -1166,7 +1166,7 @@ exports[`should match the current state of the game should render a waiting view
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1208,11 +1208,11 @@ exports[`should match the current state of the game should render the mission fa
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -1223,7 +1223,7 @@ exports[`should match the current state of the game should render the mission fa
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -1232,11 +1232,11 @@ exports[`should match the current state of the game should render the mission fa
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="row"
@@ -1251,7 +1251,7 @@ exports[`should match the current state of the game should render the mission fa
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -1268,11 +1268,11 @@ exports[`should match the current state of the game should render the mission fa
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -1280,7 +1280,7 @@ exports[`should match the current state of the game should render the mission fa
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1322,11 +1322,11 @@ exports[`should match the current state of the game should render the mission su
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -1337,7 +1337,7 @@ exports[`should match the current state of the game should render the mission su
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -1346,11 +1346,11 @@ exports[`should match the current state of the game should render the mission su
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="row"
@@ -1365,7 +1365,7 @@ exports[`should match the current state of the game should render the mission su
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -1382,11 +1382,11 @@ exports[`should match the current state of the game should render the mission su
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -1394,7 +1394,7 @@ exports[`should match the current state of the game should render the mission su
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1436,11 +1436,11 @@ exports[`should match the current state of the game should render the mission vi
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -1451,7 +1451,7 @@ exports[`should match the current state of the game should render the mission vi
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -1460,11 +1460,11 @@ exports[`should match the current state of the game should render the mission vi
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="container"
@@ -1531,7 +1531,7 @@ exports[`should match the current state of the game should render the mission vi
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -1548,11 +1548,11 @@ exports[`should match the current state of the game should render the mission vi
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -1560,7 +1560,7 @@ exports[`should match the current state of the game should render the mission vi
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1602,11 +1602,11 @@ exports[`should render Game 1`] = `
   >
     <div
       className=""
-      med={5}
+      md={5}
     />
     <div
       className=""
-      med={2}
+      md={2}
     >
       <img
         className=""
@@ -1617,7 +1617,7 @@ exports[`should render Game 1`] = `
     </div>
     <div
       className=""
-      med={5}
+      md={5}
     />
   </div>
   <br />
@@ -1626,11 +1626,11 @@ exports[`should render Game 1`] = `
   >
     <div
       className=""
-      med={2}
+      md={2}
     />
     <div
       className=""
-      med={8}
+      md={8}
     >
       <div
         className="waitingForTeam container"
@@ -1640,7 +1640,7 @@ exports[`should render Game 1`] = `
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <h1>
               Please Wait for the Team to Assemble
@@ -1652,7 +1652,7 @@ exports[`should render Game 1`] = `
         >
           <div
             className=""
-            med={12}
+            md={12}
           >
             <img
               className=""
@@ -1664,7 +1664,7 @@ exports[`should render Game 1`] = `
     </div>
     <div
       className=""
-      med={2}
+      md={2}
     />
   </div>
   <div
@@ -1681,11 +1681,11 @@ exports[`should render Game 1`] = `
     >
       <div
         className=""
-        med={4}
+        md={4}
       />
       <div
         className=""
-        med={4}
+        md={4}
       >
         <h4>
           Mission Results
@@ -1693,7 +1693,7 @@ exports[`should render Game 1`] = `
       </div>
       <div
         className=""
-        med={4}
+        md={4}
       />
     </div>
     <div
@@ -1734,7 +1734,7 @@ exports[`should render WaitingForTeam if all players are not present 1`] = `
   >
     <div
       className=""
-      med={12}
+      md={12}
     >
       <h1>
         Please Wait for the Team to Assemble
@@ -1746,7 +1746,7 @@ exports[`should render WaitingForTeam if all players are not present 1`] = `
   >
     <div
       className=""
-      med={12}
+      md={12}
     >
       <img
         className=""

@@ -21,6 +21,8 @@ class Login extends React.Component {
       losses: 0,
       username: 'bob',
       wins: 0,
+      numOfPlayers:4,
+      
     };
   }
 
@@ -42,6 +44,7 @@ class Login extends React.Component {
     this.setState({ game: e.target.value });
     console.log(this.state.game)
   }
+
 
   render() {
     const user = this.state;

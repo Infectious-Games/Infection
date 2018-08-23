@@ -12,12 +12,12 @@ const NotLeader = ({ leader }) =>
       </Col>
     </Row>
     <Row>
-      <Col med={12}>
+      <Col md={12}>
         <h3>Try to Influence Your Leader's Choice for Mission Roster</h3>
       </Col>
     </Row>
     <Row>
-      <Col med={12}>
+      <Col md={12}>
         <Waiting></Waiting>
       </Col>
     </Row>

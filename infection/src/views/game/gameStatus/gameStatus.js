@@ -4,11 +4,11 @@ import { Grid, Col, Row, Button} from 'react-bootstrap';
 const GameStatus = ({ missionResults }) => 
   <Grid className="game-results">
     <Row>
-      <Col med={4}></Col>
-      <Col med={4}>
+      <Col md={4}></Col>
+      <Col md={4}>
         <h4>Mission Results</h4>
       </Col>
-      <Col med={4}></Col>
+      <Col md={4}></Col>
     </Row>
     <Row>
         {missionResults.map((round, i) =>

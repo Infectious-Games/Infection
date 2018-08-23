@@ -4,7 +4,10 @@ import { Button, ControlLabel, Form, FormControl, FormGroup, Grid, Row } from 'r
 const JoinGame = ({ game, handleSubmit, handleChange }) =>
   <Grid>
     <Row>
-      JOIN A MISSION
+      <h4>
+        JOIN A MISSION
+      </h4>
+      
     </Row>
     <Row>
       <Form className="login" inline>

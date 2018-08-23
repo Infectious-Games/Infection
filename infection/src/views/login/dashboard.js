@@ -4,6 +4,7 @@ import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Header from '../game/shared/header';
 import Clearance from './clearance';
 import JoinGame from './joinGame';
+import StartGame from './startGame';
 
 const Dashboard = ({
   game, 
@@ -20,24 +21,22 @@ const Dashboard = ({
     </Row>
     
     <Row>
-      <Col med={2}></Col>
-      <Col med={8}>
+      <Col md={2}></Col>
+      <Col md={8}>
         <Clearance clearance={clearance}></Clearance>
-      <Row>
-        <ListGroup>
-          <ListGroupItem>Username: {username}</ListGroupItem>
-          <ListGroupItem>Wins: {wins}</ListGroupItem>
-          <ListGroupItem>Losses: {losses}</ListGroupItem>
-        </ListGroup>
-      </Row>
       </Col>
-      <Col med={2}></Col>
+      <Col md={2}></Col>
     </Row>
-      <Row>
-        <Col med={1}></Col>
-        <Col med={4}></Col>
-        <Col med={2}></Col>
-        <Col med={4}>
+    <Row>
+      <ListGroup>
+        <ListGroupItem>Username: {username}</ListGroupItem>
+        <ListGroupItem>Wins: {wins}</ListGroupItem>
+        <ListGroupItem>Losses: {losses}</ListGroupItem>
+      </ListGroup>
+    </Row>
+    <Row>
+        <Col md={2}></Col>
+        <Col md={4}>
           <JoinGame
             game={game}
             handleChange={handleChange}
@@ -45,8 +44,11 @@ const Dashboard = ({
           >
           </JoinGame>
         </Col>
-        <Col med={1}></Col>
-      </Row>
+        <Col md={4}>
+            <StartGame></StartGame>
+        </Col>
+        <Col md={2}></Col>
+    </Row>
   </Grid>
 
 export default Dashboard;
