@@ -7,6 +7,7 @@ import JoinGame from './joinGame';
 import StartGame from './startGame';
 
 const Dashboard = ({
+
   game, 
   username, 
   wins, 
@@ -15,6 +16,7 @@ const Dashboard = ({
   handleChange, 
   handleSubmit,
   setNumOfPlayers,
+  newGame,
 
 }) =>
   <Grid>
@@ -49,9 +51,12 @@ const Dashboard = ({
     <Row>
       <Col md={1}></Col>
       <Col md={5}>
-        <StartGame
-          setNumOfPlayers={setNumOfPlayers}
-        ></StartGame>
+        {newGame
+          ? <Row>Game Code : {newGame}</Row>
+          : <StartGame
+            setNumOfPlayers={setNumOfPlayers}
+          ></StartGame>
+        }
       </Col>
       <Col md={5}>
         <JoinGame

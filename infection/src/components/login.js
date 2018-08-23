@@ -17,9 +17,10 @@ class Login extends React.Component {
     this.state = {
 
       clearance: 'unclassified',
-      game: '',
+      game: undefined,
       loggedIn: true,
       losses: 0,
+      newGameCode: undefined,
       username: 'bob',
       wins: 0,
       numOfPlayers:4,
@@ -60,6 +61,7 @@ class Login extends React.Component {
           user.loggedIn
           ? <Dashboard
               game={user.game}
+              newGame={user.newGameCode}
               clearance={user.clearance}
               losses={user.losses}
               username={user.username}
