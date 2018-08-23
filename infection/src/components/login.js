@@ -20,13 +20,23 @@ class Login extends React.Component {
     this.state = {
       clearance: 'unclassified',
       game: undefined,
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       newGameCode: undefined,
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
+
     };
+  }
+  componentDidMount() {
+    // check if user is logged in
+    axios.get('/loggedIn', {
+    }).then(({data}) => {
+      console.log(data, 'data in login');
+      data.loggedIn ? 
+      this.setState({ loggedIn: true, username: data.user.username }) : console.log('not logged in')
+    })
   }
 
   handleSubmit(e) {
@@ -57,6 +67,15 @@ class Login extends React.Component {
     console.log(num, 'num taken as input in setNumOfPlayers');
     this.setState({ numOfPlayers: num })
     this.handleCreateGame(num);
+  }
+
+  getUserStats = () => {
+    const username = this.state.username;
+    axios.get('/userStats', {
+      params: { username },
+    }).then((response) => {
+      console.log(response, 'response from getUserStats in login');
+    })
   }
 
   render() {
