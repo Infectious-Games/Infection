@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 
-import SelectRoster from './selectRoster';
+import SelectRoster from '../selectRoster';
 
 const Leader = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
   <Grid>

@@ -29,7 +29,7 @@ class Game extends Component {
       scientistsWin: false,
       team: ['bob', 'jim'],
       teamAssembled: true,
-      username: 'bob',
+      username: undefined,
       
     }
     
