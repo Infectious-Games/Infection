@@ -74,6 +74,18 @@ const createGameAndGetJoinCode = (count, cb) => {
     console.error(err);
   })
 }
+
+const findNumberOfPlayers = (gameID, cb) => {
+  Game.findAll({
+    where: {
+      id: gameID
+    }
+  })
+    .then(game => cb(game))
+    .catch(err => {
+      console.error(err);
+    })
+}
 /* Sequelize comes with built in support for promises
  * making it easy to chain asynchronous operations together */
 // User.sync()
@@ -140,6 +152,7 @@ const updateUserStats = ({win, username} , callback) => {
 
 module.exports = {
   createGameAndGetJoinCode,
+  findNumberOfPlayers,
   updateUser,
   updateUserStats,
   db,
