@@ -10,12 +10,13 @@ class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.setInGameStatus = props.setInGameStatus;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
 
     this.state = {
-
       clearance: 'unclassified',
       game: undefined,
       loggedIn: false,
@@ -24,27 +25,36 @@ class Login extends React.Component {
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
-
     };
   }
 
+  //sends join code to server and triggers join game event
   handleSubmit(e) {
     e.preventDefault();
-    const game = {"game": this.state.game};
-    axios.post('/game', game)
-      .then((response) => {
-        response.data ? console.log(`game: ${game.game} added to db`) : console.log(`game: ${game.game} aleady in db`);
-        socket.emit('join game', {game: this.state.game})
-        this.props.setInGameStatus();
-      })
-      .catch((error) => {
-        console.error(error, 'error in index.jsx');
-      });
+    this.setInGameStatus();
+    socket.emit('join game', { username: this.state.username, game: this.state.game })
   }
 
   handleChange(e) {
     this.setState({ game: e.target.value });
     console.log(this.state.game)
+  }
+//TODO: plug in functions below to start game form. Needs to be tested
+  handleCreateGame(e) {
+    e.preventDefault();
+    const playerCount = {"playerCount": this.state.playerCount};
+    axios.post('/start', playerCount)
+      .then((joinCode) => {
+        console.log(joinCode);
+        //TODO: alert message for join code?
+      })
+      .catch((error) => {
+        console.error(error, 'error creating game in login.js');
+      });
+  }
+
+  handlePlayerCountChange(e) {
+    this.setState({ playerCount: e.target.value });
   }
 
   setNumOfPlayers(num) {

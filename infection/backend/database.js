@@ -67,35 +67,13 @@ const createGameAndGetJoinCode = (count, cb) => {
   Game
   .create({ numberOfPlayers: count })
   .then(game => {
-    console.log(game.get('id'), 'game id');
     cb(game.get('id'));
   })
   .catch(err => {
     console.error(err);
   })
 }
-/* Sequelize comes with built in support for promises
- * making it easy to chain asynchronous operations together */
-// User.sync()
-//   .then(function() {
-//     // Now instantiate an object and save it:
-//     return User.create({username: 'Jean Valjean'});
-//   })
-//   .then(function() {
-//     // Retrieve objects from the database:
-//     return User.findAll({ where: {username: 'Jean Valjean'} });
-//   })
-//   .then(function(users) {
-//     users.forEach(function(user) {
-//       console.log(user.username + ' exists');
-//     });
-//     db.close();
-//   })
-//   .catch(function(err) {
-//     // Handle any error in the chain
-//     console.error(err);
-//     db.close();
-//   });
+
 const clearanceLevels = (wins => {
   if (wins < 10) {
     return 'Unclassified';
@@ -143,5 +121,6 @@ module.exports = {
   updateUser,
   updateUserStats,
   db,
-  User
+  User,
+  Game
 };
