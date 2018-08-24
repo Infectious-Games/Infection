@@ -44,22 +44,23 @@ module.exports = (server) => {
           io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
+          let rosterLength = 3; //FIXME: Make dynamic later
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
           leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
-            {leader: roundLeader.username, round} 
+            {leader: roundLeader.username, round, rosterLength} 
           );
         }, 20000);  
       };
       Game.find({ where: { id: game } })
         .then((game) => {
-          console.log(game.numberOfPlayers, 'line 58');
+          console.log(game.numberOfPlayers, 'line 59');
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          console.log(playerCount, 'player count in sockets');
+          console.log(playerCount, '63');
           store.getState().users.length === playerCount
           ? store.dispatch(assignRoles()) && getPlayerProfile()
           : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
@@ -116,9 +117,10 @@ module.exports = (server) => {
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
+              let rosterLength = 3;
               let round = store.getState().round.round;
               let roundLeader = leaderLoop[round - 1];
-              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});     
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
           }, 3000)
 
