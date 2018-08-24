@@ -2,7 +2,11 @@ import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 
-const Vote = ({ missionRoster, leader, handleRosterVote }) =>
+const Vote = ({ 
+  missionRoster,
+  leader,
+  handleRosterVote, 
+}) =>
   <Grid>
     <Row>
       <Col md={8}>

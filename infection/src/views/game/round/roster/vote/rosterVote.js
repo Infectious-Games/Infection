@@ -11,6 +11,7 @@ const RosterVote = ({
 }) =>
     game.missionRoster.length === game.rosterLength
     ? <Vote
+      rosterApproved={game.rosterApproved}
       missionRoster={game.missionRoster}
       leader={game.leader}
       handleRosterVote={handleRosterVote}

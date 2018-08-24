@@ -22,16 +22,16 @@ class Game extends Component {
       id: undefined,
       infiltrator: false,
       infiltrators: [],
+      infiltratorsWin: false,
       leader: undefined,
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
-      rosterLength: 0,
-      round: 0,
-      rosterApproved: [undefined, undefined, undefined],
-      infiltratorsWin: false,
+      rosterLength: 3,
+      round: 1,
+      rosterApproved: ['X', 'X', 'boo'],
       team: [],
-      teamAssembled: false,
+      teamAssembled: true,
       username: undefined,
       
     }
@@ -44,21 +44,36 @@ class Game extends Component {
   checkGameStatus() {
     socket.on('game start', ({username, infiltrator, team, infiltrators}) => {
       console.log(infiltrators);
-      this.setState({ username, teamAssembled: true, infiltrator, team, infiltrators }, () => {
+      this.setState({ 
+        username, 
+        teamAssembled: true, 
+        infiltrator, 
+        team, 
+        infiltrators 
+      }, () => {
       })
     })
     socket.on('start round', (data) => {
-      this.setState({ round: data.round, leader: data.leader, missionRoster: [], missionActive: false, 
-        choiceMade: undefined })
+      console.log(data, 'data sent at start of round line 51 of game');
+      this.setState({ 
+        round: data.round, 
+        leader: data.leader, 
+        rosterLength: data.rosterLength, 
+        missionRoster: [], 
+        missionActive: false, 
+        choiceMade: undefined 
+      })
     })
-    socket.on('team chosen', (team) => {
-      this.setState({ missionRoster: team , missionActive: true})
+    socket.on('team chosen', (proposedRoster) => {
+      console.log(`mission roster sent to client ${proposedRoster}`);
+      console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
+      this.setState({ missionRoster: proposedRoster }) //TODO: move this state change to after vote approval: missionActive: true
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
         result = 'success'
       } else if (result === 1) {
-        result = 'fail'
+        result = 'X'
       }
       const updatedResults = this.state.missionResults.map((current, i) => {
         if (i === this.state.round - 1) {
@@ -104,7 +119,7 @@ class Game extends Component {
 
   handleSubmitRoster() {
     socket.emit('deploy team', this.state.missionRoster)
-    this.setState({ missionActive: true });
+    //this.setState({ missionActive: true });
   }
 
   handleOnMissionClick(choice) {
@@ -115,6 +130,7 @@ class Game extends Component {
 
   handleRosterVote(vote) {
     console.log(vote);
+
   }
   
   render() {

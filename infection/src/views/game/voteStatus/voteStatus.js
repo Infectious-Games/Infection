@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Col, Row,} from 'react-bootstrap';
 
 const VoteStatus = ({ rosterApproved }) =>
-  rosterApproved[0] === 'X'
+  rosterApproved[0]
     ? <Grid className="game-results">
         <Row>
           <Col md={5}>
