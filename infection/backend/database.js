@@ -16,7 +16,7 @@ const User = db.define('User', {
   username: Sequelize.STRING,
   gamesPlayed: Sequelize.INTEGER,
   wins: Sequelize.INTEGER,
-  loses: Sequelize.INTEGER,
+  losses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
   photo: Sequelize.STRING,
   email: Sequelize.STRING,
@@ -52,8 +52,8 @@ const updateUser = ({username}, callback) => {
     defaults: { 
       gamesPlayed: 0,
       wins: 0,
-      loses: 0,
-      clearanceLevel: 'Confidential',
+      losses: 0,
+      clearanceLevel: 'unclassified',
       photo: '',
       email: '',
     }
@@ -96,7 +96,7 @@ const clearanceLevels = (wins => {
 // update user stats
 const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
-  const result = win ? 'wins' : 'loses';
+  const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
   // find user
@@ -123,9 +123,9 @@ const getUserStats = ({ username }, callback) => {
 }
 
 // drop the db
-// User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
-// });
+User.sync({ force: true }).then(() => {
+  console.log('DATABASE DROPPED');
+});
 
 module.exports = {
   createGameAndGetJoinCode,
