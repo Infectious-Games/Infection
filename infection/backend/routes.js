@@ -12,7 +12,7 @@ module.exports = (app) => {
   // find or add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
-    db.updateUser(body, (data) => {
+    db.findOrCreateUser(body, (data) => {
       // response is true if user has been added to db, or false if user already exists
       res.json(data);
     });
@@ -64,10 +64,7 @@ module.exports = (app) => {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
   }, (accessToken, refreshToken, profile, done) => {
-    log(`+ ACCESS TOKEN ++++ ${accessToken} ++++ ACCESS TOKEN +`);
-    log(profile.displayName, 'profile');
-    log(profile.id, 'profile ID');
-    db.updateUser({ username: profile.displayName }, (user) => {
+    db.findOrCreateUser(profile, (user) => {
       log(`user is ${user}`);
       return done(null, user);
     });

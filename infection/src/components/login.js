@@ -27,9 +27,9 @@ class Login extends React.Component {
       newGameCode: undefined,
       numOfPlayers: 4,
       pal3000Active: false,
+      photo: undefined,
       username: undefined,
       wins: 0,
-
     };
   }
   componentDidMount() {
@@ -39,7 +39,8 @@ class Login extends React.Component {
       const loggedIn = data.loggedIn;
       if (loggedIn) {
         const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
-        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins })
+        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins, photo },
+        () => console.log(this.state))
       }
     })
   }

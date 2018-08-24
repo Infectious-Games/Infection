@@ -46,15 +46,17 @@ Game.sync({force: true})
     console.error(err);
   });
 
-// find or create user
-const updateUser = ({username}, callback) => {
-  User.findOrCreate({ where: { username },
-    defaults: { 
+const findOrCreateUser = (profile, callback) => {
+  const username = profile.displayName;
+  const photo = profile.photos[0].value.slice(0, profile.photos[0].value.indexOf('?'));
+  User.findOrCreate({
+    where: { username },
+    defaults: {
       gamesPlayed: 0,
       wins: 0,
       losses: 0,
       clearanceLevel: 'unclassified',
-      photo: '',
+      photo: photo,
       email: '',
     }
   })
@@ -129,7 +131,7 @@ const getUserStats = ({ username }, callback) => {
 
 module.exports = {
   createGameAndGetJoinCode,
-  updateUser,
+  findOrCreateUser,
   updateUserStats,
   getUserStats,
   db,
