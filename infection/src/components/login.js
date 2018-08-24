@@ -22,7 +22,7 @@ class Login extends React.Component {
       clearanceLevel: 'unclassified',
       game: undefined,
       gamesPlayed: 0,
-      loggedIn: true,
+      loggedIn: false,
       losses: 0,
       newGameCode: undefined,
       numOfPlayers: 4,

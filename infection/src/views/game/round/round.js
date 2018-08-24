@@ -9,7 +9,7 @@ const Round = ({
   handleSubmitRoster,
   handleRosterVote, 
 }) => 
-  game.rosterApproved[game.rosterApproved.length - 1] === 'fail'
+  game.rosterApproved[game.rosterApproved.length - 1] === 'X'
     ? <Fail></Fail>
     : <RosterVote
       game={game}
