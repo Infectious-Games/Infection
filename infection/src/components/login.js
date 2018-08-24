@@ -18,7 +18,7 @@ class Login extends React.Component {
     this.handleCreateGame = this.handleCreateGame.bind(this);
 
     this.state = {
-      clearance: 'unclassified',
+      clearanceLevel: 'unclassified',
       game: undefined,
       loggedIn: false,
       losses: 0,
@@ -26,6 +26,7 @@ class Login extends React.Component {
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
+      gamesPlayed: 0,
 
     };
   }
@@ -33,9 +34,11 @@ class Login extends React.Component {
     // check if user is logged in
     axios.get('/loggedIn', {
     }).then(({data}) => {
-      console.log(data, 'data in login');
-      data.loggedIn ? 
-      this.setState({ loggedIn: true, username: data.user.username }) : console.log('not logged in')
+      const loggedIn = data.loggedIn;
+      if (loggedIn) {
+        const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
+        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins })
+      }
     })
   }
 
@@ -69,14 +72,14 @@ class Login extends React.Component {
     this.handleCreateGame(num);
   }
 
-  getUserStats = () => {
-    const username = this.state.username;
-    axios.get('/userStats', {
-      params: { username },
-    }).then((response) => {
-      console.log(response, 'response from getUserStats in login');
-    })
-  }
+  // getUserStats = () => {
+  //   const username = this.state.username;
+  //   axios.get('/userStats', {
+  //     params: { username },
+  //   }).then((response) => {
+  //     console.log(response, 'response from getUserStats in login');
+  //   })
+  // }
 
   render() {
     const user = this.state;
@@ -87,7 +90,7 @@ class Login extends React.Component {
           ? <Dashboard
               game={user.game}
               newGame={user.newGameCode}
-              clearance={user.clearance}
+              clearance={user.clearanceLevel}
               losses={user.losses}
               username={user.username}
               wins={user.wins}

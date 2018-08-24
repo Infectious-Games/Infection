@@ -81,15 +81,18 @@ module.exports = (app) => {
   app.get('/auth/google/redirect',
     passport.authenticate('google', {
       // TODO: Handle routes back to client properly
-      failureRedirect: '/failure',
+      failureRedirect: '/',
       successRedirect: '/'
     }));
 
   // check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
-    req.user ? res.json({loggedIn: true, user: req.user}) 
-      : res.json({ loggedIn: false, user: req.user });
-  });
+    res.json({ 
+      loggedIn: !!req.user, 
+      user: req.user 
+    });
+  })
+
   // logout user
   app.get('/logout', (req, res) => {
     req.logout();
