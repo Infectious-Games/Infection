@@ -16,8 +16,10 @@ const User = db.define('User', {
   username: Sequelize.STRING,
   gamesPlayed: Sequelize.INTEGER,
   wins: Sequelize.INTEGER,
-  loses: Sequelize.INTEGER,
+  losses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
+  photo: Sequelize.STRING,
+  email: Sequelize.STRING,
 });
 
 //game schema
@@ -50,8 +52,10 @@ const updateUser = ({username}, callback) => {
     defaults: { 
       gamesPlayed: 0,
       wins: 0,
-      loses: 0,
-      clearanceLevel: 'Confidential'
+      losses: 0,
+      clearanceLevel: 'unclassified',
+      photo: '',
+      email: '',
     }
   })
     .spread((user, created) => {
@@ -65,57 +69,34 @@ const updateUser = ({username}, callback) => {
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
   Game
-    .create({ numberOfPlayers: count })
-    .then(game => {
-      console.log(game.get('id'), 'game id');
-      cb(game.get('id'));
-    })
-    .catch(err => {
-      console.error(err);
-    });
-};
-/* Sequelize comes with built in support for promises
- * making it easy to chain asynchronous operations together */
-// User.sync()
-//   .then(function() {
-//     // Now instantiate an object and save it:
-//     return User.create({username: 'Jean Valjean'});
-//   })
-//   .then(function() {
-//     // Retrieve objects from the database:
-//     return User.findAll({ where: {username: 'Jean Valjean'} });
-//   })
-//   .then(function(users) {
-//     users.forEach(function(user) {
-//       console.log(user.username + ' exists');
-//     });
-//     db.close();
-//   })
-//   .catch(function(err) {
-//     // Handle any error in the chain
-//     console.error(err);
-//     db.close();
-//   });
+  .create({ numberOfPlayers: count })
+  .then(game => {
+    console.log(game.get('id'), 'game id');
+    cb(game.get('id'));
+  })
+  .catch(err => {
+    console.error(err);
+  })
+}
+
 const clearanceLevels = (wins => {
   if (wins < 10) {
-    return 'Unclassified';
+    return 'unclassified';
   } else if (wins > 9 && wins < 20) {
-    return 'Confidential';
+    return 'confidential';
   } else if (wins > 19 && wins < 50) {
-    return 'Secret';
+    return 'secret';
   } else if (wins > 49 && wins < 100) {
-    return 'Top Secret';
+    return 'top-secret';
   } else if (wins > 99 && wins < 1000) {
-    return 'Sensitive Compartmented Information(SCI)';
-  } else if (wins > 999) {
-    return 'Illuminati';
+    return 'illuminati';
   }
 });
 
 // update user stats
 const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
-  const result = win ? 'wins' : 'loses';
+  const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
   // find user
@@ -133,15 +114,24 @@ const updateUserStats = ({win, username}, callback) => {
     .then((user) => callback(user));
 };
 
+// get user stats
+const getUserStats = ({ username }, callback) => {
+  // find user
+  User.find({ where: { username } })
+    // return the user
+    .then((user) => callback(user))
+}
+
 // drop the db
-User.sync({ force: true }).then(() => {
-  console.log('DATABASE DROPPED');
-});
+// User.sync({ force: true }).then(() => {
+//   console.log('DATABASE DROPPED');
+// });
 
 module.exports = {
   createGameAndGetJoinCode,
   updateUser,
   updateUserStats,
+  getUserStats,
   db,
   User,
   Game

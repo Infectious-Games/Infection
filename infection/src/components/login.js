@@ -18,7 +18,7 @@ class Login extends React.Component {
     this.handleCreateGame = this.handleCreateGame.bind(this);
 
     this.state = {
-      clearance: 'unclassified',
+      clearanceLevel: 'unclassified',
       game: undefined,
       loggedIn: false,
       losses: 0,
@@ -26,7 +26,20 @@ class Login extends React.Component {
       username: undefined,
       wins: 0,
       numOfPlayers: 4,
+      gamesPlayed: 0,
+
     };
+  }
+  componentDidMount() {
+    // check if user is logged in
+    axios.get('/loggedIn', {
+    }).then(({data}) => {
+      const loggedIn = data.loggedIn;
+      if (loggedIn) {
+        const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
+        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins })
+      }
+    })
   }
 
   handleSubmit(e) {
@@ -59,6 +72,15 @@ class Login extends React.Component {
     this.handleCreateGame(num);
   }
 
+  // getUserStats = () => {
+  //   const username = this.state.username;
+  //   axios.get('/userStats', {
+  //     params: { username },
+  //   }).then((response) => {
+  //     console.log(response, 'response from getUserStats in login');
+  //   })
+  // }
+
   render() {
     const user = this.state;
     return (
@@ -68,7 +90,7 @@ class Login extends React.Component {
           ? <Dashboard
               game={user.game}
               newGame={user.newGameCode}
-              clearance={user.clearance}
+              clearance={user.clearanceLevel}
               losses={user.losses}
               username={user.username}
               wins={user.wins}
