@@ -6,23 +6,25 @@ const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
-const { findNumberOfPlayers } = require('./database');
+const { Game } = require('./database');
 const chalk = require('chalk');
 const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
-  var playerCount = 4; //FIXME: pull from state
   io.on('connection', (socket) => {
 
     socket.on('join game', (playerProps) => {
-      const game = String(playerProps.game);
+      const game = playerProps.game;
       const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
 
       store.dispatch(newUser(username, game, socket.id));
+
+      //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
+      socket.join(game);
 
       const getPlayerProfile = () => {
         const playersInGame = store.getState().users;
@@ -50,12 +52,18 @@ module.exports = (server) => {
             {leader: roundLeader.username, round} 
           );
         }, 20000);  
-      };         
-      store.getState().users.length === playerCount //TODO: Pull number received from client from state
-        ? store.dispatch(assignRoles()) && getPlayerProfile()
-        : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
-      //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
-      socket.join(game);
+      };
+      Game.find({ where: { id: game } })
+        .then((game) => {
+          console.log(game.numberOfPlayers, 'line 58');
+          return game.numberOfPlayers;
+        })
+        .then(playerCount => {
+          console.log(playerCount, 'player count in sockets');
+          store.getState().users.length === playerCount
+          ? store.dispatch(assignRoles()) && getPlayerProfile()
+          : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
+        })         
     });
     const users = store.getState().users;
     log(chalk.bold.bgCyan(users, 'users'));
@@ -94,12 +102,12 @@ module.exports = (server) => {
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
 
-            if (scientistWinTotal === 2) {
+            if (scientistWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
-            } else if (infiltratorWinTotal === 2) {
+            } else if (infiltratorWinTotal === 3) {
               winner = false;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
