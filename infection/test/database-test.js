@@ -8,10 +8,10 @@ describe('User model:', function () {
       .then(() => db.db.close())
   });
 
-  describe('updateUser', function () {
+  describe('findOrCreateUser', function () {
     it(`should save users to the database if they don't already exist`, function (done) {
       const user = { username: 'Testy' };
-      db.updateUser(user, (data) => {
+      db.findOrCreateUser(user, (data) => {
         // data is true: if user has been added to the db, or
         // false: if user was already in the db
         expect(data).to.be.a('boolean');
