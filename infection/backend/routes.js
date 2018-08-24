@@ -34,14 +34,14 @@ module.exports = (app) => {
     db.updateUserStats(body, (data) => {
       res.json(data);
     });
-	});
-	// get user's stats from the db
-	app.get('/userStats', (req, res) => {
-		const query = req.query;
-		console.log(query, 'GET /userStats query in server');
-		db.getUserStats(query, (data) => {
-			res.json(data);
-		});
+  });
+  // get user's stats from the db
+  app.get('/userStats', (req, res) => {
+    const query = req.query;
+    console.log(query, 'GET /userStats query in server');
+    db.getUserStats(query, (data) => {
+      res.json(data);
+    });
   });
   
   //////////////////////////////////////////////////////
@@ -92,5 +92,11 @@ module.exports = (app) => {
       user: req.user 
     });
   })
-  
+
+  // logout user
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+    // res.json({ loggedIn: false, user: req.user });
+  });
 };

@@ -16,20 +16,20 @@ class Game extends Component {
 
     this.state = {
       
-      choiceMade: true,
-      gameOver: true, 
+      choiceMade: false,
+      gameOver: false, 
       id: undefined,
       infiltrator: false,
       infiltrators: [],
       leader: undefined,
-      missionActive: true,
-      missionResults: ['fail', undefined, undefined, undefined, undefined],
-      missionRoster: ['bob'],
-      round: 1,
-      scientistsWin: false,
-      team: ['bob', 'jim'],
-      teamAssembled: true,
-      username: 'bob',
+      missionActive: false,
+      missionResults: [undefined, undefined, undefined, undefined, undefined],
+      missionRoster: [],
+      round: 0,
+      scientistsWin: true,
+      team: [],
+      teamAssembled: false,
+      username: undefined,
       
     }
     
