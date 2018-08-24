@@ -56,11 +56,11 @@ module.exports = (server) => {
       };
       Game.find({ where: { id: game } })
         .then((game) => {
-          console.log(game.numberOfPlayers, 'line 58');
+          console.log(game.numberOfPlayers, 'line 59');
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          console.log(playerCount, 'player count in sockets');
+          console.log(playerCount, '63');
           store.getState().users.length === playerCount
           ? store.dispatch(assignRoles()) && getPlayerProfile()
           : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
