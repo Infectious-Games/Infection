@@ -20,7 +20,9 @@ const GameView = ({
 }) => 
   <Grid className="game">
     <br></br>
-    <Header></Header>
+    <Header 
+      rosterApproved={game.rosterApproved}
+    ></Header>
     <br></br>
     <Row>
       <Col md={2}></Col>
