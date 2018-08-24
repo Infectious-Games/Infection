@@ -63,7 +63,8 @@ module.exports = (server) => {
           store.getState().users.length === playerCount
           ? store.dispatch(assignRoles()) && getPlayerProfile()
           : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
-        })         
+        })
+        .catch(err => console.error(err));         
     });
     const users = store.getState().users;
     log(chalk.bold.bgCyan(users, 'users'));
