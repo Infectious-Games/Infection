@@ -46,7 +46,6 @@ Game.sync({force: true})
     console.error(err);
   });
 
-// find or create user
 const findOrCreateUser = (profile, callback) => {
   const username = profile.displayName;
   const photo = profile.photos[0].value.slice(0, profile.photos[0].value.indexOf('?'));
@@ -68,26 +67,6 @@ const findOrCreateUser = (profile, callback) => {
       callback(user);
     });
 };
-
-// // find or create user
-// const findOrCreateUser = ({username}, callback) => {
-//   User.findOrCreate({ where: { username },
-//     defaults: { 
-//       gamesPlayed: 0,
-//       wins: 0,
-//       losses: 0,
-//       clearanceLevel: 'unclassified',
-//       photo: '',
-//       email: '',
-//     }
-//   })
-//     .spread((user, created) => {
-//       console.log(user.get({
-//         plain: true
-//       }));
-//       callback(user);
-//     });
-// };
 
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
@@ -146,9 +125,9 @@ const getUserStats = ({ username }, callback) => {
 }
 
 // drop the db
-User.sync({ force: true }).then(() => {
-  console.log('DATABASE DROPPED');
-});
+// User.sync({ force: true }).then(() => {
+//   console.log('DATABASE DROPPED');
+// });
 
 module.exports = {
   createGameAndGetJoinCode,
