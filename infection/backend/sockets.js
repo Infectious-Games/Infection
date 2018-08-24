@@ -44,12 +44,13 @@ module.exports = (server) => {
           io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
+          let rosterLength = 3; //FIXME: Make dynamic later
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
           leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
-            {leader: roundLeader.username, round} 
+            {leader: roundLeader.username, round, rosterLength} 
           );
         }, 20000);  
       };
@@ -116,9 +117,10 @@ module.exports = (server) => {
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
+              let rosterLength = 3;
               let round = store.getState().round.round;
               let roundLeader = leaderLoop[round - 1];
-              io.in(socket.game).emit('start round', {leader: roundLeader.username, round});     
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
           }, 3000)
 
