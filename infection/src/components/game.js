@@ -27,11 +27,11 @@ class Game extends Component {
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
-      rosterLength: 3,
-      round: 1,
+      rosterLength: undefined,
+      round: 0,
       rosterApproved: [undefined, undefined, undefined],
       team: [],
-      teamAssembled: true,
+      teamAssembled: false,
       username: undefined,
       
     }
@@ -65,7 +65,7 @@ class Game extends Component {
       })
     })
     socket.on('team chosen', (proposedRoster) => {
-      console.log(`mission roster sent to client ${proposedRoster}`);
+      console.log(proposedRoster, 'mission roster has made it to the client');
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
       this.setState({ missionRoster: proposedRoster }) //TODO: move this state change to after vote approval: missionActive: true
     })
@@ -111,9 +111,9 @@ class Game extends Component {
 
   handleSelectRosterEntryClick(member) {
     this.state.missionRoster.length === this.state.rosterLength
-      ? console.log(this.state.missionRoster)
+      ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 114')
       : this.state.missionRoster.includes(member)
-        ? console.log(this.state.missionRoster)
+        ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 116')
         : this.setState({ missionRoster: [...this.state.missionRoster, member] });
   }
 
