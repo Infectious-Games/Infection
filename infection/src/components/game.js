@@ -10,6 +10,7 @@ class Game extends Component {
     console.log(props)
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
+    this.handleRosterVote = this.handleRosterVote.bind(this);
 
     this.setInGameStatus = props.setInGameStatus;
 
@@ -20,7 +21,7 @@ class Game extends Component {
       id: undefined,
       infiltrator: false,
       infiltrators: [],
-      leader: undefined,
+      leader: 'bob',
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: ['bob', 'jim'],
@@ -29,7 +30,7 @@ class Game extends Component {
       scientistsWin: false,
       team: ['bob', 'jim'],
       teamAssembled: true,
-      username: undefined,
+      username: 'bob',
       
     }
     
@@ -92,6 +93,10 @@ class Game extends Component {
       socket.emit('chose cure or sabotage', choice)
     );
   }
+
+  handleRosterVote(vote) {
+    console.log(vote);
+  }
   
   render() {
     return (
@@ -101,6 +106,7 @@ class Game extends Component {
         handleSubmitRoster={this.handleSubmitRoster.bind(this)}
         choose={this.handleOnMissionClick.bind(this)}
         setInGameStatus={this.setInGameStatus}
+        handleRosterVote={this.handleRosterVote.bind(this)}
       ></GameView>
     );
   }

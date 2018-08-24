@@ -15,7 +15,8 @@ const GameView = ({
   choose, 
   handleSelectRosterEntryClick, 
   handleSubmitRoster,
-  setInGameStatus
+  setInGameStatus,
+  handleRosterVote,
 }) => 
   <Grid className="game">
     <br></br>
@@ -37,6 +38,7 @@ const GameView = ({
                   game={game}
                   handleSelectRosterEntryClick={handleSelectRosterEntryClick}
                   handleSubmitRoster={handleSubmitRoster}
+                  handleRosterVote={handleRosterVote}
                 ></Round>
                 : !game.missionResults[game.round - 1]
                   ? <Mission
