@@ -26,15 +26,10 @@ class Game extends Component {
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
-<<<<<<< HEAD
       rosterLength: 0,
       round: 0,
       rosterApproved: [undefined, undefined, undefined],
       infiltratorsWin: false,
-=======
-      round: 0,
-      scientistsWin: true,
->>>>>>> 047c4d5b7b75f3f10665e80e0aa1a4ce3c0cedf8
       team: [],
       teamAssembled: false,
       username: undefined,
