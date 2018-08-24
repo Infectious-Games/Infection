@@ -19,7 +19,6 @@ const User = db.define('User', {
   losses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
   photo: Sequelize.STRING,
-  email: Sequelize.STRING,
 });
 
 //game schema
@@ -47,15 +46,20 @@ Game.sync({force: true})
   });
 
 // find or create user
-const updateUser = ({username}, callback) => {
-  User.findOrCreate({ where: { username },
-    defaults: { 
+const updateUser = (profile, callback) => {
+  console.log(profile, 'profile in db');
+  const username = profile.displayName;
+  console.log(username, 'username in db');
+  const photo = profile.image;
+  console.log(photo, 'photo in db');
+  User.findOrCreate({
+    where: { username },
+    defaults: {
       gamesPlayed: 0,
       wins: 0,
       losses: 0,
       clearanceLevel: 'unclassified',
       photo: '',
-      email: '',
     }
   })
     .spread((user, created) => {
@@ -65,6 +69,26 @@ const updateUser = ({username}, callback) => {
       callback(user);
     });
 };
+
+// // find or create user
+// const updateUser = ({username}, callback) => {
+//   User.findOrCreate({ where: { username },
+//     defaults: { 
+//       gamesPlayed: 0,
+//       wins: 0,
+//       losses: 0,
+//       clearanceLevel: 'unclassified',
+//       photo: '',
+//       email: '',
+//     }
+//   })
+//     .spread((user, created) => {
+//       console.log(user.get({
+//         plain: true
+//       }));
+//       callback(user);
+//     });
+// };
 
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
@@ -123,9 +147,9 @@ const getUserStats = ({ username }, callback) => {
 }
 
 // drop the db
-// User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
-// });
+User.sync({ force: true }).then(() => {
+  console.log('DATABASE DROPPED');
+});
 
 module.exports = {
   createGameAndGetJoinCode,

@@ -64,13 +64,18 @@ module.exports = (app) => {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
   }, (accessToken, refreshToken, profile, done) => {
-    log(`+ ACCESS TOKEN ++++ ${accessToken} ++++ ACCESS TOKEN +`);
-    log(profile.displayName, 'profile');
-    log(profile.id, 'profile ID');
-    db.updateUser({ username: profile.displayName }, (user) => {
+    // log(`+ ACCESS TOKEN ++++ ${accessToken} ++++ ACCESS TOKEN +`);
+    // log(profile.displayName, 'profile');
+    // log(profile.id, 'profile ID');
+    // log(profile, 'profile in routes');
+    db.updateUser(profile, (user) => {
       log(`user is ${user}`);
       return done(null, user);
     });
+    // db.updateUser({ username: profile.displayName }, (user) => {
+    //   log(`user is ${user}`);
+    //   return done(null, user);
+    // });
   }));
 
   app.get('/auth/google',
