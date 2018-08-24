@@ -1,6 +1,5 @@
 import React from 'react';
 import { ListGroupItem } from "react-bootstrap";
-import '../../../App.css';
 
 const SelectRosterEntry = ({ member, handleSelectRosterEntryClick }) =>
   <ListGroupItem 
