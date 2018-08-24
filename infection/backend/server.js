@@ -26,4 +26,4 @@ const server = app.listen(port, (err) => {
 
 sockets(server);
 
-// app.use(express.static(join(__dirname, '../build')));
+app.use(express.static(join(__dirname, '../build')));

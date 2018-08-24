@@ -41,7 +41,7 @@ class Game extends Component {
   checkGameStatus() {
     socket.on('game start', ({username, infiltrator, team, infiltrators}) => {
       console.log(infiltrators);
-      this.setState({ username, teamAssembled: true, infiltrator, team }, () => {
+      this.setState({ username, teamAssembled: true, infiltrator, team, infiltrators }, () => {
       })
     })
     socket.on('start round', (data) => {
