@@ -16,17 +16,19 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setNumOfPlayers = this.setNumOfPlayers.bind(this);
     this.handleCreateGame = this.handleCreateGame.bind(this);
+    this.activatePal = this.activatePal.bind(this);
 
     this.state = {
       clearanceLevel: 'unclassified',
       game: undefined,
-      loggedIn: false,
+      gamesPlayed: 0,
+      loggedIn: true,
       losses: 0,
       newGameCode: undefined,
+      numOfPlayers: 4,
+      pal3000Active: false,
       username: undefined,
       wins: 0,
-      numOfPlayers: 4,
-      gamesPlayed: 0,
 
     };
   }
@@ -81,6 +83,11 @@ class Login extends React.Component {
   //   })
   // }
 
+  activatePal () {
+    console.log('activate Pal3000');
+    
+  }
+
   render() {
     const user = this.state;
     return (
@@ -98,6 +105,7 @@ class Login extends React.Component {
               handleSubmit={this.handleSubmit.bind(this)}
               setNumOfPlayers={this.setNumOfPlayers.bind(this)}
               handleCreateGame={this.handleCreateGame.bind(this)}
+              activatePal={this.activatePal.bind(this)}
             ></Dashboard>
           : <Welcome></Welcome>
         }

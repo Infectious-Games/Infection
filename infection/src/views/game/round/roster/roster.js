@@ -7,8 +7,7 @@ const Roster = ({
   game, 
   handleSelectRosterEntryClick, 
   handleSubmitRoster,
-
- }) =>
+}) =>
   game.leader === game.username
     ? <Leader
       team={game.team}
