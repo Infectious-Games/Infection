@@ -18,6 +18,7 @@ const Dashboard = ({
   handleSubmit,
   setNumOfPlayers,
   newGame,
+  activatePal,
 
 }) =>
   <Grid>
@@ -56,7 +57,8 @@ const Dashboard = ({
         {newGame
           ? <Row>Game Code : {newGame}</Row>
           : <StartGame
-            setNumOfPlayers={setNumOfPlayers}
+              activatePal={activatePal}
+              setNumOfPlayers={setNumOfPlayers}
           ></StartGame>
         }
       </Col>

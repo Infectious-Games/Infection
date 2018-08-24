@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, ButtonGroup, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 
-const StartGame = ({ setNumOfPlayers }) =>
+const StartGame = ({ setNumOfPlayers, activatePal }) =>
   <Grid>
     <Row>
       <Col md={5}>
@@ -17,15 +17,27 @@ const StartGame = ({ setNumOfPlayers }) =>
       <Col md={1}></Col>
       <Col md={3}>
         <ButtonToolbar>
-          <ButtonGroup>
-            {[4, 5, 6, 7, 8, 9, 10].map(num => 
-              <Button
-                onClick={()=>setNumOfPlayers(num)}
-                key={num}
-                active
-              >{num}</Button>)}
-          </ButtonGroup>
+            <ButtonGroup>
+              {[4, 5, 6, 7, 8, 9, 10].map(num => 
+                <Button
+                  onClick={()=> setNumOfPlayers(num)}
+                  key={num}
+                  active
+                >{num}</Button>)}
+            </ButtonGroup>
         </ButtonToolbar>
+        <br></br>
+        <Row>
+          <Col md={1}>
+            <Button
+            onClick={() => activatePal()}
+            active
+            >
+              Pal3k
+            </Button>
+          </Col>
+          <Col md={2}></Col>
+        </Row>
       </Col>
       <Col md={1}></Col>
     </Row>
