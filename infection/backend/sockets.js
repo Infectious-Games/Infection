@@ -102,12 +102,12 @@ module.exports = (server) => {
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
 
-            if (scientistWinTotal === 2) {
+            if (scientistWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
-            } else if (infiltratorWinTotal === 2) {
+            } else if (infiltratorWinTotal === 3) {
               winner = false;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
