@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Col, Row } from 'react-bootstrap';
 
-import Waiting from '../waiting/waiting';
+import Waiting from '../../waiting/waiting';
 
 
 const NotLeader = ({ leader }) => 

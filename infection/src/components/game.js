@@ -11,6 +11,7 @@ class Game extends Component {
     console.log(props)
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
+    this.handleRosterVote = this.handleRosterVote.bind(this);
 
     this.setInGameStatus = props.setInGameStatus;
 
@@ -25,8 +26,10 @@ class Game extends Component {
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
+      rosterLength: 0,
       round: 0,
-      scientistsWin: true,
+      rosterApproved: [undefined, undefined, undefined],
+      infiltratorsWin: false,
       team: [],
       teamAssembled: false,
       username: undefined,
@@ -92,7 +95,7 @@ class Game extends Component {
   }
 
   handleSelectRosterEntryClick(member) {
-    this.state.missionRoster.length === 3
+    this.state.missionRoster.length === this.state.rosterLength
       ? console.log(this.state.missionRoster)
       : this.state.missionRoster.includes(member)
         ? console.log(this.state.missionRoster)
@@ -109,6 +112,10 @@ class Game extends Component {
       socket.emit('chose cure or sabotage', choice)
     );
   }
+
+  handleRosterVote(vote) {
+    console.log(vote);
+  }
   
   render() {
     return (
@@ -118,6 +125,7 @@ class Game extends Component {
         handleSubmitRoster={this.handleSubmitRoster.bind(this)}
         choose={this.handleOnMissionClick.bind(this)}
         setInGameStatus={this.setInGameStatus}
+        handleRosterVote={this.handleRosterVote.bind(this)}
       ></GameView>
     );
   }
