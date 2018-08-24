@@ -16,7 +16,7 @@ const User = db.define('User', {
   username: Sequelize.STRING,
   gamesPlayed: Sequelize.INTEGER,
   wins: Sequelize.INTEGER,
-  loses: Sequelize.INTEGER,
+  losses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
   photo: Sequelize.STRING,
   email: Sequelize.STRING,
@@ -52,7 +52,7 @@ const updateUser = ({username}, callback) => {
     defaults: { 
       gamesPlayed: 0,
       wins: 0,
-      loses: 0,
+      losses: 0,
       clearanceLevel: 'Confidential',
       photo: '',
       email: '',
