@@ -4,16 +4,16 @@ import ScientistsWin from './scientistsWin';
 import TerroristsWin from './terroristsWin';
 
 const GameOver = ({ 
-    scientistsWin ,setInGameStatus 
+    infiltratorsWin ,setInGameStatus 
   }) => 
     <Grid>
       <Row>
         <Col md={8}>
           <Row>
             {
-              scientistsWin
-                ? <ScientistsWin></ScientistsWin>
-                : <TerroristsWin></TerroristsWin>
+              infiltratorsWin
+              ? <TerroristsWin></TerroristsWin>
+              : <ScientistsWin></ScientistsWin>
             }
           </Row>
           <br></br>

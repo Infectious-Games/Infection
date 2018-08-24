@@ -13,8 +13,10 @@ import Header from './shared/header';
 const GameView = ({ 
   game, 
   choose, 
-  handleSelectRosterEntryClick, handleSubmitRoster,
-  setInGameStatus
+  handleSelectRosterEntryClick, 
+  handleSubmitRoster,
+  setInGameStatus,
+  handleRosterVote,
 }) => 
   <Grid className="game">
     <br></br>
@@ -33,24 +35,26 @@ const GameView = ({
                 ></Roles>
               : !game.missionActive
                 ? <Round
-                  game={game}
-                  handleSelectRosterEntryClick={handleSelectRosterEntryClick}
-                  handleSubmitRoster={handleSubmitRoster}
+                    game={game}
+                    handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+                    handleSubmitRoster={handleSubmitRoster}
+                    handleRosterVote={handleRosterVote}
                 ></Round>
                 : !game.missionResults[game.round - 1]
                   ? <Mission
-                    choose={choose}
-                    choiceMade={game.choiceMade}
-                    roster={game.missionRoster}
-                    username={game.username}
+                      choose={choose}
+                      choiceMade={game.choiceMade}
+                      roster={game.missionRoster}
+                      username={game.username}
                   ></Mission>
                   : !game.gameOver
                     ? <MissionResults
-                      result={game.missionResults[game.round - 1]}
+                        result={game.missionResults[game.round - 1]}
                     ></MissionResults>
                     : <GameOver
-                      setInGameStatus={setInGameStatus}
-                    scientistsWin={game.scientistsWin}></GameOver>
+                        setInGameStatus={setInGameStatus}
+                        infiltratorsWin={game.infiltratorsWin}
+                      ></GameOver>
         }
       </Col>
       <Col md={2}></Col>

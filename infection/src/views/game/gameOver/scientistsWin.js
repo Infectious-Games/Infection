@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 
 import scientistsWin from '../../../images/Scientist-Win.png';
 
