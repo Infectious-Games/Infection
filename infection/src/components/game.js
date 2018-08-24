@@ -31,7 +31,7 @@ class Game extends Component {
       round: 0,
       rosterApproved: ['undefined', 'undefined', 'undefined'],
       team: [],
-      teamAssembled: true,
+      teamAssembled: false,
       username: undefined,
       
     }
