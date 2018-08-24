@@ -19,6 +19,7 @@ const User = db.define('User', {
   losses: Sequelize.INTEGER,
   clearanceLevel: Sequelize.STRING,
   photo: Sequelize.STRING,
+  email: Sequelize.STRING,
 });
 
 //game schema
@@ -46,12 +47,9 @@ Game.sync({force: true})
   });
 
 // find or create user
-const updateUser = (profile, callback) => {
-  console.log(profile, 'profile in db');
+const findOrCreateUser = (profile, callback) => {
   const username = profile.displayName;
-  console.log(username, 'username in db');
-  const photo = profile.image;
-  console.log(photo, 'photo in db');
+  const photo = profile.photos[0].value.slice(0, profile.photos[0].value.indexOf('?'));
   User.findOrCreate({
     where: { username },
     defaults: {
@@ -59,7 +57,8 @@ const updateUser = (profile, callback) => {
       wins: 0,
       losses: 0,
       clearanceLevel: 'unclassified',
-      photo: '',
+      photo: photo,
+      email: '',
     }
   })
     .spread((user, created) => {
@@ -71,7 +70,7 @@ const updateUser = (profile, callback) => {
 };
 
 // // find or create user
-// const updateUser = ({username}, callback) => {
+// const findOrCreateUser = ({username}, callback) => {
 //   User.findOrCreate({ where: { username },
 //     defaults: { 
 //       gamesPlayed: 0,
@@ -153,7 +152,7 @@ User.sync({ force: true }).then(() => {
 
 module.exports = {
   createGameAndGetJoinCode,
-  updateUser,
+  findOrCreateUser,
   updateUserStats,
   getUserStats,
   db,

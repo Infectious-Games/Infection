@@ -12,7 +12,7 @@ module.exports = (app) => {
   // find or add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
-    db.updateUser(body, (data) => {
+    db.findOrCreateUser(body, (data) => {
       // response is true if user has been added to db, or false if user already exists
       res.json(data);
     });
@@ -68,11 +68,11 @@ module.exports = (app) => {
     // log(profile.displayName, 'profile');
     // log(profile.id, 'profile ID');
     // log(profile, 'profile in routes');
-    db.updateUser(profile, (user) => {
+    db.findOrCreateUser(profile, (user) => {
       log(`user is ${user}`);
       return done(null, user);
     });
-    // db.updateUser({ username: profile.displayName }, (user) => {
+    // db.findOrCreateUser({ username: profile.displayName }, (user) => {
     //   log(`user is ${user}`);
     //   return done(null, user);
     // });
