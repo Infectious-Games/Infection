@@ -115,6 +115,7 @@ class Game extends Component {
 
   handleRosterVote(vote) {
     console.log(vote);
+    
   }
   
   render() {
