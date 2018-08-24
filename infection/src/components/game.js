@@ -48,7 +48,8 @@ class Game extends Component {
       })
     })
     socket.on('start round', (data) => {
-      this.setState({ round: data.round, leader: data.leader, missionRoster: [], missionActive: false, 
+      console.log(data, 'data sent at start of round');
+      this.setState({ round: data.round, leader: data.leader, rosterLength: data.rosterLength, missionRoster: [], missionActive: false, 
         choiceMade: undefined })
     })
     socket.on('team chosen', (team) => {
@@ -115,7 +116,7 @@ class Game extends Component {
 
   handleRosterVote(vote) {
     console.log(vote);
-    
+
   }
   
   render() {
