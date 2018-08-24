@@ -25,9 +25,10 @@ class Game extends Component {
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
+      rosterLength: 0,
       round: 0,
       rosterApproved: [undefined, undefined, undefined],
-      scientistsWin: false,
+      infiltratorsWin: false,
       team: [],
       teamAssembled: false,
       username: undefined,
@@ -76,7 +77,7 @@ class Game extends Component {
   }
 
   handleSelectRosterEntryClick(member) {
-    this.state.missionRoster.length === 3
+    this.state.missionRoster.length === this.state.rosterLength
       ? console.log(this.state.missionRoster)
       : this.state.missionRoster.includes(member)
         ? console.log(this.state.missionRoster)

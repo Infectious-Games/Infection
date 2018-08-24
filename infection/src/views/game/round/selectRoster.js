@@ -12,6 +12,7 @@ const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }
             {
               team.map((member) => 
               <SelectRosterEntry
+              active
               key={member} //change in future
               member={member}
               handleSelectRosterEntryClick={handleSelectRosterEntryClick}

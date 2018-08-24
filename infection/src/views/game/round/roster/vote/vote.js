@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 
-const Vote = ({ team, leader, handleRosterVote }) =>
+const Vote = ({ missionRoster, leader, handleRosterVote }) =>
   <Grid>
     <Row>
       <Col md={8}>
@@ -12,7 +12,7 @@ const Vote = ({ team, leader, handleRosterVote }) =>
         <br></br>
         <ListGroup>
           {
-            team.map(member => 
+            missionRoster.map(member => 
               <ListGroupItem
                 key={member}
               >

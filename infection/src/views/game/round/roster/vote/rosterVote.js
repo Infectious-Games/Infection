@@ -9,17 +9,17 @@ const RosterVote = ({
   handleSubmitRoster,
   handleRosterVote, 
 }) =>
-    !game.team
-      ? <Roster
-        game={game}
-        handleSelectRosterEntryClick={handleSelectRosterEntryClick}
-        handleSubmitRoster={handleSubmitRoster}
-      ></Roster>
-      : <Vote 
-          team={game.team}
-          leader={game.leader}
-          handleRosterVote={handleRosterVote} 
-        ></Vote>
-  
+    game.missionRoster.length === game.rosterLength
+    ? <Vote
+      missionRoster={game.missionRoster}
+      leader={game.leader}
+      handleRosterVote={handleRosterVote}
+    ></Vote>
+    : <Roster
+      game={game}
+      handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+      handleSubmitRoster={handleSubmitRoster}
+    ></Roster>
+    
 
 export default RosterVote;
