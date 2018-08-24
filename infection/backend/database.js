@@ -38,7 +38,7 @@ const Game = db.define('game', {
   },
 });
 
-Game.sync({force: true})
+Game.sync({force: false})
   .then(game => {
     console.log('game model created in db');
   })
