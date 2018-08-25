@@ -98,8 +98,8 @@ class Game extends Component {
       })
     })
     // if Leader's roster was approved
-    socket.on('on mission', (message) => {
-      console.log(message, 'message');
+    socket.on('on mission', () => {
+      console.log('ON MISSION received on client');
       this.setState({ missionActive: true });
     })
     socket.on('mission result', (result) => {
