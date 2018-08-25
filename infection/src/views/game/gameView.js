@@ -73,7 +73,13 @@ const GameView = ({
       
       <br></br>
     </Row>
-    <GameStatus missionResults={game.missionResults}></GameStatus>
+    <Row>
+      <Col md={3}></Col>
+      <Col md={6}>
+        <GameStatus missionResults={game.missionResults}></GameStatus>
+      </Col>
+      <Col md={3}></Col>
+    </Row>
   </Grid>
   
 

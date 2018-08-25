@@ -1,18 +1,21 @@
 import React from 'react';
 import { Grid, Col, Row, Button} from 'react-bootstrap';
 
-const GameStatus = ({ missionResults }) => 
+const GameStatus = ({ missionResults }) =>
   <Grid className="game-results">
     <Row>
-      <Col md={4}></Col>
-      <Col md={4}>
+      <Col md={6}>
         <h4>Mission Results</h4>
       </Col>
-      <Col md={4}></Col>
     </Row>
+    <br></br>
     <Row>
+      <Col md={1}
+        bsStyle='default'
+        style={{width: 50}}
+        ></Col>
         {missionResults.map((round, i) =>
-          <tc key={i}>
+          <Col md={1} key={i}>
             {
               round === 'success'
                 ? <Button bsStyle="success" bsSize="large" ></Button>
@@ -20,7 +23,7 @@ const GameStatus = ({ missionResults }) =>
                   ? <Button bsStyle="danger" bsSize="large" ></Button>
                   : <Button bsStyle="default" bsSize="large" ></Button>
             }
-          </tc>
+          </Col>
         )}
     </Row>
   </Grid>
