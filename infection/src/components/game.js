@@ -17,6 +17,7 @@ class Game extends Component {
 
     this.state = {
       
+      allUsersVotedOnRoster: false,
       choiceMade: false,
       gameOver: false, 
       id: undefined,
@@ -34,6 +35,9 @@ class Game extends Component {
       team: [],
       teamAssembled: false,
       username: undefined,
+      usersVoteRecord: [{name: undefined, vote: undefined}],
+      votedOnRoster: false,
+
       
     }
     
@@ -142,6 +146,7 @@ class Game extends Component {
   handleRosterVote(vote) {
     console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
+    this.setState({ votedOnRoster: true });
     //TODO: change state to land at waiting page after voting
   }
   

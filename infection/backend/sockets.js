@@ -1,8 +1,8 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
-const { assignRoles } = require('./redux/users/actionCreator_users');
-const { newUser } = require('./redux/users/actionCreator_users');
-const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
+const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
+const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes');
+const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');

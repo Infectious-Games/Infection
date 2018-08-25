@@ -17,6 +17,9 @@ const RosterVote = ({
       missionRoster={game.missionRoster}
       leader={game.leader}
       handleRosterVote={handleRosterVote}
+      votedOnRoster={game.votedOnRoster}
+      allUsersVotedOnRoster={game.allUsersVotedOnRoster}
+      usersVoteRecord={game.usersVoteRecord}
     ></Vote>
     : <Roster
       game={game}
