@@ -55,7 +55,7 @@ class Game extends Component {
       })
     })
     socket.on('start round', (data) => {
-      console.log(data, 'data sent at start of round line 51 of game');
+      console.log(data, 'start round info in game.js');
       this.setState({ 
         round: data.round, 
         leader: data.leader, 
@@ -72,12 +72,21 @@ class Game extends Component {
     })
     socket.on('roster vote result', ({ result, votes }) => {
       console.log(result, votes, 'roster vote result received in games.js');
-      // set state of rosterApproved based on result 
       //TODO: use votes to create votes view: shows who voted YES or NO
-      // if failed vote
+      // setTimeout ~ 10 secs. to allow players to see results
+      // if failed roster attempt 
+      if (result === 1) {
+        result = 'X'
+        const updatedRosterApproved = this.state.rosterApproved;
+        const index = updatedRosterApproved.indexOf(undefined);
+        updatedRosterApproved[index] = result;
+        this.setState({ rosterApproved: updatedRosterApproved });
         //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
       // if vote passed
-        //this.setState({ missionActive: true });
+      } else {
+        console.log('vote passed');
+        this.setState({ missionActive: true });
+      }
     })
     socket.on('mission result', (result) => {
       if (result === 0) {

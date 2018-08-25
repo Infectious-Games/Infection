@@ -143,7 +143,7 @@ module.exports = (server) => {
         'Paul': 'NO'
       }
       // also return result, similar to...
-      const result = 'X'; // TODO: replace hard-code with actual result and votes
+      const result = 0; // TODO: replace hard-code with actual result and votes
       io.in(socket.game).emit('roster vote result', { result, votes });
       
     });
