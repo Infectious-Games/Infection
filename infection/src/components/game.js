@@ -72,7 +72,7 @@ class Game extends Component {
     })
     socket.on('roster vote result', ({ result, votes }) => {
       console.log(result, votes, 'roster vote result received in games.js');
-      // set state of rosterApproved based on result
+      // set state of rosterApproved based on result 
       //TODO: use votes to create votes view: shows who voted YES or NO
       // if failed vote
         //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
