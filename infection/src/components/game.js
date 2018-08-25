@@ -37,8 +37,7 @@ class Game extends Component {
       username: undefined,
       usersVoteRecord: [],
       votedOnRoster: false,
-
-      
+    
     }
     
   }
@@ -66,7 +65,8 @@ class Game extends Component {
         rosterLength: data.rosterLength, 
         missionRoster: [], 
         missionActive: false, 
-        choiceMade: undefined 
+        choiceMade: undefined,
+        leaderSubmitRoster: false, // to return to previous state
       })
     })
     socket.on('team chosen', (proposedRoster) => {
@@ -82,7 +82,7 @@ class Game extends Component {
         console.log(this.state.usersVoteRecord, 'this.state.usersVoteRecord');
         // set state of rosterApproved based on result
         // if failed roster attempt 
-        if (result === 1) {
+        if (result === false) {
           result = 'X'
           const updatedRosterApproved = this.state.rosterApproved;
           const index = updatedRosterApproved.indexOf(undefined);
@@ -93,9 +93,14 @@ class Game extends Component {
         // if vote passed
         } else {
           console.log('vote passed');
-          this.setState({ missionActive: true });
+          // this.setState({ missionActive: true });
         }
       })
+    })
+    // if Leader's roster was approved
+    socket.on('on mission', (message) => {
+      console.log(message, 'message');
+      this.setState({ missionActive: true });
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
