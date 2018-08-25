@@ -13,6 +13,7 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
+
   io.on('connection', (socket) => {
 
     socket.on('join game', (playerProps) => {
@@ -51,7 +52,7 @@ module.exports = (server) => {
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
-        }, 20000);  
+        }, 5000);  
       };
       Game.find({ where: { id: game } })
         .then((game) => {
@@ -67,7 +68,6 @@ module.exports = (server) => {
         .catch(err => console.error(err));         
     });
     const users = store.getState().users;
-    // log(chalk.bold.bgCyan(users, 'users'));
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
       console.log(team, 'team chosen by leader made it to server');
@@ -126,7 +126,25 @@ module.exports = (server) => {
 
         : log(chalk.red('Waiting for more votes'));
     });
+    //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
+    socket.on('chose YES or NO', ({vote, username}) => {
+      console.log(vote, 'vote in sockets.js');
+      console.log(username, 'username in sockets.js');
+      //TODO: REDUX: dispatch votes to store
+      // track each players vote
+      // majority YES: result = 'success', otherwise result = 'X'...check with Mark to see what he wants
+      // return object with each players vote, similar to...
+      const votes = {
+        'Athena': 'YES',
+        'Mark': 'NO',
+        'Matt': 'YES',
+        'Paul': 'NO'
+      }
+      // also return result, similar to...
+      const result = 'X'; // TODO: replace hard-code with actual result and votes
+      io.in(socket.game).emit('roster vote result', { result, votes });
+      
+    });
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
 };
-//
