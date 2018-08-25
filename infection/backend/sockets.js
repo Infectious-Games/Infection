@@ -5,7 +5,7 @@ const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/action
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
-const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
+const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, resetFail } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
 const chalk = require('chalk');
@@ -110,12 +110,12 @@ module.exports = (server) => {
             let winner;
 
             if (scientistWinTotal === 3) {
-              winner = true;
+              winner = false;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
             } else if (infiltratorWinTotal === 3) {
-              winner = false;
+              winner = true;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               socket.disconnect(true);
@@ -132,24 +132,74 @@ module.exports = (server) => {
 
         : log(chalk.red('Waiting for more votes'));
     });
+
     //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
-    socket.on('chose YES or NO', ({vote, username}) => {
+    socket.on('chose YES or NO', ({ vote, username }) => {
       console.log(vote, 'vote in sockets.js');
       // track each players vote
       // return object with (each players vote, similar to...
       proposalResults.push({name: username, vote});
-      //TODO: REDUX: dispatch votes to store
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
-      //set result to final 0 (cure) or 1 (fail) that exists on state after all votes
-      //check if number of submitted votes equals number of people in game, if so, send result and votes.
+
+      // If everyone has voted  
       if (store.getState().proposalVotes.totalMissionVotes === socket.numberOfPlayers) {
-        const result = store.getState().proposalVotes.voteStatus;
-        io.in(socket.game).emit('roster vote result', { result, vote: proposalResults });
+        // More accepts than rejects for team proposal
+        const voteSucceeds = store.getState().proposalVotes.voteFail < store.getState().proposalVotes.voteSuccess;
+        let round = store.getState().round.round;
+        let rosterLength = grid[socket.numberOfPlayers][round - 1];
+        let roundLeader = leaderLoop[leaderLoopIndex];
+        leaderLoopIndex++;
+
+        // Send roster vote results back to client
+        io.in(socket.game).emit('roster vote result', { voteSucceeds, vote: proposalResults });
+        log(chalk.bgWhite.blue(voteSucceeds, 'voteSucceeds'));
+        log(chalk.bgWhite.blue(store.getState().proposalVotes.voteSuccess, 'voteSuccess on store'));
+        // If vote succeeds, reset fail count, mission votes, move to cure or sabotage vote via on mission event
+        if (voteSucceeds) {
+          store.dispatch(resetMissionVotes());
+          log(chalk.bgWhite.blue(store.getState().proposalVotes.totalMissionVotes, 'totalMissionVotes after success'));
+          store.dispatch(resetFail());
+          // setTimeout(() => {
+          io.in(socket.game).emit('on mission');
+          log(chalk.bgWhite.red('on Mission sent'));
+          // }, 5000);
+
+        } else if (!voteSucceeds) {
+          // If vote fails, check if this is third fail on current 
+          if (store.getState().game.failCount === 2) {
+            // If this is the third failed vote on current round, check if the infiltrators already have 2 wins
+            setTimeout(() => io.in(socket.game).emit('mission result', voteSucceeds));
+            // If this is the third round win for the infiltrators
+            if (store.getState().game.infiltratorWins() === 2) {
+              // Set winner to true for client and emit game over event
+              setTimeout(() => {
+                let winner = true;
+                io.in(socket.game).emit('game over', winner);
+              }, 5000);
+            } else {
+              // If this is not the third win for the infiltrators, 
+              // reset appropriate state and start new new round
+              store.dispatch(infiltratorRoundWin());
+              store.dispatch(resetFail());
+              store.dispatch(resetMissionVotes());
+              store.dispatch(incrementRound());
+              setTimeout(() => io.in(socket.game).emit('start round', 
+                { leader: roundLeader.username, round, rosterLength }), 5000);              
+            } 
+          } else {
+            // If this is not the third failed vote, reset mission votes, 
+            // increment fail assign new leader, wait for next proposal
+            io.in(socket.game).emit('mission result', voteSucceeds);
+            store.dispatch(incrementFail());
+            store.dispatch(resetMissionVotes());
+            setTimeout(() => io.in(socket.game).emit('start round', 
+              { leader: roundLeader.username, round, rosterLength }), 5000);
+          }
+        }    
       } else {
-        console.log('Waiting on team approval votes');
-      }
+        log(chalk.bgCyan.red('Waiting for votes '));
+      }      
     });
-    log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
 };

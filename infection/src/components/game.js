@@ -65,8 +65,12 @@ class Game extends Component {
         rosterLength: data.rosterLength, 
         missionRoster: [], 
         missionActive: false, 
-        choiceMade: undefined,
+        choiceMade: false,
         leaderSubmitRoster: false, // to return to previous state
+        allUsersVotedOnRoster: false,
+        usersVoteRecord: [],
+        votedOnRoster: false,
+        rosterApproved: [undefined, undefined, undefined]
       })
     })
     socket.on('team chosen', (proposedRoster) => {
@@ -151,7 +155,10 @@ class Game extends Component {
 
   handleSubmitRoster() {
     console.log(`this function also emits the deploy team event and sends ${this.state.missionRoster}`)
-    socket.emit('deploy team', this.state.missionRoster)
+    // FIXME: Change comparator back to this.state.rosterLength
+    this.state.missionRoster.length === 2
+      ? socket.emit('deploy team', this.state.missionRoster)
+      : console.log('Not enough people chosen yet.')
   }
 
   handleOnMissionClick(choice) {

@@ -5,17 +5,20 @@ const proposalVote = (state = initialState, action) => {
   switch (action.type) {
   case VOTE_YES:
     return Object.assign({}, state, {
-      voteStatus: state.voteStatus,
+      voteFail: state.voteFail,
+      voteSuccess: state.voteSuccess + 1,
       totalMissionVotes: state.totalMissionVotes + 1
     });
   case VOTE_NO: 
     return Object.assign({}, state, {
-      voteStatus: 1,
+      voteFail: state.voteFail + 1,
+      voteSuccess: state.voteSuccess,
       totalMissionVotes: state.totalMissionVotes + 1
     });
   case RESET_MISSION_VOTES:
     return Object.assign({}, state, {
-      voteStatus: 0,
+      voteFail: 0,
+      voteSuccess: 0,
       totalMissionVotes: 0
     });
   default: 
