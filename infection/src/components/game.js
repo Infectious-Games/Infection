@@ -29,9 +29,9 @@ class Game extends Component {
       missionRoster: [],
       rosterLength: 0,
       round: 0,
-      rosterApproved: ['undefined', 'undefined', 'undefined'],
+      rosterApproved: [undefined, undefined, undefined],
       team: [],
-      teamAssembled: true,
+      teamAssembled: false,
       username: undefined,
       
     }

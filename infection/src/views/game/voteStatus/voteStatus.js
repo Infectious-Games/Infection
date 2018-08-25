@@ -2,9 +2,8 @@ import React from 'react';
 import { Grid, Col, Row,} from 'react-bootstrap';
 
 const VoteStatus = ({ rosterApproved }) =>
-  {console.log(rosterApproved)
-    return rosterApproved[0]
-    ? <Grid className="vote-results">
+  rosterApproved[0] === 'X'
+    ? <Grid className="game-results">
         <Row>
           <Col md={5}>
             Unapproved Rosters
@@ -22,7 +21,7 @@ const VoteStatus = ({ rosterApproved }) =>
           <Col md={2}></Col>
         </Row>
       </Grid>
-    : <div></div>}
+    : <div></div>
   
 
 

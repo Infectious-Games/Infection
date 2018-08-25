@@ -9,6 +9,7 @@ import WaitingForTeam from './waiting/waitingForTeam';
 import GameOver from './gameOver/gameOver';
 import GameStatus from './gameStatus/gameStatus';
 import Header from './shared/header';
+import VoteStatus from './voteStatus/voteStatus';
 
 const GameView = ({ 
   game, 
@@ -20,9 +21,15 @@ const GameView = ({
 }) => 
   <Grid className="game">
     <br></br>
-    <Header 
-      rosterApproved={game.rosterApproved}
-    ></Header>
+    <Row>
+      <Col md={5}></Col>
+      <Col md={2}>
+        <Header></Header>
+      </Col>
+      <Col md={5}>
+        <VoteStatus rosterApproved={game.rosterApproved}></VoteStatus>
+      </Col>
+    </Row>
     <br></br>
     <Row>
       <Col md={2}></Col>
@@ -63,6 +70,7 @@ const GameView = ({
     </Row>
     <Row>
       <br></br>
+      
       <br></br>
     </Row>
     <GameStatus missionResults={game.missionResults}></GameStatus>
