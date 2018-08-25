@@ -28,12 +28,13 @@ class Game extends Component {
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
-      rosterLength: 0,
-      round: 0,
+      rosterLength: 3,
+      round: 1,
       rosterApproved: [undefined, undefined, undefined],
       team: [],
       teamAssembled: false,
       username: undefined,
+      votedOnRoster: false,
       
     }
     
@@ -140,6 +141,7 @@ class Game extends Component {
   handleRosterVote(vote) {
     console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
+    this.setState({ votedOnRoster: true });
     //TODO: change state to land at waiting page after voting
   }
   
