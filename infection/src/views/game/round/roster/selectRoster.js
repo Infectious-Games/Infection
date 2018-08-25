@@ -24,7 +24,7 @@ const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }
           <Button 
             bsStyle="danger" 
             bsSize="large" 
-            onClick={()=> handleSubmitRoster()}
+            onClick={handleSubmitRoster}
           >
             SUBMIT ROSTER
           </Button>

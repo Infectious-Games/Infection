@@ -118,6 +118,7 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
+    console.log(`this function also emits the deploy team event and sends ${this.state.missionRoster}`)
     socket.emit('deploy team', this.state.missionRoster)
     //this.setState({ missionActive: true });
   }
