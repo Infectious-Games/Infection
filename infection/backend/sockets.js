@@ -29,7 +29,6 @@ module.exports = (server) => {
       const getPlayerProfile = () => {
         const playersInGame = store.getState().users;
         const team = playersInGame.map(user => user.username);
-        log(chalk.bold.cyan(team, 'team'));
         const infiltrators = [];
         playersInGame.forEach(user => {
           if (user.infiltrator === true) {
@@ -68,9 +67,10 @@ module.exports = (server) => {
         .catch(err => console.error(err));         
     });
     const users = store.getState().users;
-    log(chalk.bold.bgCyan(users, 'users'));
+    // log(chalk.bold.bgCyan(users, 'users'));
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
+      console.log(team, 'team chosen by leader made it to server');
       io.in(socket.game).emit('team chosen', team);   
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
