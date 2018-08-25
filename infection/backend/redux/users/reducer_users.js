@@ -39,9 +39,6 @@ const users = (state = initialState, action) => {
         return user;
       }
     });
-
-  case RESET_USERS: 
-    return initialState;
     
   default:
     return state;
