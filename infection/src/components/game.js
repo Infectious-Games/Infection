@@ -82,6 +82,7 @@ class Game extends Component {
         //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
       // if vote passed
         //this.setState({ missionActive: true });
+        //socket.emit('get new leader');
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
@@ -145,7 +146,6 @@ class Game extends Component {
     console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
     this.setState({ votedOnRoster: true });
-    //TODO: change state to land at waiting page after voting
   }
   
   render() {
