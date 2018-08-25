@@ -74,8 +74,8 @@ class Game extends Component {
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
       this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true }) //TODO: move this state change to after vote approval: missionActive: true
     })
-    socket.on('roster vote result', ({ result, votes }) => {
-      console.log(result, votes, 'roster vote result received in games.js');
+    socket.on('roster vote result', ({ result, vote }) => {
+      console.log(result, vote, 'roster vote result received in games.js');
       // set state of rosterApproved based on result
       //TODO: use votes to create votes view: shows who voted YES or NO
       // if failed vote
