@@ -34,6 +34,7 @@ class Game extends Component {
       team: [],
       teamAssembled: false,
       username: undefined,
+      usersVoteRecord: [],
       votedOnRoster: false,
       
     }
