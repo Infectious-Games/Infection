@@ -13,9 +13,15 @@ const VoteStatus = ({ rosterApproved }) =>
           <Col md={2}></Col>
           <Col md={1}>
             <Row>
-              <Col md={1}>{rosterApproved[0]}</Col>
-              <Col md={1}>{rosterApproved[1]}</Col>
-              <Col md={1}>{rosterApproved[2]}</Col>
+              {
+              rosterApproved.map((vote, i) => 
+                <Col 
+                  md={1}
+                  key={i}
+                >
+                  {vote}
+                </Col>)
+              }
             </Row>
           </Col>
           <Col md={2}></Col>
