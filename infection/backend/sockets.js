@@ -138,8 +138,6 @@ module.exports = (server) => {
       // track each players vote
       // return object with (each players vote, similar to...
       proposalResults.push({name: username, vote});
-    
-      
       //TODO: REDUX: dispatch votes to store
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
