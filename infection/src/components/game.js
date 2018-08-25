@@ -23,6 +23,7 @@ class Game extends Component {
       infiltrator: false,
       infiltrators: [],
       infiltratorsWin: false,
+      voteOnTeam: false,
       leader: undefined,
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
@@ -67,7 +68,7 @@ class Game extends Component {
     socket.on('team chosen', (proposedRoster) => {
       console.log(proposedRoster, 'mission roster has made it to the client');
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
-      this.setState({ missionRoster: proposedRoster }) //TODO: move this state change to after vote approval: missionActive: true
+      this.setState({ missionRoster: proposedRoster, voteOnTeam: true }) //TODO: move this state change to after vote approval: missionActive: true
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
@@ -108,8 +109,9 @@ class Game extends Component {
       })
     })
   }
-
+  // BUG: this triggers the vote without the 'submit roster' button click
   handleSelectRosterEntryClick(member) {
+    console.log(member, 'MEMBER');
     this.state.missionRoster.length === this.state.rosterLength
       ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 114')
       : this.state.missionRoster.includes(member)

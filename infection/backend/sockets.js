@@ -13,6 +13,7 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
+  
   io.on('connection', (socket) => {
 
     socket.on('join game', (playerProps) => {
@@ -51,7 +52,7 @@ module.exports = (server) => {
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
-        }, 20000);  
+        }, 2000);  
       };
       Game.find({ where: { id: game } })
         .then((game) => {
@@ -71,7 +72,12 @@ module.exports = (server) => {
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
       console.log(team, 'team chosen by leader made it to server');
+      console.log(socket.game, 'socket.game');
+      // console.log(socket, 'socket');
+      // console.log(game, 'game');
+      // io.in(socket.game).emit('team chosen', team);   
       io.in(socket.game).emit('team chosen', team);   
+
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
