@@ -1,7 +1,7 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
 const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
-const { voteYes, voteNo, resetMissionvotes } = require('./redux/teamVotes/actionCreator_teamVotes');
+const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes');
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
