@@ -3,6 +3,7 @@ const initialState = require('./initialState_game');
 
 const game = (state = initialState, action) => {
   switch (action.type) {
+    
   case SCIENTIST_ROUND_WIN:
     return Object.assign({}, state, {
       round: state.round + 1,
