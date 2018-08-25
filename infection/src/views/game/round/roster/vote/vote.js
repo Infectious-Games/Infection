@@ -4,13 +4,17 @@ import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstra
 import Waiting from '../../../waiting/waiting';
 
 const Vote = ({ 
-  missionRoster,
-  leader,
+  allUsersVotedOnRoster,
   handleRosterVote,
+  leader,
+  missionRoster,
+  usersVoteRecord,
   votedOnRoster, 
 }) =>
   votedOnRoster
-    ? <Grid>
+    ? allUsersVotedOnRoster
+      ? <div>UsersVoteRecord {usersVoteRecord[0].name} {usersVoteRecord[0].vote}</div>
+      : <Grid>
         <Row>
           <Col md={8}>
             <h3>YOUR VOTE HAS BEEN RECORDED!</h3>

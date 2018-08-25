@@ -17,6 +17,7 @@ class Game extends Component {
 
     this.state = {
       
+      allUsersVotedOnRoster: false,
       choiceMade: false,
       gameOver: false, 
       id: undefined,
@@ -34,7 +35,9 @@ class Game extends Component {
       team: [],
       teamAssembled: false,
       username: undefined,
+      usersVoteRecord: [{name: undefined, vote: undefined}],
       votedOnRoster: false,
+
       
     }
     
