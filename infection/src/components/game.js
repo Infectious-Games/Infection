@@ -35,10 +35,9 @@ class Game extends Component {
       team: [],
       teamAssembled: false,
       username: undefined,
-      usersVoteRecord: [{name: undefined, vote: undefined}],
+      usersVoteRecord: [],
       votedOnRoster: false,
-
-      
+    
     }
     
   }
@@ -59,14 +58,15 @@ class Game extends Component {
       })
     })
     socket.on('start round', (data) => {
-      console.log(data, 'data sent at start of round line 51 of game');
+      console.log(data, 'start round info in game.js');
       this.setState({ 
         round: data.round, 
         leader: data.leader, 
         rosterLength: data.rosterLength, 
         missionRoster: [], 
         missionActive: false, 
-        choiceMade: undefined 
+        choiceMade: undefined,
+        leaderSubmitRoster: false, // to return to previous state
       })
     })
     socket.on('team chosen', (proposedRoster) => {
@@ -76,13 +76,31 @@ class Game extends Component {
     })
     socket.on('roster vote result', ({ result, vote }) => {
       console.log(result, vote, 'roster vote result received in games.js');
-      // set state of rosterApproved based on result
       //TODO: use votes to create votes view: shows who voted YES or NO
-      // if failed vote
-        //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
-      // if vote passed
-        //this.setState({ missionActive: true });
-        //socket.emit('get new leader');
+      this.setState({ allUsersVotedOnRoster: true, usersVoteRecord: vote}, () => {
+        console.log(this.state.allUsersVotedOnRoster, 'this.state.allUsersVotedOnRoster');
+        console.log(this.state.usersVoteRecord, 'this.state.usersVoteRecord');
+        // set state of rosterApproved based on result
+        // if failed roster attempt 
+        if (result === false) {
+          result = 'X'
+          const updatedRosterApproved = this.state.rosterApproved;
+          const index = updatedRosterApproved.indexOf(undefined);
+          updatedRosterApproved[index] = result;
+          this.setState({ rosterApproved: updatedRosterApproved });
+          //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
+          //socket.emit('get new leader');
+        // if vote passed
+        } else {
+          console.log('vote passed');
+          // this.setState({ missionActive: true });
+        }
+      })
+    })
+    // if Leader's roster was approved
+    socket.on('on mission', () => {
+      console.log('ON MISSION received on client');
+      this.setState({ missionActive: true });
     })
     socket.on('mission result', (result) => {
       if (result === 0) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RosterVote from './roster/vote/rosterVote';
+import HasLeaderSubmitredRoster from './rosterVote/roster/hasLeaderSubmittedRoster';
 import Fail from '../missionResults/fail';
 
 const Round = ({ 
@@ -9,13 +9,14 @@ const Round = ({
   handleSubmitRoster,
   handleRosterVote, 
 }) => 
+  //?TODO: change line 13, server will update game state on client instead
   game.rosterApproved[game.rosterApproved.length - 1] === 'X'
     ? <Fail></Fail>
-    : <RosterVote
+    : <HasLeaderSubmitredRoster
       game={game}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}
       handleRosterVote={handleRosterVote}
-    ></RosterVote>
+    ></HasLeaderSubmitredRoster>
     
 export default Round;
