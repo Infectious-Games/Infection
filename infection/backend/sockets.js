@@ -2,6 +2,7 @@ const sockets = require('socket.io');
 const store = require('./redux/store');
 const { assignRoles } = require('./redux/users/actionCreator_users');
 const { newUser } = require('./redux/users/actionCreator_users');
+const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes')
 const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
@@ -134,10 +135,7 @@ module.exports = (server) => {
     //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
     socket.on('chose YES or NO', ({vote, username}) => {
       console.log(vote, 'vote in sockets.js');
-      console.log(username, 'username in sockets.js');
-      //TODO: REDUX: dispatch votes to store
       // track each players vote
-      // majority YES: result = 'success', otherwise result = 'X'...check with Mark to see what he wants
       // return object with each players vote, similar to...
       const votes = {
         'Athena': 'YES',
@@ -145,10 +143,15 @@ module.exports = (server) => {
         'Matt': 'YES',
         'Paul': 'NO'
       }
-      // also return result, similar to...
-      const result = 1; // 0 = success, 1 = fail
-      io.in(socket.game).emit('roster vote result', { result, votes });
-      
+      //TODO: REDUX: dispatch votes to store
+      //increment yes and no votes as individual votes come in
+      vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+      //set result to final 0 (cure) or 1 (fail) that exists on state after all votes
+      const result = store.getState().teamVotes.voteStatus;
+      //check if number of submitted votes equals number of people in game, if so, send result and votes.
+      store.getState().teamVotes.totalMissionVotes === socket.numberOfPlayers
+        ? io.in(socket.game).emit('roster vote result', { result, votes })
+        : console.log('Waiting on team approval votes');
     });
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
