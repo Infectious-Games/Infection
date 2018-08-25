@@ -6,13 +6,13 @@ const proposalVote = (state = initialState, action) => {
   case VOTE_YES:
     return Object.assign({}, state, {
       voteFail: state.voteFail,
-      voteSuccess: state.VoteSuccess + 1,
+      voteSuccess: state.voteSuccess + 1,
       totalMissionVotes: state.totalMissionVotes + 1
     });
   case VOTE_NO: 
     return Object.assign({}, state, {
       voteFail: state.voteFail + 1,
-      voteSuccess: state.VoteSuccess,
+      voteSuccess: state.voteSuccess,
       totalMissionVotes: state.totalMissionVotes + 1
     });
   case RESET_MISSION_VOTES:
