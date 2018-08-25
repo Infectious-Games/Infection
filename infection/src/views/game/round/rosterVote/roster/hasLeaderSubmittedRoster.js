@@ -9,8 +9,6 @@ const HasLeaderSubmittedRoster = ({
   handleSubmitRoster,
   handleRosterVote,
 }) =>
-  // BUG: this happens without submit roster button click
-  // game.missionRoster.length === game.rosterLength
   game.leaderSubmitRoster
     ? <RosterVote
       rosterApproved={game.rosterApproved}
