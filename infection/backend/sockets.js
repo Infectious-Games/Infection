@@ -153,12 +153,18 @@ module.exports = (server) => {
 
         // Send roster vote results back to client
         io.in(socket.game).emit('roster vote result', { voteSucceeds, vote: proposalResults });
-        
+        log(chalk.bgWhite.blue(voteSucceeds, 'voteSucceeds'));
+        log(chalk.bgWhite.blue(store.getState().proposalVotes.voteSuccess, 'voteSuccess on store'));
         // If vote succeeds, reset fail count, mission votes, move to cure or sabotage vote via on mission event
         if (voteSucceeds) {
           store.dispatch(resetMissionVotes());
+          log(chalk.bgWhite.blue(store.getState().proposalVotes.totalMissionVotes, 'totalMissionVotes after success'));
           store.dispatch(resetFail());
-          setTimeout(() => io.in(socket.game).emit('on mission'), 5000);
+          // setTimeout(() => {
+          io.in(socket.game).emit('on mission');
+          log(chalk.bgWhite.red('on Mission sent'));
+          // }, 5000);
+
         } else if (!voteSucceeds) {
           // If vote fails, check if this is third fail on current 
           if (store.getState().game.failCount === 2) {
