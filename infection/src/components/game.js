@@ -77,7 +77,9 @@ class Game extends Component {
       // if failed vote
         //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
       // if vote passed
-        //this.setState({ missionActive: true });
+      // result === 0 
+      // ? this.setState({ missionActive: true }) 
+      // : 
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
