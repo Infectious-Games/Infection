@@ -74,14 +74,15 @@ class Game extends Component {
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
       this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true }) //TODO: move this state change to after vote approval: missionActive: true
     })
-    socket.on('roster vote result', ({ result, votes }) => {
-      console.log(result, votes, 'roster vote result received in games.js');
+    socket.on('roster vote result', ({ result, vote }) => {
+      console.log(result, vote, 'roster vote result received in games.js');
       // set state of rosterApproved based on result
       //TODO: use votes to create votes view: shows who voted YES or NO
       // if failed vote
         //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
       // if vote passed
         //this.setState({ missionActive: true });
+        //socket.emit('get new leader');
     })
     socket.on('mission result', (result) => {
       if (result === 0) {
@@ -145,7 +146,6 @@ class Game extends Component {
     console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
     this.setState({ votedOnRoster: true });
-    //TODO: change state to land at waiting page after voting
   }
   
   render() {
