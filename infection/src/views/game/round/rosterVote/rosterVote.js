@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
+import UsersVoteOnRosterList from './usersVoteOnRosterList';
 import WaitingForRosterVote from '../../waiting/waitingForRosterVote';
 import Vote from './vote';
 
@@ -14,7 +14,9 @@ const RosterVote = ({
 }) =>
   votedOnRoster
     ? allUsersVotedOnRoster
-      ? <div>List of User Votes {usersVoteRecord[0].name} {usersVoteRecord[0].vote}</div>
+      ? <UsersVoteOnRosterList
+          usersVoteRecord={usersVoteRecord}
+        ></UsersVoteOnRosterList>
       : <WaitingForRosterVote></WaitingForRosterVote>
     : <Vote
       handleRosterVote={handleRosterVote}
