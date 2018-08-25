@@ -7,6 +7,7 @@ const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/a
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
+const grid = require('./redux/logic_constants');
 const chalk = require('chalk');
 const log = console.log;
 
@@ -44,9 +45,9 @@ module.exports = (server) => {
           io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
-          let rosterLength = 3; //FIXME: Make dynamic later
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
+          let rosterLength = grid[socket.numberOfPlayers][round - 1];
           leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[round - 1];
           io.in(game).emit('start round', 
@@ -57,6 +58,7 @@ module.exports = (server) => {
       Game.find({ where: { id: game } })
         .then((game) => {
           console.log(game.numberOfPlayers, 'line 59');
+          socket.numberOfPlayers = game.numberOfPlayers;
           return game.numberOfPlayers;
         })
         .then(playerCount => {
@@ -117,8 +119,8 @@ module.exports = (server) => {
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
-              let rosterLength = 3;
               let round = store.getState().round.round;
+              let rosterLength = grid[socket.numberOfPlayers][round - 1];
               let roundLeader = leaderLoop[round - 1];
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
