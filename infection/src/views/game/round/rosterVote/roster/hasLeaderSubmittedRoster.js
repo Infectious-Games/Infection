@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Roster from '../roster';
-import Vote from './vote';
+import Roster from './roster';
+import RosterVote from '../rosterVote';
 
 const HasLeaderSubmittedRoster = ({
   game,
@@ -12,7 +12,7 @@ const HasLeaderSubmittedRoster = ({
   // BUG: this happens without submit roster button click
   // game.missionRoster.length === game.rosterLength
   game.leaderSubmitRoster
-    ? <Vote
+    ? <RosterVote
       rosterApproved={game.rosterApproved}
       missionRoster={game.missionRoster}
       leader={game.leader}
@@ -20,7 +20,7 @@ const HasLeaderSubmittedRoster = ({
       votedOnRoster={game.votedOnRoster}
       allUsersVotedOnRoster={game.allUsersVotedOnRoster}
       usersVoteRecord={game.usersVoteRecord}
-    ></Vote>
+    ></RosterVote>
     : <Roster
       game={game}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
