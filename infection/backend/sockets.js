@@ -1,8 +1,8 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
-const { assignRoles } = require('./redux/users/actionCreator_users');
-const { newUser } = require('./redux/users/actionCreator_users');
-const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
+const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
+const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes');
+const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
@@ -13,7 +13,9 @@ const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
-  var leaderLoop;
+  let leaderLoop;
+  let leaderLoopIndex = 0;
+  let proposalResults = {};
 
   io.on('connection', (socket) => {
 
@@ -49,7 +51,8 @@ module.exports = (server) => {
           let round = store.getState().round.round;
           let rosterLength = grid[socket.numberOfPlayers][round - 1];
           leaderLoop = leaderLoopCreator(store.getState().users);
-          let roundLeader = leaderLoop[round - 1];
+          let roundLeader = leaderLoop[leaderLoopIndex];
+          leaderLoopIndex++;
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
@@ -64,8 +67,8 @@ module.exports = (server) => {
         .then(playerCount => {
           console.log(playerCount, '63');
           store.getState().users.length === playerCount
-          ? store.dispatch(assignRoles()) && getPlayerProfile()
-          : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
+            ? store.dispatch(assignRoles()) && getPlayerProfile()
+            : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
         })
         .catch(err => console.error(err));         
     });
@@ -121,7 +124,8 @@ module.exports = (server) => {
               store.dispatch(resetVotes());
               let round = store.getState().round.round;
               let rosterLength = grid[socket.numberOfPlayers][round - 1];
-              let roundLeader = leaderLoop[round - 1];
+              let roundLeader = leaderLoop[leaderLoopIndex];
+              leaderLoopIndex++;
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
           }, 3000)
@@ -131,21 +135,21 @@ module.exports = (server) => {
     //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
     socket.on('chose YES or NO', ({vote, username}) => {
       console.log(vote, 'vote in sockets.js');
-      console.log(username, 'username in sockets.js');
-      //TODO: REDUX: dispatch votes to store
       // track each players vote
-      // majority YES: result = 'success', otherwise result = 'X'...check with Mark to see what he wants
       // return object with each players vote, similar to...
-      const votes = {
-        'Athena': 'YES',
-        'Mark': 'NO',
-        'Matt': 'YES',
-        'Paul': 'NO'
-      }
-      // also return result, similar to...
-      const result = 1; // TODO: replace hard-code with actual result and votes
-      io.in(socket.game).emit('roster vote result', { result, votes });
+      proposalResults[username] = vote;
       
+      //TODO: REDUX: dispatch votes to store
+      //increment yes and no votes as individual votes come in
+      vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+      //set result to final 0 (cure) or 1 (fail) that exists on state after all votes
+      //check if number of submitted votes equals number of people in game, if so, send result and votes.
+      if (store.getState().proposalVotes.totalMissionVotes === socket.numberOfPlayers) {
+        const result = store.getState().proposalVotes.voteStatus;
+        io.in(socket.game).emit('roster vote result', { result, vote: proposalResults });
+      } else {
+        console.log('Waiting on team approval votes');
+      }
     });
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
