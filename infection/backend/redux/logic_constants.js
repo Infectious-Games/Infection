@@ -1,4 +1,4 @@
-const teamCountByRound = {
+module.exports = {
   // 4 People In Game
   4: [2, 3, 2, 3, 3],
   // 5 People In Game
