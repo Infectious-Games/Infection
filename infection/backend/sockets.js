@@ -14,6 +14,7 @@ const log = console.log;
 module.exports = (server) => {
   const io = sockets(server);
   var leaderLoop;
+  var leaderLoopIndex = 0;
 
   io.on('connection', (socket) => {
 
@@ -49,7 +50,8 @@ module.exports = (server) => {
           let round = store.getState().round.round;
           let rosterLength = grid[socket.numberOfPlayers][round - 1];
           leaderLoop = leaderLoopCreator(store.getState().users);
-          let roundLeader = leaderLoop[round - 1];
+          let roundLeader = leaderLoop[leaderLoopIndex];
+          leaderLoopIndex++;
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
@@ -121,7 +123,8 @@ module.exports = (server) => {
               store.dispatch(resetVotes());
               let round = store.getState().round.round;
               let rosterLength = grid[socket.numberOfPlayers][round - 1];
-              let roundLeader = leaderLoop[round - 1];
+              let roundLeader = leaderLoop[leaderLoopIndex];
+              leaderLoopIndex++;
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
           }, 3000)
