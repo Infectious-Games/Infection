@@ -15,7 +15,7 @@ module.exports = (server) => {
   const io = sockets(server);
   let leaderLoop;
   let leaderLoopIndex = 0;
-  let proposalResults = {};
+  let proposalResults = [];
 
   io.on('connection', (socket) => {
 
@@ -136,8 +136,9 @@ module.exports = (server) => {
     socket.on('chose YES or NO', ({vote, username}) => {
       console.log(vote, 'vote in sockets.js');
       // track each players vote
-      // return object with each players vote, similar to...
-      proposalResults[username] = vote;
+      // return object with (each players vote, similar to...
+      proposalResults.push({name: username, vote});
+    
       
       //TODO: REDUX: dispatch votes to store
       //increment yes and no votes as individual votes come in
