@@ -70,6 +70,15 @@ class Game extends Component {
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
       this.setState({ missionRoster: proposedRoster, voteOnTeam: true }) //TODO: move this state change to after vote approval: missionActive: true
     })
+    socket.on('roster vote result', ({ result, votes }) => {
+      console.log(result, votes, 'roster vote result received in games.js');
+      // set state of rosterApproved based on result
+      //TODO: use votes to create votes view: shows who voted YES or NO
+      // if failed vote
+        //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
+      // if vote passed
+        //this.setState({ missionActive: true });
+    })
     socket.on('mission result', (result) => {
       if (result === 0) {
         result = 'success'
@@ -109,9 +118,7 @@ class Game extends Component {
       })
     })
   }
-  // BUG: this triggers the vote without the 'submit roster' button click
   handleSelectRosterEntryClick(member) {
-    console.log(member, 'MEMBER');
     this.state.missionRoster.length === this.state.rosterLength
       ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 114')
       : this.state.missionRoster.includes(member)
@@ -122,7 +129,6 @@ class Game extends Component {
   handleSubmitRoster() {
     console.log(`this function also emits the deploy team event and sends ${this.state.missionRoster}`)
     socket.emit('deploy team', this.state.missionRoster)
-    //this.setState({ missionActive: true });
   }
 
   handleOnMissionClick(choice) {
@@ -132,8 +138,9 @@ class Game extends Component {
   }
 
   handleRosterVote(vote) {
-    console.log(vote);
-
+    console.log(vote, 'vote from handleRosterVote in game.js');
+    socket.emit('chose YES or NO', { vote, username: this.state.username })
+    //TODO: change state to land at waiting page after voting
   }
   
   render() {
