@@ -9,7 +9,9 @@ const RosterVote = ({
   handleSubmitRoster,
   handleRosterVote, 
 }) =>
-    game.missionRoster.length === game.rosterLength
+    // BUG: this happens without submit roster button click
+    // game.missionRoster.length === game.rosterLength
+    game.voteOnTeam
     ? <Vote
       rosterApproved={game.rosterApproved}
       missionRoster={game.missionRoster}
