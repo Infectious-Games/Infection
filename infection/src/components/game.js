@@ -17,14 +17,15 @@ class Game extends Component {
 
     this.state = {
       
+      allUsersVotedOnRoster: false,
       choiceMade: false,
       gameOver: false, 
       id: undefined,
       infiltrator: false,
       infiltrators: [],
       infiltratorsWin: false,
-      voteOnTeam: false,
       leader: undefined,
+      leaderSubmitRoster: false,
       missionActive: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
@@ -34,6 +35,9 @@ class Game extends Component {
       team: [],
       teamAssembled: false,
       username: undefined,
+      usersVoteRecord: [{name: undefined, vote: undefined}],
+      votedOnRoster: false,
+
       
     }
     
@@ -68,7 +72,7 @@ class Game extends Component {
     socket.on('team chosen', (proposedRoster) => {
       console.log(proposedRoster, 'mission roster has made it to the client');
       console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
-      this.setState({ missionRoster: proposedRoster, voteOnTeam: true }) //TODO: move this state change to after vote approval: missionActive: true
+      this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true }) //TODO: move this state change to after vote approval: missionActive: true
     })
     socket.on('roster vote result', ({ result, votes }) => {
       console.log(result, votes, 'roster vote result received in games.js');
@@ -140,6 +144,7 @@ class Game extends Component {
   handleRosterVote(vote) {
     console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
+    this.setState({ votedOnRoster: true });
     //TODO: change state to land at waiting page after voting
   }
   
