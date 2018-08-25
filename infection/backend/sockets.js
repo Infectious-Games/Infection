@@ -1,15 +1,8 @@
 const sockets = require('socket.io');
 const store = require('./redux/store');
-<<<<<<< HEAD
-const { assignRoles } = require('./redux/users/actionCreator_users');
-const { newUser } = require('./redux/users/actionCreator_users');
-const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes')
-const { incrementRound } = require('./redux/rounds/actionCreator_rounds');
-=======
 const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
 const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes');
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
->>>>>>> master
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
 const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame } = require('./redux/game/actionCreator_game');
@@ -153,11 +146,13 @@ module.exports = (server) => {
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
       //set result to final 0 (cure) or 1 (fail) that exists on state after all votes
-      const result = store.getState().teamVotes.voteStatus;
       //check if number of submitted votes equals number of people in game, if so, send result and votes.
-      store.getState().teamVotes.totalMissionVotes === socket.numberOfPlayers
-        ? io.in(socket.game).emit('roster vote result', { result, votes })
-        : console.log('Waiting on team approval votes');
+      if (store.getState().proposalVotes.totalMissionVotes === socket.numberOfPlayers) {
+        const result = store.getState().proposalVotes.voteStatus;
+        io.in(socket.game).emit('roster vote result', { result, votes })
+      } else {
+        console.log('Waiting on team approval votes');
+      }
     });
     log(chalk.blue(store.getState(), 'store.getState() at end of round'));
   });
