@@ -10,6 +10,7 @@ const Roster = ({
 }) =>
   game.leader === game.username
     ? <Leader
+      rosterLength={game.rosterLength}
       team={game.team}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}

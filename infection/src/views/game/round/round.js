@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RosterVote from './roster/vote/rosterVote';
+import RosterVote from './rosterVote/rosterVote';
 import Fail from '../missionResults/fail';
 
 const Round = ({ 

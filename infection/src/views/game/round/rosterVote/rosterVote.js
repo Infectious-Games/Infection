@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Roster from '../roster';
+import Roster from './roster/roster';
 import Vote from './vote';
 
 const RosterVote = ({  

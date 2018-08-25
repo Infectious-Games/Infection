@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
-import Waiting from '../../../waiting/waiting';
+import Waiting from '../../waiting/waiting';
 
 const Vote = ({ 
   allUsersVotedOnRoster,
@@ -13,7 +13,7 @@ const Vote = ({
 }) =>
   votedOnRoster
     ? allUsersVotedOnRoster
-      ? <div>UsersVoteRecord {usersVoteRecord[0].name} {usersVoteRecord[0].vote}</div>
+      ? <div>List of User Votes {usersVoteRecord[0].name} {usersVoteRecord[0].vote}</div>
       : <Grid>
         <Row>
           <Col md={8}>
