@@ -7,8 +7,8 @@ const WaitingForRosterVote = () =>
   <Grid>
     <Row>
       <Col md={8}>
-        <h3>YOUR VOTE HAS BEEN RECORDED!</h3>
-        <h4>Please wait for the rest of your Team to Vote.</h4>
+        <h3>Your Vote Has Been Recorded!</h3>
+        <h4>Please Wait For The Rest Of Your Team To Vote.</h4>
         <br></br>
         <Waiting></Waiting>
       </Col>

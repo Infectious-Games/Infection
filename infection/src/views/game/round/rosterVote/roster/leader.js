@@ -13,7 +13,7 @@ const Leader = ({
   <Grid>
     <Row>
       <Col md={8}>
-        <h1>Congratulations You are Leader</h1>
+        <h1>Congratulations You Are The Leader</h1>
         <h2>Set Your Mission Roster</h2>
         <h4>Select {rosterLength} Scientists</h4>
         <SelectRoster 

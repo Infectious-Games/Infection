@@ -6,7 +6,7 @@ const OnMission = ({ choose, choiceMade }) =>
     ? <Grid>
         <Row>
           <Col md={8}>
-            <h1>WHAT WILL YOU DO?</h1>
+            <h1>What Will You Do?</h1>
             <br></br>
             <Row>
               <Button
@@ -30,7 +30,7 @@ const OnMission = ({ choose, choiceMade }) =>
           </Col>
         </Row>
       </Grid> 
-    : <h1>YOUR HARD WORK IS APPRECIATED!</h1>
+    : <h1>Your Hard Work Is Appreciated!</h1>
         
       
         
