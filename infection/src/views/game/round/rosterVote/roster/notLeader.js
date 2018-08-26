@@ -8,8 +8,8 @@ const NotLeader = ({ leader }) =>
   <Grid>
     <Row>
       <Col md={8}>
-        <h1>{leader} is Leader not You Womp Womp!</h1>
-        <h4>Try to Influence Your Leader's Choice for Mission Roster</h4>
+        <h1>{leader} Is The Current Leader.</h1>
+        <h4>Try To Influence Your Leader's Choice For Mission Roster</h4>
         <Waiting></Waiting>
       </Col>
     </Row>

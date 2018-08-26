@@ -9,7 +9,7 @@ const StartGame = ({ setNumOfPlayers, activatePal }) =>
           <h4>START A GAME</h4>
         </Row>
         <Row>
-          <h5>Select the number of Players for your Game</h5>
+          <h5>Select The Number Of Players For Your Game</h5>
         </Row>
       </Col>
     </Row>
