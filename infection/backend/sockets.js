@@ -85,6 +85,7 @@ module.exports = (server) => {
         : store.dispatch(voteSabotage());
       
       let results = store.getState().cureOrSabotage.voteStatus;
+
       let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
       
       log(chalk.bold.black(`
@@ -134,6 +135,7 @@ module.exports = (server) => {
     });
 
     //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
+    
     socket.on('chose YES or NO', ({ vote, username }) => {
       console.log(vote, 'vote in sockets.js');
       // track each players vote
@@ -145,21 +147,29 @@ module.exports = (server) => {
       // If everyone has voted  
       if (store.getState().proposalVotes.totalMissionVotes === socket.numberOfPlayers) {
         // More accepts than rejects for team proposal
-        const voteSucceeds = store.getState().proposalVotes.voteFail < store.getState().proposalVotes.voteSuccess;
+        const voteSucceeds = store.getState().proposalVotes.voteSuccess >= store.getState().proposalVotes.voteFail;
+        let results;
+        (voteSucceeds === false)
+          ? results = 1
+          : results = 0;
         let round = store.getState().round.round;
         let rosterLength = grid[socket.numberOfPlayers][round - 1];
         let roundLeader = leaderLoop[leaderLoopIndex];
         leaderLoopIndex++;
 
         // Send roster vote results back to client
+        // setTimeout(() => {
+        log(chalk.bgWhite.black(proposalResults, 'proposalResults'));
         io.in(socket.game).emit('roster vote result', { voteSucceeds, vote: proposalResults });
         log(chalk.bgWhite.blue(voteSucceeds, 'voteSucceeds'));
         log(chalk.bgWhite.blue(store.getState().proposalVotes.voteSuccess, 'voteSuccess on store'));
+        // }, 0);
         // If vote succeeds, reset fail count, mission votes, move to cure or sabotage vote via on mission event
         if (voteSucceeds) {
           store.dispatch(resetMissionVotes());
           log(chalk.bgWhite.blue(store.getState().proposalVotes.totalMissionVotes, 'totalMissionVotes after success'));
           store.dispatch(resetFail());
+          proposalResults = [];
           // setTimeout(() => {
           io.in(socket.game).emit('on mission');
           log(chalk.bgWhite.red('on Mission sent'));
@@ -169,30 +179,42 @@ module.exports = (server) => {
           // If vote fails, check if this is third fail on current 
           if (store.getState().game.failCount === 2) {
             // If this is the third failed vote on current round, check if the infiltrators already have 2 wins
-            setTimeout(() => io.in(socket.game).emit('mission result', voteSucceeds));
+            io.in(socket.game).emit('mission result', results);
             // If this is the third round win for the infiltrators
-            if (store.getState().game.infiltratorWins() === 2) {
-              // Set winner to true for client and emit game over event
-              setTimeout(() => {
-                let winner = true;
+            setTimeout(function () {
+              let infiltratorWinTotal = store.getState().game.infiltratorWins; 
+              log(chalk.bgYellow.black(infiltratorWinTotal));
+              let winner;
+              if (infiltratorWinTotal === 2) {
+                // Set winner to true for client and emit game over event with infiltrator win
+                // setTimeout(() => {
+                winner = true;
+                log(chalk.bgYellow.black(winner, 'winner before emit'));
                 io.in(socket.game).emit('game over', winner);
-              }, 5000);
-            } else {
-              // If this is not the third win for the infiltrators, 
-              // reset appropriate state and start new new round
-              store.dispatch(infiltratorRoundWin());
-              store.dispatch(resetFail());
-              store.dispatch(resetMissionVotes());
-              store.dispatch(incrementRound());
-              setTimeout(() => io.in(socket.game).emit('start round', 
-                { leader: roundLeader.username, round, rosterLength }), 5000);              
-            } 
+                socket.disconnect(true);
+                log(chalk.bgYellow.black(winner, 'winner after emit and disconnect'));
+                // }, 5000);
+              } else {
+                // If this is not the third win for the infiltrators, 
+                // reset appropriate state and start new new round
+                store.dispatch(infiltratorRoundWin());
+                store.dispatch(resetFail());
+                store.dispatch(resetMissionVotes());
+                store.dispatch(incrementRound());
+                let round = store.getState().round.round;
+                console.log('increment round hit line 190 after 3rd fail');
+                proposalResults = [];
+                setTimeout(() => io.in(socket.game).emit('start round', 
+                  { leader: roundLeader.username, round, rosterLength }), 5000);              
+              } 
+            }, 3000);
+            
           } else {
             // If this is not the third failed vote, reset mission votes, 
-            // increment fail assign new leader, wait for next proposal
-            io.in(socket.game).emit('mission result', voteSucceeds);
+            // increment fail, assign new leader, wait for next proposal
             store.dispatch(incrementFail());
             store.dispatch(resetMissionVotes());
+            proposalResults = [];
             setTimeout(() => io.in(socket.game).emit('start round', 
               { leader: roundLeader.username, round, rosterLength }), 5000);
           }
