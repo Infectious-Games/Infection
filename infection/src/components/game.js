@@ -137,10 +137,10 @@ class Game extends Component {
       this.setState({ missionResults: updatedResults }, () => console.log(this.state.missionResults, 'this.state.missionResults line 137 game.js'));
     })
     socket.on('game over', (winner) => {
-      this.setState({ gameOver: true, infiltratorsWin: winner }, () => {
+      this.setState({ gameOver: true, infiltratorsWin: winner, missionActive: true }, () => {
         console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
         // update user stats
-        console.log(this.state, 'this.state');
+        console.log(this.state, 'this.state at end of game');
         // if player is an infiltrator and infiltrators have won the game
         // if player is a scientist and scientists have won the game, or
         if (this.state.infiltrator && !winner || !this.state.infiltrator && winner) {
