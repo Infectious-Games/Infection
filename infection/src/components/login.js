@@ -39,8 +39,7 @@ class Login extends React.Component {
       const loggedIn = data.loggedIn;
       if (loggedIn) {
         const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
-        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins, photo },
-        () => console.log(this.state))
+        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins, photo })
       }
     })
   }
@@ -53,7 +52,6 @@ class Login extends React.Component {
 
   handleChange(e) {
     this.setState({ game: e.target.value });
-    console.log(this.state.game, 'game in handleChange')
   }
 
   handleCreateGame(num) {
