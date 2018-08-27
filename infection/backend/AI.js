@@ -2,8 +2,9 @@
 // ******** PAL 3000 ******** //
 
 class PAL3000 {
-  constructor(scientist) {
+  constructor(scientist, team) {
     this.scientist = scientist; // true or false
+    this.team = team; // players in the game
     
   }
   // CURE vs. SABOTAGE choice
@@ -16,12 +17,21 @@ class PAL3000 {
       return 'SABOTAGE'
     }
   }
-  // Leader Choosing Team
-  chooseTeam() {
-    setTimeout(() => {
-      // choses self and x random players
-      
-    }, 5000); 
+  // Leader Choosing Mission Roster
+  chooseMissionRoster(numberOfPlayers) {
+    // choses self and (numberOfPlayers - 1) random players
+    const numberOfPlayersToAdd = numberOfPlayers - 1;
+    const shuffledTeam = this.team;
+    let l = shuffledTeam.length; 
+    // shuffle the team
+    // While there remain players to shuffle
+    while (l) {
+      // pick a random player's index from those remaining
+      let i = Math.floor(Math.random() * l--);
+      // swap the current player with the randomly seleted player
+      [shuffledTeam[l], shuffledTeam[i]] = [shuffledTeam[i], shuffledTeam[l]];
+    }
+    return ['PAL3000'].concat(shuffledTeam.slice(0, numberOfPlayersToAdd));
   }  
   // Voting for mission team
   voteForMissionTeam(includesInfiltrator) { // true or false
@@ -44,4 +54,11 @@ class PAL3000 {
 module.exports = {
   PAL3000
 };
+
+const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul']);
+console.log(pal3000, 'pal3000');
+console.log(pal3000.cureOrSabotage(), 'cureOrSabotage()');
+console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster()');
+// console.log(voteForMissionTeam(true), 'voteForMissionTeam(true)');
+
 

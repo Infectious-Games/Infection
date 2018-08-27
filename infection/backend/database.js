@@ -81,7 +81,7 @@ const createGameAndGetJoinCode = (count, cb) => {
   })
 }
 
-const clearanceLevels = (wins => {
+const clearanceLevels = (wins) => {
   if (wins < 10) {
     return 'unclassified';
   } else if (wins > 9 && wins < 20) {
@@ -93,7 +93,7 @@ const clearanceLevels = (wins => {
   } else if (wins > 99 && wins < 1000) {
     return 'illuminati';
   }
-});
+};
 
 // update user stats
 const updateUserStats = ({win, username}, callback) => {
