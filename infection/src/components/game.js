@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import chalk from 'chalk';
 import socket from '../socket';
 
 import GameView from '../views/game/gameView';
