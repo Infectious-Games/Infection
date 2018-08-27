@@ -115,17 +115,17 @@ module.exports = (server) => {
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               //socket.disconnect(true);
-              io.sockets.clients(socket.game).forEach((socket) => {
+              setTimeout(() => io.sockets.clients(socket.game).forEach((socket) => {
                 socket.leave(socket.game);
-              });
+              }), 3000);
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               //socket.disconnect(true);
-              io.sockets.clients(socket.game).forEach((socket) => {
+              setTimeout(() => io.sockets.clients(socket.game).forEach((socket) => {
                 socket.leave(socket.game);
-              });
+              }), 3000);
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
@@ -197,10 +197,9 @@ module.exports = (server) => {
                 winner = true;
                 log(chalk.bgYellow.black(winner, 'winner before emit'));
                 io.in(socket.game).emit('game over', winner);
-                //socket.disconnect(true);
-                io.sockets.clients(socket.game).forEach((socket) => {
+                setTimeout(() => io.sockets.clients(socket.game).forEach((socket) => {
                   socket.leave(socket.game);
-                });
+                }), 3000);
                 log(chalk.bgYellow.black(winner, 'winner after emit and disconnect'));
                 // }, 5000);
               } else {
