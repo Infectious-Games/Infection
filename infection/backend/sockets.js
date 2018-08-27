@@ -65,7 +65,6 @@ module.exports = (server) => {
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          console.log(playerCount, '63');
           store.getState().users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
             : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
@@ -80,6 +79,7 @@ module.exports = (server) => {
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
     socket.on('chose cure or sabotage', (choice) => {
+      let round = store.getState().round.round;
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
@@ -94,15 +94,15 @@ module.exports = (server) => {
         ${store.getState()}, 'STORE after vote dispatch'`
       ));
       
-      (totalVotes === 3 && results === 1)
+      (totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 1)
         ? store.dispatch(infiltratorRoundWin())
         : log(chalk.magenta('not a great day to be a scientist'));
         
-      (totalVotes === 3 && results === 0)
+      (totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 0)
         ? store.dispatch(scientistRoundWin())
         : log(chalk.magenta('great day to be a scientist'));  
 
-      totalVotes === 3
+      totalVotes === grid[socket.numberOfPlayers][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
 
           setTimeout(function () {
@@ -114,12 +114,18 @@ module.exports = (server) => {
               winner = false;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
-              socket.disconnect(true);
+              //socket.disconnect(true);
+              io.sockets.clients(socket.game).forEach((socket) => {
+                socket.leave(socket.game);
+              });
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
-              socket.disconnect(true);
+              //socket.disconnect(true);
+              io.sockets.clients(socket.game).forEach((socket) => {
+                socket.leave(socket.game);
+              });
             } else { 
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
@@ -191,7 +197,10 @@ module.exports = (server) => {
                 winner = true;
                 log(chalk.bgYellow.black(winner, 'winner before emit'));
                 io.in(socket.game).emit('game over', winner);
-                socket.disconnect(true);
+                //socket.disconnect(true);
+                io.sockets.clients(socket.game).forEach((socket) => {
+                  socket.leave(socket.game);
+                });
                 log(chalk.bgYellow.black(winner, 'winner after emit and disconnect'));
                 // }, 5000);
               } else {
