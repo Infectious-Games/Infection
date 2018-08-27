@@ -115,7 +115,7 @@ class Game extends Component {
         } else {
           return current;
         }
-      }) 
+      }); 
       this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
