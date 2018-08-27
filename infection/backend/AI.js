@@ -47,9 +47,9 @@ module.exports = {
   PAL3000
 };
 
-const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul']);
+// const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul']);
 // console.log(pal3000, 'pal3000');
-console.log(pal3000.cureOrSabotage(), 'cureOrSabotage()');
+// console.log(pal3000.cureOrSabotage(), 'cureOrSabotage()');
 // console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster()');
 // console.log(pal3000.voteForMissionTeam(true), 'voteForMissionTeam()');
 
