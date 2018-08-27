@@ -55,6 +55,10 @@ class Login extends React.Component {
   }
 
   handleCreateGame(num) {
+    // check to see if PAL3000 has been selected
+    this.state.pal3000Active ? console.log('PAL3000 needs to be added to this game') 
+    //TODO: add PAL3000 to the game
+      : console.log('PAL3000 not selected for this game');
     const playerCount = {"playerCount": num};
     console.log(num, 'num sent to server in handleCreateGame');
     axios.post('/start', playerCount)
@@ -84,8 +88,7 @@ class Login extends React.Component {
 
   activatePal () {
     console.log('activate Pal3000');
-    this.setState({ pal3000Active: true }, () => console.log(this.state.pal3000Active, 'pal3000Active'));
-    
+    this.setState({ pal3000Active: true });
   }
 
   render() {
