@@ -8,7 +8,6 @@ import GameView from '../views/game/gameView';
 class Game extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
 
     this.checkGameStatus = this.checkGameStatus.bind(this);
     this.handleRosterVote = this.handleRosterVote.bind(this);
@@ -47,7 +46,6 @@ class Game extends Component {
 
   checkGameStatus() {
     socket.on('game start', ({username, infiltrator, team, infiltrators}) => {
-      console.log(infiltrators);
       this.setState({ 
         username, 
         teamAssembled: true, 
@@ -58,7 +56,6 @@ class Game extends Component {
       })
     })
     socket.on('start round', (data) => {
-      console.log(data, 'start round info in game.js');
       data.round === this.state.round
         ? this.setState({ 
           round: data.round, 
@@ -67,7 +64,7 @@ class Game extends Component {
           missionRoster: [], 
           missionActive: false, 
           choiceMade: false,
-          leaderSubmitRoster: false, // to return to previous state
+          leaderSubmitRoster: false, 
           allUsersVotedOnRoster: false,
           usersVoteRecord: [],
           votedOnRoster: false,
@@ -79,7 +76,7 @@ class Game extends Component {
           missionRoster: [], 
           missionActive: false, 
           choiceMade: false,
-          leaderSubmitRoster: false, // to return to previous state
+          leaderSubmitRoster: false, 
           allUsersVotedOnRoster: false,
           usersVoteRecord: [],
           votedOnRoster: false,
@@ -87,16 +84,10 @@ class Game extends Component {
       })
     })
     socket.on('team chosen', (proposedRoster) => {
-      console.log(proposedRoster, 'mission roster has made it to the client');
-      console.log(this.state.rosterLength, 'current state of roster length when roster hits room')
-      this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true }) //TODO: move this state change to after vote approval: missionActive: true
+      this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true })
     })
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {
-      console.log(voteSucceeds, vote, 'roster vote result received in games.js');
-      //TODO: use votes to create votes view: shows who voted YES or NO
       this.setState({ allUsersVotedOnRoster: true, usersVoteRecord: vote}, () => {
-        console.log(this.state.allUsersVotedOnRoster, 'this.state.allUsersVotedOnRoster');
-        console.log(this.state.usersVoteRecord, 'this.state.usersVoteRecord');
         // set state of rosterApproved based on result
         // if failed roster attempt 
         if (voteSucceeds === false) {
@@ -105,23 +96,14 @@ class Game extends Component {
           const index = updatedRosterApproved.indexOf(undefined);
           updatedRosterApproved[index] = voteSucceeds;
           this.setState({ rosterApproved: updatedRosterApproved }, () => console.log(this.state, 'this.state line 94 game.js'));
-          
-          //TODO: emit new leader needs to be chosen (similar to start round except don't increment round)
-          //socket.emit('get new leader');
-        // if vote passed
-        } else {
-          console.log('vote passed');
-          // this.setState({ missionActive: true });
         }
       })
     })
-    // if Leader's roster was approved
+    // if Leader's proposed roster was approved
     socket.on('on mission', () => {
-      console.log('ON MISSION received on client');
       this.setState({ missionActive: true });
     })
     socket.on('mission result', (result) => {
-      console.log(result, 'result')
       if (result === 0) {
         result = 'success'
       } else if (result === 1) {
@@ -134,28 +116,20 @@ class Game extends Component {
           return current;
         }
       }) 
-      this.setState({ missionResults: updatedResults }, () => console.log(this.state.missionResults, 'this.state.missionResults line 137 game.js'));
+      this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
-      this.setState({ gameOver: true, infiltratorsWin: winner }, () => {
-        console.log('gameOver:', this.state.gameOver, 'winner:', winner, 'true: scientists, false: infiltrators FROM SERVER');
+      this.setState({ gameOver: true, infiltratorsWin: winner, missionActive: true }, () => {
         // update user stats
-        console.log(this.state, 'this.state');
-        // if player is an infiltrator and infiltrators have won the game
-        // if player is a scientist and scientists have won the game, or
-        if (this.state.infiltrator && !winner || !this.state.infiltrator && winner) {
+        // if player is an infiltrator and infiltrators have won the game, or
+        // if player is a scientist and scientists have won the game
+        if ((this.state.infiltrator && winner) || (!this.state.infiltrator && !winner)) {
           const update = {username: this.state.username, win: true}
           axios.post('/userStats', update)
-            .then((userStats) => {
-              console.log(chalk.bgCyan.red(userStats, 'updated userStats in game'));
-            })
         // otherwise the player has lost the game    
         } else {
           const update = { username: this.state.username, win: false }
           axios.post('/userStats', update)
-            .then((userStats) => {
-              console.log(userStats, 'updated userStats in game');
-            })
         }
       })
     })
@@ -169,7 +143,6 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    console.log(`this function also emits the deploy team event and sends ${this.state.missionRoster}`)
     // FIXME: Change comparator back to this.state.rosterLength
     this.state.missionRoster.length === 2
       ? socket.emit('deploy team', this.state.missionRoster)
@@ -183,7 +156,6 @@ class Game extends Component {
   }
 
   handleRosterVote(vote) {
-    console.log(vote, 'vote from handleRosterVote in game.js');
     socket.emit('chose YES or NO', { vote, username: this.state.username })
     this.setState({ votedOnRoster: true });
   }
@@ -201,6 +173,5 @@ class Game extends Component {
     );
   }
 }
-
 
 export default Game;
