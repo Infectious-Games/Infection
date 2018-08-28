@@ -1,19 +1,17 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import Waiting from './waiting';
 
 
 const WaitingForTeam = () => 
-    <Grid className="waitingForTeam">
-      <Row className="waitingForTeamTitle">
-      <Col md={8}><h1>Please Wait for the Team to Assemble</h1></Col>
-      </Row>
-      <Row className="waiting-img">
-        <Col md={8}>
-          <Waiting></Waiting>
-        </Col>
-      </Row>
-    </Grid>
+  <Row className="waitingForTeamTitle">
+    <h1>Please Wait for the Team to Assemble</h1>
+    <Col md={2}></Col>
+    <Col md={8}>
+      <Waiting></Waiting>
+    </Col>
+    <Col md={2}></Col>
+  </Row>
  
 export default WaitingForTeam;

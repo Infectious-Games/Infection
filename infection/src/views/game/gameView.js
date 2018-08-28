@@ -21,7 +21,7 @@ const GameView = ({
 }) => 
   <Grid className="game">
     <br></br>
-    <Row>
+    <Row className='game-header'>
       <Col md={5}></Col>
       <Col md={2}>
         <Header></Header>
@@ -31,9 +31,9 @@ const GameView = ({
       </Col>
     </Row>
     <br></br>
-    <Row>
+    <Row className='game-view'>
       <Col md={2}></Col>
-      <Col md={8}>
+      <Col md={8} xs={12} className='game-view-col'>
         {
           !game.teamAssembled
             ? <WaitingForTeam></WaitingForTeam>
@@ -73,12 +73,12 @@ const GameView = ({
       
       <br></br>
     </Row>
-    <Row>
-      <Col md={3}></Col>
-      <Col md={6}>
+    <Row className='game-footer'>
+      <Col md={3} xs={0}></Col>
+      <Col md={6} xs={12}>
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Col>
-      <Col md={3}></Col>
+      <Col md={3} xs={0}></Col>
     </Row>
   </Grid>
   

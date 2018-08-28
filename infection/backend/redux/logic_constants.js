@@ -1,4 +1,11 @@
 module.exports = {
+  /* 
+  * This object's property array determines 
+  * how many players are sent on each mission 
+  * based on players in the game. Key represents
+  * that dynamic number from sockets.js file.
+  */
+
   // 4 People In Game
   4: [2, 3, 2, 3, 3],
   // 5 People In Game

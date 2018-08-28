@@ -1,12 +1,10 @@
-const { ADD_NEW_USER, ASSIGN_ROLES, RESET_USERS } = require('./actions_users.js');
+const { ADD_NEW_USER, ASSIGN_ROLES } = require('./actions_users.js');
   
 const initialState = require('./initialState_users.js');
 
-
 const users = (state = initialState, action) => {
-  // Action Type Passed 
   switch (action.type) {
-  // When New Users Join the Room  
+  // When new user joins the room, create a new array of users with the new user
   case ADD_NEW_USER: 
     return state.concat([{
       username: action.username, 
@@ -17,12 +15,12 @@ const users = (state = initialState, action) => {
     }]);
   
   case ASSIGN_ROLES:
-    // TODO: When we go to 5 players, see below + change assignment
+    // Determine appropriate number of infiltrators
     let infiltratorCount = ~~(state.length * .44);
-    let scientistCount = state.length - infiltratorCount;
+    // Shuffle users for assignment
     let arrayShuffled = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
+        let j = ~~(Math.random() * (i + 1));
         let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
@@ -30,6 +28,7 @@ const users = (state = initialState, action) => {
       return array;
     };
     let shuffled = arrayShuffled(state);
+    // Assign infiltrator to appropriate number of infiltrators
     let assigned = shuffled.map((user, index) => {
       if (index < infiltratorCount) {
         user.infiltrator = true;
@@ -39,7 +38,7 @@ const users = (state = initialState, action) => {
         return user;
       }
     });
-    
+  // By default, return current state
   default:
     return state;
   }
