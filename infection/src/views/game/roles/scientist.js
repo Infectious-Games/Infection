@@ -19,7 +19,6 @@ const Scientist = () =>
     </ul>
   </Col>
   <Col md={4}></Col>
-
-  </Row>
-  export default Scientist;
+</Row>
+export default Scientist;
   
