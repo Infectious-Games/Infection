@@ -1,10 +1,10 @@
 import React from 'react';
 import ScientistsWin from './scientistsWin';
-import TerroristsWin from './terroristsWin';
+import InfiltratorsWin from './infiltratorsWin';
 
 const GameOver = ({ infiltratorsWin }) =>
   infiltratorsWin
-    ? <TerroristsWin></TerroristsWin>
+    ? <InfiltratorsWin></InfiltratorsWin>
     : <ScientistsWin></ScientistsWin>
           
 

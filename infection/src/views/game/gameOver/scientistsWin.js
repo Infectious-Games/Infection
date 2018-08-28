@@ -12,11 +12,10 @@ const ScientistsWin = () =>
       <Col md={4} xs={2}></Col>
       <Col md={4} xs={8}>
         <Image src={scientist} responsive></Image>
-        <h3>The World Is Safe!</h3>
       </Col>
       <Col md={4} xs={2}></Col>
     </Row>
-    
+      <h3>The World Is Safe!</h3>
   </Row>
 
 export default ScientistsWin;
