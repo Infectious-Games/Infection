@@ -14,9 +14,7 @@ class App extends Component {
   }
 //pass a function to setInGameStatus to set state.
   setInGameStatus() {
-    console.log('setInGameStatus called in App.js')
-    this.setState({ inGame: !this.state.inGame }, 
-      () => console.log(this.state, 'this.state when setInGameStatus is called'));
+    this.setState({ inGame: !this.state.inGame });
     //this should be handled in the store
   }
   render() {

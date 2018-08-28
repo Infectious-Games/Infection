@@ -60,7 +60,7 @@ module.exports = (server) => {
       };
       Game.find({ where: { id: game } })
         .then((game) => {
-          console.log(game.numberOfPlayers, 'line 59');
+          // console.log(game.numberOfPlayers, 'line 59');
           socket.numberOfPlayers = game.numberOfPlayers;
           return game.numberOfPlayers;
         })
@@ -74,7 +74,7 @@ module.exports = (server) => {
     const users = store.getState().users;
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
-      console.log(team, 'team chosen by leader made it to server');
+      // console.log(team, 'team chosen by leader made it to server');
       io.in(socket.game).emit('team chosen', team);   
     });
     //CURE OR SABOTAGE CHOSEN-----------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ module.exports = (server) => {
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
 
-            if (scientistWinTotal === 1) { //CHANGE BACK TO 3 BEFORE PUSH
+            if (scientistWinTotal === 3) {
               winner = false;
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------

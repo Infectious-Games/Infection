@@ -7,11 +7,6 @@ const { SESSION_OPTIONS } = require('../config');
 const dotenv = require('dotenv');
 dotenv.load();
 const db = require('./database');
-// const bodyParser = require('body-parser');
-// const sockets = require('./sockets.js');
-
-
-
 
 const log = console.log;
 
