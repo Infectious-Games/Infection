@@ -34,7 +34,7 @@ class Login extends React.Component {
   }
   componentDidMount() {
     // check if user is logged in
-    console.log('Hello'); // hello is logged, but GET /loggedIn fails
+    console.log('login.js componentDidMount'); // logged, but GET /loggedIn fails
     
     axios.get('/loggedIn', {
     }).then(({data}) => {

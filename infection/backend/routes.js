@@ -1,3 +1,5 @@
+const express = require('express');
+const { join } = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
@@ -5,6 +7,11 @@ const { SESSION_OPTIONS } = require('../config');
 const dotenv = require('dotenv');
 dotenv.load();
 const db = require('./database');
+// const bodyParser = require('body-parser');
+// const sockets = require('./sockets.js');
+
+
+
 
 const log = console.log;
 
@@ -84,6 +91,7 @@ module.exports = (app) => {
 
   // check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
+    console.log(req.user, 'req.user in routes.js');
     res.json({ 
       loggedIn: !!req.user, 
       user: req.user 
@@ -96,4 +104,6 @@ module.exports = (app) => {
     res.redirect('/');
     // res.json({ loggedIn: false, user: req.user });
   });
+
+  app.use(express.static(join(__dirname, '../build')));
 };

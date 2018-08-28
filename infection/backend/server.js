@@ -1,10 +1,10 @@
 const express = require('express');
-const http = require('http');
+// const http = require('http');
 const bodyParser = require('body-parser');
-const { join } = require('path');
+// const { join } = require('path');
 const routes = require('./routes.js');
 const sockets = require('./sockets.js');
-const db = require('./database');
+// const db = require('./database');
 
 const app = express();
 
@@ -25,5 +25,3 @@ const server = app.listen(port, (err) => {
 });
 
 sockets(server);
-
-app.use(express.static(join(__dirname, '../build')));
