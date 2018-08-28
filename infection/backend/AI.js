@@ -2,9 +2,10 @@
 // ******** PAL 3000 ******** //
 
 class PAL3000 {
-  constructor(scientist, team) {
+  constructor(scientist, team, infiltrators) {
     this.scientist = scientist; // true or false
     this.team = team; // players in the game
+    this.infiltrators = infiltrators // array of infiltrators
   }
   // CURE vs. SABOTAGE choice
   cureOrSabotage() {
@@ -28,7 +29,11 @@ class PAL3000 {
     return ['PAL3000'].concat(shuffledTeam.slice(0, numberOfPlayers - 1));
   }  
   // Voting for mission team
-  voteForMissionTeam(includesInfiltrator) { // true or false
+  voteForMissionTeam(proposedRoster) { // array of proposed roster
+    // checks if proposedRoster includes an Infiltrator
+    const includesInfiltrator = proposedRoster.some(player => {
+      return this.infiltrators.includes(player);
+    }); 
     // if scientist
     if (this.scientist) {
       // 50/50 Yes/No vote
@@ -47,10 +52,10 @@ module.exports = {
   PAL3000
 };
 
-// const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul']);
+// const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul'], ['Paul', 'PAL3000']);
 // console.log(pal3000, 'pal3000');
-// console.log(pal3000.cureOrSabotage(), 'cureOrSabotage()');
-// console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster()');
-// console.log(pal3000.voteForMissionTeam(true), 'voteForMissionTeam()');
+// console.log(pal3000.cureOrSabotage(), 'cureOrSabotage');
+// console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
+// console.log(pal3000.voteForMissionTeam(['Athena', 'Mark', 'Paul']), 'voteForMissionTeam');
 
 
