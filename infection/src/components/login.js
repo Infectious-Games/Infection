@@ -36,7 +36,6 @@ class Login extends React.Component {
     // check if user is logged in    
     axios.get('/loggedIn', {
     }).then(({data}) => {
-      console.log(data, 'data in login.js');
       const loggedIn = data.loggedIn;
       if (loggedIn) {
         const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
@@ -61,7 +60,6 @@ class Login extends React.Component {
     //TODO: add PAL3000 to the game
       : console.log('PAL3000 not selected for this game');
     const playerCount = {"playerCount": num};
-    // console.log(num, 'num sent to server in handleCreateGame');
     axios.post('/start', playerCount)
       .then((joinCode) => {
         console.log(joinCode.data, 'joinCode in handleCreateGame');
@@ -73,7 +71,6 @@ class Login extends React.Component {
   }
 
   setNumOfPlayers(num) {
-    // console.log(num, 'num taken as input in setNumOfPlayers');
     this.setState({ numOfPlayers: num })
     this.handleCreateGame(num);
   }
