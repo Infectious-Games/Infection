@@ -68,6 +68,25 @@ const findOrCreateUser = (profile, callback) => {
     });
 };
 
+// Add PAL3000 to the db
+User.findOrCreate({
+  where: { username: 'PAL3000' },
+  defaults: {
+    gamesPlayed: 0,
+    wins: 0,
+    losses: 0,
+    clearanceLevel: 'unclassified',
+    photo: '',
+    email: '',
+  }
+})
+  .spread((user, created) => {
+    console.log(user.get({
+      plain: true
+    }));
+    // console.log('PAL3000 added to the db:', created, ', false = already in db');
+  });
+
 const createGameAndGetJoinCode = (count, cb) => {
   //grab user id to pass into game
   Game
@@ -81,7 +100,7 @@ const createGameAndGetJoinCode = (count, cb) => {
   })
 }
 
-const clearanceLevels = (wins => {
+const clearanceLevels = (wins) => {
   if (wins < 10) {
     return 'unclassified';
   } else if (wins > 9 && wins < 20) {
@@ -93,7 +112,7 @@ const clearanceLevels = (wins => {
   } else if (wins > 99 && wins < 1000) {
     return 'illuminati';
   }
-});
+};
 
 // update user stats
 const updateUserStats = ({win, username}, callback) => {

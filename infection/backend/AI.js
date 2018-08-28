@@ -2,41 +2,43 @@
 // ******** PAL 3000 ******** //
 
 class PAL3000 {
-  constructor(scientist) {
+  constructor(scientist, team) {
     this.scientist = scientist; // true or false
-    
+    this.team = team; // players in the game
   }
   // CURE vs. SABOTAGE choice
   cureOrSabotage() {
-    // if scientist
-    if (this.scientist) {
-      return 'CURE'
-      // if infiltrator
-    } else {
-      return 'SABOTAGE'
-    }
+    // if scientist choose 'CURE'
+    // else infiltrator choose 'SABOTAGE'
+    return this.scientist ? 'CURE' : 'SABOTAGE';
   }
-  // Leader Choosing Team
-  chooseTeam() {
-    setTimeout(() => {
-      // choses self and x random players
-      
-    }, 5000); 
+  // Leader Choosing Mission Roster
+  chooseMissionRoster(numberOfPlayers) {
+    // choses self and (numberOfPlayers - 1) random players
+    // shuffle the team
+    const shuffledTeam = this.team;
+    let l = shuffledTeam.length; 
+    // While there remain players to shuffle
+    while (l) {
+      // pick a random player's index from those remaining
+      let i = Math.floor(Math.random() * l--);
+      // swap the current player with the randomly seleted player
+      [shuffledTeam[l], shuffledTeam[i]] = [shuffledTeam[i], shuffledTeam[l]];
+    }
+    return ['PAL3000'].concat(shuffledTeam.slice(0, numberOfPlayers - 1));
   }  
   // Voting for mission team
   voteForMissionTeam(includesInfiltrator) { // true or false
     // if scientist
     if (this.scientist) {
-      // 50/50 Yes/No
+      // 50/50 Yes/No vote
+      const random = Math.random();
+      return random > .5 ? 'YES' : 'NO';
     // if infiltrator
     } else {
-      // if mission includes an infiltrator
-      if (includesInfiltrator) {
-        return 'YES';
-      // if mission does NOT include an infiltrator
-      } else {
-        return 'NO';
-      }
+      // if mission includes an infiltrator vote 'YES' 
+      // otherwise vote 'NO'
+      return includesInfiltrator ? 'YES' : 'NO';
     }
   }
 };
@@ -44,4 +46,11 @@ class PAL3000 {
 module.exports = {
   PAL3000
 };
+
+// const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul']);
+// console.log(pal3000, 'pal3000');
+// console.log(pal3000.cureOrSabotage(), 'cureOrSabotage()');
+// console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster()');
+// console.log(pal3000.voteForMissionTeam(true), 'voteForMissionTeam()');
+
 

@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import axios from 'axios';
-import chalk from 'chalk';
 import socket from '../socket';
 
 import GameView from '../views/game/gameView';
@@ -115,7 +114,7 @@ class Game extends Component {
         } else {
           return current;
         }
-      }) 
+      }); 
       this.setState({ missionResults: updatedResults });
     })
     socket.on('game over', (winner) => {
@@ -143,8 +142,7 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    // FIXME: Change comparator back to this.state.rosterLength
-    this.state.missionRoster.length === 2
+    this.state.missionRoster.length === this.state.rosterLength
       ? socket.emit('deploy team', this.state.missionRoster)
       : console.log('Not enough people chosen yet.')
   }

@@ -1,13 +1,15 @@
 import React from 'react';
-import { Row, Image } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 
-import success from '../../../images/Mission-Success.png';
 
 const Success = () =>
-  <Row>
-    <br></br>
-    <br></br>
-        <Image src={success} responsive></Image>
+  <Row className='mission-success' >
+    <h1 className='display-1 + mission-success-h'>
+      MISSION
+      </h1>
+    <h1 className='display-1 + mission-success-h'>
+      SUCCESS!
+      </h1>
   </Row>
   
 export default Success;

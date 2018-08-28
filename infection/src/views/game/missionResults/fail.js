@@ -1,14 +1,15 @@
 import React from 'react';
-import { Row, Image } from 'react-bootstrap';
-
-import fail from '../../../images/Mission-Fail.png';
+import { Row } from 'react-bootstrap';
 
 const Fail = () => 
-  <Row>
-    <br></br>
-    <br></br>
-    <Image src={fail} responsive></Image>
+  <Row className='mission-fail' >
+      <h1 className='display-1 + mission-fail-h'>
+        MISSION
+      </h1>
+      <h1 className='display-1 + mission-fail-h'>
+        SABOTAGE!
+      </h1> 
   </Row>
-
+  
 
 export default Fail;
