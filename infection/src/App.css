@@ -83,3 +83,17 @@
   background-color:  #eb410d;
   height: 100%;
 }
+
+.mission-success {
+  background-color: green;
+  height: 100%;
+}
+
+.mission-success-h {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+  position: relative;
+  top: 10%;
+  /* left: 15%; */
+  font-size: 6rem;
+}
