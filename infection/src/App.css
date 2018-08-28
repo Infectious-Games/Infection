@@ -76,7 +76,6 @@
   color: white;
   position: relative;
   top: 10%;
-  /* left: 15%; */
   font-size: 6rem;
 }
 .mission-fail {
@@ -106,4 +105,14 @@
 .scientist-title {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: rgb(14, 124, 214);
+}
+.infiltrator {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: white;
+  color: black;
+  height: 100%;
+}
+.infiltrator-title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: #EB410D;
 }
