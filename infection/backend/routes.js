@@ -38,13 +38,12 @@ module.exports = (app) => {
     });
   });
   // get user's stats from the db
-  app.get('/userStats', (req, res) => {
-    const query = req.query;
-    console.log(query, 'GET /userStats query in server');
-    db.getUserStats(query, (data) => {
-      res.json(data);
-    });
-  });
+  // app.get('/userStats', (req, res) => {
+  //   const query = req.query;
+  //   db.getUserStats(query, (data) => {
+  //     res.json(data);
+  //   });
+  // });
   
   //////////////////////////////////////////////////////
   // Passport
@@ -86,7 +85,6 @@ module.exports = (app) => {
 
   // check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
-    console.log(req.user, 'req.user in routes.js');
     res.json({ 
       loggedIn: !!req.user, 
       user: req.user 
@@ -97,7 +95,6 @@ module.exports = (app) => {
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');
-    // res.json({ loggedIn: false, user: req.user });
   });
 
   app.use(express.static(join(__dirname, '../build')));
