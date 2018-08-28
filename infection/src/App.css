@@ -116,3 +116,7 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: #EB410D;
 }
+.infiltrator-list-entry {
+  color: #EB410D;
+  font-weight: 900;
+}
