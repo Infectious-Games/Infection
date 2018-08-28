@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 
 import Roles from './roles/roles';
 import Round from './round/round';
@@ -61,7 +61,6 @@ const GameView = ({
                         result={game.missionResults[game.round - 1]}
                     ></MissionResults>
                     : <GameOver
-                        setInGameStatus={setInGameStatus}
                         infiltratorsWin={game.infiltratorsWin}
                       ></GameOver>
         }
@@ -70,15 +69,24 @@ const GameView = ({
     </Row>
     <Row>
       <br></br>
-      
-      <br></br>
     </Row>
     <Row className='game-footer'>
       <Col md={3} xs={0}></Col>
       <Col md={6} xs={12}>
+        {
+          game.gameOver
+            ? <Button
+              bsStyle="primary"
+              onClick={setInGameStatus}
+            >
+              LEAVE GAME
+              </Button>
+            : <div></div>
+        }
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Col>
-      <Col md={3} xs={0}></Col>
+      <Col md={3} xs={0}>
+      </Col>
     </Row>
   </Grid>
   
