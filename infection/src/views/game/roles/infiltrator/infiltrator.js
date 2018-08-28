@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Grid, Row, Col } from 'react-bootstrap';
+import { Image, Row, Col } from 'react-bootstrap';
 
 import InfiltratorList from './infiltratorList';
 import infiltrator from '../../../../images/infiltrator.png';
