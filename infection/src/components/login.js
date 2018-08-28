@@ -34,8 +34,11 @@ class Login extends React.Component {
   }
   componentDidMount() {
     // check if user is logged in
+    console.log('Hello'); // hello is logged, but GET /loggedIn fails
+    
     axios.get('/loggedIn', {
     }).then(({data}) => {
+      console.log(data, 'data in login.js');
       const loggedIn = data.loggedIn;
       if (loggedIn) {
         const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
@@ -43,6 +46,22 @@ class Login extends React.Component {
       }
     })
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // Typical usage (don't forget to compare props):
+  //   console.log(this.state, 'this.state componentDidUpdate');
+  //   if (this.state.username !== prevState.username) {
+  //     // this.fetchData(this.props.userID);
+  //     axios.get('/loggedIn', {
+  //     }).then(({ data }) => {
+  //       console.log(data, 'data in login.js');
+  //       const loggedIn = data.loggedIn;
+  //       if (loggedIn) {
+  //         const { clearanceLevel, gamesPlayed, losses, photo, username, wins } = data.user;
+  //         this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins, photo })
+  //       }
+  //     })
+  //   }
+  // }
 
   handleSubmit(e) {
     e.preventDefault();
