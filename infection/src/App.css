@@ -1,13 +1,13 @@
 .App, .game {
   text-align: center;
   background-color: rgb(24, 23, 23);
-  color: #eb410d;
+  color: #EB410D;
   height: 100%;
   width: 100%;
 }
 
 .welcome, .game .list-group-item {
-  color: #eb410d;
+  color: #EB410D;
   background-color: rgb(24, 23, 23);
 }
 .clearance-lvl {
@@ -80,7 +80,7 @@
   font-size: 6rem;
 }
 .mission-fail {
-  background-color:  #eb410d;
+  background-color:  #EB410D;
   height: 100%;
 }
 
@@ -96,4 +96,14 @@
   top: 10%;
   /* left: 15%; */
   font-size: 6rem;
+}
+.scientist {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: white;
+  color: black;
+  height: 100%;
+}
+.scientist-title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: rgb(14, 124, 214);
 }
