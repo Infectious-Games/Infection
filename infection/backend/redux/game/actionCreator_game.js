@@ -1,4 +1,4 @@
-const { SCIENTIST_ROUND_WIN, INFILTRATOR_ROUND_WIN, RESTART_GAME, INCREMENT_FAIL, RESET_FAIL } = require('./actions_game');
+const { SCIENTIST_ROUND_WIN, INFILTRATOR_ROUND_WIN, RESTART_GAME, INCREMENT_FAIL, RESET_FAIL, INCREMENT_ROUND } = require('./actions_game');
 
 const scientistRoundWin = (round, scientistWins, infiltratorWins, failCount) => ({
   type: SCIENTIST_ROUND_WIN,
@@ -40,10 +40,20 @@ const resetFail = (round, scientistWins, infiltratorWins, failCount) => ({
   failCount
 });
 
+const incrementRound = (round, scientistWins, infiltratorWins, failCount) => ({
+  type: INCREMENT_ROUND,
+  round,
+  scientistWins,
+  infiltratorWins,
+  failCount
+
+});
+
 module.exports = {
   scientistRoundWin,
   infiltratorRoundWin,
   restartGame, 
   incrementFail,
-  resetFail
+  resetFail, 
+  incrementRound
 };
