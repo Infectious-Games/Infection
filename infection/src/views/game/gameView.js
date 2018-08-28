@@ -33,7 +33,7 @@ const GameView = ({
     <br></br>
     <Row className='game-view'>
       <Col md={2}></Col>
-      <Col md={8} xs={10} className='game-view-col'>
+      <Col md={8} xs={12} className='game-view-col'>
         {
           !game.teamAssembled
             ? <WaitingForTeam></WaitingForTeam>
@@ -74,11 +74,11 @@ const GameView = ({
       <br></br>
     </Row>
     <Row className='game-footer'>
-      <Col md={3}></Col>
-      <Col md={6}>
+      <Col md={3} xs={0}></Col>
+      <Col md={6} xs={12}>
         <GameStatus missionResults={game.missionResults}></GameStatus>
       </Col>
-      <Col md={3}></Col>
+      <Col md={3} xs={0}></Col>
     </Row>
   </Grid>
   

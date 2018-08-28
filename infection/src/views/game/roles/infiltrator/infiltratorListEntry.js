@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row } from 'react-bootstrap';
 
 const InfiltratorListEntry = ({ infiltrator }) =>
- <Row>{infiltrator}</Row>
+ <li>{infiltrator}</li>
 
 export default InfiltratorListEntry;
