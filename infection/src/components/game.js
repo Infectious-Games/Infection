@@ -142,8 +142,7 @@ class Game extends Component {
   }
 
   handleSubmitRoster() {
-    // FIXME: Change comparator back to this.state.rosterLength
-    this.state.missionRoster.length === 2
+    this.state.missionRoster.length === this.state.rosterLength
       ? socket.emit('deploy team', this.state.missionRoster)
       : console.log('Not enough people chosen yet.')
   }
