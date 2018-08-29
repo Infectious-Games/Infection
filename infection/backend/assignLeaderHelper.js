@@ -1,9 +1,7 @@
-const store = require('./redux/store');
-
-const shuffle = (array) => {
+const shuffle = array => {
   let n = array.length;
   let i;
-  let shuffled = [];
+  const shuffled = [];
   while (n) {
     i = Math.floor(Math.random() * array.length);
     if (i in array) {
@@ -13,14 +11,14 @@ const shuffle = (array) => {
     }
   }
   return shuffled;
-}
+};
 
-const leaderLoopCreator = (users) => {
-  let shuffled = shuffle(users);
-  let usersToConcat = Array(3).fill(shuffled, 0);
+const leaderLoopCreator = users => {
+  const shuffled = shuffle(users);
+  const usersToConcat = Array(3).fill(shuffled, 0);
   return usersToConcat.concat.apply([], usersToConcat);
 };
 
 module.exports = {
-  leaderLoopCreator
-}
+  leaderLoopCreator,
+};

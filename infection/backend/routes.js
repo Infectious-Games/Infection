@@ -1,50 +1,52 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
-const { SESSION_OPTIONS } = require('../config');
 const dotenv = require('dotenv');
+const { SESSION_OPTIONS } = require('../config');
+
 dotenv.load();
 const db = require('./database');
 
-const log = console.log;
+const { log } = console.log;
 
-module.exports = (app) => {
+module.exports = app => {
   // find or add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
-    db.findOrCreateUser(body, (data) => {
-      // response is true if user has been added to db, or false if user already exists
+    db.findOrCreateUser(body, data => {
+      // Response is true if user has been added to db
+      // False if user already exists
       res.json(data);
     });
   });
-  //get join code for new game
+  // Get join code for new game
   app.post('/start', (req, res) => {
-    //take player count from body and use it to create game instance
+    // Take player count from body and use it to create game instance
     const { body } = req;
-    const playerCount = body.playerCount;
-    //send join code (unique game id) back to client
-    db.createGameAndGetJoinCode(playerCount, (joinCode) => {
+    const { playerCount } = body;
+    // Send join code (unique game id) back to client
+    db.createGameAndGetJoinCode(playerCount, joinCode => {
       res.json(joinCode);
     });
   });
-  // update user's stats in the db
+  // Update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
     log(body, 'body in server');
-    db.updateUserStats(body, (data) => {
+    db.updateUserStats(body, data => {
       res.json(data);
     });
   });
-  // get user's stats from the db
+  // Get user's stats from the db
   app.get('/userStats', (req, res) => {
-    const query = req.query;
+    const { query } = req;
     console.log(query, 'GET /userStats query in server');
-    db.getUserStats(query, (data) => {
+    db.getUserStats(query, data => {
       res.json(data);
     });
   });
-  
-  //////////////////////////////////////////////////////
+
+  // ////////////////////////////////////////////////////
   // Passport
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
@@ -59,38 +61,46 @@ module.exports = (app) => {
   });
 
   // Passport Google Strategy
-  passport.use(new GoogleStrategy({
-    callbackURL: '/auth/google/redirect',
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET
-  }, (accessToken, refreshToken, profile, done) => {
-    db.findOrCreateUser(profile, (user) => {
-      log(`user is ${user}`);
-      return done(null, user);
-    });
-  }));
+  passport.use(
+    new GoogleStrategy(
+      {
+        callbackURL: '/auth/google/redirect',
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      },
+      (accessToken, refreshToken, profile, done) => {
+        db.findOrCreateUser(profile, user => {
+          log(`user is ${user}`);
+          return done(null, user);
+        });
+      }
+    )
+  );
 
-  app.get('/auth/google',
+  app.get(
+    '/auth/google',
     passport.authenticate('google', {
-      scope: ['profile']
-    }));
+      scope: ['profile'],
+    })
+  );
 
-  app.get('/auth/google/redirect',
+  app.get(
+    '/auth/google/redirect',
     passport.authenticate('google', {
-      // TODO: Handle routes back to client properly
       failureRedirect: '/',
-      successRedirect: '/'
-    }));
+      successRedirect: '/',
+    })
+  );
 
-  // check if user is loggedIn
+  // Check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
-    res.json({ 
-      loggedIn: !!req.user, 
-      user: req.user 
+    res.json({
+      loggedIn: !!req.user,
+      user: req.user,
     });
-  })
+  });
 
-  // logout user
+  // Logout user
   app.get('/logout', (req, res) => {
     req.logout();
     res.redirect('/');

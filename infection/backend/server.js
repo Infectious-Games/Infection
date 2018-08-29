@@ -1,10 +1,8 @@
 const express = require('express');
-const http = require('http');
 const bodyParser = require('body-parser');
 const { join } = require('path');
 const routes = require('./routes.js');
 const sockets = require('./sockets.js');
-const db = require('./database');
 
 const app = express();
 
@@ -16,11 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 routes(app);
 
-const server = app.listen(port, (err) => {
+const server = app.listen(port, err => {
   if (err) {
-    console.log(err);
+    console.error(err);
   } else {
-    console.log('listening on port', port);
+    console.error('listening on port', port);
   }
 });
 

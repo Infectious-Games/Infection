@@ -10,5 +10,5 @@ module.exports = combineReducers({
   game,
   cureOrSabotage,
   proposalVotes,
-  round
+  round,
 });
