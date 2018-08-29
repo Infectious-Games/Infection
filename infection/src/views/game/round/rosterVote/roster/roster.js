@@ -3,19 +3,17 @@ import React from 'react';
 import Leader from '../roster/leader';
 import NotLeader from '../roster/notLeader';
 
-const Roster = ({ 
-  game, 
-  handleSelectRosterEntryClick, 
-  handleSubmitRoster,
-}) =>
-  game.leader === game.username
-    ? <Leader
+const Roster = ({ game, handleSelectRosterEntryClick, handleSubmitRoster }) =>
+  game.leader === game.username ? (
+    <Leader
       rosterLength={game.rosterLength}
       team={game.team}
       roster={game.missionRoster}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}
-    ></Leader>
-    : <NotLeader leader={game.leader}></NotLeader>
+    />
+  ) : (
+    <NotLeader leader={game.leader} />
+  );
 
 export default Roster;
