@@ -1,18 +1,18 @@
 import React from 'react';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 import Waiting from '../waiting/waiting';
 
 
 const NotOnMission = () => 
-  <Grid>
-    <Row>
-      <Col md={8}>
-        <h2>You Were Not Selected for This Mission!</h2>
-        <h3>Stand By for Mission Result</h3>
-        <Waiting></Waiting>
-      </Col>
-    </Row>
-  </Grid>
+  <Row>
+    <h3>You Are Not On The Mission</h3>
+    <h4>Stand By for Mission Result</h4>
+    <Col md={2}></Col>
+    <Col md={8}>
+      <Waiting></Waiting>
+    </Col>
+    <Col md={2}></Col>
+  </Row>
   
 export default NotOnMission;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 
 const Vote = ({
@@ -7,13 +7,12 @@ const Vote = ({
   leader,
   missionRoster,
 }) =>
-  <Grid>
     <Row>
-      <Col md={8}>
-        <h2>
-          {leader} selects the following for mission
-        </h2>
-        <br></br>
+      <h3>
+        {leader} Has Selected
+      </h3>
+      <Col md={4}></Col>
+      <Col md={4}>
         <ListGroup>
           {
             missionRoster.map(member =>
@@ -25,31 +24,28 @@ const Vote = ({
             )
           }
         </ListGroup>
-        <br></br>
-        <h2>Do you approve?</h2>
-        <br></br>
-        <Row>
-          <Button
-            onClick={() => handleRosterVote('YES')}
-            bsSize="large"
-            bsStyle="success"
-          >YES</Button>
-        </Row>
-        <br></br>
+        <h3>Do you approve?</h3>
+        <Button
+          onClick={() => handleRosterVote('YES')}
+          bsSize="large"
+          bsStyle="success"
+        >
+          YES
+        </Button>
         <Row>
           ---OR---
-            </Row>
-        <br></br>
-        <Row>
+        </Row>
           <Button
             onClick={() => handleRosterVote('NO')}
             bsSize="large"
             bsStyle="danger"
-          >NO</Button>
-        </Row>
+          >
+            NO
+          </Button>
       </Col>
+      <Col md={4}></Col>
     </Row>
-  </Grid>
+  
 
 
 
