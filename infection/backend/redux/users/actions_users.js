@@ -3,7 +3,7 @@ const ASSIGN_ROLES = 'ASSIGN_ROLES';
 const RESET_USERS = 'RESET_USERS';
 
 module.exports = {
-  ADD_NEW_USER, 
+  ADD_NEW_USER,
   ASSIGN_ROLES,
-  RESET_USERS
+  RESET_USERS,
 };

@@ -1,15 +1,15 @@
 const { INCREMENT_ROUND, RESTART_ROUNDS } = require('./actions_rounds');
 
-const incrementRound = (round) => ({
+const incrementRound = round => ({
   type: INCREMENT_ROUND,
-  round
+  round,
 });
-const restartRounds = (round) => ({
+const restartRounds = round => ({
   type: RESTART_ROUNDS,
-  round
+  round,
 });
 
 module.exports = {
   incrementRound,
-  restartRounds
+  restartRounds,
 };

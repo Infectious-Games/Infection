@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import socket from '../socket';
 
@@ -14,10 +14,9 @@ class Game extends Component {
     this.setInGameStatus = props.setInGameStatus;
 
     this.state = {
-      
       allUsersVotedOnRoster: false,
       choiceMade: false,
-      gameOver: false, 
+      gameOver: false,
       id: undefined,
       infiltrator: false,
       infiltrators: [],
@@ -35,26 +34,26 @@ class Game extends Component {
       username: undefined,
       usersVoteRecord: [],
       votedOnRoster: false,
-    
-    }
-    
+    };
   }
   componentDidMount() {
     this.checkGameStatus();
   }
 
   checkGameStatus() {
-    socket.on('game start', ({username, infiltrator, team, infiltrators}) => {
-      this.setState({ 
-        username, 
-        teamAssembled: true, 
-        infiltrator, 
-        team, 
-        infiltrators 
-      }, () => {
-      })
-    })
-    socket.on('start round', (data) => {
+    socket.on('game start', ({ username, infiltrator, team, infiltrators }) => {
+      this.setState(
+        {
+          username,
+          teamAssembled: true,
+          infiltrator,
+          team,
+          infiltrators,
+        },
+        () => {}
+      );
+    });
+    socket.on('start round', data => {
       data.round === this.state.round
         ? this.setState({ 
           round: data.round, 
@@ -92,17 +91,17 @@ class Game extends Component {
         if (!voteSucceeds) {
           this.setState({ rosterUnapproved: this.state.rosterUnapproved + 1 }, () => console.log(this.state, 'this.state line 94 game.js'));
         }
-      })
-    })
+      });
+    });
     // if Leader's proposed roster was approved
     socket.on('on mission', () => {
       this.setState({ missionActive: true });
-    })
-    socket.on('mission result', (result) => {
+    });
+    socket.on('mission result', result => {
       if (result === 0) {
-        result = 'success'
+        result = 'success';
       } else if (result === 1) {
-        result = 'fail'
+        result = 'fail';
       }
       const updatedResults = this.state.missionResults.map((current, i) => {
         if (i === this.state.round - 1) {
@@ -110,59 +109,69 @@ class Game extends Component {
         } else {
           return current;
         }
-      }); 
+      });
       this.setState({ missionResults: updatedResults });
-    })
-    socket.on('game over', (winner) => {
-      this.setState({ gameOver: true, infiltratorsWin: winner, missionActive: true }, () => {
-        // update user stats
-        // if player is an infiltrator and infiltrators have won the game, or
-        // if player is a scientist and scientists have won the game
-        if ((this.state.infiltrator && winner) || (!this.state.infiltrator && !winner)) {
-          const update = {username: this.state.username, win: true}
-          axios.post('/userStats', update)
-        // otherwise the player has lost the game    
-        } else {
-          const update = { username: this.state.username, win: false }
-          axios.post('/userStats', update)
+    });
+    socket.on('game over', winner => {
+      this.setState(
+        { gameOver: true, infiltratorsWin: winner, missionActive: true },
+        () => {
+          // update user stats
+          // if player is an infiltrator and infiltrators have won the game, or
+          // if player is a scientist and scientists have won the game
+          if (
+            (this.state.infiltrator && winner) ||
+            (!this.state.infiltrator && !winner)
+          ) {
+            const update = { username: this.state.username, win: true };
+            axios.post('/userStats', update);
+            // otherwise the player has lost the game
+          } else {
+            const update = { username: this.state.username, win: false };
+            axios.post('/userStats', update);
+          }
         }
-      })
-    })
+      );
+    });
   }
   handleSelectRosterEntryClick(member) {
     const roster = this.state.missionRoster;
     roster.includes(member)
-      ? this.setState({ missionRoster: roster.filter(selected => selected !== member)})
-      : this.setState({ missionRoster: [...roster, member] })
+      ? this.setState({
+          missionRoster: roster.filter(selected => selected !== member),
+        })
+      : this.setState({ missionRoster: [...roster, member] });
   }
 
   handleSubmitRoster() {
     this.state.missionRoster.length === this.state.rosterLength
       ? socket.emit('deploy team', this.state.missionRoster)
-      : console.log('Not enough people chosen yet.')
+      : console.log('Not enough people chosen yet.');
   }
 
   handleOnMissionClick(choice) {
-    this.setState({choiceMade: choice }, () =>
+    this.setState({ choiceMade: choice }, () =>
       socket.emit('chose cure or sabotage', choice)
     );
   }
 
   handleRosterVote(vote) {
-    socket.emit('chose YES or NO', { vote, username: this.state.username })
+    socket.emit('chose YES or NO', { vote, username: this.state.username });
     this.setState({ votedOnRoster: true });
   }
-  
+
   render() {
     return (
-      <GameView 
+      <GameView
         game={this.state}
-        handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(this)}
+        handleSelectRosterEntryClick={this.handleSelectRosterEntryClick.bind(
+          this
+        )}
         handleSubmitRoster={this.handleSubmitRoster.bind(this)}
         choose={this.handleOnMissionClick.bind(this)}
         setInGameStatus={this.setInGameStatus}
         handleRosterVote={this.handleRosterVote.bind(this)}
-      ></GameView>
+      />
     );
   }
 }

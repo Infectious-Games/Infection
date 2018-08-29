@@ -1,19 +1,36 @@
-const { SCIENTIST_ROUND_WIN, INFILTRATOR_ROUND_WIN, RESTART_GAME, INCREMENT_FAIL, RESET_FAIL, INCREMENT_ROUND } = require('./actions_game');
+const {
+  SCIENTIST_ROUND_WIN,
+  INFILTRATOR_ROUND_WIN,
+  RESTART_GAME,
+  INCREMENT_FAIL,
+  RESET_FAIL,
+  INCREMENT_ROUND,
+} = require('./actions_game');
 
-const scientistRoundWin = (round, scientistWins, infiltratorWins, failCount) => ({
+const scientistRoundWin = (
+  round,
+  scientistWins,
+  infiltratorWins,
+  failCount
+) => ({
   type: SCIENTIST_ROUND_WIN,
   round,
   scientistWins,
   infiltratorWins,
-  failCount
+  failCount,
 });
 
-const infiltratorRoundWin = (round, scientistWins, infiltratorWins, failCount) => ({
-  type: INFILTRATOR_ROUND_WIN,
+const infiltratorRoundWin = (
   round,
   scientistWins,
   infiltratorWins,
   failCount
+) => ({
+  type: INFILTRATOR_ROUND_WIN,
+  round,
+  scientistWins,
+  infiltratorWins,
+  failCount,
 });
 
 const restartGame = (round, scientistWins, infiltratorWins, failCount) => ({
@@ -21,7 +38,7 @@ const restartGame = (round, scientistWins, infiltratorWins, failCount) => ({
   round,
   scientistWins,
   infiltratorWins,
-  failCount
+  failCount,
 });
 
 const incrementFail = (round, scientistWins, infiltratorWins, failCount) => ({
@@ -29,7 +46,7 @@ const incrementFail = (round, scientistWins, infiltratorWins, failCount) => ({
   round,
   scientistWins,
   infiltratorWins,
-  failCount
+  failCount,
 });
 
 const resetFail = (round, scientistWins, infiltratorWins, failCount) => ({
@@ -37,7 +54,7 @@ const resetFail = (round, scientistWins, infiltratorWins, failCount) => ({
   round,
   scientistWins,
   infiltratorWins,
-  failCount
+  failCount,
 });
 
 const incrementRound = (round, scientistWins, infiltratorWins, failCount) => ({
@@ -45,15 +62,14 @@ const incrementRound = (round, scientistWins, infiltratorWins, failCount) => ({
   round,
   scientistWins,
   infiltratorWins,
-  failCount
-
+  failCount,
 });
 
 module.exports = {
   scientistRoundWin,
   infiltratorRoundWin,
-  restartGame, 
+  restartGame,
   incrementFail,
-  resetFail, 
-  incrementRound
+  resetFail,
+  incrementRound,
 };
