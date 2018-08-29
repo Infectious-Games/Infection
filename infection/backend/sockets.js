@@ -69,8 +69,7 @@ module.exports = (server) => {
             { leader: roundLeader.username, 
               round, 
               rosterLength
-            } 
-          );
+            });
         }, 5000);  
       };
       Game.find({ where: { id: game } })
