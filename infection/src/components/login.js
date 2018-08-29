@@ -47,7 +47,11 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setInGameStatus();
-    socket.emit('join game', { username: this.state.username, game: this.state.game })
+    socket.emit('join game', { 
+      username: this.state.username, 
+      game: this.state.game,
+      pal3000Active: this.state.pal3000Active
+    })
   }
 
   handleChange(e) {

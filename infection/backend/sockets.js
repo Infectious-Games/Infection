@@ -8,6 +8,9 @@ const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, resetFail } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
+///////////////////////////
+const { PAL3000 } = require('./AI');
+//////////////////////////
 const chalk = require('chalk');
 const log = console.log;
 
@@ -16,6 +19,7 @@ module.exports = (server) => {
   let leaderLoop;
   let leaderLoopIndex = 0;
   let proposalResults = [];
+  let pal3000;
 
   io.on('connection', (socket) => {
 
@@ -24,7 +28,14 @@ module.exports = (server) => {
       const username = playerProps.username; 
       socket.game = game;
       socket.username = username;
-
+      /////////////////////////////
+      // if PAL3000 is active, add him to the game
+      console(playerProps, 'playerProps in sockets.js');
+      if (playerProps.pal3000Active) {
+        console.log('pal3000Active in sockets.js')
+        store.dispatch(newUser('PAL3000', game, 3000));
+      }
+      //////////////////////////////
       store.dispatch(newUser(username, game, socket.id));
 
       //SERVER CONNECTS PLAYER TO GAME---------------------------------------------------------------------------
@@ -43,6 +54,13 @@ module.exports = (server) => {
           if (user.infiltrator === true) {
             user.infiltrators = infiltrators;
           }
+          ////////////////////////////////////////
+          if (user.username === 'PAL3000') {
+            // instantiate PAL3000(scientist, team, infiltrators);
+            pal3000 = new PAL3000(user.infiltrator, team, infiltrators);
+            console.log(pal3000, 'pal3000 is alive in sockets.js');
+          }
+          //////////////////////////////////////////
           user.team = team;
           io.to(user.socketID).emit('game start', user);
         });
@@ -53,6 +71,17 @@ module.exports = (server) => {
           leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[leaderLoopIndex];
           leaderLoopIndex++;
+          //////////////////////////////////
+          // if PAL3000 is leader
+          console.log(roundLeader.username, 'roundLeader.username in sockets.js');
+          if (roundLeader.username === 'PAL3000') {
+            console.log('PAL3000 is the leader in sockets.js');
+            // PAL3000 chooses team
+            let team = pal3000.chooseMissionRoster(rosterLength);
+            console.log(team, 'team chosen by PAL3000');
+            io.in(socket.game).emit('team chosen', team);
+          }
+          /////////////////////////////////
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
@@ -67,6 +96,7 @@ module.exports = (server) => {
         .then(playerCount => {
           store.getState().users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
+            ///////////////////////
             : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
         })
         .catch(err => console.error(err));         
