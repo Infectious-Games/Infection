@@ -91,7 +91,6 @@ module.exports = (server) => {
     });
     // LEADER CHOSE TEAM-------------------------------------------------------
     socket.on('deploy team', (team) => {
-      // console.log(team, 'team chosen by leader made it to server');
       io.in(socket.game).emit('team chosen', team);
     });
     // CURE OR SABOTAGE CHOSEN-------------------------------------------------
@@ -124,13 +123,11 @@ module.exports = (server) => {
               winner = false;
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
-              // socket.disconnect(true);
               setTimeout(() => socket.leave(socket.game), 3000);
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
-              // socket.disconnect(true);
               setTimeout(() => socket.leave(socket.game), 3000);
             } else {
               store.dispatch(incrementRound());
