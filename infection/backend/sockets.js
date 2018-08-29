@@ -27,7 +27,6 @@ const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
 const assignLeader = require('./gameLogicHelpers');
 const leaderStorage = require('./leaderOrderStorage');
-const chalk = require('chalk');
 const log = console.log;
 
 module.exports = (server) => {
