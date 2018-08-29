@@ -31,9 +31,9 @@ module.exports = (server) => {
       socket.username = username;
       /////////////////////////////
       // if PAL3000 is active, add him to the game
-      console(playerProps, 'playerProps in sockets.js');
+      console.log(playerProps, 'playerProps in sockets.js 34');
       if (playerProps.pal3000Active) {
-        console.log('pal3000Active in sockets.js')
+        console.log('pal3000Active in sockets.js 36')
         store.dispatch(newUser('PAL3000', game, 3000));
       }
       //////////////////////////////
@@ -56,10 +56,11 @@ module.exports = (server) => {
             user.infiltrators = infiltrators;
           }
           ////////////////////////////////////////
+          console.log(user.username, 'user.username in sockets.js 59');
           if (user.username === 'PAL3000') {
             // instantiate PAL3000(scientist, team, infiltrators);
-            pal3000 = new PAL3000(user.infiltrator, team, infiltrators);
-            console.log(pal3000, 'pal3000 is alive in sockets.js');
+            pal3000 = new PAL3000(!user.infiltrator, team, infiltrators);
+            console.log(pal3000, 'pal3000 is alive in sockets.js line 62');
           }
           //////////////////////////////////////////
           user.team = team;
@@ -72,20 +73,21 @@ module.exports = (server) => {
           leaderLoop = leaderLoopCreator(store.getState().users);
           let roundLeader = leaderLoop[leaderLoopIndex];
           leaderLoopIndex++;
-          //////////////////////////////////
-          // if PAL3000 is leader
-          console.log(roundLeader.username, 'roundLeader.username in sockets.js');
-          if (roundLeader.username === 'PAL3000') {
-            console.log('PAL3000 is the leader in sockets.js');
-            // PAL3000 chooses roster
-            roster = pal3000.chooseMissionRoster(rosterLength);
-            console.log(roster, 'roster chosen by PAL3000');
-            io.in(socket.game).emit('team chosen', roster);
-          }
-          /////////////////////////////////
           io.in(game).emit('start round', 
-            {leader: roundLeader.username, round, rosterLength} 
-          );
+          {leader: roundLeader.username, round, rosterLength} 
+        );
+        //////////////////////////////////
+        // if PAL3000 is leader
+        console.log(roundLeader.username, 'roundLeader.username in sockets.js 80');
+        if (roundLeader.username === 'PAL3000') {
+          console.log('PAL3000 is the leader in sockets.js 82');
+          // PAL3000 chooses roster
+          roster = pal3000.chooseMissionRoster(rosterLength);
+          console.log(roster, 'roster chosen by PAL3000 85');
+          io.in(socket.game).emit('team chosen', roster);
+        }
+        console.log(game, 'game in sockets.js 88');
+        ////////////////////////////////
         }, 5000);  
       };
       Game.find({ where: { id: game } })
@@ -116,15 +118,18 @@ module.exports = (server) => {
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
-      console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage');
+      //////////////////////////////////////////////  
+      console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage 121');
       // if pal3000 is active and on the mission
       if (pal3000) {
-        console.log('pal3000 set to vote in sockets.js');
+        console.log('pal3000 set to vote in sockets.js 124');
         let choice = pal3000.cureOrSabotage();
+        console.log(choice, 'PAL3000 choice in sockets.js 127');
         choice === 'CURE'
           ? store.dispatch(voteCure())
           : store.dispatch(voteSabotage()); 
       }
+      ///////////////////////////////////////////////
       let results = store.getState().cureOrSabotage.voteStatus;
 
       let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
@@ -171,6 +176,16 @@ module.exports = (server) => {
               let roundLeader = leaderLoop[leaderLoopIndex];
               leaderLoopIndex++;
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
+              ///////////////////////////////////////////////
+              console.log(roundLeader.username, 'roundLeader.username in sockets.js 177');
+              if (roundLeader.username === 'PAL3000') {
+                console.log('PAL3000 is the leader in sockets.js 179');
+                // PAL3000 chooses roster
+                roster = pal3000.chooseMissionRoster(rosterLength);
+                console.log(roster, 'roster chosen by PAL3000 182');
+                io.in(socket.game).emit('team chosen', roster);
+              }
+              //////////////////////////////////////////////////
             }
           }, 3000)
 
@@ -180,6 +195,16 @@ module.exports = (server) => {
     //PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION---------------------------------------------------------
     
     socket.on('chose YES or NO', ({ vote, username }) => {
+      ////////////////////////////////////////////////
+      // BUG: PAL is voting once for every user
+      console.log(pal3000, 'pal3000 about to choose YES or NO in sockets.js 197')
+      if (pal3000) {
+        let palVote = pal3000.voteForMissionTeam(roster);
+        console.log(palVote, 'palVote in sockets.js 200');
+        proposalResults.push({ name: 'PAL300', palVote });
+        palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+      }
+      ///////////////////////////////////////////////
       console.log(vote, 'vote in sockets.js');
       // track each players vote
       // return object with (each players vote, similar to...
@@ -190,7 +215,7 @@ module.exports = (server) => {
       // If everyone has voted  
       if (store.getState().proposalVotes.totalMissionVotes === socket.numberOfPlayers) {
         // More accepts than rejects for team proposal
-        const voteSucceeds = store.getState().proposalVotes.voteSuccess >= store.getState().proposalVotes.voteFail;
+        const voteSucceeds = store.getState().proposalVotes.voteSuccess > store.getState().proposalVotes.voteFail;
         let results;
         (voteSucceeds === false)
           ? results = 1
@@ -247,8 +272,18 @@ module.exports = (server) => {
                 let round = store.getState().round.round;
                 console.log('increment round hit line 190 after 3rd fail');
                 proposalResults = [];
-                setTimeout(() => io.in(socket.game).emit('start round', 
-                  { leader: roundLeader.username, round, rosterLength }), 5000);              
+                setTimeout(() => io.in(socket.game).emit('start round',
+                  { leader: roundLeader.username, round, rosterLength }), 5000);
+                ///////////////////////////////////////////////
+                console.log(roundLeader.username, 'roundLeader.username in sockets.js 275');
+                if (roundLeader.username === 'PAL3000') {
+                  console.log('PAL3000 is the leader in sockets.js 277');
+                  // PAL3000 chooses roster
+                  roster = pal3000.chooseMissionRoster(rosterLength);
+                  console.log(roster, 'roster chosen by PAL3000 280');
+                  io.in(socket.game).emit('team chosen', roster);
+                }
+                //////////////////////////////////////////////////
               } 
             }, 3000);
             
@@ -260,6 +295,16 @@ module.exports = (server) => {
             proposalResults = [];
             setTimeout(() => io.in(socket.game).emit('start round', 
               { leader: roundLeader.username, round, rosterLength }), 5000);
+            ///////////////////////////////////////////////
+            console.log(roundLeader.username, 'roundLeader.username in sockets.js 296');
+            if (roundLeader.username === 'PAL3000') {
+              console.log('PAL3000 is the leader in sockets.js 298');
+              // PAL3000 chooses roster
+              roster = pal3000.chooseMissionRoster(rosterLength);
+              console.log(roster, 'roster chosen by PAL3000 301');
+              io.in(socket.game).emit('team chosen', roster);
+            }
+            //////////////////////////////////////////////////
           }
         }    
       } else {
