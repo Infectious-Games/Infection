@@ -60,6 +60,14 @@
   height: 7%;
   /* background-color: yellow; */
 }
+.game-over {
+  height: 100%;
+  background-color: blueviolet;
+}
+.leave-game {
+  top: 100;
+
+}
 
 .game-view {
   /* background-color: gray; */
@@ -106,6 +114,10 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: rgb(14, 124, 214);
 }
+.scientist-win {
+  background-color: white;
+  height: 100%;
+}
 .infiltrator {
   font-family: 'Courier New', Courier, monospace;
   background-color: white;
@@ -115,4 +127,11 @@
 .infiltrator-title {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: #EB410D;
+}
+.infiltrator-list-entry {
+  color: #EB410D;
+  font-weight: 900;
+}
+.infiltrators-win {
+  font-family: fantasy;
 }

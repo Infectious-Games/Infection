@@ -1,6 +1,6 @@
 import React from 'react';
 
 const InfiltratorListEntry = ({ infiltrator }) =>
- <li>{infiltrator}</li>
+  <li className='infiltrator-list-entry'>{infiltrator}</li>
 
 export default InfiltratorListEntry;
