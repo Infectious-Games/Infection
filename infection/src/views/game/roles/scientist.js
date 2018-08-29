@@ -9,9 +9,12 @@ const Scientist = () =>
     <h4>YOU'VE BEEN ADDED TO THE TASK FORCE!</h4>
     <Col md={4} xs={2}></Col>
     <Col md={4} xs={8}>
-      <Image src={scientist} responsive></Image>
-      <h1 className='scientist-title'>SCIENTIST</h1> 
-      <h3>YOUR OBJECTIVES:</h3>
+      <Image
+        src={scientist} 
+        responsive
+      ></Image>
+      <h2 className='scientist-title'>SCIENTIST</h2> 
+      <h4>YOUR OBJECTIVES:</h4>
       <ul>
         <li>Administer Cure</li>
         <li>Contain Outbreaks</li>
