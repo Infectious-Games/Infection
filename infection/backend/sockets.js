@@ -8,9 +8,9 @@ const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, resetFail } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
-///////////////////////////
 const { PAL3000 } = require('./AI');
-//////////////////////////
+const db = require('./database');
+
 const chalk = require('chalk');
 const log = console.log;
 
@@ -20,7 +20,7 @@ module.exports = (server) => {
   let leaderLoopIndex = 0;
   let proposalResults = [];
   let pal3000;
-  var roster;
+  let roster;
 
   io.on('connection', (socket) => {
 
@@ -87,7 +87,7 @@ module.exports = (server) => {
               roster = pal3000.chooseMissionRoster(rosterLength);
               console.log(roster, 'roster chosen by PAL3000 88');
               io.in(socket.game).emit('team chosen', roster);
-            }, 5000);
+            }, 3000);
           }
               //////////////////////////////////////////////////
         }, 5000);  
@@ -169,6 +169,16 @@ module.exports = (server) => {
 
             if (scientistWinTotal === 3) {
               winner = false;
+              // if PAL3000 played, update his stats
+              if (pal3000) {
+                if ((pal3000.scientist && !winner) || (!pal3000.scientist && winner)) {
+                  const update = { username: 'PAL3000', win: true };
+                  db.updateUserStats(update, (user) => console.log(user, 'data sockets 181')); 
+                } else {
+                  const update = { username: 'PAL3000', win: false };
+                  db.updateUserStats(update, (user) => console.log(user, 'data sockets 181'));
+                }
+              }
               io.in(socket.game).emit('game over', winner);
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               //socket.disconnect(true);
@@ -176,6 +186,17 @@ module.exports = (server) => {
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               io.in(socket.game).emit('game over', winner);
+              // if PAL3000 played, update his stats
+              if (pal3000) {
+                if ((pal3000.scientist && !winner) || (!pal3000.scientist && winner)) {
+                  const update = { username: 'PAL3000', win: true };
+                  db.updateUserStats(update, (user) => console.log(user, 'data sockets 181'));
+                  // otherwise PAL3000 has lost the game    
+                } else {
+                  const update = { username: 'PAL3000', win: false };
+                  db.updateUserStats(update, (user) => console.log(user, 'data sockets 181'));
+                }
+              }
               //DISCONNECT SOCKET-----------------------------------------------------------------------------------------
               //socket.disconnect(true);
               setTimeout(() => socket.leave(socket.game), 3000);
@@ -196,7 +217,7 @@ module.exports = (server) => {
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   console.log(roster, 'roster chosen by PAL3000 194');
                   io.in(socket.game).emit('team chosen', roster);
-                }, 5000);
+                }, 3000);
               }
               //////////////////////////////////////////////////
             }
@@ -280,6 +301,17 @@ module.exports = (server) => {
                 winner = true;
                 log(chalk.bgYellow.black(winner, 'winner before emit'));
                 io.in(socket.game).emit('game over', winner);
+                // if PAL3000 played, update his stats
+                if (pal3000) {
+                  if ((pal3000.scientist && !winner) || (!pal3000.scientist && winner)) {
+                    const update = { username: 'PAL3000', win: true };
+                    db.updateUserStats(update, (user) => console.log(user, 'data sockets 181'));
+                    // otherwise PAL3000 has lost the game    
+                  } else {
+                    const update = { username: 'PAL3000', win: false };
+                    db.updateUserStats(update, (user) => console.log(user, 'data sockets 181'));
+                  }
+                }
                 setTimeout(() => socket.leave(socket.game), 3000);
                 log(chalk.bgYellow.black(winner, 'winner after emit and disconnect'));
                 // }, 5000);
@@ -304,7 +336,7 @@ module.exports = (server) => {
                     roster = pal3000.chooseMissionRoster(rosterLength);
                     console.log(roster, 'roster chosen by PAL3000 303');
                     io.in(socket.game).emit('team chosen', roster);
-                  }, 5000);
+                  }, 3000);
                 }
               //////////////////////////////////////////////////
               } 
@@ -328,7 +360,7 @@ module.exports = (server) => {
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   console.log(roster, 'roster chosen by PAL3000 327');
                   io.in(socket.game).emit('team chosen', roster);
-                }, 5000);
+                }, 3000);
               }
               //////////////////////////////////////////////////
             }           

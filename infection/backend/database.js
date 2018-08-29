@@ -84,7 +84,7 @@ User.findOrCreate({
     console.log(user.get({
       plain: true
     }));
-    // console.log('PAL3000 added to the db:', created, ', false = already in db');
+    console.log('PAL3000 added to the db:', created, ', false = already in db');
   });
 
 const createGameAndGetJoinCode = (count, cb) => {
@@ -117,6 +117,8 @@ const clearanceLevels = (wins) => {
 // update user stats
 const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
+  console.log(win, 'win db 120');
+  console.log(username, 'username db 121');
   const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];
@@ -141,7 +143,7 @@ const getUserStats = ({ username }, callback) => {
   User.find({ where: { username } })
     // return the user
     .then((user) => callback(user))
-}
+};
 
 // drop the db
 // User.sync({ force: true }).then(() => {

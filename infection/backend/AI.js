@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 // ******** AI LOGIC ******** //
 // ******** PAL 3000 ******** //
 
@@ -47,6 +49,17 @@ class PAL3000 {
       return includesInfiltrator ? 'YES' : 'NO';
     }
   }
+  // updateStats(winner) { // false = scientist won, true = infiltrators won
+  //   console.log(winner, 'winner in updateStats in AI.js');
+  //   if ((this.scientist && !winner) || (!this.scientist && winner)) {
+  //     const update = { username: 'PAL3000', win: true };
+  //     axios.post('/userStats', update);
+  //     // otherwise PAL3000 has lost the game    
+  //   } else {
+  //     const update = { username: 'PAL3000', win: false };
+  //     axios.post('/userStats', update);
+  //   }
+  // }
 };
 
 module.exports = {
