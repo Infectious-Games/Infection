@@ -9,7 +9,7 @@ const { SESSION_OPTIONS } = require('../config');
 dotenv.load();
 const db = require('./database');
 
-const { log } = console.log;
+const log = console.log;
 
 module.exports = app => {
   // find or add a user to the db
