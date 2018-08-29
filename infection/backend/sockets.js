@@ -125,12 +125,12 @@ module.exports = (server) => {
       // if pal3000 is active and on the mission
 
       // BUG:ON MISSION
-      if (pal3000 && !pal3000.voted) { // && PAL3000 on mission
-        
-        console.log('pal3000 set to vote in sockets.js 127');
+      if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) { // && PAL3000 on mission
+        console.log(roster, 'ROSTER in sockets.js 129');
+        console.log('pal3000 set to vote in sockets.js 130');
         let choice = pal3000.cureOrSabotage();
-        console.log(choice, 'PAL3000 choice in sockets.js 129');
-        console.log('PAL VOTED 130');
+        console.log(choice, 'PAL3000 choice in sockets.js 132');
+        console.log('PAL VOTED 133');
         choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage()); 
