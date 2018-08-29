@@ -29,7 +29,7 @@ class Game extends Component {
       missionRoster: [],
       rosterLength: 0,
       round: 0,
-      rosterApproved: [undefined, undefined, undefined],
+      rosterUnapproved: 0,//renamed, make a number instead of array
       team: [],
       teamAssembled: false,
       username: undefined,
@@ -79,7 +79,7 @@ class Game extends Component {
           allUsersVotedOnRoster: false,
           usersVoteRecord: [],
           votedOnRoster: false,
-          rosterApproved: [undefined, undefined, undefined]
+          rosterUnapproved: 0,
       })
     })
     socket.on('team chosen', (proposedRoster) => {
@@ -87,14 +87,10 @@ class Game extends Component {
     })
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {
       this.setState({ allUsersVotedOnRoster: true, usersVoteRecord: vote}, () => {
-        // set state of rosterApproved based on result
-        // if failed roster attempt 
-        if (voteSucceeds === false) {
-          voteSucceeds = 'X'
-          const updatedRosterApproved = this.state.rosterApproved;
-          const index = updatedRosterApproved.indexOf(undefined);
-          updatedRosterApproved[index] = voteSucceeds;
-          this.setState({ rosterApproved: updatedRosterApproved }, () => console.log(this.state, 'this.state line 94 game.js'));
+        // set state of rosterUnapproved based on result
+        // for every failed vote increment by one
+        if (!voteSucceeds) {
+          this.setState({ rosterUnapproved: this.state.rosterUnapproved + 1 }, () => console.log(this.state, 'this.state line 94 game.js'));
         }
       })
     })
