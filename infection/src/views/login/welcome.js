@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Grid, Row, Col } from 'react-bootstrap';
 
-import infectionLogo from '../../images/Infection.jpg';
+import infectionLogo from '../../images/Infection.png';
 import LoginView from './loginView';
 
 const Welcome = () =>
