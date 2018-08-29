@@ -9,7 +9,6 @@ import WaitingForTeam from './waiting/waitingForTeam';
 import GameOver from './gameOver/gameOver';
 import GameStatus from './gameStatus/gameStatus';
 import Header from './shared/header';
-import VoteStatus from './voteStatus/voteStatus';
 
 const GameView = ({
   game,
@@ -24,10 +23,12 @@ const GameView = ({
     <Row className="game-header">
       <Col md={5} />
       <Col md={2}>
-        <Header />
+        <Header 
+          rosterUnapproved={game.rosterUnapproved}
+          leaderSubmitRoster={game.leaderSubmitRoster}
+        ></Header>
       </Col>
       <Col md={5}>
-        <VoteStatus rosterApproved={game.rosterApproved} />
       </Col>
     </Row>
     <br />
