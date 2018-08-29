@@ -20,6 +20,7 @@ module.exports = (server) => {
   let leaderLoopIndex = 0;
   let proposalResults = [];
   let pal3000;
+  var roster;
 
   io.on('connection', (socket) => {
 
@@ -76,10 +77,10 @@ module.exports = (server) => {
           console.log(roundLeader.username, 'roundLeader.username in sockets.js');
           if (roundLeader.username === 'PAL3000') {
             console.log('PAL3000 is the leader in sockets.js');
-            // PAL3000 chooses team
-            let team = pal3000.chooseMissionRoster(rosterLength);
-            console.log(team, 'team chosen by PAL3000');
-            io.in(socket.game).emit('team chosen', team);
+            // PAL3000 chooses roster
+            roster = pal3000.chooseMissionRoster(rosterLength);
+            console.log(roster, 'roster chosen by PAL3000');
+            io.in(socket.game).emit('team chosen', roster);
           }
           /////////////////////////////////
           io.in(game).emit('start round', 
@@ -96,7 +97,6 @@ module.exports = (server) => {
         .then(playerCount => {
           store.getState().users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
-            ///////////////////////
             : log(chalk.bold.cyan('User added. Waiting for more users to start game.'));
         })
         .catch(err => console.error(err));         
@@ -104,6 +104,9 @@ module.exports = (server) => {
     const users = store.getState().users;
     //LEADER CHOSE TEAM----------------------------------------------------------------------------------------
     socket.on('deploy team', (team) => {
+      ////////////////////////////////////
+      roster = team;
+      /////////////////////////////
       // console.log(team, 'team chosen by leader made it to server');
       io.in(socket.game).emit('team chosen', team);   
     });
@@ -113,7 +116,15 @@ module.exports = (server) => {
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
-      
+      console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage');
+      // if pal3000 is active and on the mission
+      if (pal3000) {
+        console.log('pal3000 set to vote in sockets.js');
+        let choice = pal3000.cureOrSabotage();
+        choice === 'CURE'
+          ? store.dispatch(voteCure())
+          : store.dispatch(voteSabotage()); 
+      }
       let results = store.getState().cureOrSabotage.voteStatus;
 
       let totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
