@@ -5,5 +5,5 @@ const RESET_VOTES = 'RESET_VOTES';
 module.exports = {
   VOTE_CURE,
   VOTE_SABOTAGE,
-  RESET_VOTES
+  RESET_VOTES,
 };

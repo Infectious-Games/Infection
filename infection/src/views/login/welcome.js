@@ -4,34 +4,34 @@ import { Image, Grid, Row, Col } from 'react-bootstrap';
 import infectionLogo from '../../images/Infection.png';
 import LoginView from './loginView';
 
-const Welcome = () =>
+const Welcome = () => (
   <Grid className="welcome">
     <Row className="welcome">
-      <Col md={2}></Col>
-      <Col
-        className="welcome"
-        md={8}
-      >
+      <Col md={2} />
+      <Col className="welcome" md={8}>
         <Image src={infectionLogo} alt="logo" responsive />
       </Col>
-      <Col md={2}></Col>
-    </Row >
+      <Col md={2} />
+    </Row>
     <Row>
-      <Col md={2}></Col>
+      <Col md={2} />
       <Col md={8}>
         <h1 className="welcome">Welcome to the team!</h1>
-          <p>Our mission is to stop infectious outbreaks threatening the United States</p>
+        <p>
+          Our mission is to stop infectious outbreaks threatening the United
+          States
+        </p>
       </Col>
-      <Col md={2}></Col>
+      <Col md={2} />
     </Row>
     <Row className="login">
-      <Col md={4}></Col>
+      <Col md={4} />
       <Col md={4}>
-        <LoginView></LoginView>
+        <LoginView />
       </Col>
-      <Col md={4}></Col>
+      <Col md={4} />
     </Row>
   </Grid>
-
+);
 
 export default Welcome;

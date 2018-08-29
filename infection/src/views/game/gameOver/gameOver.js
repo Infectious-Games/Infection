@@ -3,9 +3,6 @@ import ScientistsWin from './scientistsWin';
 import InfiltratorsWin from './infiltratorsWin';
 
 const GameOver = ({ infiltratorsWin }) =>
-  infiltratorsWin
-    ? <InfiltratorsWin></InfiltratorsWin>
-    : <ScientistsWin></ScientistsWin>
-          
+  infiltratorsWin ? <InfiltratorsWin /> : <ScientistsWin />;
 
 export default GameOver;

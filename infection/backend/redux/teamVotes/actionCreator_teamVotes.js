@@ -1,28 +1,32 @@
-const { VOTE_YES, VOTE_NO, RESET_MISSION_VOTES } = require('./actions_teamVotes');
+const {
+  VOTE_YES,
+  VOTE_NO,
+  RESET_MISSION_VOTES,
+} = require('./actions_teamVotes');
 
 const voteYes = (voteFail, voteSuccess, totalMissionVotes) => ({
   type: VOTE_YES,
-  voteFail, 
+  voteFail,
   voteSuccess,
-  totalMissionVotes
+  totalMissionVotes,
 });
 
 const voteNo = (voteFail, voteSuccess, totalMissionVotes) => ({
   type: VOTE_NO,
-  voteFail, 
+  voteFail,
   voteSuccess,
-  totalMissionVotes
+  totalMissionVotes,
 });
 
 const resetMissionVotes = (voteFail, voteSuccess, totalMissionVotes) => ({
   type: RESET_MISSION_VOTES,
-  voteFail, 
+  voteFail,
   voteSuccess,
-  totalMissionVotes
+  totalMissionVotes,
 });
 
 module.exports = {
   voteYes,
-  voteNo, 
-  resetMissionVotes
+  voteNo,
+  resetMissionVotes,
 };

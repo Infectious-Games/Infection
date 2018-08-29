@@ -4,8 +4,7 @@ module.exports = {
   * how many players are sent on each mission 
   * based on players in the game. Key represents
   * that dynamic number from sockets.js file.
-  */
-
+    */
   // 4 People In Game
   4: [2, 3, 2, 3, 3],
   // 5 People In Game
@@ -19,10 +18,5 @@ module.exports = {
   // 9 People In Game
   9: [3, 4, 4, 5, 5],
   // 10 People In Game
-  10: [3, 4, 4, 5, 5]
+  10: [3, 4, 4, 5, 5],
 };
-
-// This will go in it's own Redux directory
-
-// GET_TEAM_COUNT_BY_ROUND
-// teamCountBR = teamCountByRound.players.length
