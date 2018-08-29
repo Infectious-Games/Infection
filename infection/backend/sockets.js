@@ -78,16 +78,18 @@ module.exports = (server) => {
         );
         //////////////////////////////////
         // if PAL3000 is leader
-        // console.log(roundLeader.username, 'roundLeader.username in sockets.js 80');
-        if (roundLeader.username === 'PAL3000') {
-          console.log('PAL3000 is the leader in sockets.js 82');
-          // PAL3000 chooses roster
-          roster = pal3000.chooseMissionRoster(rosterLength);
-          console.log(roster, 'roster chosen by PAL3000 85');
-          io.in(socket.game).emit('team chosen', roster);
-        }
-        // console.log(game, 'game in sockets.js 88');
-        ////////////////////////////////
+          ///////////////////////////////////////////////
+          console.log(roundLeader.username, 'roundLeader.username in sockets.js 82');
+          if (roundLeader.username === 'PAL3000') {
+            setTimeout(() => {
+              console.log('PAL3000 is the leader in sockets.js 85');
+              // PAL3000 chooses roster
+              roster = pal3000.chooseMissionRoster(rosterLength);
+              console.log(roster, 'roster chosen by PAL3000 88');
+              io.in(socket.game).emit('team chosen', roster);
+            }, 5000);
+          }
+              //////////////////////////////////////////////////
         }, 5000);  
       };
       Game.find({ where: { id: game } })
@@ -119,13 +121,16 @@ module.exports = (server) => {
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
       //////////////////////////////////////////////  
-      console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage 121');
+      console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage 124');
       // if pal3000 is active and on the mission
-      if (pal3000 && !pal3000.voted) {
-        console.log('pal3000 set to vote in sockets.js 124');
+
+      // BUG:ON MISSION
+      if (pal3000 && !pal3000.voted) { // && PAL3000 on mission
+        
+        console.log('pal3000 set to vote in sockets.js 127');
         let choice = pal3000.cureOrSabotage();
-        console.log(choice, 'PAL3000 choice in sockets.js 127');
-        console.log('PAL VOTED');
+        console.log(choice, 'PAL3000 choice in sockets.js 129');
+        console.log('PAL VOTED 130');
         choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage()); 
@@ -183,13 +188,15 @@ module.exports = (server) => {
               leaderLoopIndex++;
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
               ///////////////////////////////////////////////
-              console.log(roundLeader.username, 'roundLeader.username in sockets.js 177');
+              console.log(roundLeader.username, 'roundLeader.username in sockets.js 188');
               if (roundLeader.username === 'PAL3000') {
-                console.log('PAL3000 is the leader in sockets.js 179');
-                // PAL3000 chooses roster
-                roster = pal3000.chooseMissionRoster(rosterLength);
-                console.log(roster, 'roster chosen by PAL3000 182');
-                io.in(socket.game).emit('team chosen', roster);
+                setTimeout(() => {
+                  console.log('PAL3000 is the leader in sockets.js 191');
+                  // PAL3000 chooses roster
+                  roster = pal3000.chooseMissionRoster(rosterLength);
+                  console.log(roster, 'roster chosen by PAL3000 194');
+                  io.in(socket.game).emit('team chosen', roster);
+                }, 5000);
               }
               //////////////////////////////////////////////////
             }
@@ -203,14 +210,16 @@ module.exports = (server) => {
     socket.on('chose YES or NO', ({ vote, username }) => {
       ////////////////////////////////////////////////
       // BUG: PAL is voting once for every user
-      console.log(pal3000, 'pal3000 about to choose YES or NO in sockets.js 201')
+      console.log(pal3000.voted, 'pal3000.voted status in sockets.js 210')
       if (pal3000 && !pal3000.voted) {
         let palVote = pal3000.voteForMissionTeam(roster);
-        console.log(palVote, 'palVote in sockets.js 204');
-        proposalResults.push({ name: 'PAL300', palVote });
+        console.log(palVote, 'palVote in sockets.js 213');
+        // add PAL3000 vote to proposalResults
+        proposalResults.push({ name: 'PAL3000', vote: palVote });
         palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
-        console.log('PAL VOTED 207');
+        console.log('PAL VOTED 216');
         pal3000.voted = true;
+
       }
       ///////////////////////////////////////////////
       // console.log(vote, 'player vote in sockets.js 210');
@@ -287,15 +296,17 @@ module.exports = (server) => {
                 setTimeout(() => io.in(socket.game).emit('start round',
                   { leader: roundLeader.username, round, rosterLength }), 5000);
                 ///////////////////////////////////////////////
-                console.log(roundLeader.username, 'roundLeader.username in sockets.js 275');
+                console.log(roundLeader.username, 'roundLeader.username in sockets.js 297');
                 if (roundLeader.username === 'PAL3000') {
-                  console.log('PAL3000 is the leader in sockets.js 277');
-                  // PAL3000 chooses roster
-                  roster = pal3000.chooseMissionRoster(rosterLength);
-                  console.log(roster, 'roster chosen by PAL3000 280');
-                  io.in(socket.game).emit('team chosen', roster);
+                  setTimeout(() => {
+                    console.log('PAL3000 is the leader in sockets.js 300');
+                    // PAL3000 chooses roster
+                    roster = pal3000.chooseMissionRoster(rosterLength);
+                    console.log(roster, 'roster chosen by PAL3000 303');
+                    io.in(socket.game).emit('team chosen', roster);
+                  }, 5000);
                 }
-                //////////////////////////////////////////////////
+              //////////////////////////////////////////////////
               } 
             }, 3000);
             
@@ -305,18 +316,23 @@ module.exports = (server) => {
             store.dispatch(incrementFail());
             store.dispatch(resetMissionVotes());
             proposalResults = [];
-            setTimeout(() => io.in(socket.game).emit('start round', 
-              { leader: roundLeader.username, round, rosterLength }), 5000);
-            ///////////////////////////////////////////////
-            console.log(roundLeader.username, 'roundLeader.username in sockets.js 311');
-            if (roundLeader.username === 'PAL3000') {
-              console.log('PAL3000 is the leader in sockets.js 313');
-              // PAL3000 chooses roster
-              roster = pal3000.chooseMissionRoster(rosterLength);
-              console.log(roster, 'roster chosen by PAL3000 316');
-              io.in(socket.game).emit('team chosen', roster);
-            }
-            //////////////////////////////////////////////////
+            setTimeout(() => {
+              io.in(socket.game).emit('start round', 
+              { leader: roundLeader.username, round, rosterLength })
+              ///////////////////////////////////////////////
+              console.log(roundLeader.username, 'roundLeader.username in sockets.js 321');
+              if (roundLeader.username === 'PAL3000') {
+                setTimeout(() => { 
+                  console.log('PAL3000 is the leader in sockets.js 324');
+                  // PAL3000 chooses roster
+                  roster = pal3000.chooseMissionRoster(rosterLength);
+                  console.log(roster, 'roster chosen by PAL3000 327');
+                  io.in(socket.game).emit('team chosen', roster);
+                }, 5000);
+              }
+              //////////////////////////////////////////////////
+            }           
+            , 5000);
           }
         }    
       } else {

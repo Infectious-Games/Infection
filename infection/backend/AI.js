@@ -4,7 +4,7 @@
 class PAL3000 {
   constructor(scientist, team, infiltrators) {
     this.scientist = scientist; // true or false
-    this.team = team; // players in the game
+    this.team = team.filter(player => player !== 'PAL3000'); // players in the game, other than PAL
     this.infiltrators = infiltrators // array of infiltrators
     this.voted = false;
   }
@@ -53,7 +53,7 @@ module.exports = {
   PAL3000
 };
 
-// const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul'], ['Paul', 'PAL3000']);
+// const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'PAL3000']);
 // console.log(pal3000, 'pal3000');
 // console.log(pal3000.cureOrSabotage(), 'cureOrSabotage');
 // console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
