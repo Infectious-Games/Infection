@@ -8,13 +8,14 @@ const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, rese
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
 const assignLeader = require('./gameLogicHelpers');
+const leaderStorage = require('./leaderOrderStorage');
 const chalk = require('chalk');
 const log = console.log;
 
 module.exports = (server) => {
   const io = sockets(server);
-  let leaderLoop;
-  let leaderLoopIndex = 0;
+  // let leaderLoop;
+  // let leaderLoopIndex = 0;
   let proposalResults = [];
 
   io.on('connection', (socket) => {
@@ -50,9 +51,13 @@ module.exports = (server) => {
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
           let rosterLength = grid[socket.numberOfPlayers][round - 1];
-          leaderLoop = assignLeader(store.getState().users);
-          let roundLeader = leaderLoop[leaderLoopIndex];
-          leaderLoopIndex++;
+          let leaderLoop = assignLeader(store.getState().users);
+          leaderStorage[socket.game] = { index: 0, leaderLoop };
+          console.log(leaderStorage[socket.game]['leaderLoop'], 'leaderStorage line 56');
+          let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
+          console.log(roundLeader, 'roundLeader');
+          leaderStorage[socket.game]['index']++;
+          console.log(leaderStorage[socket.game]['index'], 'index after incremented');
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
@@ -126,8 +131,10 @@ module.exports = (server) => {
               store.dispatch(resetVotes());
               let round = store.getState().round.round;
               let rosterLength = grid[socket.numberOfPlayers][round - 1];
-              let roundLeader = leaderLoop[leaderLoopIndex];
-              leaderLoopIndex++;
+              let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
+              console.log(roundLeader, 'roundLeader');
+              leaderStorage[socket.game]['index']++;
+              console.log(leaderStorage[socket.game]['index'], 'index after incremented');
               io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
             }
           }, 3000)
@@ -155,8 +162,10 @@ module.exports = (server) => {
           : results = 0;
         let round = store.getState().round.round;
         let rosterLength = grid[socket.numberOfPlayers][round - 1];
-        let roundLeader = leaderLoop[leaderLoopIndex];
-        leaderLoopIndex++;
+        let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
+        console.log(roundLeader, 'roundLeader');
+        leaderStorage[socket.game]['index']++;
+        console.log(leaderStorage[socket.game]['index'], 'index after incremented');
 
         // Send roster vote results back to client
         // setTimeout(() => {
