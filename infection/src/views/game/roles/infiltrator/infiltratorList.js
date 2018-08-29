@@ -5,10 +5,10 @@ import InfiltratorListEntry from './infiltratorListEntry';
 
 const InfiltratorList = ({ infiltrators }) =>
   <Row>
-    <h4>
-      This List Has All The Infiltrators!
-    </h4>
-    <ul>
+    <h5>
+      Keep This List Of Infiltrators Hidden
+    </h5>
+    <Row className='infiltrator-list-entry'> 
       {
         infiltrators.map(infiltrator =>
         <InfiltratorListEntry  
@@ -16,11 +16,7 @@ const InfiltratorList = ({ infiltrators }) =>
         infiltrator={infiltrator}
         ></InfiltratorListEntry>)
       }
-    </ul>
-    <h5>
-      Keep this hidden from the others!
-    </h5>
+    </Row>
   </Row>
   
-
 export default InfiltratorList;
