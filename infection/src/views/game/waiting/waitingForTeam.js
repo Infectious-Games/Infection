@@ -6,7 +6,7 @@ import Waiting from './waiting';
 
 const WaitingForTeam = () => 
   <Row className="waitingForTeamTitle">
-    <h1>Please Wait for the Team to Assemble</h1>
+    <h3>Please Wait for Team to Assemble</h3>
     <Col md={2}></Col>
     <Col md={8}>
       <Waiting></Waiting>
