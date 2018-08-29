@@ -57,7 +57,7 @@ module.exports = (server) => {
           let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
           console.log(roundLeader, 'roundLeader');
           leaderStorage[socket.game]['index']++;
-          console.log(leaderStorage[socket.game]['index'], 'index after incremented');
+          console.log(leaderStorage[socket.game]['index'], 'index after incrementing on line 60');
           io.in(game).emit('start round', 
             {leader: roundLeader.username, round, rosterLength} 
           );
@@ -132,10 +132,10 @@ module.exports = (server) => {
               let round = store.getState().round.round;
               let rosterLength = grid[socket.numberOfPlayers][round - 1];
               let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
+              io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
               console.log(roundLeader, 'roundLeader');
               leaderStorage[socket.game]['index']++;
-              console.log(leaderStorage[socket.game]['index'], 'index after incremented');
-              io.in(socket.game).emit('start round', {leader: roundLeader.username, round, rosterLength});     
+              console.log(leaderStorage[socket.game]['index'], 'index after incrementing on line 137');
             }
           }, 3000)
 
@@ -163,28 +163,18 @@ module.exports = (server) => {
         let round = store.getState().round.round;
         let rosterLength = grid[socket.numberOfPlayers][round - 1];
         let roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
-        console.log(roundLeader, 'roundLeader');
-        leaderStorage[socket.game]['index']++;
-        console.log(leaderStorage[socket.game]['index'], 'index after incremented');
+        // console.log(roundLeader, 'roundLeader');
+        // leaderStorage[socket.game]['index']++;
+        // console.log(leaderStorage[socket.game]['index'], 'index after incrementing on line 168');
 
-        // Send roster vote results back to client
-        // setTimeout(() => {
-        log(chalk.bgWhite.black(proposalResults, 'proposalResults'));
-        io.in(socket.game).emit('roster vote result', { voteSucceeds, vote: proposalResults });
-        log(chalk.bgWhite.blue(voteSucceeds, 'voteSucceeds'));
-        log(chalk.bgWhite.blue(store.getState().proposalVotes.voteSuccess, 'voteSuccess on store'));
-        // }, 0);
         // If vote succeeds, reset fail count, mission votes, move to cure or sabotage vote via on mission event
         if (voteSucceeds) {
           store.dispatch(resetMissionVotes());
           log(chalk.bgWhite.blue(store.getState().proposalVotes.totalMissionVotes, 'totalMissionVotes after success'));
           store.dispatch(resetFail());
           proposalResults = [];
-          // setTimeout(() => {
-          io.in(socket.game).emit('on mission');
-          log(chalk.bgWhite.red('on Mission sent'));
-          // }, 5000);
 
+          io.in(socket.game).emit('on mission');
         } else if (!voteSucceeds) {
           // If vote fails, check if this is third fail on current 
           if (store.getState().game.failCount === 2) {
@@ -197,13 +187,9 @@ module.exports = (server) => {
               let winner;
               if (infiltratorWinTotal === 2) {
                 // Set winner to true for client and emit game over event with infiltrator win
-                // setTimeout(() => {
                 winner = true;
-                log(chalk.bgYellow.black(winner, 'winner before emit'));
                 io.in(socket.game).emit('game over', winner);
                 setTimeout(() => socket.leave(socket.game), 3000);
-                log(chalk.bgYellow.black(winner, 'winner after emit and disconnect'));
-                // }, 5000);
               } else {
                 // If this is not the third win for the infiltrators, 
                 // reset appropriate state and start new new round
@@ -212,8 +198,9 @@ module.exports = (server) => {
                 store.dispatch(resetMissionVotes());
                 store.dispatch(incrementRound());
                 let round = store.getState().round.round;
-                console.log('increment round hit line 190 after 3rd fail');
                 proposalResults = [];
+                leaderStorage[socket.game]['index']++;
+                console.log(leaderStorage[socket.game]['index'], 'index after incrementing on line 213');
                 setTimeout(() => io.in(socket.game).emit('start round', 
                   { leader: roundLeader.username, round, rosterLength }), 5000);              
               } 
@@ -225,6 +212,7 @@ module.exports = (server) => {
             store.dispatch(incrementFail());
             store.dispatch(resetMissionVotes());
             proposalResults = [];
+            leaderStorage[socket.game]['index']++;
             setTimeout(() => io.in(socket.game).emit('start round', 
               { leader: roundLeader.username, round, rosterLength }), 5000);
           }
