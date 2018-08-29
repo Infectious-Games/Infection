@@ -4,10 +4,10 @@ const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
 const { voteYes, voteNo, resetMissionVotes } = require('./redux/teamVotes/actionCreator_teamVotes');
 const { incrementRound, restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/actionCreator_cureOrSabotage');
-const { leaderLoopCreator } = require('./assignLeaderHelper');
 const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, resetFail } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
+const assignLeader = require('./gameLogicHelpers');
 const chalk = require('chalk');
 const log = console.log;
 
@@ -50,7 +50,7 @@ module.exports = (server) => {
           store.dispatch(incrementRound());
           let round = store.getState().round.round;
           let rosterLength = grid[socket.numberOfPlayers][round - 1];
-          leaderLoop = leaderLoopCreator(store.getState().users);
+          leaderLoop = assignLeader(store.getState().users);
           let roundLeader = leaderLoop[leaderLoopIndex];
           leaderLoopIndex++;
           io.in(game).emit('start round', 
@@ -60,7 +60,6 @@ module.exports = (server) => {
       };
       Game.find({ where: { id: game } })
         .then((game) => {
-          // console.log(game.numberOfPlayers, 'line 59');
           socket.numberOfPlayers = game.numberOfPlayers;
           return game.numberOfPlayers;
         })
