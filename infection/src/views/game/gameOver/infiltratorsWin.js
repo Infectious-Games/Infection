@@ -11,7 +11,12 @@ const InfiltratorsWin = () => (
     <Row>
       <Col md={4} xs={2} />
       <Col md={4} xs={8}>
-        <Image src={infiltratorsWin} responsive />
+        <Image
+          width={125}
+          height={150} //if setting dimsions image cannot be responsive
+          src={infiltratorsWin}
+          // responsive
+        />
         <h3>The World Is In Peril!</h3>
       </Col>
       <Col md={4} xs={2} />

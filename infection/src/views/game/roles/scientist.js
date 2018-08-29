@@ -10,8 +10,8 @@ const Scientist = () => (
     <Col md={4} xs={2} />
     <Col md={4} xs={8}>
       <Image src={scientist} responsive />
-      <h1 className="scientist-title">SCIENTIST</h1>
-      <h3>YOUR OBJECTIVES:</h3>
+      <h2 className="scientist-title">SCIENTIST</h2>
+      <h4>YOUR OBJECTIVES:</h4>
       <ul>
         <li>Administer Cure</li>
         <li>Contain Outbreaks</li>
