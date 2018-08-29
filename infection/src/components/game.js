@@ -83,6 +83,7 @@ class Game extends Component {
       })
     })
     socket.on('team chosen', (proposedRoster) => {
+      console.log(proposedRoster, 'proposedRoster in game.js 86')
       this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true })
     })
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {

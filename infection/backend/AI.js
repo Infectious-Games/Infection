@@ -6,6 +6,7 @@ class PAL3000 {
     this.scientist = scientist; // true or false
     this.team = team; // players in the game
     this.infiltrators = infiltrators // array of infiltrators
+    this.voted = false;
   }
   // CURE vs. SABOTAGE choice
   cureOrSabotage() {

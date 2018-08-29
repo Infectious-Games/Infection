@@ -31,7 +31,7 @@ module.exports = (server) => {
       socket.username = username;
       /////////////////////////////
       // if PAL3000 is active, add him to the game
-      console.log(playerProps, 'playerProps in sockets.js 34');
+      // console.log(playerProps, 'playerProps in sockets.js 34');
       if (playerProps.pal3000Active) {
         console.log('pal3000Active in sockets.js 36')
         store.dispatch(newUser('PAL3000', game, 3000));
@@ -56,11 +56,11 @@ module.exports = (server) => {
             user.infiltrators = infiltrators;
           }
           ////////////////////////////////////////
-          console.log(user.username, 'user.username in sockets.js 59');
+          // console.log(user.username, 'user.username in sockets.js 59');
           if (user.username === 'PAL3000') {
             // instantiate PAL3000(scientist, team, infiltrators);
             pal3000 = new PAL3000(!user.infiltrator, team, infiltrators);
-            console.log(pal3000, 'pal3000 is alive in sockets.js line 62');
+            console.log(pal3000, 'pal3000 is alive in sockets.js line 63');
           }
           //////////////////////////////////////////
           user.team = team;
@@ -78,7 +78,7 @@ module.exports = (server) => {
         );
         //////////////////////////////////
         // if PAL3000 is leader
-        console.log(roundLeader.username, 'roundLeader.username in sockets.js 80');
+        // console.log(roundLeader.username, 'roundLeader.username in sockets.js 80');
         if (roundLeader.username === 'PAL3000') {
           console.log('PAL3000 is the leader in sockets.js 82');
           // PAL3000 chooses roster
@@ -86,7 +86,7 @@ module.exports = (server) => {
           console.log(roster, 'roster chosen by PAL3000 85');
           io.in(socket.game).emit('team chosen', roster);
         }
-        console.log(game, 'game in sockets.js 88');
+        // console.log(game, 'game in sockets.js 88');
         ////////////////////////////////
         }, 5000);  
       };
@@ -121,13 +121,15 @@ module.exports = (server) => {
       //////////////////////////////////////////////  
       console.log(pal3000, 'pal3000 in sockets.js ready to cure or sabotage 121');
       // if pal3000 is active and on the mission
-      if (pal3000) {
+      if (pal3000 && !pal3000.voted) {
         console.log('pal3000 set to vote in sockets.js 124');
         let choice = pal3000.cureOrSabotage();
         console.log(choice, 'PAL3000 choice in sockets.js 127');
+        console.log('PAL VOTED');
         choice === 'CURE'
-          ? store.dispatch(voteCure())
-          : store.dispatch(voteSabotage()); 
+        ? store.dispatch(voteCure())
+        : store.dispatch(voteSabotage()); 
+        pal3000.voted = true;
       }
       ///////////////////////////////////////////////
       let results = store.getState().cureOrSabotage.voteStatus;
@@ -152,6 +154,10 @@ module.exports = (server) => {
         ? io.in(socket.game).emit('mission result', results) &&
 
           setTimeout(function () {
+            //////////////////
+            // reset PAL3000's voted status
+            pal3000.voted = false;
+            ///////////////////
             let scientistWinTotal = store.getState().game.scientistWins;  
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
@@ -197,15 +203,17 @@ module.exports = (server) => {
     socket.on('chose YES or NO', ({ vote, username }) => {
       ////////////////////////////////////////////////
       // BUG: PAL is voting once for every user
-      console.log(pal3000, 'pal3000 about to choose YES or NO in sockets.js 197')
-      if (pal3000) {
+      console.log(pal3000, 'pal3000 about to choose YES or NO in sockets.js 201')
+      if (pal3000 && !pal3000.voted) {
         let palVote = pal3000.voteForMissionTeam(roster);
-        console.log(palVote, 'palVote in sockets.js 200');
+        console.log(palVote, 'palVote in sockets.js 204');
         proposalResults.push({ name: 'PAL300', palVote });
         palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+        console.log('PAL VOTED 207');
+        pal3000.voted = true;
       }
       ///////////////////////////////////////////////
-      console.log(vote, 'vote in sockets.js');
+      // console.log(vote, 'player vote in sockets.js 210');
       // track each players vote
       // return object with (each players vote, similar to...
       proposalResults.push({name: username, vote});
@@ -229,6 +237,10 @@ module.exports = (server) => {
         // setTimeout(() => {
         log(chalk.bgWhite.black(proposalResults, 'proposalResults'));
         io.in(socket.game).emit('roster vote result', { voteSucceeds, vote: proposalResults });
+        /////////////////////////
+        // reset PAL3000's voted status
+        pal3000.voted = false;
+        ////////////////////////
         log(chalk.bgWhite.blue(voteSucceeds, 'voteSucceeds'));
         log(chalk.bgWhite.blue(store.getState().proposalVotes.voteSuccess, 'voteSuccess on store'));
         // }, 0);
@@ -296,12 +308,12 @@ module.exports = (server) => {
             setTimeout(() => io.in(socket.game).emit('start round', 
               { leader: roundLeader.username, round, rosterLength }), 5000);
             ///////////////////////////////////////////////
-            console.log(roundLeader.username, 'roundLeader.username in sockets.js 296');
+            console.log(roundLeader.username, 'roundLeader.username in sockets.js 311');
             if (roundLeader.username === 'PAL3000') {
-              console.log('PAL3000 is the leader in sockets.js 298');
+              console.log('PAL3000 is the leader in sockets.js 313');
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
-              console.log(roster, 'roster chosen by PAL3000 301');
+              console.log(roster, 'roster chosen by PAL3000 316');
               io.in(socket.game).emit('team chosen', roster);
             }
             //////////////////////////////////////////////////
