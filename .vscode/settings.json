@@ -10,6 +10,7 @@
     "binks",
     "chupf",
     "cnmmahc",
+    "config",
     "connor",
     "datbase",
     "ddn",
@@ -22,8 +23,12 @@
     "missionvotes",
     "name",
     "p",
+    "parens",
     "playerids",
     "pnzk",
+    "precommit",
+    "prettier",
+    "prettierrc",
     "qf",
     "qu",
     "reset",
@@ -33,6 +38,7 @@
     "server",
     "user",
     "valjean",
-    "vrigvy"
+    "vrigvy",
+    "write"
   ]
 }
