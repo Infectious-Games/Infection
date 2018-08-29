@@ -3,14 +3,19 @@ import { Row, Button, ListGroup } from 'react-bootstrap';
 
 import SelectRosterEntry from './selectRosterEntry';
 
-const SelectRoster = ({ team, handleSelectRosterEntryClick, handleSubmitRoster }) => 
-
+const SelectRoster = (
+  { 
+    roster,
+    team, 
+    handleSelectRosterEntryClick, 
+    handleSubmitRoster 
+  }) => 
     <Row>
       <ListGroup>
         {
           team.map((member) => 
           <SelectRosterEntry
-          active
+          roster={roster}
           key={member} //change in future
           member={member}
           handleSelectRosterEntryClick={handleSelectRosterEntryClick}

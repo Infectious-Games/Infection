@@ -5,10 +5,11 @@ import { Row, Col } from 'react-bootstrap';
 import SelectRoster from './selectRoster';
 
 const Leader = ({ 
-  team, 
   handleSelectRosterEntryClick, 
   handleSubmitRoster,
+  roster,
   rosterLength, 
+  team, 
 }) => 
     <Row>
       <h3>Congratulations Leader</h3>
@@ -17,9 +18,11 @@ const Leader = ({
       <Col md={4}>
         <SelectRoster 
           team={team}
+          roster={roster}
           handleSelectRosterEntryClick={handleSelectRosterEntryClick}
           handleSubmitRoster={handleSubmitRoster}
         ></SelectRoster>
+        <h6>Selected: {roster.map(member => `${member} `)}</h6>
       </Col>
       <Col md={4}></Col>
     </Row>

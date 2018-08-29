@@ -134,11 +134,10 @@ class Game extends Component {
     })
   }
   handleSelectRosterEntryClick(member) {
-    this.state.missionRoster.length === this.state.rosterLength
-      ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 114')
-      : this.state.missionRoster.includes(member)
-        ? console.log(this.state.missionRoster, this.state.rosterLength, 'mission roster at line 116')
-        : this.setState({ missionRoster: [...this.state.missionRoster, member] });
+    const roster = this.state.missionRoster;
+    roster.includes(member)
+      ? this.setState({ missionRoster: roster.filter(selected => selected !== member)})
+      : this.setState({ missionRoster: [...roster, member] })
   }
 
   handleSubmitRoster() {

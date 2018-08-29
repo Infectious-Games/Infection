@@ -12,6 +12,7 @@ const Roster = ({
     ? <Leader
       rosterLength={game.rosterLength}
       team={game.team}
+      roster={game.missionRoster}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}
     ></Leader>
