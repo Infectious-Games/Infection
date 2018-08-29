@@ -7,7 +7,7 @@ const { voteCure, voteSabotage, resetVotes } = require('./redux/cureOrSabotage/a
 const { scientistRoundWin, infiltratorRoundWin, restartGame, incrementFail, resetFail } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
-const assignLeader = require('./gameLogicHelpers');
+const { assignLeader } = require('./gameLogicHelpers');
 const chalk = require('chalk');
 const log = console.log;
 
