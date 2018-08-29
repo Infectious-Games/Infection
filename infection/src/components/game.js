@@ -28,7 +28,7 @@ class Game extends Component {
       missionRoster: [],
       rosterLength: 0,
       round: 0,
-      rosterApproved: [undefined, undefined, undefined],
+      rosterUnapproved: 0,//renamed, make a number instead of array
       team: [],
       teamAssembled: false,
       username: undefined,
@@ -55,55 +55,43 @@ class Game extends Component {
     });
     socket.on('start round', data => {
       data.round === this.state.round
-        ? this.setState({
-            round: data.round,
-            leader: data.leader,
-            rosterLength: data.rosterLength,
-            missionRoster: [],
-            missionActive: false,
-            choiceMade: false,
-            leaderSubmitRoster: false,
-            allUsersVotedOnRoster: false,
-            usersVoteRecord: [],
-            votedOnRoster: false,
-          })
-        : this.setState({
-            round: data.round,
-            leader: data.leader,
-            rosterLength: data.rosterLength,
-            missionRoster: [],
-            missionActive: false,
-            choiceMade: false,
-            leaderSubmitRoster: false,
-            allUsersVotedOnRoster: false,
-            usersVoteRecord: [],
-            votedOnRoster: false,
-            rosterApproved: [undefined, undefined, undefined],
-          });
-    });
-    socket.on('team chosen', proposedRoster => {
-      this.setState({
-        missionRoster: proposedRoster,
-        leaderSubmitRoster: true,
-      });
-    });
+        ? this.setState({ 
+          round: data.round, 
+          leader: data.leader, 
+          rosterLength: data.rosterLength, 
+          missionRoster: [], 
+          missionActive: false, 
+          choiceMade: false,
+          leaderSubmitRoster: false, 
+          allUsersVotedOnRoster: false,
+          usersVoteRecord: [],
+          votedOnRoster: false,
+        })
+        : this.setState({ 
+          round: data.round, 
+          leader: data.leader, 
+          rosterLength: data.rosterLength, 
+          missionRoster: [], 
+          missionActive: false, 
+          choiceMade: false,
+          leaderSubmitRoster: false, 
+          allUsersVotedOnRoster: false,
+          usersVoteRecord: [],
+          votedOnRoster: false,
+          rosterUnapproved: 0,
+      })
+    })
+    socket.on('team chosen', (proposedRoster) => {
+      this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true })
+    })
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {
-      this.setState(
-        { allUsersVotedOnRoster: true, usersVoteRecord: vote },
-        () => {
-          // set state of rosterApproved based on result
-          // if failed roster attempt
-          if (voteSucceeds === false) {
-            voteSucceeds = 'X';
-            const updatedRosterApproved = this.state.rosterApproved;
-            const index = updatedRosterApproved.indexOf(undefined);
-            updatedRosterApproved[index] = voteSucceeds;
-            this.setState({ rosterApproved: updatedRosterApproved }, () =>
-              console.log(this.state, 'this.state line 94 game.js')
-            );
-          }
+      this.setState({ allUsersVotedOnRoster: true, usersVoteRecord: vote}, () => {
+        // set state of rosterUnapproved based on result
+        // for every failed vote increment by one
+        if (!voteSucceeds) {
+          this.setState({ rosterUnapproved: this.state.rosterUnapproved + 1 }, () => console.log(this.state, 'this.state line 94 game.js'));
         }
-      );
+      });
     });
     // if Leader's proposed roster was approved
     socket.on('on mission', () => {
