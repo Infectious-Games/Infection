@@ -2,7 +2,12 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 dotenv.load();
 
-const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {});
+const db = new Sequelize(
+  `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${
+    process.env.DATABASE_URI
+  }:3306/${process.env.DATABASE_NAME}`,
+  {}
+);
 
 db.authenticate()
   .then(() => {
@@ -38,7 +43,7 @@ const Game = db.define('game', {
   },
 });
 
-Game.sync({force: false})
+Game.sync({ force: false })
   .then(game => {
     console.log('game model created in db');
   })
@@ -48,7 +53,10 @@ Game.sync({force: false})
 
 const findOrCreateUser = (profile, callback) => {
   const username = profile.displayName;
-  const photo = profile.photos[0].value.slice(0, profile.photos[0].value.indexOf('?'));
+  const photo = profile.photos[0].value.slice(
+    0,
+    profile.photos[0].value.indexOf('?')
+  );
   User.findOrCreate({
     where: { username },
     defaults: {
@@ -58,14 +66,15 @@ const findOrCreateUser = (profile, callback) => {
       clearanceLevel: 'unclassified',
       photo: photo,
       email: '',
-    }
-  })
-    .spread((user, created) => {
-      console.log(user.get({
-        plain: true
-      }));
-      callback(user);
-    });
+    },
+  }).spread((user, created) => {
+    console.log(
+      user.get({
+        plain: true,
+      })
+    );
+    callback(user);
+  });
 };
 
 // Add PAL3000 to the db
@@ -78,29 +87,24 @@ User.findOrCreate({
     clearanceLevel: 'unclassified',
     photo: '',
     email: '',
-  }
-})
-  .spread((user, created) => {
-    console.log(user.get({
-      plain: true
-    }));
-    // console.log('PAL3000 added to the db:', created, ', false = already in db');
-  });
+  },
+}).spread((user, created) => {
+  console.log(
+    user.get({
+      plain: true,
+    })
+  );
+  // console.log('PAL3000 added to the db:', created, ', false = already in db');
+});
 
-const createGameAndGetJoinCode = (count, cb) => {
-  //grab user id to pass into game
-  Game
-  .create({ numberOfPlayers: count })
-  .then(game => {
-    console.log(game.get('id'), 'game id');
-    cb(game.get('id'));
-  })
-  .catch(err => {
+const createGame = count => {
+  // grab user id to pass into game
+  Game.create({ numberOfPlayers: count }).catch(err => {
     console.error(err);
-  })
-}
+  });
+};
 
-const clearanceLevels = (wins) => {
+const clearanceLevels = wins => {
   if (wins < 10) {
     return 'unclassified';
   } else if (wins > 9 && wins < 20) {
@@ -115,7 +119,7 @@ const clearanceLevels = (wins) => {
 };
 
 // update user stats
-const updateUserStats = ({win, username}, callback) => {
+const updateUserStats = ({ win, username }, callback) => {
   // check for win or loss
   const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
@@ -123,8 +127,8 @@ const updateUserStats = ({win, username}, callback) => {
   // find user
   User.find({ where: { username } })
     // increment fields
-    .then((user) => user.increment(toIncrement))
-    .then((user) => {
+    .then(user => user.increment(toIncrement))
+    .then(user => {
       const wins = user.wins;
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
@@ -132,7 +136,7 @@ const updateUserStats = ({win, username}, callback) => {
     })
     .then(() => User.find({ where: { username } }))
     // return the updated user
-    .then((user) => callback(user));
+    .then(user => callback(user));
 };
 
 // get user stats
@@ -140,8 +144,8 @@ const getUserStats = ({ username }, callback) => {
   // find user
   User.find({ where: { username } })
     // return the user
-    .then((user) => callback(user))
-}
+    .then(user => callback(user));
+};
 
 // drop the db
 // User.sync({ force: true }).then(() => {
@@ -149,11 +153,11 @@ const getUserStats = ({ username }, callback) => {
 // });
 
 module.exports = {
-  createGameAndGetJoinCode,
+  createGame,
   findOrCreateUser,
   updateUserStats,
   getUserStats,
   db,
   User,
-  Game
+  Game,
 };

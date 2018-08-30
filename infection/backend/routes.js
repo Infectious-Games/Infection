@@ -27,7 +27,7 @@ module.exports = app => {
     // Take player count from body and use it to create game instance
     const { body } = req;
     const { playerCount } = body;
-    db.createGameAndGetJoinCode(playerCount);
+    db.createGame(playerCount);
     // Send join code (unique game id) back to client
     // check for empty games in store, return that game room;
     const joinCodes = Object.keys(store.getState().users).filter(
