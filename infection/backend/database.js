@@ -117,8 +117,6 @@ const clearanceLevels = (wins) => {
 // update user stats
 const updateUserStats = ({win, username}, callback) => {
   // check for win or loss
-  console.log(win, 'win db 120');
-  console.log(username, 'username db 121');
   const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
   const toIncrement = ['gamesPlayed', result];

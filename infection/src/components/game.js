@@ -83,7 +83,6 @@ class Game extends Component {
       })
     })
     socket.on('team chosen', (proposedRoster) => {
-      console.log(proposedRoster, 'proposedRoster in game.js 86')
       this.setState({ missionRoster: proposedRoster, leaderSubmitRoster: true })
     })
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {
@@ -95,7 +94,7 @@ class Game extends Component {
           const updatedRosterApproved = this.state.rosterApproved;
           const index = updatedRosterApproved.indexOf(undefined);
           updatedRosterApproved[index] = voteSucceeds;
-          this.setState({ rosterApproved: updatedRosterApproved }, () => console.log(this.state, 'this.state line 94 game.js'));
+          this.setState({ rosterApproved: updatedRosterApproved });
         }
       })
     })

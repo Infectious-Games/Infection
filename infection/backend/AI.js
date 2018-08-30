@@ -1,14 +1,14 @@
-const axios = require('axios');
-
 // ******** AI LOGIC ******** //
 // ******** PAL 3000 ******** //
+
+const db = require('./database');
 
 class PAL3000 {
   constructor(scientist, team, infiltrators) {
     this.scientist = scientist; // true or false
     this.team = team.filter(player => player !== 'PAL3000'); // players in the game, other than PAL
     this.infiltrators = infiltrators // array of infiltrators
-    this.voted = false;
+    this.voted = false; // toggle to keep track of whether PAL has already voted
   }
   // CURE vs. SABOTAGE choice
   cureOrSabotage() {
@@ -49,17 +49,16 @@ class PAL3000 {
       return includesInfiltrator ? 'YES' : 'NO';
     }
   }
-  // updateStats(winner) { // false = scientist won, true = infiltrators won
-  //   console.log(winner, 'winner in updateStats in AI.js');
-  //   if ((this.scientist && !winner) || (!this.scientist && winner)) {
-  //     const update = { username: 'PAL3000', win: true };
-  //     axios.post('/userStats', update);
-  //     // otherwise PAL3000 has lost the game    
-  //   } else {
-  //     const update = { username: 'PAL3000', win: false };
-  //     axios.post('/userStats', update);
-  //   }
-  // }
+  updateStats(winner) { // false = scientist won, true = infiltrators won
+    if ((this.scientist && !winner) || (!this.scientist && winner)) {
+      const update = { username: 'PAL3000', win: true };
+      db.updateUserStats(update, () => console.log('PAL3000 stats updated'));
+      // otherwise PAL3000 has lost the game    
+    } else {
+      const update = { username: 'PAL3000', win: false };
+      db.updateUserStats(update, () => console.log('PAL3000 stats updated'));
+    }
+  }
 };
 
 module.exports = {

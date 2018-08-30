@@ -32,7 +32,6 @@ module.exports = (app) => {
   // update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
-    console.log(body, 'body routes 35');
     db.updateUserStats(body, (data) => {
       res.json(data);
     });
