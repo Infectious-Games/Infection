@@ -20,7 +20,7 @@
 }
 
 .confidential {
-  background-color: green;
+  background-color: #76b041;
 }
 
 .secret {
@@ -36,7 +36,7 @@
 }
 
 .success {
-  background-color: green;
+  background-color: #76b041;
 }
 
 .fail {
@@ -92,7 +92,7 @@
 }
 
 .mission-success {
-  background-color: green;
+  background-color: #76b041;
   height: 100%;
 }
 
