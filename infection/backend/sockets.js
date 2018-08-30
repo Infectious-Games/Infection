@@ -1,7 +1,7 @@
 const sockets = require('socket.io');
 const chalk = require('chalk');
 const store = require('./redux/store');
-const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
+const { assignRoles, newUser, resetUsers } = require('./redux/users/actionCreator_users');
 const {
   voteYes,
   voteNo,
@@ -166,6 +166,7 @@ module.exports = (server) => {
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
+              store.dispatch(resetUsers());
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               // if PAL3000 played, update his stats
@@ -175,6 +176,7 @@ module.exports = (server) => {
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
+              store.dispatch(resetUsers());
             } else {
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
