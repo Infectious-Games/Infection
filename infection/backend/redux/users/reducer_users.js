@@ -6,20 +6,21 @@ const {
 const initialState = require('./initialState_users.js');
 
 const users = (state = initialState, action) => {
+  console.log(state, 'state in add user reducer');
   const newState = Object.assign({}, state); // object containing all game objects, each with an array of users
   switch (action.type) {
     // When new user joins the room, create a new array of users with the new user
     /* eslint-disable */
     case ADD_NEW_USER:
-      newState[action.gameID].users.concat({
-          username: action.username,
-          room: action.room,
-          socketID: action.socketID,
-          infiltrator: false,
-          securityOfficer: false,
-        },
-      );
-      return newState;  
+      newState[action.gameID].users.push({
+        gameID: action.gameID,
+        username: action.username,
+        socketID: action.socketID,
+        infiltrator: false,
+        securityOfficer: false,
+      });
+      console.log(newState, 'newState in add user reducer');
+      return newState;
     case ASSIGN_ROLES:
       // Determine appropriate number of infiltrators
       const infiltratorCount = ~~(state[action.gameID].users.length * .44);

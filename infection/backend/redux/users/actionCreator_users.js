@@ -1,17 +1,9 @@
 const { ADD_NEW_USER, ASSIGN_ROLES, RESET_USERS } = require('./actions_users');
 
-const newUser = (
-  gameID,
-  username,
-  room,
-  socketID,
-  infiltrator,
-  securityOfficer
-) => ({
+const newUser = (gameID, username, socketID, infiltrator, securityOfficer) => ({
   type: ADD_NEW_USER,
   gameID,
   username,
-  room,
   socketID,
   infiltrator,
   securityOfficer,
