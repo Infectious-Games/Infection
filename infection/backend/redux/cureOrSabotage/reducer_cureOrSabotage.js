@@ -6,36 +6,34 @@ const {
 const initialState = require('./initialState_cureOrSabotage');
 
 const submitVote = (state = initialState, action) => {
+  const newState = Object.assign({}, state);
   switch (action.type) {
     /*
   * If a mission vote is 'cure':
-  *   - return current state of voteStatus
+  *   - return current state of voteStatus for that game instance --> [action.gameID]
   *   - increment current state of deployedVoteCount by 1
   */
     case VOTE_CURE:
-      return Object.assign({}, state, {
-        voteStatus: state.voteStatus,
-        deployedVoteCount: state.deployedVoteCount + 1,
-      });
+      newState[action.gameID]['voteStatus'] = state.voteStatus;
+      newState[action.gameID]['deployedVoteCount'] = state.deployedVoteCount + 1;
+      return newState;
     /*
   * If a mission vote is 'sabotage':
   *   - change voteStatus to 1
   *   - increment current state of deployedVoteCount by 1
   */
     case VOTE_SABOTAGE:
-      return Object.assign({}, state, {
-        voteStatus: 1,
-        deployedVoteCount: state.deployedVoteCount + 1,
-      });
+      newState[action.gameID]['voteStatus'] = 1;
+      newState[action.gameID]['deployedVoteCount'] = state.deployedVoteCount + 1;
+      return newState;
     // Reset to initial values
     case RESET_VOTES:
-      return Object.assign({}, state, {
-        voteStatus: 0,
-        deployedVoteCount: 0,
-      });
+      newState[action.gameID]['voteStatus'] = 0;
+      newState[action.gameID]['deployedVoteCount'] = 0;
+      return newState;
     // Return current state
     default:
-      return state;
+      return newState; 
   }
 };
 
