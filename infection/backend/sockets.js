@@ -86,6 +86,7 @@ module.exports = (server) => {
             });     
           // if PAL3000 is leader
           if (roundLeader.username === 'PAL3000') {
+            pal3000.isLeader = true;
             setTimeout(() => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
@@ -186,6 +187,7 @@ module.exports = (server) => {
               });
               leaderStorage[socket.game]['index']++;     
               if (roundLeader.username === 'PAL3000') {
+                pal3000.isLeader = true;
                 setTimeout(() => {
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
@@ -199,12 +201,13 @@ module.exports = (server) => {
 
     // PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION------------
     socket.on('chose YES or NO', ({ vote, username }) => {
-      if (pal3000 && !pal3000.voted) {
+      if (pal3000 && !pal3000.voted) {    
         let palVote = pal3000.voteForMissionTeam(roster);
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
         palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
         pal3000.voted = true;
+        pal3000.isLeader = false;
       }
       // track each players vote
       proposalResults.push({name: username, vote});
@@ -282,6 +285,7 @@ module.exports = (server) => {
                       rosterLength,
                     }), 5000);
                 if (roundLeader.username === 'PAL3000') {
+                  pal3000.isLeader = true;
                   setTimeout(() => {
                     // PAL3000 chooses roster
                     roster = pal3000.chooseMissionRoster(rosterLength);
@@ -305,6 +309,7 @@ module.exports = (server) => {
                   rosterLength,
                 })
               if (roundLeader.username === 'PAL3000') {
+                pal3000.isLeader = true;
                 setTimeout(() => { 
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
