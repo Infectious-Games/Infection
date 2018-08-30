@@ -2,10 +2,10 @@ const { ADD_NEW_USER, ASSIGN_ROLES, RESET_USERS } = require('./actions_users');
 
 const newUser = (
   gameID,
-  username, 
-  room, 
-  socketID, 
-  infiltrator, 
+  username,
+  room,
+  socketID,
+  infiltrator,
   securityOfficer
 ) => ({
   type: ADD_NEW_USER,
@@ -25,7 +25,7 @@ const assignRoles = (gameID, infiltrator) => ({
 
 const resetUsers = gameID => ({
   type: RESET_USERS,
-  gameID
+  gameID,
 });
 
 module.exports = {

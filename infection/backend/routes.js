@@ -40,8 +40,7 @@ module.exports = app => {
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
-    log(body, 'body in server');
-    db.updateUserStats(body, data => {
+    db.updateUserStats(body, (data) => {
       res.json(data);
     });
   });

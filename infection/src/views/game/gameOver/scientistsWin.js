@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, Row, Col } from 'react-bootstrap';
 
-import scientist from '../../../images/Scientist.png';
+import scientist from '../../../images/scientist1.png';
 
 const ScientistsWin = () => (
   <Row className="scientist-win">
