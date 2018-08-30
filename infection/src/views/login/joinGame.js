@@ -1,39 +1,42 @@
 import React from 'react';
-import { Button, ControlLabel, Form, FormControl, FormGroup, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Button,
+  Col,
+  Form,
+  ControlLabel,
+  FormControl,
+  FormGroup,
+  Row,
+} from 'react-bootstrap';
 
-const JoinGame = ({ game, handleSubmit, handleChange }) =>
-  <Grid>
-    <Row>
-      <Col md={5}>
-        <h4>
-          JOIN A GAME
-        </h4>
-      </Col>
-    </Row>
-    <Row>
-      <Col md={5}>
-        <Form className="login" inline>
-          <FormGroup controlId="formInlineName">
-            <ControlLabel></ControlLabel>{' '}
-            <FormControl
-              type="text"
-              placeholder="Enter Game Code"
-              value={game}
-              onSubmit={handleSubmit}
-              onChange={handleChange}
-            />
-          </FormGroup>{' '}
+const JoinGame = ({ game, handleSubmit, handleChange }) => (
+  <Row>
+    <Col xs={3} />
+    <Col xs={6}>
+      <ControlLabel>JOIN A GAME</ControlLabel>
+      <Form className="login" inline>
+        <FormGroup controlId="formInlineName">
+          <FormControl
+            type="text"
+            placeholder="Enter Game Code"
+            // bsSize="large"
+            value={game}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+          />
           <Button
             type="submit"
             bsStyle="success"
             onClick={handleSubmit}
+            // bsSize="large"
           >
             Enter Game
           </Button>
-        </Form>
-      </Col>
-    </Row>
-  </Grid>
-
+        </FormGroup>
+      </Form>
+    </Col>
+    <Col xs={3} />
+  </Row>
+);
 
 export default JoinGame;
