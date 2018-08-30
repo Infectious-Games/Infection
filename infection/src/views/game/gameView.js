@@ -23,13 +23,12 @@ const GameView = ({
     <Row className="game-header">
       <Col md={5} />
       <Col md={2}>
-        <Header 
+        <Header
           rosterUnapproved={game.rosterUnapproved}
           leaderSubmitRoster={game.leaderSubmitRoster}
-        ></Header>
+        />
       </Col>
-      <Col md={5}>
-      </Col>
+      <Col md={5} />
     </Row>
     <br />
     <Row className="game-view">

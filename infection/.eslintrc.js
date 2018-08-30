@@ -9,6 +9,7 @@ module.exports = {
     'airbnb',
     'prettier',
   ],
+  "parser": "babel-eslint",
   'plugins': [
     'prettier',
   ],
@@ -17,6 +18,14 @@ module.exports = {
       'singleQuote': true,
       'trailingComma': 'es5',
     }],
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+
   },
   'parserOptions': {
     'ecmaFeatures': {
