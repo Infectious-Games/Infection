@@ -60,11 +60,11 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setInGameStatus();
-    socket.emit('join game', { 
-      username: this.state.username, 
+    socket.emit('join game', {
+      username: this.state.username,
       game: this.state.game,
-      pal3000Active: this.state.pal3000Active
-    })
+      pal3000Active: this.state.pal3000Active,
+    });
   }
 
   handleChange(e) {
@@ -75,8 +75,7 @@ class Login extends React.Component {
     // check to see if PAL3000 has been selected
     this.state.pal3000Active
       ? console.log('PAL3000 needs to be added to this game')
-      : //TODO: add PAL3000 to the game
-        console.log('PAL3000 not selected for this game');
+      : console.log('PAL3000 not selected for this game');
     const playerCount = { playerCount: num };
     axios
       .post('/start', playerCount)

@@ -92,7 +92,6 @@ module.exports = (server) => {
               io.in(socket.game).emit('team chosen', roster);
             }, 3000);
           }
-            
         }, 5000);  
       };
       Game.find({ where: { id: game } })
@@ -200,19 +199,15 @@ module.exports = (server) => {
 
     // PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION------------
     socket.on('chose YES or NO', ({ vote, username }) => {
-      console.log(pal3000, 'pal3000 sockets 203');
       if (pal3000 && !pal3000.voted) {
         let palVote = pal3000.voteForMissionTeam(roster);
-        console.log(palVote, 'palVote sockets 206');
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
-        console.log(proposalResults, 'proposalResults sockets 209');
         palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
         pal3000.voted = true;
       }
       // track each players vote
       proposalResults.push({name: username, vote});
-      console.log(proposalResults, 'proposalResults sockets 215');
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
       // If everyone has voted

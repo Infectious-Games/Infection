@@ -35,8 +35,7 @@ class PAL3000 {
   }
 
   // Voting for mission team
-  voteForMissionTeam(proposedRoster) { // array of proposed roster
-    console.log('PAL voting AI 39');
+  voteForMissionTeam(proposedRoster) {
     // checks if proposedRoster includes an Infiltrator
     const includesInfiltrator = proposedRoster.some(player => {
       return this.infiltrators.includes(player);
@@ -46,7 +45,7 @@ class PAL3000 {
       // 50/50 Yes/No vote
       const random = Math.random();
       return random > 0.5 ? 'YES' : 'NO';
-    // if infiltrator
+      // if infiltrator
     } else {
       // if mission includes an infiltrator vote 'YES' 
       // otherwise vote 'NO'
@@ -64,10 +63,10 @@ class PAL3000 {
       db.updateUserStats(update, () => console.log('PAL3000 stats updated'));
     }
   }
-};
+}
 
 module.exports = {
-  PAL3000
+  PAL3000,
 };
 
 // const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'PAL3000']);
