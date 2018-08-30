@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
+
 dotenv.load();
 
 const db = new Sequelize(
@@ -27,7 +28,7 @@ const User = db.define('User', {
   email: Sequelize.STRING,
 });
 
-//game schema
+// game schema
 const Game = db.define('game', {
   numberOfPlayers: Sequelize.INTEGER,
   winner: Sequelize.STRING,
@@ -45,7 +46,7 @@ const Game = db.define('game', {
 
 Game.sync({ force: false })
   .then(game => {
-    console.log('game model created in db');
+    console.log(game, 'game model created in db');
   })
   .catch(err => {
     console.error(err);
