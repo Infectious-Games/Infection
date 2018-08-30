@@ -5,6 +5,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
 const dotenv = require('dotenv');
 const { SESSION_OPTIONS } = require('../config');
+const store = require('./redux/store');
 
 dotenv.load();
 const db = require('./database');
@@ -27,7 +28,14 @@ module.exports = app => {
     const { body } = req;
     const { playerCount } = body;
     // Send join code (unique game id) back to client
-    db.createGameAndGetJoinCode(playerCount, joinCode => {
+    //TODO: check for empty games in store, return that game room;
+    let joinCode;
+    for (room in store.getState().users) {
+      //find first empty room
+      return store.getState().users[room].length === 0 ? joinCode = room : console.log('No rooms available');
+    }
+    db.createGameAndGetJoinCode(playerCount, gameID => {
+      //no longer sending db ID for game code
       res.json(joinCode);
     });
   });
