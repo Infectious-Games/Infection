@@ -9,13 +9,34 @@ const newUser = (username, room, socketID, infiltrator, securityOfficer) => ({
   securityOfficer,
 });
 
-const assignRoles = infiltrator => ({
-  type: ASSIGN_ROLES,
+const assignRoles = (
+  username,
+  room,
+  socketID,
   infiltrator,
+  securityOfficer
+) => ({
+  type: ASSIGN_ROLES,
+  username,
+  room,
+  socketID,
+  infiltrator,
+  securityOfficer,
 });
 
-const resetUsers = () => ({
+const resetUsers = (
+  username,
+  room,
+  socketID,
+  infiltrator,
+  securityOfficer
+) => ({
   type: RESET_USERS,
+  username,
+  room,
+  socketID,
+  infiltrator,
+  securityOfficer,
 });
 
 module.exports = {
