@@ -167,6 +167,9 @@ module.exports = (server) => {
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
               store.dispatch(resetUsers());
+              store.dispatch(restartGame());
+              store.dispatch(restartRounds());
+              store.dispatch(resetVotes());
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               // if PAL3000 played, update his stats
@@ -177,6 +180,9 @@ module.exports = (server) => {
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
               store.dispatch(resetUsers());
+              store.dispatch(restartGame());
+              store.dispatch(restartRounds());
+              store.dispatch(resetVotes());
             } else {
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
@@ -272,6 +278,10 @@ module.exports = (server) => {
                 }
                 io.in(socket.game).emit('game over', winner);       
                 setTimeout(() => socket.leave(socket.game), 3000);
+                store.dispatch(resetUsers());
+                store.dispatch(restartGame());
+                store.dispatch(restartRounds());
+                store.dispatch(resetVotes());
               } else {
                 // If this is not the third win for the infiltrators,
                 // reset appropriate state and start new new round
