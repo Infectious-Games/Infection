@@ -51,7 +51,7 @@ module.exports = (server) => {
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
-        const playersInGame = store.getState().users;
+        const playersInGame = store.getState().users.users;
         const team = playersInGame.map(user => user.username);
         const infiltrators = [];
         playersInGame.forEach(user => {
@@ -74,7 +74,7 @@ module.exports = (server) => {
           store.dispatch(incrementRound());
           const round = store.getState().round.round;
           const rosterLength = grid[socket.numberOfPlayers][round - 1];
-          const leaderLoop = assignLeader(store.getState().users);
+          const leaderLoop = assignLeader(store.getState().users.users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
           const roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
           leaderStorage[socket.game]['index']++;
@@ -100,7 +100,8 @@ module.exports = (server) => {
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          store.getState().users.length === playerCount
+          console.log(store.getState().users.users, 'USERS, USERS, USERS');
+          store.getState().users.users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
             : console.log(
                 chalk.bold.cyan(
