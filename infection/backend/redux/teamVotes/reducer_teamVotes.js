@@ -34,8 +34,8 @@ const proposalVote = (state = initialState, action) => {
     // Reset to initial values
     case RESET_MISSION_VOTES:
       newState[action.gameID]['voteFail'] = 0;
-      newState[action.gameID]voteSuccess = 0;
-      newState[action.gameID]totalMissionVotes = 0;
+      newState[action.gameID]['voteSuccess'] = 0;
+      newState[action.gameID]['totalMissionVotes'] = 0;
       return newState;
     // Return current state
     default:
