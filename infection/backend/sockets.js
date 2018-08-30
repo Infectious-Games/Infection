@@ -157,11 +157,12 @@ module.exports = (server) => {
             let scientistWinTotal = store.getState().game.scientistWins;  
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
-            if (scientistWinTotal === 3) {
+            if (scientistWinTotal === 1) {
               winner = false;
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
@@ -170,11 +171,12 @@ module.exports = (server) => {
               store.dispatch(restartGame());
               store.dispatch(restartRounds());
               store.dispatch(resetVotes());
-            } else if (infiltratorWinTotal === 3) {
+            } else if (infiltratorWinTotal === 1) {
               winner = true;
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
@@ -275,6 +277,7 @@ module.exports = (server) => {
                 // if PAL3000 played, update his stats
                 if (pal3000) {
                   pal3000.updateStats(winner);
+                  pal3000 = undefined;
                 }
                 io.in(socket.game).emit('game over', winner);       
                 setTimeout(() => socket.leave(socket.game), 3000);
