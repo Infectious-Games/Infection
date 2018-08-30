@@ -64,7 +64,7 @@ const findOrCreateUser = (profile, callback) => {
       wins: 0,
       losses: 0,
       clearanceLevel: 'unclassified',
-      photo: photo,
+      photo,
       email: '',
     },
   }).spread((user, created) => {
@@ -87,14 +87,15 @@ User.findOrCreate({
     clearanceLevel: 'unclassified',
     photo: '',
     email: '',
-  }
-})
-  .spread((user, created) => {
-    console.log(user.get({
-      plain: true
-    }));
-    console.log('PAL3000 added to the db:', created, ', false = already in db');
-  });
+  },
+}).spread((user, created) => {
+  console.log(
+    user.get({
+      plain: true,
+    })
+  );
+  console.log('PAL3000 added to the db:', created, ', false = already in db');
+});
 
 const createGame = count => {
   // grab user id to pass into game
