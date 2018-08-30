@@ -157,7 +157,7 @@ module.exports = (server) => {
             let scientistWinTotal = store.getState().game.scientistWins;  
             let infiltratorWinTotal = store.getState().game.infiltratorWins;  
             let winner;
-            if (scientistWinTotal === 1) {
+            if (scientistWinTotal === 3) {
               winner = false;
               // if PAL3000 played, update his stats
               if (pal3000) {
@@ -171,7 +171,7 @@ module.exports = (server) => {
               store.dispatch(restartGame());
               store.dispatch(restartRounds());
               store.dispatch(resetVotes());
-            } else if (infiltratorWinTotal === 1) {
+            } else if (infiltratorWinTotal === 3) {
               winner = true;
               // if PAL3000 played, update his stats
               if (pal3000) {
