@@ -1,4 +1,4 @@
-const { ADD_NEW_USER, ASSIGN_ROLES } = require('./actions_users.js');
+const { ADD_NEW_USER, ASSIGN_ROLES, RESET_USERS } = require('./actions_users.js');
 const initialState = require('./initialState_users.js');
 
 const users = (state = initialState, action) => {
@@ -41,7 +41,10 @@ const users = (state = initialState, action) => {
       );
     
       return Object.assign({}, state, { updated });
-      
+    case RESET_USERS: 
+      return Object.assign({}, state, {
+        users: []
+      } )  
     // By default, return current state
     default:
       return state;
