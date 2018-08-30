@@ -96,10 +96,9 @@ class Game extends Component {
           // set state of rosterUnapproved based on result
           // for every failed vote increment by one
           if (!voteSucceeds) {
-            this.setState(
-              { rosterUnapproved: this.state.rosterUnapproved + 1 },
-              () => console.log(this.state, 'this.state line 94 game.js')
-            );
+            this.setState({
+              rosterUnapproved: this.state.rosterUnapproved + 1,
+            });
           }
         }
       );
