@@ -8,74 +8,76 @@ import StartGame from './startGame';
 import Logout from './logout';
 
 const Dashboard = ({
-
-  game, 
-  username, 
-  wins, 
-  losses, 
-  clearance, 
-  handleChange, 
+  game,
+  username,
+  wins,
+  losses,
+  clearance,
+  handleChange,
   handleSubmit,
   setNumOfPlayers,
   newGame,
   activatePal,
-
-}) =>
+}) => (
   <Grid>
-    <br></br>
+    <br />
     <Row>
-      <Header></Header>
+      <Header />
     </Row>
-    <br></br>
+    <br />
     <Row>
-      <Col md={2}></Col>
+      <Col md={2} />
       <Col md={8}>
-        <Row>
-          
-        </Row>
-
         <Row>
           <ListGroup>
             <ListGroupItem>
-              <Clearance clearance={clearance}></Clearance> 
+              <Clearance clearance={clearance} />
             </ListGroupItem>
-            <ListGroupItem>Username: {username}</ListGroupItem>
-            <ListGroupItem>Wins: {wins}</ListGroupItem>
-            <ListGroupItem>Losses: {losses}</ListGroupItem>
+            <ListGroupItem>
+              Username:
+              {username}
+            </ListGroupItem>
+            <ListGroupItem>
+              Wins:
+              {wins}
+            </ListGroupItem>
+            <ListGroupItem>
+              Losses:
+              {losses}
+            </ListGroupItem>
           </ListGroup>
         </Row>
-
       </Col>
-      <Col md={2}></Col>
-    </Row>
-
-    <Row>
+      <Col md={2} />
     </Row>
     <Row>
-      <Col md={1}></Col>
+      <Col md={1} />
       <Col md={5}>
-        {newGame
-          ? <Row>Game Code : {newGame}</Row>
-          : <StartGame
-              activatePal={activatePal}
-              setNumOfPlayers={setNumOfPlayers}
-          ></StartGame>
-        }
+        {newGame ? (
+          <Row>
+            Game Code:
+            {newGame}
+          </Row>
+        ) : (
+          <StartGame
+            activatePal={activatePal}
+            setNumOfPlayers={setNumOfPlayers}
+          />
+        )}
       </Col>
       <Col md={5}>
         <JoinGame
           game={game}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
-        >
-        </JoinGame>
-          </Col>
-        <Col md={1}></Col>
+        />
+      </Col>
+      <Col md={1} />
     </Row>
-      <br></br>
-      <br></br>
-      <Logout></Logout>
-
+    <br />
+    <br />
+    <Logout />
   </Grid>
+);
 
 export default Dashboard;
