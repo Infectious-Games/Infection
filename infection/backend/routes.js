@@ -7,10 +7,10 @@ const dotenv = require('dotenv');
 const { SESSION_OPTIONS } = require('../config');
 const store = require('./redux/store');
 
+const log = console.log;
+
 dotenv.load();
 const db = require('./database');
-
-const log = console.log;
 
 module.exports = app => {
   // find or add a user to the db
@@ -27,17 +27,16 @@ module.exports = app => {
     // Take player count from body and use it to create game instance
     const { body } = req;
     const { playerCount } = body;
+    db.createGameAndGetJoinCode(playerCount);
     // Send join code (unique game id) back to client
-    //TODO: check for empty games in store, return that game room;
-    let joinCode;
-    for (room in store.getState().users) {
-      //find first empty room
-      return store.getState().users[room].length === 0 ? joinCode = room : console.log('No rooms available');
-    }
-    db.createGameAndGetJoinCode(playerCount, gameID => {
-      //no longer sending db ID for game code
-      res.json(joinCode);
-    });
+    // check for empty games in store, return that game room;
+    const joinCodes = Object.keys(store.getState().users).filter(
+      gameName => store.getState().users[gameName].users.length === 0
+    );
+    log(joinCodes, 'join codes');
+    // join code becomes first empty game
+    const joinCode = joinCodes[0];
+    res.json(joinCode);
   });
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
@@ -54,8 +53,8 @@ module.exports = app => {
   //     res.json(data);
   //   });
   // });
-  
-  //////////////////////////////////////////////////////
+
+  // ////////////////////////////////////////////////////
   // Passport
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
@@ -79,7 +78,7 @@ module.exports = app => {
       },
       (accessToken, refreshToken, profile, done) => {
         db.findOrCreateUser(profile, user => {
-          log(`user is ${user}`);
+          console.log(`user is ${user}`);
           return done(null, user);
         });
       }
