@@ -84,7 +84,7 @@ User.findOrCreate({
     console.log(user.get({
       plain: true
     }));
-    // console.log('PAL3000 added to the db:', created, ', false = already in db');
+    console.log('PAL3000 added to the db:', created, ', false = already in db');
   });
 
 const createGameAndGetJoinCode = (count, cb) => {
@@ -141,7 +141,7 @@ const getUserStats = ({ username }, callback) => {
   User.find({ where: { username } })
     // return the user
     .then((user) => callback(user))
-}
+};
 
 // drop the db
 // User.sync({ force: true }).then(() => {
