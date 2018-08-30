@@ -1,4 +1,4 @@
-//save as {
+// Save as {
 //   gameId: { index : integer, leaderLoop : array }
 // }
-module.export = {};
+module.exports = {};

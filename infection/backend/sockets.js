@@ -1,16 +1,18 @@
+/*eslint-disable*/
 const sockets = require('socket.io');
 const chalk = require('chalk');
 const store = require('./redux/store');
-const { assignRoles, newUser, resetUsers } = require('./redux/users/actionCreator_users');
+const {
+  assignRoles,
+  newUser,
+  resetUsers,
+} = require('./redux/users/actionCreator_users');
 const {
   voteYes,
   voteNo,
   resetMissionVotes,
 } = require('./redux/teamVotes/actionCreator_teamVotes');
-const {
-  incrementRound,
-  restartRounds,
-} = require('./redux/rounds/actionCreator_rounds');
+const { restartRounds } = require('./redux/rounds/actionCreator_rounds');
 const {
   voteCure,
   voteSabotage,
@@ -22,6 +24,7 @@ const {
   restartGame,
   incrementFail,
   resetFail,
+  incrementRound,
 } = require('./redux/game/actionCreator_game');
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
@@ -30,9 +33,8 @@ const db = require('./database');
 
 const assignLeader = require('./gameLogicHelpers');
 const leaderStorage = require('./leaderOrderStorage');
-const log = console.log;
 
-module.exports = (server) => {
+module.exports = server => {
   const io = sockets(server);
   let proposalResults = [];
   let pal3000;
@@ -80,7 +82,7 @@ module.exports = (server) => {
         });
         setTimeout(() => {
           store.dispatch(incrementRound());
-          const round = store.getState().round.round;
+          const round = store.getState().game.round;
           const rosterLength = grid[socket.numberOfPlayers][round - 1];
           const leaderLoop = assignLeader(store.getState().users.users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
@@ -128,7 +130,7 @@ module.exports = (server) => {
     });
     // CURE OR SABOTAGE CHOSEN-------------------------------------------------
     socket.on('chose cure or sabotage', choice => {
-      const round = store.getState().round.round;
+      const round = store.getState().game.round;
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
@@ -155,7 +157,7 @@ module.exports = (server) => {
         : console.log(chalk.magenta('great day to be a scientist'));
       totalVotes === grid[socket.numberOfPlayers][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
-          setTimeout(function () {
+          setTimeout(() => {
             // reset PAL3000's voted status
             if (pal3000) {
               pal3000.voted = false;
@@ -194,9 +196,9 @@ module.exports = (server) => {
               store.dispatch(restartRounds());
               store.dispatch(resetVotes());
             } else {
-              store.dispatch(incrementRound());
+              // store.dispatch(incrementRound());
               store.dispatch(resetVotes());
-              const round = store.getState().round.round;
+              const round = store.getState().game.round;
               const rosterLength = grid[socket.numberOfPlayers][round - 1];
               const roundLeader =
                 leaderStorage[socket.game].leaderLoop[
@@ -227,7 +229,9 @@ module.exports = (server) => {
         const palVote = pal3000.voteForMissionTeam(roster);
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
-        palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+        palVote === 'YES'
+          ? store.dispatch(voteYes())
+          : store.dispatch(voteNo());
         pal3000.voted = true;
         pal3000.isLeader = false;
       }
@@ -246,7 +250,7 @@ module.exports = (server) => {
           store.getState().proposalVotes.voteFail;
         let results;
         voteSucceeds === false ? (results = 1) : (results = 0);
-        const round = store.getState().round.round;
+        const round = store.getState().game.round;
         const rosterLength = grid[socket.numberOfPlayers][round - 1];
         const roundLeader =
           leaderStorage[socket.game].leaderLoop[
@@ -305,8 +309,9 @@ module.exports = (server) => {
                 store.dispatch(infiltratorRoundWin());
                 store.dispatch(resetFail());
                 store.dispatch(resetMissionVotes());
-                store.dispatch(incrementRound());
-                const round = store.getState().round.round;
+                // store.dispatch(incrementRound());
+                const round = store.getState().game.round;
+                const rosterLength = grid[socket.numberOfPlayers][round - 1];
                 proposalResults = [];
                 leaderStorage[socket.game].index++;
                 setTimeout(
