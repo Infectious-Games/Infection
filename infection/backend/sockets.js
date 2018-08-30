@@ -45,7 +45,6 @@ module.exports = (server) => {
       socket.username = username;
       // if PAL3000 is active, add him to the game
       if (playerProps.pal3000Active) {
-        console.log('pal3000Active in sockets.js 36')
         store.dispatch(newUser('PAL3000', game, 3000));
       }
       store.dispatch(newUser(username, game, socket.id));
@@ -181,7 +180,6 @@ module.exports = (server) => {
               const round = store.getState().round.round;
               const rosterLength = grid[socket.numberOfPlayers][round - 1];
               const roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
-              leaderLoopIndex++;
               io.in(socket.game).emit('start round', {
                 leader: roundLeader.username,
                 round,
@@ -202,15 +200,19 @@ module.exports = (server) => {
 
     // PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION------------
     socket.on('chose YES or NO', ({ vote, username }) => {
+      console.log(pal3000, 'pal3000 sockets 203');
       if (pal3000 && !pal3000.voted) {
         let palVote = pal3000.voteForMissionTeam(roster);
+        console.log(palVote, 'palVote sockets 206');
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
+        console.log(proposalResults, 'proposalResults sockets 209');
         palVote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
         pal3000.voted = true;
       }
       // track each players vote
       proposalResults.push({name: username, vote});
+      console.log(proposalResults, 'proposalResults sockets 215');
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
       // If everyone has voted
