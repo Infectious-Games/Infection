@@ -25,8 +25,6 @@ module.exports = app => {
   app.post('/start', (req, res) => {
     // Take player count from body and use it to create game instance
     const { body } = req;
-    console.log(body, 'body routes.js 28');
-    // const { playerCount } = body;
     // Send join code (unique game id) back to client
     db.createGameAndGetJoinCode(body, joinCode => {
       res.json(joinCode);
