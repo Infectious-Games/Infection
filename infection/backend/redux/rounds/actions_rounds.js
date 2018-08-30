@@ -3,5 +3,5 @@ const RESTART_ROUNDS = 'RESTART_ROUNDS';
 
 module.exports = {
   INCREMENT_ROUND,
-  RESTART_ROUNDS
+  RESTART_ROUNDS,
 };

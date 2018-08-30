@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 
 import Roles from './roles/roles';
 import Round from './round/round';
@@ -9,78 +9,79 @@ import WaitingForTeam from './waiting/waitingForTeam';
 import GameOver from './gameOver/gameOver';
 import GameStatus from './gameStatus/gameStatus';
 import Header from './shared/header';
-import VoteStatus from './voteStatus/voteStatus';
 
-const GameView = ({ 
-  game, 
-  choose, 
-  handleSelectRosterEntryClick, 
+const GameView = ({
+  game,
+  choose,
+  handleSelectRosterEntryClick,
   handleSubmitRoster,
   setInGameStatus,
   handleRosterVote,
-}) => 
+}) => (
   <Grid className="game">
-    <br></br>
-    <Row className='game-header'>
-      <Col md={5}></Col>
+    <br />
+    <Row className="game-header">
+      <Col md={5} />
       <Col md={2}>
-        <Header></Header>
+        <Header 
+          rosterUnapproved={game.rosterUnapproved}
+          leaderSubmitRoster={game.leaderSubmitRoster}
+        ></Header>
       </Col>
       <Col md={5}>
-        <VoteStatus rosterApproved={game.rosterApproved}></VoteStatus>
       </Col>
     </Row>
-    <br></br>
-    <Row className='game-view'>
-      <Col md={2}></Col>
-      <Col md={8} xs={12} className='game-view-col'>
-        {
-          !game.teamAssembled
-            ? <WaitingForTeam></WaitingForTeam>
-            : !game.round
-              ? <Roles 
-                  infiltrator={game.infiltrator}
-                  infiltrators={game.infiltrators}
-                ></Roles>
-              : !game.missionActive
-                ? <Round
-                    game={game}
-                    handleSelectRosterEntryClick={handleSelectRosterEntryClick}
-                    handleSubmitRoster={handleSubmitRoster}
-                    handleRosterVote={handleRosterVote}
-                ></Round>
-                : !game.missionResults[game.round - 1]
-                  ? <Mission
-                      choose={choose}
-                      choiceMade={game.choiceMade}
-                      roster={game.missionRoster}
-                      username={game.username}
-                  ></Mission>
-                  : !game.gameOver
-                    ? <MissionResults
-                        result={game.missionResults[game.round - 1]}
-                    ></MissionResults>
-                    : <GameOver
-                        setInGameStatus={setInGameStatus}
-                        infiltratorsWin={game.infiltratorsWin}
-                      ></GameOver>
-        }
+    <br />
+    <Row className="game-view">
+      <Col md={2} />
+      <Col md={8} xs={12} className="game-view-col">
+        {!game.teamAssembled ? (
+          <WaitingForTeam />
+        ) : !game.round ? (
+          <Roles
+            infiltrator={game.infiltrator}
+            infiltrators={game.infiltrators}
+          />
+        ) : !game.missionActive ? (
+          <Round
+            game={game}
+            handleSelectRosterEntryClick={handleSelectRosterEntryClick}
+            handleSubmitRoster={handleSubmitRoster}
+            handleRosterVote={handleRosterVote}
+          />
+        ) : !game.missionResults[game.round - 1] ? (
+          <Mission
+            choose={choose}
+            choiceMade={game.choiceMade}
+            roster={game.missionRoster}
+            username={game.username}
+          />
+        ) : !game.gameOver ? (
+          <MissionResults result={game.missionResults[game.round - 1]} />
+        ) : (
+          <GameOver infiltratorsWin={game.infiltratorsWin} />
+        )}
       </Col>
-      <Col md={2}></Col>
+      <Col md={2} />
     </Row>
     <Row>
-      <br></br>
-      
-      <br></br>
+      <br />
     </Row>
-    <Row className='game-footer'>
-      <Col md={3} xs={0}></Col>
+    <Row className="game-footer">
+      <Col md={3} xs={0} />
       <Col md={6} xs={12}>
-        <GameStatus missionResults={game.missionResults}></GameStatus>
+        {game.gameOver ? (
+          <Button bsStyle="primary" onClick={setInGameStatus}>
+            LEAVE GAME
+          </Button>
+        ) : (
+          <div />
+        )}
+        <GameStatus missionResults={game.missionResults} />
       </Col>
-      <Col md={3} xs={0}></Col>
+      <Col md={3} xs={0} />
     </Row>
   </Grid>
-  
+);
 
 export default GameView;

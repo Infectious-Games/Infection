@@ -5,7 +5,6 @@ import { Grid } from 'react-bootstrap';
 import Welcome from '../views/login/welcome';
 import Dashboard from '../views/login/dashboard';
 
-
 class Login extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -33,15 +32,29 @@ class Login extends React.Component {
     };
   }
   componentDidMount() {
-    // check if user is logged in    
-    axios.get('/loggedIn', {
-    }).then(({data}) => {
+    // check if user is logged in
+    axios.get('/loggedIn', {}).then(({ data }) => {
       const loggedIn = data.loggedIn;
       if (loggedIn) {
-        const {clearanceLevel, gamesPlayed, losses, photo, username, wins} = data.user;
-        this.setState({ loggedIn, username, clearanceLevel, gamesPlayed, losses, wins, photo })
+        const {
+          clearanceLevel,
+          gamesPlayed,
+          losses,
+          photo,
+          username,
+          wins,
+        } = data.user;
+        this.setState({
+          loggedIn,
+          username,
+          clearanceLevel,
+          gamesPlayed,
+          losses,
+          wins,
+          photo,
+        });
       }
-    })
+    });
   }
 
   handleSubmit(e) {
@@ -60,22 +73,24 @@ class Login extends React.Component {
 
   handleCreateGame(num) {
     // check to see if PAL3000 has been selected
-    this.state.pal3000Active ? console.log('PAL3000 needs to be added to this game') 
-    //TODO: add PAL3000 to the game
-      : console.log('PAL3000 not selected for this game');
-    const playerCount = {"playerCount": num};
-    axios.post('/start', playerCount)
-      .then((joinCode) => {
+    this.state.pal3000Active
+      ? console.log('PAL3000 needs to be added to this game')
+      : //TODO: add PAL3000 to the game
+        console.log('PAL3000 not selected for this game');
+    const playerCount = { playerCount: num };
+    axios
+      .post('/start', playerCount)
+      .then(joinCode => {
         console.log(joinCode.data, 'joinCode in handleCreateGame');
         this.setState({ newGameCode: joinCode.data });
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error, 'error creating game in login.js');
       });
   }
 
   setNumOfPlayers(num) {
-    this.setState({ numOfPlayers: num })
+    this.setState({ numOfPlayers: num });
     this.handleCreateGame(num);
   }
 
@@ -88,7 +103,7 @@ class Login extends React.Component {
   //   })
   // }
 
-  activatePal () {
+  activatePal() {
     console.log('activate Pal3000');
     this.setState({ pal3000Active: true });
   }
@@ -97,23 +112,23 @@ class Login extends React.Component {
     const user = this.state;
     return (
       <Grid>
-        {
-          user.loggedIn
-          ? <Dashboard
-              game={user.game}
-              newGame={user.newGameCode}
-              clearance={user.clearanceLevel}
-              losses={user.losses}
-              username={user.username}
-              wins={user.wins}
-              handleChange={this.handleChange.bind(this)}
-              handleSubmit={this.handleSubmit.bind(this)}
-              setNumOfPlayers={this.setNumOfPlayers.bind(this)}
-              handleCreateGame={this.handleCreateGame.bind(this)}
-              activatePal={this.activatePal.bind(this)}
-            ></Dashboard>
-          : <Welcome></Welcome>
-        }
+        {user.loggedIn ? (
+          <Dashboard
+            game={user.game}
+            newGame={user.newGameCode}
+            clearance={user.clearanceLevel}
+            losses={user.losses}
+            username={user.username}
+            wins={user.wins}
+            handleChange={this.handleChange.bind(this)}
+            handleSubmit={this.handleSubmit.bind(this)}
+            setNumOfPlayers={this.setNumOfPlayers.bind(this)}
+            handleCreateGame={this.handleCreateGame.bind(this)}
+            activatePal={this.activatePal.bind(this)}
+          />
+        ) : (
+          <Welcome />
+        )}
       </Grid>
     );
   }
