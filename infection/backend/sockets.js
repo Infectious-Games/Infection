@@ -1,7 +1,7 @@
 const sockets = require('socket.io');
 const chalk = require('chalk');
 const store = require('./redux/store');
-const { assignRoles, newUser } = require('./redux/users/actionCreator_users');
+const { assignRoles, newUser, resetUsers } = require('./redux/users/actionCreator_users');
 const {
   voteYes,
   voteNo,
@@ -51,7 +51,7 @@ module.exports = (server) => {
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
-        const playersInGame = store.getState().users;
+        const playersInGame = store.getState().users.users;
         const team = playersInGame.map(user => user.username);
         const infiltrators = [];
         playersInGame.forEach(user => {
@@ -74,7 +74,7 @@ module.exports = (server) => {
           store.dispatch(incrementRound());
           const round = store.getState().round.round;
           const rosterLength = grid[socket.numberOfPlayers][round - 1];
-          const leaderLoop = assignLeader(store.getState().users);
+          const leaderLoop = assignLeader(store.getState().users.users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
           const roundLeader = leaderStorage[socket.game]['leaderLoop'][leaderStorage[socket.game]['index']];
           leaderStorage[socket.game]['index']++;
@@ -101,7 +101,8 @@ module.exports = (server) => {
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          store.getState().users.length === playerCount
+          console.log(store.getState().users.users, 'USERS, USERS, USERS');
+          store.getState().users.users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
             : console.log(
                 chalk.bold.cyan(
@@ -161,19 +162,29 @@ module.exports = (server) => {
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
+              store.dispatch(resetUsers());
+              store.dispatch(restartGame());
+              store.dispatch(restartRounds());
+              store.dispatch(resetVotes());
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
+              store.dispatch(resetUsers());
+              store.dispatch(restartGame());
+              store.dispatch(restartRounds());
+              store.dispatch(resetVotes());
             } else {
               store.dispatch(incrementRound());
               store.dispatch(resetVotes());
@@ -266,9 +277,14 @@ module.exports = (server) => {
                 // if PAL3000 played, update his stats
                 if (pal3000) {
                   pal3000.updateStats(winner);
+                  pal3000 = undefined;
                 }
                 io.in(socket.game).emit('game over', winner);       
                 setTimeout(() => socket.leave(socket.game), 3000);
+                store.dispatch(resetUsers());
+                store.dispatch(restartGame());
+                store.dispatch(restartRounds());
+                store.dispatch(resetVotes());
               } else {
                 // If this is not the third win for the infiltrators,
                 // reset appropriate state and start new new round

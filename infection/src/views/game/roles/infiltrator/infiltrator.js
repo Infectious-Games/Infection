@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Row, Col } from 'react-bootstrap';
 
 import InfiltratorList from './infiltratorList';
-import infiltrator from '../../../../images/infiltrator.png';
+import infiltrator from '../../../../images/gasmask-alt-2.png';
 
 const Infiltrator = ({ infiltrators }) => (
   <Row className="infiltrator">
