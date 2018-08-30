@@ -7,6 +7,7 @@ const initialState = require('./initialState_teamVotes');
 
 const proposalVote = (state = initialState, action) => {
   // Handle dispatched actions
+  const newState = Object.assign({}, state);
   switch (action.type) {
     /*
   * If a team-proposal vote is 'yes':
@@ -15,11 +16,10 @@ const proposalVote = (state = initialState, action) => {
   *   - increment current state of totalMissionVotes by 1
     */
     case VOTE_YES:
-      return Object.assign({}, state, {
-        voteFail: state.voteFail,
-        voteSuccess: state.voteSuccess + 1,
-        totalMissionVotes: state.totalMissionVotes + 1,
-      });
+      newState[action.gameID]['voteFail'] = state.voteFail;
+      newState[action.gameID]['voteSuccess'] = state.voteSuccess + 1;
+      newState[action.gameID]['totalMissionVotes'] = state.totalMissionVotes + 1;
+      return newState;
     /*
   * If a team-proposal vote is 'no':
   *   - return current state of voteSuccess
@@ -27,21 +27,19 @@ const proposalVote = (state = initialState, action) => {
   *   - increment current state of totalMissionVotes by 1
     */
     case VOTE_NO:
-      return Object.assign({}, state, {
-        voteFail: state.voteFail + 1,
-        voteSuccess: state.voteSuccess,
-        totalMissionVotes: state.totalMissionVotes + 1,
-      });
+      newState[action.gameID]['voteFail'] = state.voteFail + 1;
+      newState[action.gameID]['voteSuccess'] = state.voteSuccess;
+      newState[action.gameID]['totalMissionVotes'] = state.totalMissionVotes + 1;
+      return newState;
     // Reset to initial values
     case RESET_MISSION_VOTES:
-      return Object.assign({}, state, {
-        voteFail: 0,
-        voteSuccess: 0,
-        totalMissionVotes: 0,
-      });
+      newState[action.gameID]['voteFail'] = 0;
+      newState[action.gameID]voteSuccess = 0;
+      newState[action.gameID]totalMissionVotes = 0;
+      return newState;
     // Return current state
     default:
-      return state;
+      return newState;
   }
 };
 
