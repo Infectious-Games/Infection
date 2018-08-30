@@ -8,12 +8,14 @@ const {
 } = require('./actions_game');
 
 const scientistRoundWin = (
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount
 ) => ({
   type: SCIENTIST_ROUND_WIN,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
@@ -21,44 +23,74 @@ const scientistRoundWin = (
 });
 
 const infiltratorRoundWin = (
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount
 ) => ({
   type: INFILTRATOR_ROUND_WIN,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount,
 });
 
-const restartGame = (round, scientistWins, infiltratorWins, failCount) => ({
+const restartGame = (
+  gameID, 
+  round, 
+  scientistWins, 
+  infiltratorWins, 
+  failCount
+) => ({
   type: RESTART_GAME,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount,
 });
 
-const incrementFail = (round, scientistWins, infiltratorWins, failCount) => ({
+const incrementFail = (
+  gameID,
+  round, 
+  scientistWins, 
+  infiltratorWins, 
+  failCount
+) => ({
   type: INCREMENT_FAIL,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount,
 });
 
-const resetFail = (round, scientistWins, infiltratorWins, failCount) => ({
+const resetFail = (
+  gameID,
+  round, 
+  scientistWins, 
+  infiltratorWins, 
+  failCount
+) => ({
   type: RESET_FAIL,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
   failCount,
 });
 
-const incrementRound = (round, scientistWins, infiltratorWins, failCount) => ({
+const incrementRound = (
+  gameID,
+  round, 
+  scientistWins, 
+  infiltratorWins, 
+  failCount
+) => ({
   type: INCREMENT_ROUND,
+  gameID,
   round,
   scientistWins,
   infiltratorWins,
