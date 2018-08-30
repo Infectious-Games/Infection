@@ -6,8 +6,7 @@ const session = require('cookie-session');
 const dotenv = require('dotenv');
 const { SESSION_OPTIONS } = require('../config');
 const store = require('./redux/store');
-
-const log = console.log;
+const gameRooms = require('./gameRooms');
 
 dotenv.load();
 const db = require('./database');
@@ -35,12 +34,13 @@ module.exports = app => {
     );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
+    gameRooms[joinCode] = playerCount; // TODO: reset at end of game
     res.json(joinCode);
   });
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
-    db.updateUserStats(body, (data) => {
+    db.updateUserStats(body, data => {
       res.json(data);
     });
   });
