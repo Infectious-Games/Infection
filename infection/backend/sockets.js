@@ -29,6 +29,7 @@ const {
 const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
 const { PAL3000 } = require('./AI');
+const db = require('./database');
 
 const assignLeader = require('./gameLogicHelpers');
 const leaderStorage = require('./leaderOrderStorage');
@@ -45,13 +46,17 @@ module.exports = server => {
       const { username } = playerProps;
       socket.game = game;
       socket.username = username;
-      // if PAL3000 is active and has not already been added
-      if (playerProps.pal3000Active && !pal3000) {
-        // add PAL to the game
-        store.dispatch(newUser('PAL3000', game, 3000));
-        // toggle pal3000
-        pal3000 = true;
-      }
+
+      // check game in db to see if PAL3000 is active
+      db.palActive(game, palActive => {
+        // if PAL3000 is active and has not already been added
+        if (palActive && !pal3000) {
+          // add PAL to the game
+          store.dispatch(newUser('PAL3000', game, 3000));
+          // toggle pal3000
+          pal3000 = true;
+        }
+      });
       store.dispatch(newUser(username, game, socket.id));
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);

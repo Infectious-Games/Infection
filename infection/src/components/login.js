@@ -76,9 +76,12 @@ class Login extends React.Component {
     this.state.pal3000Active
       ? console.log('PAL3000 needs to be added to this game')
       : console.log('PAL3000 not selected for this game');
-    const playerCount = { playerCount: num };
+    const gameParams = {
+      playerCount: num,
+      pal3000Active: this.state.pal3000Active,
+    };
     axios
-      .post('/start', playerCount)
+      .post('/start', gameParams)
       .then(joinCode => {
         console.log(joinCode.data, 'joinCode in handleCreateGame');
         this.setState({ newGameCode: joinCode.data });
