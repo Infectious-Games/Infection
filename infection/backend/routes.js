@@ -33,7 +33,6 @@ module.exports = app => {
     const joinCodes = Object.keys(store.getState().users).filter(
       gameName => store.getState().users[gameName].users.length === 0
     );
-    log(joinCodes, 'join codes');
     // join code becomes first empty game
     const joinCode = joinCodes[0];
     res.json(joinCode);
