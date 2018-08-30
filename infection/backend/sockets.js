@@ -33,8 +33,6 @@ const { PAL3000 } = require('./AI');
 const assignLeader = require('./gameLogicHelpers');
 const leaderStorage = require('./leaderOrderStorage');
 
-const log = console.log;
-
 module.exports = server => {
   const io = sockets(server);
   let proposalResults = [];
@@ -47,9 +45,12 @@ module.exports = server => {
       const { username } = playerProps;
       socket.game = game;
       socket.username = username;
-      // if PAL3000 is active, add him to the game
-      if (playerProps.pal3000Active) {
+      // if PAL3000 is active and has not already been added
+      if (playerProps.pal3000Active && !pal3000) {
+        // add PAL to the game
         store.dispatch(newUser('PAL3000', game, 3000));
+        // toggle pal3000
+        pal3000 = true;
       }
       store.dispatch(newUser(username, game, socket.id));
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
@@ -107,7 +108,6 @@ module.exports = server => {
           return game.numberOfPlayers;
         })
         .then(playerCount => {
-          console.log(store.getState().users.users, 'USERS, USERS, USERS');
           store.getState().users.users.length === playerCount
             ? store.dispatch(assignRoles()) && getPlayerProfile()
             : console.log(
@@ -131,22 +131,19 @@ module.exports = server => {
         : store.dispatch(voteSabotage());
       // if pal3000 is active and on the mission
       if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) {
-        const choice = pal3000.cureOrSabotage();
-        choice === 'CURE'
-          ? store.dispatch(voteCure())
-          : store.dispatch(voteSabotage());
+        const palChoice = pal3000.cureOrSabotage();
+        palChoice === 'CURE'
+        ? store.dispatch(voteCure())
+        : store.dispatch(voteSabotage());
         pal3000.voted = true;
       }
       const results = store.getState().cureOrSabotage.voteStatus;
       const totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
-
-      log(
-        chalk.bold.black(`
-        ${results}, 'results ... 1 for sabotage ... 0 for cure', 
-        ${totalVotes}, 'totalVotes', 
-        ${store.getState()}, 'STORE after vote dispatch'`)
-      );
-
+      // log(chalk.bold.black(`
+      //   ${results}, 'results ... 1 for sabotage ... 0 for cure', 
+      //   ${totalVotes}, 'totalVotes', 
+      //   ${store.getState()}, 'STORE after vote dispatch'`
+      // ));
       totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 1
         ? store.dispatch(infiltratorRoundWin())
         : console.log(chalk.magenta('not a great day to be a scientist'));
@@ -160,14 +157,15 @@ module.exports = server => {
             if (pal3000) {
               pal3000.voted = false;
             }
-            const scientistWinTotal = store.getState().game.scientistWins;
-            const infiltratorWinTotal = store.getState().game.infiltratorWins;
+            let scientistWinTotal = store.getState().game.scientistWins;
+            let infiltratorWinTotal = store.getState().game.infiltratorWins;
             let winner;
             if (scientistWinTotal === 3) {
               winner = false;
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                // reset PAL for next game
                 pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
@@ -182,6 +180,7 @@ module.exports = server => {
               // if PAL3000 played, update his stats
               if (pal3000) {
                 pal3000.updateStats(winner);
+                // reset PAL for next game
                 pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
@@ -197,8 +196,8 @@ module.exports = server => {
               const round = store.getState().game.round;
               const rosterLength = grid[socket.numberOfPlayers][round - 1];
               const roundLeader =
-                leaderStorage[socket.game]['leaderLoop'][
-                  leaderStorage[socket.game]['index']
+                leaderStorage[socket.game].leaderLoop[
+                  leaderStorage[socket.game].index
                 ];
               io.in(socket.game).emit('start round', {
                 leader: roundLeader.username,
