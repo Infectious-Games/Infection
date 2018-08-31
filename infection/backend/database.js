@@ -99,15 +99,26 @@ User.findOrCreate({
   console.log('PAL3000 added to the db:', created, ', false = already in db');
 });
 
-const createGame = ({ playerCount, pal3000Active }) => {
+const createGameAndGetJoinCode = ({ playerCount, pal3000Active }) => {
   // grab user id to pass into game
-  Game.create({ numberOfPlayers: playerCount, pal3000Active }).catch(err => {
-    console.error(err);
-  });
+  // FIXME: no longer need cb
+  return Game.create({ numberOfPlayers: playerCount, pal3000Active })
+    .then(game => {
+      return new Promise((resolve, reject) => {
+        resolve(game.get('id'));
+      });
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
 const palActive = (id, callback) => {
-  Game.find({ where: { id } }).then(game => {
+  Game.find({
+    where: {
+      id,
+    },
+  }).then(game => {
     // console.log(game, 'game db 115');
     callback(game.pal3000Active);
   });
@@ -166,7 +177,8 @@ const getUserStats = ({ username }, callback) => {
 // });
 
 module.exports = {
-  createGame,
+  // createGame,
+  createGameAndGetJoinCode,
   findOrCreateUser,
   updateUserStats,
   getUserStats,
