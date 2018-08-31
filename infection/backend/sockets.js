@@ -103,9 +103,9 @@ module.exports = server => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
               io.in(socket.game).emit('team chosen', roster);
-            }, 3000);
+            }, 5000);
           }
-        }, 5000);
+        }, 15000);
       };
       Game.find({ where: { id: game } })
         .then(game => {
@@ -216,7 +216,7 @@ module.exports = server => {
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   io.in(socket.game).emit('team chosen', roster);
-                }, 3000);
+                }, 5000);
               }
             }
           }, 3000)
@@ -329,7 +329,7 @@ module.exports = server => {
                     // PAL3000 chooses roster
                     roster = pal3000.chooseMissionRoster(rosterLength);
                     io.in(socket.game).emit('team chosen', roster);
-                  }, 3000);
+                  }, 5000);
                 }
               }
             }, 3000);
@@ -352,7 +352,7 @@ module.exports = server => {
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   io.in(socket.game).emit('team chosen', roster);
-                }, 3000);
+                }, 5000);
               }
             }, 5000);
           }
