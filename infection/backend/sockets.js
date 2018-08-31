@@ -102,6 +102,7 @@ module.exports = server => {
             setTimeout(() => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
+              console.log(roster, 'roster chosen by PAL sockets.js 105');
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
@@ -136,6 +137,12 @@ module.exports = server => {
         : store.dispatch(voteSabotage());
       // if pal3000 is active and on the mission
       if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) {
+        // IMPROVEMENTS ?:
+        console.log(round, 'round sockets.js 141');
+        // use round as argument to pal3000.cureOrSabotage ???
+          // i.e. early round, infiltrator votes cure to decieve
+
+
         const palChoice = pal3000.cureOrSabotage();
         palChoice === 'CURE'
         ? store.dispatch(voteCure())

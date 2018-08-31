@@ -11,23 +11,58 @@ class PAL3000 {
       teamObj[player] = 0;
       return teamObj;
     }, {});
-    // teamRecords = {player: %MissionsWithCureVote, ...}
+    // teamRecords = {
+    //  {
+    //  player: playerName,
+    //  missionCure%: %,
+    //  numberOfVotes: number,
+    //  },
+    //  {
+    //  player: playerName,
+    //  missionCure%: %,
+    //  numberOfVotes: number,
+    //  },
+    // }
     this.infiltrators = infiltrators; // array of infiltrators
     this.voted = false; // toggle to keep track of whether PAL has already voted
     this.isLeader = false; // toggle status of PAL as leader
+    this.firstMission
   }
 
   // update teamRecords
   updateTeamRecords() {
     // update each player's record as a % of missions with a success
 
+
   }
 
   // CURE vs. SABOTAGE choice
-  cureOrSabotage() {
-    // if scientist choose 'CURE'
-    // else infiltrator choose 'SABOTAGE'
-    return this.scientist ? 'CURE' : 'SABOTAGE';
+  cureOrSabotage(round, roster) {
+    console.log(round, 'round AI.js 41');
+    console.log(roster, 'roster AI.js 42');
+    // IMPROVEMENTS:
+    // if infiltrator, choose 'CURE' sometimes to be deceptive
+    if (!this.scientist) {
+      // if round 1 or small roster size: 90% CURE
+      console.log(this.team.length, 'this.team.length AI.js 47');
+      console.log((this.team.length + 1) / roster.length, 'this.team.length + 1 / roster.length AI.js 48');
+      console.log((this.team.length + 1) / roster.length > 3, 'this.team.length + 1 / roster.length > 3 AI.js 49');
+      if (round === 1 || (this.team.length + 1) / roster.length > 3) {
+        // 90% 'CURE' vote
+        const random = Math.random();
+        console.log(random, 'random AI.js 51');
+        return random < 0.9 ? 'CURE' : 'SABOTAGE';
+      } // if numberOfPlayers/rosterSize > 2 = 50% CURE
+      if ((this.team.length + 1) / roster.length > 2) {
+        console.log('HIT 50%');
+        // 50% 'CURE' vote
+        const random = Math.random();
+        return random < 0.5 ? 'CURE' : 'SABOTAGE';
+      }
+    } else {
+      // if scientist choose 'CURE'
+      return 'CURE';
+    }
   }
 
   // Leader Choosing Mission Roster
@@ -101,8 +136,8 @@ module.exports = {
   PAL3000,
 };
 
-const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'Mark']);
-console.log(pal3000, 'pal3000');
-// console.log(pal3000.cureOrSabotage(), 'cureOrSabotage');
+// const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000', 'Bob'], ['Paul', 'Mark']);
+// console.log(pal3000, 'pal3000');
+// console.log(pal3000.cureOrSabotage(2, ['Paul', 'PAL3000']), 'cureOrSabotage');
 // console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
 // console.log(pal3000.voteForMissionTeam(['Athena', 'Mark', 'Paul'], false), 'voteForMissionTeam');
