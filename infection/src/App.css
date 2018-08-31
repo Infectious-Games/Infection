@@ -1,15 +1,16 @@
 .App,
 .game {
+  font-family: 'Metrophobic', sans-serif;
   text-align: center;
   background-color: rgb(24, 23, 23);
-  color: #eb410d;
+  color: #e24b1dbd;
   height: 100%;
   width: 100%;
 }
 
 .welcome,
 .game .list-group-item {
-  color: #eb410d;
+  color: #e24b1dbd;
   background-color: rgb(24, 23, 23);
 }
 .clearance-lvl {
@@ -80,14 +81,15 @@
   /* background-color: blanchedalmond; */
 }
 .mission-fail-h {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Anonymous Pro', monospace;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
   font-size: 6rem;
 }
 .mission-fail {
-  background-color: #eb410d;
+  background-color: #e24b1dbd;
   height: 100%;
 }
 
@@ -97,7 +99,8 @@
 }
 
 .mission-success-h {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Anonymous Pro', monospace;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
@@ -105,37 +108,43 @@
   font-size: 6rem;
 }
 .scientist {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .scientist-title {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-  color: rgb(14, 124, 214);
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
+  /* 'Lucida Sans', Arial, sans-serif; */
+  color: #3e92cc;
 }
 .scientist-win {
   background-color: white;
   height: 100%;
 }
 .infiltrator {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .infiltrator-title {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-  color: #eb410d;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
+  /* 'Lucida Sans', Arial, sans-serif; */
+  color: #e24b1dbd;
 }
 .infiltrator-list-entry {
-  color: #eb410d;
+  color: #e24b1dbd;
   font-weight: 900;
 }
 .infiltrators-win {
-  font-family: fantasy;
+  font-family: 'Neucha', cursive;
+  /* font-family: 'Metrophobic', sans-serif; */
+  /* font-family: fantasy; */
 }
 .appreciated {
   top: 50%;
