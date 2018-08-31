@@ -2,7 +2,7 @@
   "appService.zipIgnorePattern": [
     "node_modules{,/**}"
   ],
-  "appService.deploySubpath": "",
+  "appService.deploySubpath": "infection",
   "cSpell.words": [
     "amazonaws",
     "backend",
@@ -39,5 +39,6 @@
     "valjean",
     "vrigvy",
     "write"
-  ]
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/b8c8b4c4-0f11-48e2-b102-78615b55385b/resourceGroups/appsvc_rg_linux_southcentralus/providers/Microsoft.Web/sites/Infection-Game"
 }
