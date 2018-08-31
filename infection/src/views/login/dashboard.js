@@ -40,7 +40,7 @@ const Dashboard = ({
                 <h3>Name: {username}</h3>
                 <h3>Games Played: {gamesPlayed}</h3>
                 <h3>Wins: {wins}</h3>
-                <h3>losses: {losses}</h3>
+                <h3>Losses: {losses}</h3>
               </Media.Body>
             </Media>
           </Col>

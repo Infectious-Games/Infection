@@ -46,7 +46,7 @@ const OnMission = ({ choose, choiceMade }) =>
       <br />
       <br />
       <br />
-      <h1>Your Hard Work Is Appreciated!</h1>
+      <h1>Your Hard Work Is Appreciated</h1>
       {/* add gif? */}
     </Row>
   );
