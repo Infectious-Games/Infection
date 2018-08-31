@@ -59,7 +59,9 @@ module.exports = server => {
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
+        console.log(store.getState().users[socket.game].users[0]);
         const playersInGame = store.getState().users[socket.game].users;
+        console.log(playersInGame, 'playersInGame');
         const team = playersInGame.map(user => user.username);
         const infiltrators = [];
         playersInGame.forEach(user => {
@@ -82,7 +84,7 @@ module.exports = server => {
           store.dispatch(incrementRound());
           const round = store.getState().round.round;
           const rosterLength = grid[socket.numberOfPlayers][round - 1];
-          const leaderLoop = assignLeader(store.getState().users.users);
+          const leaderLoop = assignLeader(store.getState().users[socket.game].users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
           const roundLeader =
             leaderStorage[socket.game].leaderLoop[
@@ -107,7 +109,7 @@ module.exports = server => {
       };
       console.log(store.getState().users[socket.game].users, 'USERS, USERS, USERS');
       store.getState().users[socket.game].users.length === playerCount
-        ? store.dispatch(assignRoles()) && getPlayerProfile()
+        ? store.dispatch(assignRoles(socket.game)) && getPlayerProfile()
         : console.log(
           chalk.bold.cyan(
             'User added. Waiting for more users to start game.'
