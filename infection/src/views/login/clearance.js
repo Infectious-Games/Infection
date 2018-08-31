@@ -3,7 +3,7 @@ import { Row } from 'react-bootstrap';
 
 const Clearance = ({ clearance }) => (
   <Row className={clearance + ' clearance-lvl'}>
-    <Row>{clearance.toUpperCase()}</Row>
+    <h2>{clearance.toUpperCase()}</h2>
   </Row>
 );
 

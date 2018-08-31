@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Grid } from 'react-bootstrap';
 
 import socket from '../socket';
 import Welcome from '../views/login/welcome';
@@ -100,23 +101,28 @@ class Login extends React.Component {
 
   render() {
     const user = this.state;
-    return user.loggedIn ? (
-      <Dashboard
-        game={user.game}
-        newGame={user.newGameCode}
-        clearance={user.clearanceLevel}
-        losses={user.losses}
-        username={user.username}
-        wins={user.wins}
-        photo={user.photo}
-        handleChange={this.handleChange.bind(this)}
-        handleSubmit={this.handleSubmit.bind(this)}
-        setNumOfPlayers={this.setNumOfPlayers.bind(this)}
-        handleCreateGame={this.handleCreateGame.bind(this)}
-        activatePal={this.activatePal.bind(this)}
-      />
-    ) : (
-      <Welcome />
+    return (
+      <Grid className="login">
+        {user.loggedIn ? (
+          <Dashboard
+            game={user.game}
+            gamesPlayed={user.gamesPlayed}
+            newGame={user.newGameCode}
+            clearance={user.clearanceLevel}
+            losses={user.losses}
+            username={user.username}
+            wins={user.wins}
+            photo={user.photo}
+            handleChange={this.handleChange.bind(this)}
+            handleSubmit={this.handleSubmit.bind(this)}
+            setNumOfPlayers={this.setNumOfPlayers.bind(this)}
+            handleCreateGame={this.handleCreateGame.bind(this)}
+            activatePal={this.activatePal.bind(this)}
+          />
+        ) : (
+          <Welcome />
+        )}
+      </Grid>
     );
   }
 }

@@ -1,62 +1,57 @@
 import React from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Row, Col, Image, Media } from 'react-bootstrap';
 
-import Header from '../game/shared/header';
 import Clearance from './clearance';
 import JoinGame from './joinGame';
 import StartGame from './startGame';
 import Logout from './logout';
+import id from '../../images/id_bg.png';
 
 const Dashboard = ({
-  game,
-  username,
-  wins,
-  losses,
+  activatePal,
   clearance,
+  game,
+  gamesPlayed,
   handleChange,
   handleSubmit,
-  setNumOfPlayers,
+  losses,
   newGame,
-  activatePal,
+  photo,
+  setNumOfPlayers,
+  username,
+  wins,
 }) => (
-  <Grid>
-    <br />
-    <Row>
-      <Header />
-    </Row>
-    <br />
-    <Row>
-      <Col md={2} />
-      <Col md={8}>
-        <Row>
-          <ListGroup>
-            <ListGroupItem>
-              <Clearance clearance={clearance} />
-            </ListGroupItem>
-            <ListGroupItem>
-              Username:
-              {username}
-            </ListGroupItem>
-            <ListGroupItem>
-              Wins:
-              {wins}
-            </ListGroupItem>
-            <ListGroupItem>
-              Losses:
-              {losses}
-            </ListGroupItem>
-          </ListGroup>
+  <Grid className="dashboard">
+    <Col md={2} xs={0} />
+    <Col md={8} xs={12} className="user-id-card">
+      <Row>
+        <Row className="user-id-card">
+          <Image src={id} />
         </Row>
-      </Col>
-      <Col md={2} />
-    </Row>
-    <Row>
-      <Col md={1} />
-      <Col md={5}>
+        <Row>
+          <Col md={1} />
+          <Col md={10}>
+            <Clearance clearance={clearance} />
+            <Media className="user-info">
+              <Media.Left align="middle">
+                <img width={300} height={300} src={photo} alt="thumbnail" />
+              </Media.Left>
+              <Media.Body>
+                <h3>Name: {username}</h3>
+                <h3>Games Played: {gamesPlayed}</h3>
+                <h3>Wins: {wins}</h3>
+                <h3>losses: {losses}</h3>
+              </Media.Body>
+            </Media>
+          </Col>
+          <Col md={1} />
+        </Row>
+      </Row>
+      <Row className="start-game">
         {newGame ? (
           <Row>
-            Game Code:
-            {newGame}
+            <br />
+            <h4 className="game-code">Game Code: {newGame}</h4>
           </Row>
         ) : (
           <StartGame
@@ -64,19 +59,20 @@ const Dashboard = ({
             setNumOfPlayers={setNumOfPlayers}
           />
         )}
-      </Col>
-      <Col md={5}>
+      </Row>
+      <Row className="join-game">
         <JoinGame
           game={game}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
         />
-      </Col>
-      <Col md={1} />
-    </Row>
+      </Row>
+      <Row className="logout">
+        <Logout />
+      </Row>
+    </Col>
+    <Col md={2} xs={0} />
     <br />
-    <br />
-    <Logout />
   </Grid>
 );
 

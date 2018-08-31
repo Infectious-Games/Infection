@@ -14,6 +14,16 @@
 }
 .clearance-lvl {
   color: black;
+  font-family: monospace;
+  top: -1140px;
+  left: 48px;
+  position: absolute;
+  width: 90%;
+}
+.user-info {
+  position: absolute;
+  top: -1046px;
+  left: 48px;
 }
 .unclassified {
   background-color: yellow;
@@ -45,6 +55,9 @@
 
 .undecided {
   background-color: grey;
+}
+.game-code {
+  color: black;
 }
 
 .game-footer {
@@ -136,4 +149,37 @@
 }
 .appreciated {
   top: 50%;
+}
+.user-details {
+  color: orange;
+}
+/* .user-id-card {
+  position: absolute;
+  top: 10px;
+  left: 48px;
+} */
+/* .dashboard {
+  background-color: grey;
+  height: 100%;
+  width: 100%;
+} */
+/* .login {
+  height: 100%;
+  width: 100%;
+} */
+.logout {
+  background-color: aqua;
+  top: 917px;
+  left: 231px;
+  position: absolute;
+}
+.join-game {
+  top: 800px;
+  left: 91px;
+  position: absolute;
+}
+.start-game {
+  top: 624px;
+  left: 145px;
+  position: absolute;
 }
