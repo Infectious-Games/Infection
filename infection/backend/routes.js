@@ -25,16 +25,15 @@ module.exports = app => {
   app.post('/start', (req, res) => {
     // Take player count from body and use it to create game instance
     const { body } = req;
-    const { playerCount } = body;
     // Send join code (unique game id) back to client
-    db.createGameAndGetJoinCode(playerCount, joinCode => {
+    db.createGameAndGetJoinCode(body, joinCode => {
       res.json(joinCode);
     });
   });
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
-    db.updateUserStats(body, (data) => {
+    db.updateUserStats(body, data => {
       res.json(data);
     });
   });
@@ -45,8 +44,7 @@ module.exports = app => {
   //     res.json(data);
   //   });
   // });
-  
-  //////////////////////////////////////////////////////
+
   // Passport
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());

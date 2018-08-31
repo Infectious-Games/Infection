@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
+
 dotenv.load();
 
 const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {});
@@ -22,9 +23,10 @@ const User = db.define('User', {
   email: Sequelize.STRING,
 });
 
-//game schema
+// game schema
 const Game = db.define('game', {
   numberOfPlayers: Sequelize.INTEGER,
+  pal3000Active: Sequelize.BOOLEAN,
   winner: Sequelize.STRING,
   results: {
     type: Sequelize.STRING,
@@ -38,9 +40,9 @@ const Game = db.define('game', {
   },
 });
 
-Game.sync({force: false})
+Game.sync({ force: false })
   .then(game => {
-    console.log('game model created in db');
+    // console.log('game model created in db');
   })
   .catch(err => {
     console.error(err);
@@ -56,16 +58,17 @@ const findOrCreateUser = (profile, callback) => {
       wins: 0,
       losses: 0,
       clearanceLevel: 'unclassified',
-      photo: photo,
+      photo,
       email: '',
-    }
-  })
-    .spread((user, created) => {
-      console.log(user.get({
-        plain: true
-      }));
-      callback(user);
-    });
+    },
+  }).spread((user, created) => {
+    console.log(
+      user.get({
+        plain: true,
+      })
+    );
+    callback(user);
+  });
 };
 
 // Add PAL3000 to the db
@@ -78,29 +81,38 @@ User.findOrCreate({
     clearanceLevel: 'unclassified',
     photo: '',
     email: '',
-  }
-})
-  .spread((user, created) => {
-    console.log(user.get({
-      plain: true
-    }));
-    console.log('PAL3000 added to the db:', created, ', false = already in db');
+  },
+}).spread((user, created) => {
+  console.log(user.get({
+      plain: true,
+    })
+  );
+  console.log('PAL3000 added to the db:', created, ', false = already in db');
+});
+
+const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, cb) => {
+  // grab user id to pass into game
+  Game.create({ numberOfPlayers: playerCount, pal3000Active })
+    .then(game => {
+      cb(game.get('id'));
+    })
+    .catch(err => {
+      console.error(err);
+    });
+};
+
+const palActive = (id, callback) => {
+  Game.find({
+    where: {
+      id,
+    },
+  }).then(game => {
+    // console.log(game, 'game db 115');
+    callback(game.pal3000Active);
   });
+};
 
-const createGameAndGetJoinCode = (count, cb) => {
-  //grab user id to pass into game
-  Game
-  .create({ numberOfPlayers: count })
-  .then(game => {
-    console.log(game.get('id'), 'game id');
-    cb(game.get('id'));
-  })
-  .catch(err => {
-    console.error(err);
-  })
-}
-
-const clearanceLevels = (wins) => {
+const clearanceLevels = wins => {
   if (wins < 10) {
     return 'unclassified';
   } else if (wins > 9 && wins < 20) {
@@ -115,7 +127,7 @@ const clearanceLevels = (wins) => {
 };
 
 // update user stats
-const updateUserStats = ({win, username}, callback) => {
+const updateUserStats = ({ win, username }, callback) => {
   // check for win or loss
   const result = win ? 'wins' : 'losses';
   // create array of attributes to increment
@@ -123,8 +135,8 @@ const updateUserStats = ({win, username}, callback) => {
   // find user
   User.find({ where: { username } })
     // increment fields
-    .then((user) => user.increment(toIncrement))
-    .then((user) => {
+    .then(user => user.increment(toIncrement))
+    .then(user => {
       const wins = user.wins;
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
@@ -132,7 +144,7 @@ const updateUserStats = ({win, username}, callback) => {
     })
     .then(() => User.find({ where: { username } }))
     // return the updated user
-    .then((user) => callback(user));
+    .then(user => callback(user));
 };
 
 // get user stats
@@ -140,12 +152,16 @@ const getUserStats = ({ username }, callback) => {
   // find user
   User.find({ where: { username } })
     // return the user
-    .then((user) => callback(user))
+    .then(user => callback(user));
 };
 
 // drop the db
 // User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
+//   console.log('USER DATABASE DROPPED');
+// });
+
+// Game.sync({ force: true }).then(() => {
+//   console.log('GAME DATABASE DROPPED');
 // });
 
 module.exports = {
@@ -155,5 +171,6 @@ module.exports = {
   getUserStats,
   db,
   User,
-  Game
+  Game,
+  palActive,
 };
