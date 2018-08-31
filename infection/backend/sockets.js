@@ -38,6 +38,7 @@ const log = console.log;
 module.exports = server => {
   const io = sockets(server);
   let playerCount;
+  let dbGameID;
   let proposalResults = [];
   let pal3000;
   let roster;
@@ -45,12 +46,13 @@ module.exports = server => {
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
       const { game } = playerProps;
-      console.log(game, 'game ID');
-      playerCount = gameRooms[game];
+      playerCount = gameRooms[game][playerCount];
+      dbGameID = gameRooms[game].dbGameID;
       const { username } = playerProps;
       socket.game = game;
       socket.username = username;
-      db.palActive(game, palActive => {
+
+      db.palActive(dbGameID, palActive => {
         // if PAL3000 is active and has not already been added
         if (palActive && !pal3000) {
         // add PAL to the game
@@ -60,7 +62,6 @@ module.exports = server => {
         }
       });
       store.dispatch(newUser(game, username, socket.id));
-      console.log(store.getState().users[socket.game].users, 'line 58');
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
