@@ -26,15 +26,22 @@ module.exports = app => {
     // Take player count from body and use it to create game instance
     const { body } = req;
     const { playerCount } = body;
-    db.createGame(playerCount);
-    // Send join code (unique game id) back to client
     // check for empty games in store, return that game room;
     const joinCodes = Object.keys(store.getState().users).filter(
       gameName => store.getState().users[gameName].users.length === 0
     );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
-    gameRooms[joinCode] = playerCount; // TODO: reset at end of game
+    db.createGameAndGetJoinCode(body, gameId => gameId)
+      .then(gameId => {
+        return gameId;
+      })
+      .then(gameId => {
+        gameRooms[joinCode] = Object.assign({}, gameRooms[joinCode], {
+          playerCount,
+          dbGameID: gameId,
+        }); // TODO: reset at end of game
+      });
     res.json(joinCode);
   });
   // Update user's stats in the db
