@@ -1,7 +1,8 @@
 import React from 'react';
-import socket from '../socket';
 import axios from 'axios';
 import { Grid } from 'react-bootstrap';
+
+import socket from '../socket';
 import Welcome from '../views/login/welcome';
 import Dashboard from '../views/login/dashboard';
 
@@ -96,32 +97,27 @@ class Login extends React.Component {
     this.handleCreateGame(num);
   }
 
-  // getUserStats = () => {
-  //   const username = this.state.username;
-  //   axios.get('/userStats', {
-  //     params: { username },
-  //   }).then((response) => {
-  //     console.log(response, 'response from getUserStats in login');
-  //   })
-  // }
-
   activatePal() {
     console.log('activate Pal3000');
-    this.setState({ pal3000Active: true });
+    this.setState({ pal3000Active: !this.state.pal3000Active }, () =>
+      console.log(this.state.pal3000Active, 'this.state.pal3000Active')
+    );
   }
 
   render() {
     const user = this.state;
     return (
-      <Grid>
+      <Grid className="login">
         {user.loggedIn ? (
           <Dashboard
             game={user.game}
+            gamesPlayed={user.gamesPlayed}
             newGame={user.newGameCode}
             clearance={user.clearanceLevel}
             losses={user.losses}
             username={user.username}
             wins={user.wins}
+            photo={user.photo}
             handleChange={this.handleChange.bind(this)}
             handleSubmit={this.handleSubmit.bind(this)}
             setNumOfPlayers={this.setNumOfPlayers.bind(this)}

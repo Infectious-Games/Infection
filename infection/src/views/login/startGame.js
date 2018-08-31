@@ -1,46 +1,52 @@
 import React from 'react';
-import { Button, ButtonGroup, ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
+import {
+  Button,
+  ButtonGroup,
+  Row,
+  Image,
+  ToggleButton,
+  ToggleButtonGroup,
+  Col,
+} from 'react-bootstrap';
 
-const StartGame = ({ setNumOfPlayers, activatePal }) =>
-  <Grid>
-    <Row>
-      <Col md={5}>
-        <Row>
-          <h4>START A GAME</h4>
-        </Row>
-        <Row>
-          <h5>Select The Number Of Players For Your Game</h5>
-        </Row>
-      </Col>
-    </Row>
-    <Row>
-      <Col md={1}></Col>
-      <Col md={3}>
-        <ButtonToolbar>
-            <ButtonGroup>
-              {[4, 5, 6, 7, 8, 9, 10].map(num => 
-                <Button
-                  onClick={()=> setNumOfPlayers(num)}
-                  key={num}
-                  active
-                >{num}</Button>)}
-            </ButtonGroup>
-        </ButtonToolbar>
-        <br></br>
-        <Row>
-          <Col md={1}>
-            <Button
-            onClick={() => activatePal()}
-            active
-            >
-              Pal3k
-            </Button>
-          </Col>
-          <Col md={2}></Col>
-        </Row>
-      </Col>
-      <Col md={1}></Col>
-    </Row>
-  </Grid>
+import sparky from '../../images/sparky.png';
+
+const StartGame = ({ setNumOfPlayers, activatePal }) => (
+  <Row>
+    <h4>
+      <b>START A GAME</b>
+    </h4>
+    <h6 className="lesser">Select The Number Of Players For Your Game</h6>
+    <ButtonGroup>
+      {[4, 5, 6, 7, 8, 9, 10].map(num => (
+        <Button onClick={() => setNumOfPlayers(num)} key={num} active>
+          {num}
+        </Button>
+      ))}
+      <br />
+      <Row>
+        <Col md={3} />
+        <Col md={6}>
+          <ToggleButtonGroup
+            align="middle"
+            type="checkbox"
+            defaultValue={[1, 3]}
+          >
+            <ToggleButton name="image" value="none">
+              <div className="sparky-container zoom">
+                <Image onClick={activatePal} src={sparky} height={35} />
+              </div>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Col>
+        <Col md={3} />
+      </Row>
+    </ButtonGroup>
+    <br />
+    <h6 className="sparky-text">
+      <b>Click on Sparky to activate AI</b>
+    </h6>
+  </Row>
+);
 
 export default StartGame;
