@@ -4,7 +4,7 @@ import { Image, Row, Col } from 'react-bootstrap';
 import scientist from '../../../images/scientist1.png';
 
 const ScientistsWin = () => (
-  <Row className="scientist-win">
+  <Row className="scientist-win" container-fluid>
     <br />
     <h1>The Scientists Have Prevailed</h1>
     <br />

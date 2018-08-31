@@ -4,7 +4,7 @@ import { Image, Row, Col } from 'react-bootstrap';
 import infiltratorsWin from '../../../images/gasmask-alt-2.png';
 
 const InfiltratorsWin = () => (
-  <Row className="infiltrators-win">
+  <Row className="infiltrators-win" container-fluid>
     <br />
     <h1>The Infiltrators Have Won</h1>
     <br />
@@ -12,8 +12,8 @@ const InfiltratorsWin = () => (
       <Col md={4} xs={2} />
       <Col md={4} xs={8}>
         <Image
-          width={125}
-          height={150} //if setting dimsions image cannot be responsive
+          // width={125}
+          // height={150} // if setting dimsions image cannot be responsive
           src={infiltratorsWin}
           responsive
         />
