@@ -16,11 +16,8 @@ const Welcome = () => (
     <Row>
       <Col md={2} />
       <Col md={8}>
-        <h1 className="welcome">Welcome to the team!</h1>
-        <p>
-          Our mission is to stop infectious outbreaks threatening the United
-          States
-        </p>
+        <h1 className="welcome">Welcome to the Team</h1>
+        <h4>OUR MISSION : STOP INFECTIOUS OUTBREAKS</h4>
       </Col>
       <Col md={2} />
     </Row>

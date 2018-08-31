@@ -99,7 +99,9 @@ class Login extends React.Component {
 
   activatePal() {
     console.log('activate Pal3000');
-    this.setState({ pal3000Active: true });
+    this.setState({ pal3000Active: !this.state.pal3000Active }, () =>
+      console.log(this.state.pal3000Active, 'this.state.pal3000Active')
+    );
   }
 
   render() {
