@@ -13,7 +13,10 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
   <Row>
     <Col xs={3} />
     <Col xs={6}>
-      <ControlLabel>JOIN A GAME</ControlLabel>
+      <h4>
+        <b>JOIN A GAME</b>
+      </h4>
+      {/* <ControlLabel>JOIN A GAME</ControlLabel> */}
       <Form className="login" inline>
         <FormGroup controlId="formInlineName">
           <FormControl
@@ -28,7 +31,7 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
             type="submit"
             bsStyle="success"
             onClick={handleSubmit}
-            // bsSize="large"
+            bsSize="small"
           >
             Enter Game
           </Button>
