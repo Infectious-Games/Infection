@@ -6,6 +6,7 @@ import {
   Image,
   ToggleButton,
   ToggleButtonGroup,
+  Col,
 } from 'react-bootstrap';
 
 import sparky from '../../images/sparky.png';
@@ -22,9 +23,24 @@ const StartGame = ({ setNumOfPlayers, activatePal }) => (
           {num}
         </Button>
       ))}
-      <div className="sparky-container zoom">
-        <Image onClick={activatePal} src={sparky} height={35} />
-      </div>
+      <br />
+      <Row>
+        <Col md={3} />
+        <Col md={6}>
+          <ToggleButtonGroup
+            align="middle"
+            type="checkbox"
+            defaultValue={[1, 3]}
+          >
+            <ToggleButton name="image" value="none">
+              <div className="sparky-container zoom">
+                <Image onClick={activatePal} src={sparky} height={35} />
+              </div>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Col>
+        <Col md={3} />
+      </Row>
     </ButtonGroup>
     <br />
     <h6 className="sparky-text">
