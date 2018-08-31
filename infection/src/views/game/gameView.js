@@ -27,11 +27,12 @@ const GameView = ({
           rosterUnapproved={game.rosterUnapproved}
           leaderSubmitRoster={game.leaderSubmitRoster}
         />
+        <br />
       </Col>
       <Col md={5} />
     </Row>
-    <br />
-    <Row className="game-view">
+    <Row className="game-view" container-fluid>
+      <br />
       <Col md={2} />
       <Col md={8} xs={12} className="game-view-col">
         {!game.teamAssembled ? (
@@ -56,7 +57,9 @@ const GameView = ({
             username={game.username}
           />
         ) : !game.gameOver ? (
-          <MissionResults result={game.missionResults[game.round - 1]} />
+          <Row>
+            <MissionResults result={game.missionResults[game.round - 1]} />
+          </Row>
         ) : (
           <GameOver infiltratorsWin={game.infiltratorsWin} />
         )}
@@ -64,7 +67,11 @@ const GameView = ({
       <Col md={2} />
     </Row>
     <Row>
-      <br />
+      <Col md={4} />
+      <Col md={4}>
+        <GameStatus missionResults={game.missionResults} />
+      </Col>
+      <Col md={4} />
     </Row>
     <Row className="game-footer">
       <Col md={3} xs={0} />
@@ -76,10 +83,13 @@ const GameView = ({
         ) : (
           <div />
         )}
-        <GameStatus missionResults={game.missionResults} />
+        {/* <GameStatus missionResults={game.missionResults} /> */}
       </Col>
       <Col md={3} xs={0} />
     </Row>
+    <br />
+    <br />
+    <br />
   </Grid>
 );
 
