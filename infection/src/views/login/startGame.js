@@ -1,5 +1,12 @@
 import React from 'react';
-import { Button, ButtonGroup, Row, Image } from 'react-bootstrap';
+import {
+  Button,
+  ButtonGroup,
+  Row,
+  Image,
+  ToggleButton,
+  ToggleButtonGroup,
+} from 'react-bootstrap';
 
 import sparky from '../../images/sparky.png';
 
@@ -13,7 +20,11 @@ const StartGame = ({ setNumOfPlayers, activatePal }) => (
           {num}
         </Button>
       ))}
-      <Image onClick={activatePal} src={sparky} height={30} />
+      <ToggleButtonGroup type="checkbox" defaultValue={[1, 3]}>
+        <ToggleButton name="image" value="none">
+          <Image onClick={activatePal} src={sparky} height={30} />
+        </ToggleButton>
+      </ToggleButtonGroup>
     </ButtonGroup>
     <br />
     <h6>Click on Sparky to activate AI</h6>

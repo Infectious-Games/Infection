@@ -105,7 +105,7 @@ module.exports = server => {
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
-        }, 15000);
+        }, 25000);
       };
       Game.find({ where: { id: game } })
         .then(game => {
