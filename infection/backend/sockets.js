@@ -46,7 +46,7 @@ module.exports = server => {
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
       const { game } = playerProps;
-      playerCount = gameRooms[game][playerCount];
+      playerCount = gameRooms[game].playerCount;
       dbGameID = gameRooms[game].dbGameID;
       const { username } = playerProps;
       socket.game = game;
