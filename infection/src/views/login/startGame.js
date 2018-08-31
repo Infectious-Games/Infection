@@ -5,18 +5,24 @@ import sparky from '../../images/sparky.png';
 
 const StartGame = ({ setNumOfPlayers, activatePal }) => (
   <Row>
-    <h4>START A GAME</h4>
-    <h6>Select The Number Of Players For Your Game</h6>
+    <h4>
+      <b>START A GAME</b>
+    </h4>
+    <h6 className="lesser">Select The Number Of Players For Your Game</h6>
     <ButtonGroup>
       {[4, 5, 6, 7, 8, 9, 10].map(num => (
         <Button onClick={() => setNumOfPlayers(num)} key={num} active>
           {num}
         </Button>
       ))}
-      <Image onClick={activatePal} src={sparky} height={30} />
+      <div className="sparky-container zoom">
+        <Image onClick={activatePal} src={sparky} height={35} />
+      </div>
     </ButtonGroup>
     <br />
-    <h6>Click on Sparky to activate AI</h6>
+    <h6 className="sparky-text">
+      <b>Click on Sparky to activate AI</b>
+    </h6>
   </Row>
 );
 
