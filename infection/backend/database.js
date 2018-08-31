@@ -31,6 +31,7 @@ const User = db.define('User', {
 // game schema
 const Game = db.define('game', {
   numberOfPlayers: Sequelize.INTEGER,
+  pal3000Active: Sequelize.BOOLEAN,
   winner: Sequelize.STRING,
   results: {
     type: Sequelize.STRING,
@@ -46,7 +47,7 @@ const Game = db.define('game', {
 
 Game.sync({ force: false })
   .then(game => {
-    console.log(game, 'game model created in db');
+    // console.log('game model created in db');
   })
   .catch(err => {
     console.error(err);
@@ -98,10 +99,17 @@ User.findOrCreate({
   console.log('PAL3000 added to the db:', created, ', false = already in db');
 });
 
-const createGame = count => {
+const createGame = ({ playerCount, pal3000Active }) => {
   // grab user id to pass into game
-  Game.create({ numberOfPlayers: count }).catch(err => {
+  Game.create({ numberOfPlayers: playerCount, pal3000Active }).catch(err => {
     console.error(err);
+  });
+};
+
+const palActive = (id, callback) => {
+  Game.find({ where: { id } }).then(game => {
+    // console.log(game, 'game db 115');
+    callback(game.pal3000Active);
   });
 };
 
@@ -150,7 +158,11 @@ const getUserStats = ({ username }, callback) => {
 
 // drop the db
 // User.sync({ force: true }).then(() => {
-//   console.log('DATABASE DROPPED');
+//   console.log('USER DATABASE DROPPED');
+// });
+
+// Game.sync({ force: true }).then(() => {
+//   console.log('GAME DATABASE DROPPED');
 // });
 
 module.exports = {
@@ -161,4 +173,5 @@ module.exports = {
   db,
   User,
   Game,
+  palActive,
 };

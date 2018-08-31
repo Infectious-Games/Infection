@@ -38,10 +38,10 @@ const infiltratorRoundWin = (
 });
 
 const restartGame = (
-  gameID, 
-  round, 
-  scientistWins, 
-  infiltratorWins, 
+  gameID,
+  round,
+  scientistWins,
+  infiltratorWins,
   failCount
 ) => ({
   type: RESTART_GAME,
@@ -54,9 +54,9 @@ const restartGame = (
 
 const incrementFail = (
   gameID,
-  round, 
-  scientistWins, 
-  infiltratorWins, 
+  round,
+  scientistWins,
+  infiltratorWins,
   failCount
 ) => ({
   type: INCREMENT_FAIL,
@@ -69,9 +69,9 @@ const incrementFail = (
 
 const resetFail = (
   gameID,
-  round, 
-  scientistWins, 
-  infiltratorWins, 
+  round,
+  scientistWins,
+  infiltratorWins,
   failCount
 ) => ({
   type: RESET_FAIL,
@@ -84,9 +84,9 @@ const resetFail = (
 
 const incrementRound = (
   gameID,
-  round, 
-  scientistWins, 
-  infiltratorWins, 
+  round,
+  scientistWins,
+  infiltratorWins,
   failCount
 ) => ({
   type: INCREMENT_ROUND,

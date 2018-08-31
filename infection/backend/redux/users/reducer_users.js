@@ -9,7 +9,6 @@ const users = (state = initialState, action) => {
   const newState = Object.assign({}, state); // object containing all game objects, each with an array of users
   switch (action.type) {
     // When new user joins the room, create a new array of users with the new user
-    /* eslint-disable */
     case ADD_NEW_USER:
       newState[action.gameID].users.push({
         gameID: action.gameID,
@@ -21,9 +20,9 @@ const users = (state = initialState, action) => {
       return newState;
     case ASSIGN_ROLES:
       // Determine appropriate number of infiltrators
-      const infiltratorCount = ~~(state[action.gameID].users.length * .44);
+      const infiltratorCount = ~~(state[action.gameID].users.length * 0.44);
       // Shuffle users for assignment
-      const arrayShuffled = (array) => {
+      const arrayShuffled = array => {
         for (let i = array.length - 1; i > 0; i--) {
           let j = ~~(Math.random() * (i + 1));
           let temp = array[i];
@@ -39,13 +38,13 @@ const users = (state = initialState, action) => {
           user.infiltrator = true;
         } else {
           user.infiltrator = false;
-        } return user;
-      }
-      );
+        }
+        return user;
+      });
       newState[action.gameID].users = updated;
       return newState;
-      
-    case RESET_USERS: 
+
+    case RESET_USERS:
       newState[action.gameID].users = [];
       return newState;
     // By default, return current state
@@ -55,4 +54,3 @@ const users = (state = initialState, action) => {
 };
 
 module.exports = users;
-

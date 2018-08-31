@@ -1,61 +1,64 @@
 .App,
 .game {
+  font-family: 'Metrophobic', sans-serif;
   text-align: center;
   background-color: rgb(24, 23, 23);
-  color: #eb410d;
+  color: #e24b1dbd;
   height: 100%;
   width: 100%;
 }
-
 .welcome,
 .game .list-group-item {
-  color: #eb410d;
+  color: #e24b1dbd;
   background-color: rgb(24, 23, 23);
 }
 .clearance-lvl {
   color: black;
+  font-family: monospace;
+  top: -1140px;
+  left: 48px;
+  position: absolute;
+  width: 90%;
+}
+.user-info {
+  position: absolute;
+  color: black;
+  top: -23px;
+  left: 5px;
+  text-align: left;
 }
 .unclassified {
   background-color: yellow;
 }
-
 .confidential {
   background-color: #76b041;
 }
-
 .secret {
   background-color: blue;
 }
-
 .top-secret {
   background-color: red;
 }
-
 .illuminati {
   background-color: indigo;
 }
-
 .success {
   background-color: #76b041;
 }
-
 .fail {
   background-color: red;
 }
-
 .undecided {
   background-color: grey;
 }
-
+.game-code {
+  color: black;
+}
 .game-footer {
   /* background-color: blueviolet; */
   height: 10%;
   width: 100%;
 }
-/* .gs-first-col-btn-row {
-  width: 1000;
-  background-color: yellow;
-} */
 .game-header {
   width: 100%;
   height: 7%;
@@ -68,7 +71,6 @@
 .leave-game {
   top: 100;
 }
-
 .game-view {
   /* background-color: gray; */
   width: 100%;
@@ -80,14 +82,15 @@
   /* background-color: blanchedalmond; */
 }
 .mission-fail-h {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Anonymous Pro', monospace;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
   font-size: 6rem;
 }
 .mission-fail {
-  background-color: #eb410d;
+  background-color: #e24b1dbd;
   height: 100%;
 }
 
@@ -95,9 +98,9 @@
   background-color: #76b041;
   height: 100%;
 }
-
 .mission-success-h {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Anonymous Pro', monospace;
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
@@ -105,38 +108,139 @@
   font-size: 6rem;
 }
 .scientist {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .scientist-title {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-  color: rgb(14, 124, 214);
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
+  /* 'Lucida Sans', Arial, sans-serif; */
+  color: #3e92cc;
 }
 .scientist-win {
   background-color: white;
   height: 100%;
 }
 .infiltrator {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .infiltrator-title {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif;
-  color: #eb410d;
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
+  /* 'Lucida Sans', Arial, sans-serif; */
+  color: #e24b1dbd;
 }
 .infiltrator-list-entry {
-  color: #eb410d;
+  color: #e24b1dbd;
   font-weight: 900;
 }
 .infiltrators-win {
-  font-family: fantasy;
+  /* font-family: 'Neucha', cursive; */
+  font-family: 'Metrophobic', sans-serif;
+  /* font-family: fantasy; */
 }
 .appreciated {
   top: 50%;
+}
+.user-details {
+  color: orange;
+}
+/* .user-id-card {
+  position: absolute;
+  top: 10px;
+  left: 48px;
+} */
+
+/* .dashboard {
+  background-color: grey;
+  height: 100%;
+  width: 100%;
+} */
+/* .login {
+  height: 100%;
+  width: 100%;
+} */
+.logout {
+  background-color: #3e92cc;
+  top: 917px;
+  left: 231px;
+  position: absolute;
+}
+.join-game {
+  top: 429px;
+  left: 40px;
+  position: absolute;
+}
+.start-game {
+  top: 270px;
+  left: 99px;
+  position: absolute;
+}
+.player-info {
+  top: 140px;
+  left: 99px;
+  position: absolute;
+}
+.lesser {
+  color: black;
+}
+.sparky-text {
+  color: black;
+}
+.clearance {
+  position: absolute;
+  top: 1074px;
+  left: -17px;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+.sparky-container:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }

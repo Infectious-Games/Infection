@@ -1,12 +1,10 @@
 import React from 'react';
 import { Row } from 'react-bootstrap';
 
-const Clearance = ({ clearance }) => {
-  return <Row
-    className={clearance + ' clearance-lvl'}
-  >{clearance.toUpperCase()} CLEARANCE LEVEL</Row>
-      
-
-}
+const Clearance = ({ clearance }) => (
+  <Row className={`${clearance} clearance-lvl`}>
+    <h2>{clearance.toUpperCase()}</h2>
+  </Row>
+);
 
 export default Clearance;

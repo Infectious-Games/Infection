@@ -52,7 +52,6 @@ module.exports = app => {
   //   });
   // });
 
-  // ////////////////////////////////////////////////////
   // Passport
   app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
