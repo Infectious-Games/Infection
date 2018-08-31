@@ -9,12 +9,10 @@ const Scientist = () => (
     <h4>YOU'VE BEEN ADDED TO THE TASK FORCE</h4>
     <Col md={4} xs={2} fluid-container />
     <Col md={4} xs={8} fluid-container>
-      <Image src={scientist} responsive />
-      <h2 className="scientist-title" responsive>
-        SCIENTIST
-      </h2>
-      <h4 responsive>YOUR OBJECTIVES:</h4>
-      <ul responsive>
+      <Image src={scientist} responsive class="img-responsive center-block" />
+      <h2 className="scientist-title">SCIENTIST</h2>
+      <h4>YOUR OBJECTIVES:</h4>
+      <ul>
         <li>Administer Cure</li>
         <li>Contain Outbreaks</li>
         <li>Uncover Infiltrators</li>

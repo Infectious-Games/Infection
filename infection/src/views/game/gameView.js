@@ -31,7 +31,7 @@ const GameView = ({
       </Col>
       <Col md={5} />
     </Row>
-    <Row className="game-view" container-fluid>
+    <Row className="game-view">
       <br />
       <Col md={2} />
       <Col md={8} xs={12} className="game-view-col">

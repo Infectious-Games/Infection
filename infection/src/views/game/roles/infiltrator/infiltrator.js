@@ -12,10 +12,11 @@ const Infiltrator = ({ infiltrators }) => (
     <Col md={4} xs={2} />
     <Col md={4} xs={8}>
       <Image
-        width={150}
-        height={175} // if setting dimsions image cannot be responsive
+        // width={150}
+        // height={175} // if setting dimsions image cannot be responsive
         src={infiltrator}
-        // responsive
+        responsive
+        class="img-responsive center-block"
       />
       <h2 className="infiltrator-title">INFILTRATOR</h2>
       <h5>YOUR OBJECTIVES:</h5>

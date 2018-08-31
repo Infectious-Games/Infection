@@ -12,30 +12,31 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         ))}
       </ListGroup>
       <h3>Do you approve?</h3>
-      <Row>
+      {/* <Row>
         <Col sm={5} />
-        <Col sm={2}>
-          <Button
-            onClick={() => handleRosterVote('YES')}
-            bsSize="large"
-            bsStyle="success"
-            block
-          >
-            YES
-          </Button>
-          {/* <Row>---OR---</Row> */}
-          <br />
-          <Button
-            onClick={() => handleRosterVote('NO')}
-            bsSize="large"
-            bsStyle="danger"
-            block
-          >
-            NO
-          </Button>
-        </Col>
+      <Col sm={2}> */}
+      <Button
+        onClick={() => handleRosterVote('YES')}
+        bsSize="large"
+        bsStyle="success"
+        // block
+      >
+        YES
+      </Button>
+      {/* <Row>---OR---</Row> */}
+      <br />
+      <br />
+      <Button
+        onClick={() => handleRosterVote('NO')}
+        bsSize="large"
+        bsStyle="danger"
+        // block
+      >
+        NO
+      </Button>
+      {/* </Col>
         <Col sm={5} />
-      </Row>
+      </Row> */}
     </Col>
     <Col md={4} />
   </Row>
