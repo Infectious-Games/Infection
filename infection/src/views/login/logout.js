@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 
 const Logout = () => (
-  <Button href="/logout" bsStyle="info" active>
+  <Button href="/logout" bsStyle="info" bsSize="medium" active>
     Logout
   </Button>
 );

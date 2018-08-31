@@ -7,7 +7,6 @@
   height: 100%;
   width: 100%;
 }
-
 .welcome,
 .game .list-group-item {
   color: #e24b1dbd;
@@ -23,51 +22,43 @@
 }
 .user-info {
   position: absolute;
-  top: -1046px;
-  left: 48px;
+  color: black;
+  top: -23px;
+  left: 5px;
   text-align: left;
 }
 .unclassified {
   background-color: yellow;
 }
-
 .confidential {
   background-color: #76b041;
 }
-
 .secret {
   background-color: blue;
 }
-
 .top-secret {
   background-color: red;
 }
-
 .illuminati {
   background-color: indigo;
 }
-
 .success {
   background-color: #76b041;
 }
-
 .fail {
   background-color: red;
 }
-
 .undecided {
   background-color: grey;
 }
 .game-code {
   color: black;
 }
-
 .game-footer {
   /* background-color: blueviolet; */
   height: 10%;
   width: 100%;
 }
-
 .game-header {
   width: 100%;
   height: 7%;
@@ -80,7 +71,6 @@
 .leave-game {
   top: 100;
 }
-
 .game-view {
   /* background-color: gray; */
   width: 100%;
@@ -108,7 +98,6 @@
   background-color: #76b041;
   height: 100%;
 }
-
 .mission-success-h {
   font-family: 'Anonymous Pro', monospace;
   /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
@@ -153,8 +142,8 @@
   font-weight: 900;
 }
 .infiltrators-win {
-  font-family: 'Neucha', cursive;
-  /* font-family: 'Metrophobic', sans-serif; */
+  /* font-family: 'Neucha', cursive; */
+  font-family: 'Metrophobic', sans-serif;
   /* font-family: fantasy; */
 }
 .appreciated {
@@ -168,6 +157,7 @@
   top: 10px;
   left: 48px;
 } */
+
 /* .dashboard {
   background-color: grey;
   height: 100%;
@@ -178,18 +168,79 @@
   width: 100%;
 } */
 .logout {
-  background-color: aqua;
+  background-color: #3e92cc;
   top: 917px;
   left: 231px;
   position: absolute;
 }
 .join-game {
-  top: 800px;
-  left: 91px;
+  top: 429px;
+  left: 40px;
   position: absolute;
 }
 .start-game {
-  top: 624px;
-  left: 145px;
+  top: 270px;
+  left: 99px;
   position: absolute;
+}
+.player-info {
+  top: 140px;
+  left: 99px;
+  position: absolute;
+}
+.lesser {
+  color: black;
+}
+.sparky-text {
+  color: black;
+}
+.clearance {
+  position: absolute;
+  top: 1074px;
+  left: -17px;
+}
+.container {
+  position: relative;
+  width: 50%;
+}
+.sparky-container:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
