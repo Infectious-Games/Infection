@@ -8,7 +8,6 @@ const initialState = require('./initialState_users.js');
 const users = (state = initialState, action) => {
   switch (action.type) {
     // When new user joins the room, create a new array of users with the new user
-    /* eslint-disable */
     case ADD_NEW_USER:
       return Object.assign({}, state, {
         users: state.users.concat({
@@ -17,15 +16,16 @@ const users = (state = initialState, action) => {
           socketID: action.socketID,
           infiltrator: false,
           securityOfficer: false,
-        },
-      )
-    });  
+        }),
+      });
+    /* eslint-disable */  
+    // Assign user roles. Linter disabled for lexical declarations in case block.
     case ASSIGN_ROLES:
       // Determine appropriate number of infiltrators
-      const infiltratorCount = ~~(state.users.length * .44);
-    
+      const infiltratorCount = ~~(state.users.length * 0.44);
+
       // Shuffle users for assignment
-      const arrayShuffled = (array) => {
+      const arrayShuffled = array => {
         for (let i = array.length - 1; i > 0; i--) {
           let j = ~~(Math.random() * (i + 1));
           let temp = array[i];
@@ -35,21 +35,20 @@ const users = (state = initialState, action) => {
         return array;
       };
       const shuffled = arrayShuffled(state.users);
-      
+
       // Assign infiltrator to appropriate number of infiltrators
       const updated = shuffled.map((user, index) => {
-        (index < infiltratorCount)
-          ? user.infiltrator = true
-          : user.infiltrator = false;
-        }
-      );
-    
+        index < infiltratorCount
+          ? (user.infiltrator = true)
+          : (user.infiltrator = false);
+      });
+
       return Object.assign({}, state, { updated });
 
-    case RESET_USERS: 
+    case RESET_USERS:
       return Object.assign({}, state, {
-        users: []
-      } )  
+        users: [],
+      });
     // By default, return current state
     default:
       return state;
