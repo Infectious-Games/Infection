@@ -2,7 +2,6 @@
   "appService.zipIgnorePattern": [
     "node_modules{,/**}"
   ],
-  "appService.defaultWebAppToDeploy": "/subscriptions/58bb5210-822b-42ec-a367-3031d7455f12/resourceGroups/appsvc_rg_linux_eastus/providers/Microsoft.Web/sites/Infection-App",
   "appService.deploySubpath": "",
   "cSpell.words": [
     "amazonaws",
