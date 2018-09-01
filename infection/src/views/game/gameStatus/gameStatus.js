@@ -8,7 +8,6 @@ import undecided from '../../../images/beaker-empty.png';
 
 const GameStatus = ({ missionResults }) => (
   <Row>
-    <br />
     <h4>Mission Results</h4>
     {missionResults.map((round, i) => {
       round === 'success'
@@ -16,7 +15,7 @@ const GameStatus = ({ missionResults }) => (
         : round === 'fail'
           ? (round = fail)
           : (round = undecided);
-      return <Image src={round} height={75} width={45} key={i} />;
+      return <Image src={round} height={50} width={30} key={i} />;
     })}
   </Row>
 );

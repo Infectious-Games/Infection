@@ -27,10 +27,10 @@ const GameView = ({
           rosterUnapproved={game.rosterUnapproved}
           leaderSubmitRoster={game.leaderSubmitRoster}
         />
-        <br />
       </Col>
       <Col md={5} />
     </Row>
+    <br />
     <Row className="game-view">
       <br />
       <Col md={2} />
@@ -41,7 +41,6 @@ const GameView = ({
           <Roles
             infiltrator={game.infiltrator}
             infiltrators={game.infiltrators}
-            responsive
           />
         ) : !game.missionActive ? (
           <Round
@@ -58,22 +57,14 @@ const GameView = ({
             username={game.username}
           />
         ) : !game.gameOver ? (
-          <Row>
-            <MissionResults result={game.missionResults[game.round - 1]} />
-          </Row>
+          <MissionResults result={game.missionResults[game.round - 1]} />
         ) : (
           <GameOver infiltratorsWin={game.infiltratorsWin} />
         )}
       </Col>
       <Col md={2} />
     </Row>
-    <Row>
-      <Col md={4} />
-      <Col md={4}>
-        <GameStatus missionResults={game.missionResults} />
-      </Col>
-      <Col md={4} />
-    </Row>
+    <br />
     <Row className="game-footer">
       <Col md={3} xs={0} />
       <Col md={6} xs={12}>
@@ -84,13 +75,10 @@ const GameView = ({
         ) : (
           <div />
         )}
-        {/* <GameStatus missionResults={game.missionResults} /> */}
+        <GameStatus missionResults={game.missionResults} />
       </Col>
       <Col md={3} xs={0} />
     </Row>
-    <br />
-    <br />
-    <br />
   </Grid>
 );
 
