@@ -3,7 +3,12 @@ const dotenv = require('dotenv');
 
 dotenv.load();
 
-const db = new Sequelize(`mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_URI}:3306/${process.env.DATABASE_NAME}`, {});
+const db = new Sequelize(
+  `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${
+    process.env.DATABASE_URI
+  }:3306/${process.env.DATABASE_NAME}`,
+  {}
+);
 
 db.authenticate()
   .then(() => {
@@ -50,7 +55,10 @@ Game.sync({ force: false })
 
 const findOrCreateUser = (profile, callback) => {
   const username = profile.displayName;
-  const photo = profile.photos[0].value.slice(0, profile.photos[0].value.indexOf('?'));
+  const photo = profile.photos[0].value.slice(
+    0,
+    profile.photos[0].value.indexOf('?')
+  );
   User.findOrCreate({
     where: { username },
     defaults: {
@@ -83,18 +91,22 @@ User.findOrCreate({
     email: '',
   },
 }).spread((user, created) => {
-  console.log(user.get({
+  console.log(
+    user.get({
       plain: true,
     })
   );
   console.log('PAL3000 added to the db:', created, ', false = already in db');
 });
 
-const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, cb) => {
+const createGameAndGetJoinCode = ({ playerCount, pal3000Active }) => {
   // grab user id to pass into game
-  Game.create({ numberOfPlayers: playerCount, pal3000Active })
+  // FIXME: no longer need cb
+  return Game.create({ numberOfPlayers: playerCount, pal3000Active })
     .then(game => {
-      cb(game.get('id'));
+      return new Promise((resolve, reject) => {
+        resolve(game.get('id'));
+      });
     })
     .catch(err => {
       console.error(err);
@@ -165,6 +177,7 @@ const getUserStats = ({ username }, callback) => {
 // });
 
 module.exports = {
+  // createGame,
   createGameAndGetJoinCode,
   findOrCreateUser,
   updateUserStats,

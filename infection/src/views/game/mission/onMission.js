@@ -6,40 +6,41 @@ const OnMission = ({ choose, choiceMade }) =>
     <Row>
       <h1>What Will You Do?</h1>
       <br />
-      <Col md={4} />
+      {/* <Col md={4} />
       <Col md={4}>
         <Row>
           <Col sm={4} />
           <Col sm={4}>
             <Row>
               <Col xs={1} />
-              <Col xs={10}>
-                <Button
-                  onClick={() => choose('CURE')}
-                  bsSize="large"
-                  bsStyle="success"
-                  block
-                >
-                  CURE
-                </Button>
-                {/* <Row>---OR---</Row> */}
-                <br />
-                <Button
-                  onClick={() => choose('SABOTAGE')}
-                  bsSize="large"
-                  bsStyle="danger"
-                  block
-                >
-                  SABOTAGE
-                </Button>
-              </Col>
+              <Col xs={10}> */}
+      <Button
+        onClick={() => choose('CURE')}
+        bsSize="large"
+        bsStyle="success"
+        // block
+      >
+        CURE
+      </Button>
+      {/* <Row>---OR---</Row> */}
+      <br />
+      <br />
+      <Button
+        onClick={() => choose('SABOTAGE')}
+        bsSize="large"
+        bsStyle="danger"
+        // block
+      >
+        SABOTAGE
+      </Button>
+      {/* </Col>
               <Col xs={1} />
             </Row>
           </Col>
           <Col sm={4} />
         </Row>
       </Col>
-      <Col md={4} />
+      <Col md={4} /> */}
     </Row>
   ) : (
     <Row>
