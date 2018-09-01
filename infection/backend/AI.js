@@ -16,35 +16,20 @@ class PAL3000 {
       };
       return records;
     }, {});
-    // this.playerRecords = {
-    //   player: {
-    //     name: player,
-    //     missionSuccessRate: %,
-    //     numberOfMissions: number,
-    //     numberOfSuccesses: number,
-    //   },
-    // }
-
     this.infiltrators = infiltrators; // array of infiltrators
     this.voted = false; // toggle to keep track of whether PAL has already voted
     this.isLeader = false; // toggle status of PAL as leader
   }
 
   // update player records
-  updatePlayerRecords(result, roster) {
-    // result: 0 = success, 1 = fail
-    // roster = []; array of names
-    // console.log(result, 'result AI.js 37');
-    // console.log(roster, 'roster AI.js 38');
+  updatePlayerRecords(result, roster) { // result: 0 = success, 1 = fail; roster = []; array of names
     let success;
     if (result === 0) {
       success = true;
     }
     // update each player's record as a % of missions with a success
-    // iterate thru roster array
     // filter out PAL: he's not concerned with his own record, because he knows he's a scientist ;)
     roster.filter(player => player !== 'PAL3000').forEach(player => {
-      // console.log(this.playerRecords[player], 'this.playerRecords[player] BEFORE AI.js 46');
       // increment the number of missions the player has participated in
       this.playerRecords[player].numberOfMissions += 1;
       if (success) {
@@ -55,15 +40,11 @@ class PAL3000 {
       this.playerRecords[player].missionSuccessRate =
         this.playerRecords[player].numberOfSuccesses /
         this.playerRecords[player].numberOfMissions;
-      // console.log(this.playerRecords[player], 'this.playerRecords[player] AFTER AI.js 57');
     });
-    console.log(this.playerRecords, 'updated this.playerRecords AI 59');
   }
 
   // CURE vs. SABOTAGE choice
   cureOrSabotage(round, roster) {
-    // console.log(round, 'round AI.js 64'); // needs to be a number
-    // console.log(roster, 'roster AI.js 65'); // needs to be an array of players
     // if infiltrator, choose 'CURE' sometimes to be deceptive
     if (!this.scientist) {
       // if round 1 or small roster size: 90% CURE
@@ -86,12 +67,7 @@ class PAL3000 {
 
   // Leader Choosing Mission Roster
   chooseMissionRoster(numberOfPlayers) {
-    console.log(numberOfPlayers, 'numberOfPlayers');
-    // if scientist
-    // if (this.scientist) {
     // choose players with the best mission success rate
-    // sort team by highest success rate
-    // create an array of players
     const teamSortedBySuccessRate = Object.values(this.playerRecords)
       .map(player => {
         // if a player hasn't been on a mission, set default success rate to 50%
@@ -101,16 +77,15 @@ class PAL3000 {
         }
         return playerDefault;
       })
+      // sort team by highest success rate
       .sort((a, b) => b.missionSuccessRate - a.missionSuccessRate);
-    console.log(teamSortedBySuccessRate, 'teamSortedBySuccessRate AI 102');
     // choose self and (numberOfPlayer - 1)
     return ['PAL3000'].concat(
       teamSortedBySuccessRate
         .map(player => player.name)
         .slice(0, numberOfPlayers - 1)
     );
-    // }
-    // Old method:
+    // Old method, might reimplement:
     // if infiltrator
     // choses self and (numberOfPlayers - 1) random players
     // shuffle the team
@@ -128,7 +103,6 @@ class PAL3000 {
 
   // Voting for mission team
   voteForMissionTeam(proposedRoster) {
-    console.log(proposedRoster, 'proposedRoster AI 129');
     // checks if proposedRoster includes an Infiltrator
     const includesInfiltrator = proposedRoster.some(player =>
       this.infiltrators.includes(player)
@@ -141,7 +115,7 @@ class PAL3000 {
     if (this.scientist) {
       // check to see if each member of proposedRoster has > 50% mission success record
       const approveProposedRoster = proposedRoster
-        // filter out PAL: he's not concerned with his own record, because he knows he's a scientist ;)
+        // filter out PAL: he's not concerned with his own record
         .filter(player => player !== 'PAL3000')
         // create an array of the proposedRoster's success rates
         .map(player => this.playerRecords[player].missionSuccessRate)
@@ -156,7 +130,7 @@ class PAL3000 {
   }
 
   updateStats(winner) {
-    // false = scientist won, true = infiltrators won
+    // winner === false: scientists won, winner === true: infiltrators won
     if ((this.scientist && !winner) || (!this.scientist && winner)) {
       const update = { username: 'PAL3000', win: true };
       db.updateUserStats(update, () => console.log('PAL3000 stats updated'));

@@ -51,7 +51,6 @@ module.exports = server => {
       const { username } = playerProps;
       socket.game = game;
       socket.username = username;
-
       db.palActive(dbGameID, palActive => {
         // if PAL3000 is active and has not already been added
         if (palActive && !pal3000) {
@@ -111,11 +110,7 @@ module.exports = server => {
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
-
-
-        }, 5000); // 25000
-
-
+        }, 25000); 
       };
       console.log(store.getState().users[socket.game].users, 'USERS, USERS, USERS');
       store.getState().users[socket.game].users.length === playerCount
@@ -140,13 +135,7 @@ module.exports = server => {
         : store.dispatch(voteSabotage(socket.game));
       // if pal3000 is active and on the mission
       if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) {
-
-
-        // IMPROVEMENTS ?:
-        console.log(round, 'round sockets.js 147'); // needs to be a number
-        console.log(roster, 'roster sockets 148');
         const palChoice = pal3000.cureOrSabotage(round, roster);
-        console.log(palChoice, 'palChoice sockets 149');
         palChoice === 'CURE'
         ? store.dispatch(voteCure(socket.game))
         : store.dispatch(voteSabotage(socket.game));
@@ -163,14 +152,10 @@ module.exports = server => {
       totalVotes === grid[playerCount][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
           setTimeout(() => {
-
-
             if (pal3000) {
               // reset PAL3000's voted status
               pal3000.voted = false;
               // send results to PAL
-              console.log(results, 'results sockets.js 174');
-              console.log(roster, 'roster sockets.js 175');
               pal3000.updatePlayerRecords(results, roster);
             }
             const scientistWinTotal = store.getState().game[socket.game].scientistWins;
