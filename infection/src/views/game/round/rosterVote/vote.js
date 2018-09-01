@@ -12,20 +12,14 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         ))}
       </ListGroup>
       <h3>Do you approve?</h3>
-      {/* <Row>
-        <Col sm={5} />
-      <Col sm={2}> */}
       <Button
         onClick={() => handleRosterVote('YES')}
         bsSize="large"
         bsStyle="success"
-        // block
       >
         YES
       </Button>
-      {/* <Row>---OR---</Row> */}
-      <br />
-      <br />
+      <Row>---OR---</Row>
       <Button
         onClick={() => handleRosterVote('NO')}
         bsSize="large"
@@ -34,9 +28,6 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
       >
         NO
       </Button>
-      {/* </Col>
-        <Col sm={5} />
-      </Row> */}
     </Col>
     <Col md={4} />
   </Row>
