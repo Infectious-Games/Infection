@@ -34,16 +34,17 @@ class PAL3000 {
   updatePlayerRecords(result, roster) {
     // result: 0 = success, 1 = fail
     // roster = []; array of names
-    // console.log(result, 'result AI.js 34');
-    // console.log(roster, 'roster AI.js 35');
+    // console.log(result, 'result AI.js 37');
+    // console.log(roster, 'roster AI.js 38');
     let success;
     if (result === 0) {
       success = true;
     }
     // update each player's record as a % of missions with a success
     // iterate thru roster array
-    roster.forEach(player => {
-      // console.log(this.playerRecords[player], 'this.playerRecords[player] BEFORE AI.js 41');
+    // filter out PAL: he's not concerned with his own record, because he knows he's a scientist ;)
+    roster.filter(player => player !== 'PAL3000').forEach(player => {
+      // console.log(this.playerRecords[player], 'this.playerRecords[player] BEFORE AI.js 46');
       // increment the number of missions the player has participated in
       this.playerRecords[player].numberOfMissions += 1;
       if (success) {
@@ -54,16 +55,15 @@ class PAL3000 {
       this.playerRecords[player].missionSuccessRate =
         this.playerRecords[player].numberOfSuccesses /
         this.playerRecords[player].numberOfMissions;
-      // console.log(this.playerRecords[player], 'this.playerRecords[player] AFTER AI.js 49');
+      // console.log(this.playerRecords[player], 'this.playerRecords[player] AFTER AI.js 57');
     });
-    // console.log(this.playerRecords, 'this.playerRecords');
+    console.log(this.playerRecords, 'updated this.playerRecords AI 59');
   }
 
   // CURE vs. SABOTAGE choice
   cureOrSabotage(round, roster) {
-    console.log(round, 'round AI.js 41'); // needs to be a number
-    console.log(roster, 'roster AI.js 42'); // needs to be an array of players
-    // IMPROVEMENTS:
+    // console.log(round, 'round AI.js 64'); // needs to be a number
+    // console.log(roster, 'roster AI.js 65'); // needs to be an array of players
     // if infiltrator, choose 'CURE' sometimes to be deceptive
     if (!this.scientist) {
       // if round 1 or small roster size: 90% CURE
@@ -77,8 +77,10 @@ class PAL3000 {
         const random = Math.random();
         return random < 0.5 ? 'CURE' : 'SABOTAGE';
       }
+      // otherwise
+      return 'SABOTAGE';
     }
-    // if scientist choose 'CURE'
+    // if scientist, always choose 'CURE'
     return 'CURE';
   }
 
@@ -100,6 +102,7 @@ class PAL3000 {
         return playerDefault;
       })
       .sort((a, b) => b.missionSuccessRate - a.missionSuccessRate);
+    console.log(teamSortedBySuccessRate, 'teamSortedBySuccessRate AI 102');
     // choose self and (numberOfPlayer - 1)
     return ['PAL3000'].concat(
       teamSortedBySuccessRate
@@ -125,7 +128,7 @@ class PAL3000 {
 
   // Voting for mission team
   voteForMissionTeam(proposedRoster) {
-    console.log(proposedRoster, 'proposedRoster');
+    console.log(proposedRoster, 'proposedRoster AI 129');
     // checks if proposedRoster includes an Infiltrator
     const includesInfiltrator = proposedRoster.some(player =>
       this.infiltrators.includes(player)
@@ -169,12 +172,11 @@ module.exports = {
   PAL3000,
 };
 
-const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'Mark']);
-console.log(pal3000, 'pal3000');
-console.log(pal3000.updatePlayerRecords(0, ['Athena', 'Matt']), 'updatePlayerRecords');
+// const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'Mark']);
+// console.log(pal3000, 'pal3000');
+// console.log(pal3000.updatePlayerRecords(0, ['Athena', 'Matt', 'PAL3000']), 'updatePlayerRecords');
 // console.log(pal3000.updatePlayerRecords(1, ['Athena', 'Matt']), 'updatePlayerRecords');
 // console.log(pal3000.updatePlayerRecords(1, ['Athena', 'Matt']), 'updatePlayerRecords');
-
 // console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
 // console.log(pal3000.cureOrSabotage(2, ['Paul', 'PAL3000']), 'cureOrSabotage');
-console.log(pal3000.voteForMissionTeam(['Athena', 'Matt', 'PAL3000']), 'voteForMissionTeam');
+// console.log(pal3000.voteForMissionTeam(['Athena', 'Matt', 'PAL3000']), 'voteForMissionTeam');

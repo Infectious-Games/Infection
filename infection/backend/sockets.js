@@ -106,7 +106,11 @@ module.exports = server => {
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
-        }, 25000);
+
+
+        }, 5000); // 25000
+
+
       };
       Game.find({ where: { id: game } })
         .then(game => {
@@ -140,8 +144,10 @@ module.exports = server => {
 
 
         // IMPROVEMENTS ?:
-        console.log(round, 'round sockets.js 143'); // needs to be a number
+        console.log(round, 'round sockets.js 147'); // needs to be a number
+        console.log(roster, 'roster sockets 148');
         const palChoice = pal3000.cureOrSabotage(round, roster);
+        console.log(palChoice, 'palChoice sockets 149');
         palChoice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
@@ -173,7 +179,7 @@ module.exports = server => {
               // send results to PAL
               console.log(results, 'results sockets.js 174');
               console.log(roster, 'roster sockets.js 175');
-              pal.updatePlayerRecords(results, roster);
+              pal3000.updatePlayerRecords(results, roster);
             }
 
 
