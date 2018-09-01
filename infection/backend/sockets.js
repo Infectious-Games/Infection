@@ -65,9 +65,7 @@ module.exports = server => {
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
-        console.log(store.getState().users[socket.game].users[0]);
         const playersInGame = store.getState().users[socket.game].users;
-        console.log(playersInGame, 'playersInGame');
         const team = playersInGame.map(user => user.username);
         const infiltrators = [];
         playersInGame.forEach(user => {
@@ -87,8 +85,9 @@ module.exports = server => {
           io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
-          store.dispatch(incrementRound());
-          const round = store.getState().game.round;
+          store.dispatch(incrementRound(socket.game));
+          const round = store.getState().game[socket.game].round;
+          log(chalk.bold.cyan(store.getState().game[socket.game].round, 'round at sockets 92'));
           const rosterLength = grid[socket.numberOfPlayers][round - 1];
           const leaderLoop = assignLeader(store.getState().users[socket.game].users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
