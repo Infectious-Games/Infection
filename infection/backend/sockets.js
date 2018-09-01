@@ -128,7 +128,7 @@ module.exports = server => {
     });
     // CURE OR SABOTAGE CHOSEN-------------------------------------------------
     socket.on('chose cure or sabotage', choice => {
-      const round = store.getState().game.round;
+      const round = store.getState().game[socket.game].round;
       choice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
@@ -196,8 +196,8 @@ module.exports = server => {
             } else {
               // store.dispatch(incrementRound());
               store.dispatch(resetVotes());
-              const round = store.getState().game.round;
-              const rosterLength = grid[socket.numberOfPlayers][round - 1];
+              const round = store.getState().game[socket.game].round;
+              const rosterLength = grid[playerCount][round - 1];
               const roundLeader =
                 leaderStorage[socket.game].leaderLoop[
                   leaderStorage[socket.game].index
@@ -248,8 +248,8 @@ module.exports = server => {
           store.getState().proposalVotes.voteFail;
         let results;
         voteSucceeds === false ? (results = 1) : (results = 0);
-        const round = store.getState().game.round;
-        const rosterLength = grid[socket.numberOfPlayers][round - 1];
+        const round = store.getState().game[socket.game].round;
+        const rosterLength = grid[playerCount][round - 1];
         const roundLeader =
           leaderStorage[socket.game].leaderLoop[
             leaderStorage[socket.game].index
@@ -308,8 +308,8 @@ module.exports = server => {
                 store.dispatch(resetFail());
                 store.dispatch(resetMissionVotes());
                 // store.dispatch(incrementRound());
-                const round = store.getState().game.round;
-                const rosterLength = grid[socket.numberOfPlayers][round - 1];
+                const round = store.getState().game[socket.game].round;
+                const rosterLength = grid[playerCount][round - 1];
                 proposalResults = [];
                 leaderStorage[socket.game].index++;
                 setTimeout(
