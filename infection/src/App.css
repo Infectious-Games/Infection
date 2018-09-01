@@ -2,45 +2,28 @@
 .game {
   font-family: 'Metrophobic', sans-serif;
   text-align: center;
-  background-color: rgb(24, 23, 23);
   color: #e24b1dbd;
-  height: 100%;
-  width: 100%;
+  height: 25%;
+  width: 40%;
 }
 .welcome,
 .game .list-group-item {
   color: #e24b1dbd;
-  background-color: rgb(24, 23, 23);
-}
-.clearance-lvl {
-  color: black;
-  font-family: monospace;
-  top: -1140px;
-  left: 48px;
-  position: absolute;
-  width: 90%;
-}
-.user-info {
-  position: absolute;
-  color: black;
-  top: -23px;
-  left: 5px;
-  text-align: left;
 }
 .unclassified {
-  background-color: yellow;
+  background-color: #eae74f;
 }
 .confidential {
   background-color: #76b041;
 }
 .secret {
-  background-color: blue;
+  background-color: #3e92cc;
 }
 .top-secret {
-  background-color: red;
+  background-color: #eb410d;
 }
 .illuminati {
-  background-color: indigo;
+  background-color: rgb(101, 61, 130);
 }
 .success {
   background-color: #76b041;
@@ -55,14 +38,12 @@
   color: black;
 }
 .game-footer {
-  /* background-color: blueviolet; */
   height: 10%;
   width: 100%;
 }
 .game-header {
   width: 100%;
   height: 7%;
-  /* background-color: yellow; */
 }
 .game-over {
   height: 100%;
@@ -72,18 +53,15 @@
   top: 100;
 }
 .game-view {
-  /* background-color: gray; */
   width: 100%;
   height: 70%;
 }
 .game-view-col {
   width: 100%;
   height: 100%;
-  /* background-color: blanchedalmond; */
 }
 .mission-fail-h {
   font-family: 'Anonymous Pro', monospace;
-  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
@@ -93,31 +71,25 @@
   background-color: #e24b1dbd;
   height: 100%;
 }
-
 .mission-success {
   background-color: #76b041;
   height: 100%;
 }
 .mission-success-h {
   font-family: 'Anonymous Pro', monospace;
-  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   color: white;
   position: relative;
   top: 10%;
-  /* left: 15%; */
   font-size: 6rem;
 }
 .scientist {
   font-family: 'Metrophobic', sans-serif;
-  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .scientist-title {
   font-family: 'Metrophobic', sans-serif;
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
-  /* 'Lucida Sans', Arial, sans-serif; */
   color: #3e92cc;
 }
 .scientist-win {
@@ -126,15 +98,12 @@
 }
 .infiltrator {
   font-family: 'Metrophobic', sans-serif;
-  /* font-family: 'Courier New', Courier, monospace; */
   background-color: white;
   color: black;
   height: 100%;
 }
 .infiltrator-title {
   font-family: 'Metrophobic', sans-serif;
-  /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', */
-  /* 'Lucida Sans', Arial, sans-serif; */
   color: #e24b1dbd;
 }
 .infiltrator-list-entry {
@@ -142,9 +111,7 @@
   font-weight: 900;
 }
 .infiltrators-win {
-  /* font-family: 'Neucha', cursive; */
   font-family: 'Metrophobic', sans-serif;
-  /* font-family: fantasy; */
 }
 .appreciated {
   top: 50%;
@@ -152,41 +119,51 @@
 .user-details {
   color: orange;
 }
-/* .user-id-card {
-  position: absolute;
-  top: 10px;
-  left: 48px;
-} */
-
-/* .dashboard {
-  background-color: grey;
-  height: 100%;
-  width: 100%;
-} */
-/* .login {
-  height: 100%;
-  width: 100%;
-} */
+.dashboard {
+  background-size: auto;
+  height: 25%;
+  width: 40%;
+  top: 20px;
+}
+.user-info {
+  color: black;
+  text-align: left;
+  z-index: 999;
+}
+.clearance {
+  border: darkgray;
+  border-style: solid;
+  border-width: 5px;
+}
+.clearance-lvl {
+  width: 106%;
+  position: relative;
+  align-self: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  z-index: 999;
+  color: black;
+  font-family: monospace;
+  z-index: 0;
+}
+.on-logo.contain {
+  background-size: contain;
+}
+.on-logo.cover {
+  background-size: cover;
+}
 .logout {
   background-color: #3e92cc;
-  top: 917px;
-  left: 231px;
-  position: absolute;
 }
 .join-game {
-  top: 429px;
-  left: 40px;
-  position: absolute;
+  text-align: center;
 }
 .start-game {
-  top: 270px;
-  left: 99px;
-  position: absolute;
+  position: center;
+  align-self: center;
 }
 .player-info {
-  top: 140px;
-  left: 99px;
-  position: absolute;
+  position: center;
 }
 .lesser {
   color: black;
@@ -194,19 +171,12 @@
 .sparky-text {
   color: black;
 }
-.clearance {
-  position: absolute;
-  top: 1074px;
-  left: -17px;
-}
 .container {
   position: relative;
   width: 50%;
 }
 .sparky-container:hover {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 0.5s;
-  /* When the animation is finished, start again */
   animation-iteration-count: infinite;
 }
 @keyframes shake {
@@ -217,10 +187,10 @@
     transform: translate(-1px, -2px) rotate(-1deg);
   }
   20% {
-    transform: translate(-3px, 0px) rotate(1deg);
+    transform: translate(-2px, 0px) rotate(1deg);
   }
   30% {
-    transform: translate(3px, 2px) rotate(0deg);
+    transform: translate(2px, 1px) rotate(0deg);
   }
   40% {
     transform: translate(1px, -1px) rotate(1deg);
@@ -229,10 +199,10 @@
     transform: translate(-1px, 2px) rotate(-1deg);
   }
   60% {
-    transform: translate(-3px, 1px) rotate(0deg);
+    transform: translate(-2px, 0px) rotate(0deg);
   }
   70% {
-    transform: translate(3px, 1px) rotate(-1deg);
+    transform: translate(2px, 1px) rotate(-1deg);
   }
   80% {
     transform: translate(-1px, -1px) rotate(1deg);

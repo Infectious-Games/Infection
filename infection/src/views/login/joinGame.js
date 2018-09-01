@@ -11,6 +11,7 @@ import {
 
 const JoinGame = ({ game, handleSubmit, handleChange }) => (
   <Row>
+    <br />
     <Col xs={3} />
     <Col xs={6}>
       <h4>
@@ -27,9 +28,11 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
             onSubmit={handleSubmit}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <Button
             type="submit"
-            bsStyle="success"
+            bsStyle="info"
             onClick={handleSubmit}
             bsSize="small"
           >
