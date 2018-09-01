@@ -16,9 +16,11 @@ const proposalVote = (state = initialState, action) => {
   *   - increment current state of totalMissionVotes by 1
     */
     case VOTE_YES:
-      newState[action.gameID]['voteFail'] = state.voteFail;
-      newState[action.gameID]['voteSuccess'] = state.voteSuccess + 1;
-      newState[action.gameID]['totalMissionVotes'] = state.totalMissionVotes + 1;
+      newState[action.gameID].voteFail = state[action.gameID].voteFail;
+      newState[action.gameID].voteSuccess =
+        state[action.gameID].voteSuccess + 1;
+      newState[action.gameID].totalMissionVotes =
+        state[action.gameID].totalMissionVotes + 1;
       return newState;
     /*
   * If a team-proposal vote is 'no':
@@ -27,15 +29,16 @@ const proposalVote = (state = initialState, action) => {
   *   - increment current state of totalMissionVotes by 1
     */
     case VOTE_NO:
-      newState[action.gameID]['voteFail'] = state.voteFail + 1;
-      newState[action.gameID]['voteSuccess'] = state.voteSuccess;
-      newState[action.gameID]['totalMissionVotes'] = state.totalMissionVotes + 1;
+      newState[action.gameID].voteFail = state[action.gameID].voteFail + 1;
+      newState[action.gameID].voteSuccess = state[action.gameID].voteSuccess;
+      newState[action.gameID].totalMissionVotes =
+        state[action.gameID].totalMissionVotes + 1;
       return newState;
     // Reset to initial values
     case RESET_MISSION_VOTES:
-      newState[action.gameID]['voteFail'] = 0;
-      newState[action.gameID]['voteSuccess'] = 0;
-      newState[action.gameID]['totalMissionVotes'] = 0;
+      newState[action.gameID].voteFail = 0;
+      newState[action.gameID].voteSuccess = 0;
+      newState[action.gameID].totalMissionVotes = 0;
       return newState;
     // Return current state
     default:

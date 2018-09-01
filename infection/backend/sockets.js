@@ -91,7 +91,6 @@ module.exports = server => {
           log(chalk.bold.cyan(rosterLength, 'rosterLength on line 92'));
           const leaderLoop = assignLeader(store.getState().users[socket.game].users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
-          log(chalk.bold.cyan(leaderStorage[socket.game].leaderLoop, 'leaderStorage[socket.game]'));
           const roundLeader =
             leaderStorage[socket.game].leaderLoop[
               leaderStorage[socket.game].index
