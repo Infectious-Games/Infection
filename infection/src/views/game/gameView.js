@@ -36,7 +36,7 @@ const GameView = ({
       <Col md={2} />
       <Col md={8} xs={12} className="game-view-col">
         {!game.teamAssembled ? (
-          <WaitingForTeam responsive />
+          <WaitingForTeam />
         ) : !game.round ? (
           <Roles
             infiltrator={game.infiltrator}
