@@ -5,11 +5,11 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
 const dotenv = require('dotenv');
 const { SESSION_OPTIONS } = require('../config');
+const store = require('./redux/store');
+const gameRooms = require('./gameRooms');
 
 dotenv.load();
 const db = require('./database');
-
-const log = console.log;
 
 module.exports = app => {
   // find or add a user to the db
@@ -25,10 +25,24 @@ module.exports = app => {
   app.post('/start', (req, res) => {
     // Take player count from body and use it to create game instance
     const { body } = req;
-    // Send join code (unique game id) back to client
-    db.createGameAndGetJoinCode(body, joinCode => {
-      res.json(joinCode);
-    });
+    const { playerCount } = body;
+    // check for empty games in store, return that game room;
+    const joinCodes = Object.keys(store.getState().users).filter(
+      gameName => store.getState().users[gameName].users.length === 0
+    );
+    // join code becomes first empty game
+    const joinCode = joinCodes[0];
+    db.createGameAndGetJoinCode(body, gameId => gameId)
+      .then(gameId => {
+        return gameId;
+      })
+      .then(gameId => {
+        gameRooms[joinCode] = Object.assign({}, gameRooms[joinCode], {
+          playerCount,
+          dbGameID: gameId,
+        }); // TODO: reset at end of game
+      });
+    res.json(joinCode);
   });
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
@@ -68,7 +82,7 @@ module.exports = app => {
       },
       (accessToken, refreshToken, profile, done) => {
         db.findOrCreateUser(profile, user => {
-          log(`user is ${user}`);
+          console.log(`user is ${user}`);
           return done(null, user);
         });
       }
