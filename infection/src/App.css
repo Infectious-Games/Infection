@@ -2,42 +2,28 @@
 .game {
   font-family: 'Metrophobic', sans-serif;
   text-align: center;
-  background-color: rgb(24, 23, 23);
+  /* background-color: rgb(24, 23, 23); */
   color: #e24b1dbd;
-  height: 100%;
-  width: 100%;
+  height: 25%;
+  width: 40%;
 }
 .welcome,
 .game .list-group-item {
   color: #e24b1dbd;
-  background-color: rgb(24, 23, 23);
+  /* background-color: rgb(24, 23, 23); */
 }
-.clearance-lvl {
-  color: black;
-  font-family: monospace;
-  top: -1140px;
-  left: 48px;
-  position: absolute;
-  width: 90%;
-}
-.user-info {
-  position: absolute;
-  color: black;
-  top: -23px;
-  left: 5px;
-  text-align: left;
-}
+
 .unclassified {
-  background-color: yellow;
+  background-color: #eae74f;
 }
 .confidential {
   background-color: #76b041;
 }
 .secret {
-  background-color: blue;
+  background-color: #3e92cc;
 }
 .top-secret {
-  background-color: red;
+  background-color: #eb410d;
 }
 .illuminati {
   background-color: indigo;
@@ -157,47 +143,71 @@
   top: 10px;
   left: 48px;
 } */
-
-/* .dashboard {
-  background-color: grey;
-  height: 100%;
-  width: 100%;
-} */
+.dashboard {
+  /* background-color: lightgray; */
+  background-size: auto;
+  height: 25%;
+  width: 40%;
+  top: 20px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+.user-info {
+  color: black;
+  text-align: left;
+  z-index: 999;
+}
+.clearance {
+  border: darkgray;
+  border-style: solid;
+  border-width: 5px;
+}
+.clearance-lvl {
+  /* border-color: black;
+  border-style: solid;
+  border-width: 1px; */
+  width: 106%;
+  position: relative;
+  align-self: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  z-index: 999;
+  color: black;
+  font-family: monospace;
+  z-index: 0;
+}
+.on-logo.contain {
+  background-size: contain;
+}
+.on-logo.cover {
+  background-size: cover;
+}
 /* .login {
   height: 100%;
   width: 100%;
 } */
 .logout {
   background-color: #3e92cc;
-  top: 917px;
+  /* top: 917px;
   left: 231px;
-  position: absolute;
+  position: absolute; */
 }
 .join-game {
-  top: 429px;
-  left: 40px;
-  position: absolute;
+  text-align: center;
 }
 .start-game {
-  top: 270px;
-  left: 99px;
-  position: absolute;
+  position: center;
+  align-self: center;
 }
 .player-info {
-  top: 140px;
-  left: 99px;
-  position: absolute;
+  position: center;
 }
 .lesser {
   color: black;
 }
 .sparky-text {
   color: black;
-}
-.clearance {
-  position: absolute;
-  top: 1074px;
-  left: -17px;
 }
 .container {
   position: relative;
