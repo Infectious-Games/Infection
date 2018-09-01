@@ -14,8 +14,9 @@ const submitVote = (state = initialState, action) => {
   *   - increment current state of deployedVoteCount by 1
   */
     case VOTE_CURE:
-      newState[action.gameID]['voteStatus'] = state.voteStatus;
-      newState[action.gameID]['deployedVoteCount'] = state.deployedVoteCount + 1;
+      newState[action.gameID].voteStatus = state[action.gameID].voteStatus;
+      newState[action.gameID].deployedVoteCount =
+        state[action.gameID].deployedVoteCount + 1;
       return newState;
     /*
   * If a mission vote is 'sabotage':
@@ -23,17 +24,18 @@ const submitVote = (state = initialState, action) => {
   *   - increment current state of deployedVoteCount by 1
   */
     case VOTE_SABOTAGE:
-      newState[action.gameID]['voteStatus'] = 1;
-      newState[action.gameID]['deployedVoteCount'] = state.deployedVoteCount + 1;
+      newState[action.gameID].voteStatus = 1;
+      newState[action.gameID].deployedVoteCount =
+        state[action.gameID].deployedVoteCount + 1;
       return newState;
     // Reset to initial values
     case RESET_VOTES:
-      newState[action.gameID]['voteStatus'] = 0;
-      newState[action.gameID]['deployedVoteCount'] = 0;
+      newState[action.gameID].voteStatus = 0;
+      newState[action.gameID].deployedVoteCount = 0;
       return newState;
     // Return current state
     default:
-      return newState; 
+      return newState;
   }
 };
 
