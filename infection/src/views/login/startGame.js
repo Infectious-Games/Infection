@@ -24,6 +24,7 @@ const StartGame = ({ setNumOfPlayers, activatePal }) => (
         </Button>
       ))}
       <br />
+      <br />
       <Row>
         <Col md={3} />
         <Col md={6}>
