@@ -4,7 +4,7 @@ import { Row } from 'react-bootstrap';
 import InfiltratorListEntry from './infiltratorListEntry';
 
 const InfiltratorList = ({ infiltrators }) => (
-  <Row container-fluid>
+  <Row>
     <h5>Fellow conspirators:</h5>
     <Row className="infiltrator-list-entry">
       {infiltrators.map(infiltrator => (

@@ -3,8 +3,8 @@
   font-family: 'Metrophobic', sans-serif;
   text-align: center;
   color: #e24b1dbd;
-  height: 25%;
-  width: 40%;
+  height: 100%;
+  width: 100%;
 }
 .welcome,
 .game .list-group-item {

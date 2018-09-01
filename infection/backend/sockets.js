@@ -143,6 +143,8 @@ module.exports = server => {
       }
       const results = store.getState().cureOrSabotage[socket.game].voteStatus;
       const totalVotes = store.getState().cureOrSabotage[socket.game].deployedVoteCount;
+      log(chalk.bold.black(store.getState(), 'STORE after vote dispatch'
+));
       totalVotes === grid[playerCount][round - 1] && results === 1
         ? store.dispatch(infiltratorRoundWin(socket.game))
         : console.log(chalk.magenta('not a great day to be a scientist'));
