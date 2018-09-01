@@ -1,11 +1,13 @@
 const { INCREMENT_ROUND, RESTART_ROUNDS } = require('./actions_rounds');
 
-const incrementRound = round => ({
+const incrementRound = (gameID, round) => ({
   type: INCREMENT_ROUND,
+  gameID,
   round,
 });
-const restartRounds = round => ({
+const restartRounds = (gameID, round) => ({
   type: RESTART_ROUNDS,
+  gameID,
   round,
 });
 
