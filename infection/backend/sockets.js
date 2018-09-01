@@ -123,6 +123,7 @@ module.exports = server => {
     });
     // LEADER CHOSE TEAM-------------------------------------------------------
     socket.on('deploy team', team => {
+      log(chalk.bold.cyan(roster, 'roster'));
       roster = team;
       io.in(socket.game).emit('team chosen', team);
     });
@@ -147,13 +148,13 @@ module.exports = server => {
       //   ${totalVotes}, 'totalVotes', 
       //   ${store.getState()}, 'STORE after vote dispatch'`
       // ));
-      totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 1
+      totalVotes === grid[playerCount][round - 1] && results === 1
         ? store.dispatch(infiltratorRoundWin())
         : console.log(chalk.magenta('not a great day to be a scientist'));
-      totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 0
+      totalVotes === grid[playerCount][round - 1] && results === 0
         ? store.dispatch(scientistRoundWin())
         : console.log(chalk.magenta('great day to be a scientist'));
-      totalVotes === grid[socket.numberOfPlayers][round - 1]
+      totalVotes === grid[playerCount][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
           setTimeout(() => {
             // reset PAL3000's voted status
@@ -228,24 +229,24 @@ module.exports = server => {
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
         palVote === 'YES'
-          ? store.dispatch(voteYes())
-          : store.dispatch(voteNo());
+          ? store.dispatch(voteYes(socket.game))
+          : store.dispatch(voteNo(socket.game));
         pal3000.voted = true;
         pal3000.isLeader = false;
       }
       // track each players vote
       proposalResults.push({ name: username, vote });
       //increment yes and no votes as individual votes come in
-      vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+      vote === 'YES' ? store.dispatch(voteYes(socket.game)) : store.dispatch(voteNo(socket.game));
       // If everyone has voted
       if (
-        store.getState().proposalVotes.totalMissionVotes ===
-        socket.numberOfPlayers
+        store.getState().proposalVotes[socket.game].totalMissionVotes ===
+        playerCount
       ) {
         // More accepts than rejects for team proposal
         const voteSucceeds =
-          store.getState().proposalVotes.voteSuccess >
-          store.getState().proposalVotes.voteFail;
+          store.getState().proposalVotes[socket.game].voteSuccess >
+          store.getState().proposalVotes[socket.game].voteFail;
         let results;
         voteSucceeds === false ? (results = 1) : (results = 0);
         const round = store.getState().game[socket.game].round;
@@ -266,14 +267,14 @@ module.exports = server => {
         // If vote succeeds, reset fail count, mission votes,
         // move to cure or sabotage vote via on mission event
         if (voteSucceeds) {
-          store.dispatch(resetMissionVotes());
+          store.dispatch(resetMissionVotes(socket.game));
           console.log(
             chalk.bgWhite.blue(
               store.getState().proposalVotes.totalMissionVotes,
               'totalMissionVotes after success'
             )
           );
-          store.dispatch(resetFail());
+          store.dispatch(resetFail(socket.game));
           proposalResults = [];
           io.in(socket.game).emit('on mission');
         } else if (!voteSucceeds) {
