@@ -6,24 +6,21 @@ const {
 const initialState = require('./initialState_users.js');
 
 const users = (state = initialState, action) => {
+  const newState = Object.assign({}, state); // object containing all game objects, each with an array of users
   switch (action.type) {
     // When new user joins the room, create a new array of users with the new user
     case ADD_NEW_USER:
-      return Object.assign({}, state, {
-        users: state.users.concat({
-          username: action.username,
-          room: action.room,
-          socketID: action.socketID,
-          infiltrator: false,
-          securityOfficer: false,
-        }),
+      newState[action.gameID].users.push({
+        gameID: action.gameID,
+        username: action.username,
+        socketID: action.socketID,
+        infiltrator: false,
+        securityOfficer: false,
       });
-    /* eslint-disable */  
-    // Assign user roles. Linter disabled for lexical declarations in case block.
+      return newState;
     case ASSIGN_ROLES:
       // Determine appropriate number of infiltrators
-      const infiltratorCount = ~~(state.users.length * 0.44);
-
+      const infiltratorCount = ~~(state[action.gameID].users.length * 0.44);
       // Shuffle users for assignment
       const arrayShuffled = array => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -34,24 +31,25 @@ const users = (state = initialState, action) => {
         }
         return array;
       };
-      const shuffled = arrayShuffled(state.users);
-
+      const shuffled = arrayShuffled(state[action.gameID].users);
       // Assign infiltrator to appropriate number of infiltrators
       const updated = shuffled.map((user, index) => {
-        index < infiltratorCount
-          ? (user.infiltrator = true)
-          : (user.infiltrator = false);
+        if (index < infiltratorCount) {
+          user.infiltrator = true;
+        } else {
+          user.infiltrator = false;
+        }
+        return user;
       });
-
-      return Object.assign({}, state, { updated });
+      newState[action.gameID].users = updated;
+      return newState;
 
     case RESET_USERS:
-      return Object.assign({}, state, {
-        users: [],
-      });
+      newState[action.gameID].users = [];
+      return newState;
     // By default, return current state
     default:
-      return state;
+      return newState;
   }
 };
 
