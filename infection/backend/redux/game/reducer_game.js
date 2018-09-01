@@ -19,10 +19,12 @@ const game = (state = initialState, action) => {
   *   - return previous state of failCount
     */
     case SCIENTIST_ROUND_WIN:
-      newState[action.gameID]['round'] = state.round + 1;
-      newState[action.gameID]['scientistWins'] = state.scientistWins + 1;
-      newState[action.gameID]['infiltratorWins'] = state.infiltratorWins;
-      newState[action.gameID]['failCount'] = state.failCount;
+      newState[action.gameID].round = state[action.gameID].round + 1;
+      newState[action.gameID].scientistWins =
+        state[action.gameID].scientistWins + 1;
+      newState[action.gameID].infiltratorWins =
+        state[action.gameID].infiltratorWins;
+      newState[action.gameID].failCount = state[action.gameID].failCount;
       return newState;
     /*
   * If infiltrators win a round:
@@ -32,17 +34,19 @@ const game = (state = initialState, action) => {
   *   - return previous state of failCount
     */
     case INFILTRATOR_ROUND_WIN:
-      newState[action.gameID]['round'] = state.round + 1;
-      newState[action.gameID]['scientistWins'] = state.scientistWins;
-      newState[action.gameID]['infiltratorWins'] = state.infiltratorWins + 1;
-      newState[action.gameID]['failCount'] = state.failCount;
+      newState[action.gameID].round = state[action.gameID].round + 1;
+      newState[action.gameID].scientistWins =
+        state[action.gameID].scientistWins;
+      newState[action.gameID].infiltratorWins =
+        state[action.gameID].infiltratorWins + 1;
+      newState[action.gameID].failCount = state[action.gameID].failCount;
       return newState;
     // If game is over, reset all to initial state
     case RESTART_GAME:
-      newState[action.gameID]['round'] = 0;
-      newState[action.gameID]['scientistWins'] = 0;
-      newState[action.gameID]['infiltratorWins'] = 0;
-      newState[action.gameID]['failCount'] = 0;
+      newState[action.gameID].round = 0;
+      newState[action.gameID].scientistWins = 0;
+      newState[action.gameID].infiltratorWins = 0;
+      newState[action.gameID].failCount = 0;
       return newState;
     /*
   * If proposal fails:
@@ -52,10 +56,12 @@ const game = (state = initialState, action) => {
   *   - increment failCount
     */
     case INCREMENT_FAIL:
-      newState[action.gameID]['round'] = state.round;
-      newState[action.gameID]['scientistWins'] = state.scientistWins;
-      newState[action.gameID]['infiltratorWins'] = state.infiltratorWins;
-      newState[action.gameID]['failCount'] = state.failCount + 1;
+      newState[action.gameID].round = state[action.gameID].round;
+      newState[action.gameID].scientistWins =
+        state[action.gameID].scientistWins;
+      newState[action.gameID].infiltratorWins =
+        state[action.gameID].infiltratorWins;
+      newState[action.gameID].failCount = state[action.gameID].failCount + 1;
       return newState;
     /*
   * When moving beyond the proposal stage:
@@ -65,10 +71,12 @@ const game = (state = initialState, action) => {
   *   - reset failCount to initial value
     */
     case RESET_FAIL:
-      newState[action.gameID]['round'] = state.round;
-      newState[action.gameID]['scientistWins'] = state.scientistWins;
-      newState[action.gameID]['infiltratorWins'] = state.infiltratorWins;
-      newState[action.gameID]['failCount'] = 0;
+      newState[action.gameID].round = state[action.gameID].round;
+      newState[action.gameID].scientistWins =
+        state[action.gameID].scientistWins;
+      newState[action.gameID].infiltratorWins =
+        state[action.gameID].infiltratorWins;
+      newState[action.gameID].failCount = 0;
       return newState;
     /*
   * When INCREMENT_ROUND is dispatched:
@@ -78,10 +86,12 @@ const game = (state = initialState, action) => {
   *   - return previous state of failCount
     */
     case INCREMENT_ROUND:
-      newState[action.gameID]['round'] = state.round + 1;
-      newState[action.gameID]['scientistWins'] = state.scientistWins;
-      newState[action.gameID]['infiltratorWins'] = state.infiltratorWins;
-      newState[action.gameID]['failCount'] = 0;
+      newState[action.gameID].round = state[action.gameID].round + 1;
+      newState[action.gameID].scientistWins =
+        state[action.gameID].scientistWins;
+      newState[action.gameID].infiltratorWins =
+        state[action.gameID].infiltratorWins;
+      newState[action.gameID].failCount = 0;
       return newState;
     // Return current state
     default:
