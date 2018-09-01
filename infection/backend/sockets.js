@@ -137,18 +137,18 @@ module.exports = server => {
         : store.dispatch(voteSabotage());
       // if pal3000 is active and on the mission
       if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) {
+
+
         // IMPROVEMENTS ?:
-        console.log(round, 'round sockets.js 141');
-        // use round as argument to pal3000.cureOrSabotage ???
-          // i.e. early round, infiltrator votes cure to decieve
-
-
-        const palChoice = pal3000.cureOrSabotage();
+        console.log(round, 'round sockets.js 143'); // needs to be a number
+        const palChoice = pal3000.cureOrSabotage(round, roster);
         palChoice === 'CURE'
         ? store.dispatch(voteCure())
         : store.dispatch(voteSabotage());
         pal3000.voted = true;
       }
+
+
       const results = store.getState().cureOrSabotage.voteStatus;
       const totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
       // log(chalk.bold.black(`
@@ -165,10 +165,18 @@ module.exports = server => {
       totalVotes === grid[socket.numberOfPlayers][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
           setTimeout(() => {
-            // reset PAL3000's voted status
+
+
             if (pal3000) {
+              // reset PAL3000's voted status
               pal3000.voted = false;
+              // send results to PAL
+              console.log(results, 'results sockets.js 174');
+              console.log(roster, 'roster sockets.js 175');
+              pal.updatePlayerRecords(results, roster);
             }
+
+
             let scientistWinTotal = store.getState().game.scientistWins;
             let infiltratorWinTotal = store.getState().game.infiltratorWins;
             let winner;

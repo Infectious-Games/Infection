@@ -7,72 +7,119 @@ class PAL3000 {
   constructor(scientist, team, infiltrators) {
     this.scientist = scientist; // true or false
     this.team = team.filter(player => player !== 'PAL3000'); // players in the game, other than PAL
-    this.teamRecords = this.team.reduce((teamObj, player) => {
-      teamObj[player] = 0;
-      return teamObj;
+    this.playerRecords = this.team.reduce((records, player) => {
+      records[player] = {
+        // start at 50 % successRate
+        missionSuccessRate: 0,
+        // initialize numberOfMissions at 1 for averaging purposes
+        numberOfMissions: 0,
+        numberOfSuccesses: 0,
+      };
+      return records;
     }, {});
-    // teamRecords = {
-    //  {
-    //  player: playerName,
-    //  missionCure%: %,
-    //  numberOfVotes: number,
-    //  },
-    //  {
-    //  player: playerName,
-    //  missionCure%: %,
-    //  numberOfVotes: number,
-    //  },
+    // playerRecords = {
+    //   player: {
+    //     missionSuccessRate: %,
+    //     numberOfMissions: number,
+    //     numberOfSuccesses: number,
+    //   },
     // }
+
     this.infiltrators = infiltrators; // array of infiltrators
     this.voted = false; // toggle to keep track of whether PAL has already voted
     this.isLeader = false; // toggle status of PAL as leader
-    this.firstMission
   }
 
-  // update teamRecords
-  updateTeamRecords() {
+  // update player records
+  updatePlayerRecords(result, roster) {
+    // result: 0 = success, 1 = fail
+    // roster = []; array of names
+    console.log(result, 'result AI.js 34');
+    console.log(roster, 'roster AI.js 35');
+    let success;
+    if (result === 0) {
+      success = true;
+    }
     // update each player's record as a % of missions with a success
-
-
+    // iterate thru roster array
+    roster.forEach(player => {
+      console.log(this.playerRecords[player], 'this.playerRecords[player] BEFORE AI.js 41');
+      // increment the number of missions the player has participated in
+      this.playerRecords[player].numberOfMissions += 1;
+      if (success) {
+        // increment the number of successful missions the player has participated in
+        this.playerRecords[player].numberOfSuccesses += 1;
+      }
+      // calculate success rate
+      this.playerRecords[player].missionSuccessRate =
+        this.playerRecords[player].numberOfSuccesses /
+        this.playerRecords[player].numberOfMissions;
+      console.log(this.playerRecords[player], 'this.playerRecords[player] AFTER AI.js 49');
+    });
+    console.log(this.playerRecords, 'this.playerRecords');
   }
 
   // CURE vs. SABOTAGE choice
   cureOrSabotage(round, roster) {
-    console.log(round, 'round AI.js 41');
-    console.log(roster, 'roster AI.js 42');
+    console.log(round, 'round AI.js 41'); // needs to be a number
+    console.log(roster, 'roster AI.js 42'); // needs to be an array of players
     // IMPROVEMENTS:
     // if infiltrator, choose 'CURE' sometimes to be deceptive
     if (!this.scientist) {
       // if round 1 or small roster size: 90% CURE
-      console.log(this.team.length, 'this.team.length AI.js 47');
-      console.log((this.team.length + 1) / roster.length, 'this.team.length + 1 / roster.length AI.js 48');
-      console.log((this.team.length + 1) / roster.length > 3, 'this.team.length + 1 / roster.length > 3 AI.js 49');
       if (round === 1 || (this.team.length + 1) / roster.length > 3) {
         // 90% 'CURE' vote
         const random = Math.random();
-        console.log(random, 'random AI.js 51');
         return random < 0.9 ? 'CURE' : 'SABOTAGE';
       } // if numberOfPlayers/rosterSize > 2 = 50% CURE
       if ((this.team.length + 1) / roster.length > 2) {
-        console.log('HIT 50%');
         // 50% 'CURE' vote
         const random = Math.random();
         return random < 0.5 ? 'CURE' : 'SABOTAGE';
       }
-    } else {
-      // if scientist choose 'CURE'
-      return 'CURE';
     }
+    // if scientist choose 'CURE'
+    return 'CURE';
   }
+
+  // playerRecords = {
+  //   player: {
+  //     missionSuccessRate: %,
+  //     numberOfMissions: number,
+  //     numberOfSuccesses: number,
+  //   },
+  // }
 
   // Leader Choosing Mission Roster
   chooseMissionRoster(numberOfPlayers) {
-    // IMPROVEMENTS:
     // if scientist
-      // choose players with the best cure %
-      // sort team by highest cure %
-        // choose self and (numberOfPlayer - 1)
+    if (this.scientist) {
+      // choose players with the best mission success rate
+      // sort team by highest success rate
+      const teamSortedBySuccessRate = Object.entries(this.playerRecords)
+        // create an array of players
+        .map(([name, records]) => {
+          const { numberOfMissions } = records;
+          let { missionSuccessRate } = records;
 
+          // if a player hasn't been on a mission, set default success rate to 50%
+          if (!numberOfMissions) {
+            missionSuccessRate = 0.5;
+          }
+          return { name, missionSuccessRate };
+        })
+        // sorted by missionSuccessRate
+        .sort((a, b) => b.missionSuccessRate - a.missionSuccessRate);
+      console.log(teamSortedBySuccessRate, 'teamSortedBySuccessRate AI.js 105');
+      // const team = teamSortedBySuccessRate.map(player => player.name);
+      // console.log(team, 'TEAM');
+      // choose self and (numberOfPlayer - 1)
+      return ['PAL3000'].concat(
+        teamSortedBySuccessRate
+          .map(player => player.name)
+          .slice(0, numberOfPlayers - 1)
+      );
+    }
     // if infiltrator
     // choses self and (numberOfPlayers - 1) random players
     // shuffle the team
@@ -81,7 +128,7 @@ class PAL3000 {
     // While there remain players to shuffle
     while (l) {
       // pick a random player's index from those remaining
-      const i = Math.floor(Math.random() * l--);
+      const i = Math.floor(Math.random() * (l -= 1));
       // swap the current player with the randomly seleted player
       [shuffledTeam[l], shuffledTeam[i]] = [shuffledTeam[i], shuffledTeam[l]];
     }
@@ -136,8 +183,12 @@ module.exports = {
   PAL3000,
 };
 
-// const pal3000 = new PAL3000(false, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000', 'Bob'], ['Paul', 'Mark']);
-// console.log(pal3000, 'pal3000');
+const pal3000 = new PAL3000(true, ['Athena', 'Mark', 'Matt', 'Paul', 'PAL3000'], ['Paul', 'Mark']);
+console.log(pal3000, 'pal3000');
+console.log(pal3000.updatePlayerRecords(0, ['Athena', 'Matt']), 'updatePlayerRecords');
+console.log(pal3000.updatePlayerRecords(1, ['Athena', 'Matt']), 'updatePlayerRecords');
+console.log(pal3000.updatePlayerRecords(1, ['Athena', 'Matt']), 'updatePlayerRecords');
+
+console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
 // console.log(pal3000.cureOrSabotage(2, ['Paul', 'PAL3000']), 'cureOrSabotage');
-// console.log(pal3000.chooseMissionRoster(3), 'chooseMissionRoster');
 // console.log(pal3000.voteForMissionTeam(['Athena', 'Mark', 'Paul'], false), 'voteForMissionTeam');
