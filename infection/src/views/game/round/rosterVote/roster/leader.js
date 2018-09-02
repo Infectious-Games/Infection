@@ -11,7 +11,7 @@ const Leader = ({
   team,
 }) => (
   <Row>
-    <h3>Congratulations Leader</h3>
+    <h3>You are the Leader</h3>
     <h5>Select {rosterLength} Scientists For The Mission</h5>
     <Col md={4} xs={3} />
     <Col md={4} xs={6}>
