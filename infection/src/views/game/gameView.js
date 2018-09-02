@@ -10,6 +10,8 @@ import GameOver from './gameOver/gameOver';
 import GameStatus from './gameStatus/gameStatus';
 import Header from './shared/header';
 
+// if time allows refactor out nested ternary
+
 const GameView = ({
   game,
   choose,
