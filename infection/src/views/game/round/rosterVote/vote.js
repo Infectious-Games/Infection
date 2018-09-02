@@ -4,8 +4,8 @@ import { Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 const Vote = ({ handleRosterVote, leader, missionRoster }) => (
   <Row>
     <h3>{leader} Has Selected</h3>
-    <Col md={4} />
-    <Col md={4}>
+    <Col md={4} xs={3} />
+    <Col md={4} xs={6}>
       <ListGroup>
         {missionRoster.map(member => (
           <ListGroupItem key={member}>{member}</ListGroupItem>
@@ -17,7 +17,7 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         bsSize="large"
         bsStyle="success"
       >
-        YES
+        Y
       </Button>
       <Row>---OR---</Row>
       <Button
@@ -25,10 +25,10 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         bsSize="large"
         bsStyle="danger"
       >
-        NO
+        N
       </Button>
     </Col>
-    <Col md={4} />
+    <Col md={4} xs={3} />
   </Row>
 );
 
