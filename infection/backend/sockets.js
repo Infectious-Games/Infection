@@ -106,13 +106,11 @@ module.exports = server => {
             setTimeout(() => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
-              console.log(roster, 'roster chosen by PAL sockets.js 105');
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
         }, 25000); 
       };
-      console.log(store.getState().users[socket.game].users, 'USERS, USERS, USERS');
       store.getState().users[socket.game].users.length === playerCount
         ? store.dispatch(assignRoles(socket.game)) && getPlayerProfile()
         : console.log(
@@ -178,11 +176,7 @@ module.exports = server => {
               store.dispatch(restartGame(socket.game));
               store.dispatch(restartRounds(socket.game));
               store.dispatch(resetVotes(socket.game));
-
-              /////////////////////////////////
               store.dispatch(resetMissionVotes(socket.game));
-              //////////////////////////
-
               gameRooms[socket.game] = {};
             } else if (infiltratorWinTotal === 3) {
               winner = true;
@@ -199,11 +193,7 @@ module.exports = server => {
               store.dispatch(restartGame(socket.game));
               store.dispatch(restartRounds(socket.game));
               store.dispatch(resetVotes(socket.game));
-
-              //////////////////////////
               store.dispatch(resetMissionVotes(socket.game));
-              /////////////////////////
-
               gameRooms[socket.game] = {};
             } else {
               // store.dispatch(incrementRound());
@@ -235,15 +225,8 @@ module.exports = server => {
 
     // PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION------------
     socket.on('chose YES or NO', ({ vote, username }) => {
-      console.log(vote, 'vote sockets 228');
-      console.log(username, 'username sockets 229');
-      console.log(pal3000, 'pal3000 sockets 230');
-      console.log(pal3000.voted, 'pal3000.voted sockets 231');
-
       if (pal3000 && !pal3000.voted) {
-        console.log(pal3000, 'pal3000 sockets 234');
         const palVote = pal3000.voteForMissionTeam(roster);
-        console.log(palVote, 'palVote sockets 237');
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
         palVote === 'YES'
@@ -254,15 +237,9 @@ module.exports = server => {
       }
       // track each players vote
       proposalResults.push({ name: username, vote });
-      console.log(proposalResults, 'proposalResults sockets 247');
       //increment yes and no votes as individual votes come in
       vote === 'YES' ? store.dispatch(voteYes(socket.game)) : store.dispatch(voteNo(socket.game));
       // If everyone has voted
-
-      console.log(store.getState().proposalVotes[socket.game].totalMissionVotes, 
-        'store.getState().proposalVotes[socket.game].totalMissionVotes sockets 253');
-        console.log(playerCount, 'playerCount sockets 254')
-
       if (
         store.getState().proposalVotes[socket.game].totalMissionVotes ===
         playerCount
@@ -326,11 +303,7 @@ module.exports = server => {
                 store.dispatch(restartGame(socket.game));
                 store.dispatch(restartRounds(socket.game));             
                 store.dispatch(resetVotes(socket.game));
-
-                ////////////////////////////////////
                 store.dispatch(resetMissionVotes(socket.game));
-                ///////////////////////////
-
                 gameRooms[socket.game] = {};
               } else {
                 // If this is not the third win for the infiltrators,

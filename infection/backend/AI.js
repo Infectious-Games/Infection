@@ -41,7 +41,6 @@ class PAL3000 {
         this.playerRecords[player].numberOfSuccesses /
         this.playerRecords[player].numberOfMissions;
     });
-    console.log(this.playerRecords, 'playerRecords AI 44');
   }
 
   // CURE vs. SABOTAGE choice
@@ -74,7 +73,7 @@ class PAL3000 {
         // if a player hasn't been on a mission, set default success rate to 50%
         const playerDefault = player;
         if (!playerDefault.numberOfMissions) {
-          playerDefault.missionSuccessRate = 0.49;
+          playerDefault.missionSuccessRate = 0.5;
         }
         return playerDefault;
       })
@@ -114,14 +113,14 @@ class PAL3000 {
     }
     // if scientist
     if (this.scientist) {
-      // check to see if each member of proposedRoster has > 50% mission success record
+      // check to see if each member of proposedRoster has > 49% mission success record
       const approveProposedRoster = proposedRoster
         // filter out PAL: he's not concerned with his own record
         .filter(player => player !== 'PAL3000')
         // create an array of the proposedRoster's success rates
         .map(player => this.playerRecords[player].missionSuccessRate)
-        // if every rate is greater than 50%
-        .every(rate => rate > 0.5);
+        // if every rate is greater than 49%
+        .every(rate => rate > 0.49);
       return approveProposedRoster ? 'YES' : 'NO';
     }
     // if infiltrator

@@ -76,32 +76,6 @@ class Game extends Component {
           }
         }
       );
-      // data.round === this.state.round
-      //   ? this.setState({
-      //       round: data.round,
-      //       leader: data.leader,
-      //       rosterLength: data.rosterLength,
-      //       missionRoster: [],
-      //       missionActive: false,
-      //       choiceMade: false,
-      //       leaderSubmitRoster: false,
-      //       allUsersVotedOnRoster: false,
-      //       usersVoteRecord: [],
-      //       votedOnRoster: false,
-      //     })
-      //   : this.setState({
-      //       round: data.round,
-      //       leader: data.leader,
-      //       rosterLength: data.rosterLength,
-      //       missionRoster: [],
-      //       missionActive: false,
-      //       choiceMade: false,
-      //       leaderSubmitRoster: false,
-      //       allUsersVotedOnRoster: false,
-      //       usersVoteRecord: [],
-      //       votedOnRoster: false,
-      //       rosterUnapproved: 0,
-      //     });
     });
     socket.on('team chosen', proposedRoster => {
       this.setState({
