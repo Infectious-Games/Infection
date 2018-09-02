@@ -16,6 +16,7 @@ const Infiltrator = ({ infiltrators }) => (
           height={150} // if setting dimsions image cannot be responsive
           src={infiltrator}
           // responsive
+          // class="img-responsive center-block"
         />
         <h2 className="infiltrator-title">INFILTRATOR</h2>
         <h5>YOUR OBJECTIVES:</h5>

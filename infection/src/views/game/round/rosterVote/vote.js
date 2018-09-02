@@ -24,6 +24,7 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         onClick={() => handleRosterVote('NO')}
         bsSize="large"
         bsStyle="danger"
+        // block
       >
         N
       </Button>

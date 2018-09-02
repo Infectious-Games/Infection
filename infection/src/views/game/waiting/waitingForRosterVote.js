@@ -5,7 +5,7 @@ import Waiting from './waiting';
 
 const WaitingForRosterVote = () => (
   <Row>
-    <h3>Your Vote Has Been Recorded!</h3>
+    <h3>Your Vote Has Been Recorded</h3>
     <h4>Please Wait For The Rest Of Your Team To Vote.</h4>
     <Col md={2} />
     <Col md={8}>

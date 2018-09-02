@@ -26,16 +26,19 @@ const {
   resetFail,
   incrementRound,
 } = require('./redux/game/actionCreator_game');
-const { Game } = require('./database');
 const grid = require('./redux/logic_constants');
 const { PAL3000 } = require('./AI');
-const db = require('./database');
-
+const gameRooms = require('./gameRooms');
 const assignLeader = require('./gameLogicHelpers');
 const leaderStorage = require('./leaderOrderStorage');
+const db = require('./database');
+
+const log = console.log;
 
 module.exports = server => {
   const io = sockets(server);
+  let playerCount;
+  let dbGameID;
   let proposalResults = [];
   let pal3000;
   let roster;
@@ -43,25 +46,25 @@ module.exports = server => {
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
       const { game } = playerProps;
+      playerCount = gameRooms[game].playerCount;
+      dbGameID = gameRooms[game].dbGameID;
       const { username } = playerProps;
       socket.game = game;
       socket.username = username;
-
-      // check game in db to see if PAL3000 is active
-      db.palActive(game, palActive => {
+      db.palActive(dbGameID, palActive => {
         // if PAL3000 is active and has not already been added
         if (palActive && !pal3000) {
-          // add PAL to the game
-          store.dispatch(newUser('PAL3000', game, 3000));
-          // toggle pal3000
+        // add PAL to the game
+          store.dispatch(newUser(game, 'PAL3000', 3000));
+        // toggle pal3000
           pal3000 = true;
         }
       });
-      store.dispatch(newUser(username, game, socket.id));
+      store.dispatch(newUser(game, username, socket.id));
       // SERVER CONNECTS PLAYER TO GAME---------------------------------------
       socket.join(game);
       const getPlayerProfile = () => {
-        const playersInGame = store.getState().users.users;
+        const playersInGame = store.getState().users[socket.game].users;
         const team = playersInGame.map(user => user.username);
         const infiltrators = [];
         playersInGame.forEach(user => {
@@ -81,10 +84,11 @@ module.exports = server => {
           io.to(user.socketID).emit('game start', user);
         });
         setTimeout(() => {
-          store.dispatch(incrementRound());
-          const round = store.getState().game.round;
-          const rosterLength = grid[socket.numberOfPlayers][round - 1];
-          const leaderLoop = assignLeader(store.getState().users.users);
+          store.dispatch(incrementRound(socket.game));
+          const round = store.getState().game[socket.game].round;
+          const rosterLength = grid[playerCount][round - 1];
+          log(chalk.bold.cyan(rosterLength, 'rosterLength on line 92'));
+          const leaderLoop = assignLeader(store.getState().users[socket.game].users);
           leaderStorage[socket.game] = { index: 0, leaderLoop };
           const roundLeader =
             leaderStorage[socket.game].leaderLoop[
@@ -102,68 +106,62 @@ module.exports = server => {
             setTimeout(() => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
+              console.log(roster, 'roster chosen by PAL sockets.js 105');
               io.in(socket.game).emit('team chosen', roster);
-            }, 3000);
+            }, 5000);
           }
-        }, 5000);
+        }, 25000); 
       };
-      Game.find({ where: { id: game } })
-        .then(game => {
-          socket.numberOfPlayers = game.numberOfPlayers;
-          return game.numberOfPlayers;
-        })
-        .then(playerCount => {
-          store.getState().users.users.length === playerCount
-            ? store.dispatch(assignRoles()) && getPlayerProfile()
-            : console.log(
-                chalk.bold.cyan(
-                  'User added. Waiting for more users to start game.'
-                )
-              );
-        })
-        .catch(err => console.error(err));
+      console.log(store.getState().users[socket.game].users, 'USERS, USERS, USERS');
+      store.getState().users[socket.game].users.length === playerCount
+        ? store.dispatch(assignRoles(socket.game)) && getPlayerProfile()
+        : console.log(
+          chalk.bold.cyan(
+            'User added. Waiting for more users to start game.'
+          )
+        );
     });
     // LEADER CHOSE TEAM-------------------------------------------------------
     socket.on('deploy team', team => {
+      log(chalk.bold.cyan(roster, 'roster'));
       roster = team;
       io.in(socket.game).emit('team chosen', team);
     });
     // CURE OR SABOTAGE CHOSEN-------------------------------------------------
     socket.on('chose cure or sabotage', choice => {
-      const round = store.getState().game.round;
+      const round = store.getState().game[socket.game].round;
       choice === 'CURE'
-        ? store.dispatch(voteCure())
-        : store.dispatch(voteSabotage());
+        ? store.dispatch(voteCure(socket.game))
+        : store.dispatch(voteSabotage(socket.game));
       // if pal3000 is active and on the mission
       if (pal3000 && !pal3000.voted && roster.includes('PAL3000')) {
-        const palChoice = pal3000.cureOrSabotage();
+        const palChoice = pal3000.cureOrSabotage(round, roster);
         palChoice === 'CURE'
-        ? store.dispatch(voteCure())
-        : store.dispatch(voteSabotage());
+        ? store.dispatch(voteCure(socket.game))
+        : store.dispatch(voteSabotage(socket.game));
         pal3000.voted = true;
       }
-      const results = store.getState().cureOrSabotage.voteStatus;
-      const totalVotes = store.getState().cureOrSabotage.deployedVoteCount;
-      // log(chalk.bold.black(`
-      //   ${results}, 'results ... 1 for sabotage ... 0 for cure', 
-      //   ${totalVotes}, 'totalVotes', 
-      //   ${store.getState()}, 'STORE after vote dispatch'`
-      // ));
-      totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 1
-        ? store.dispatch(infiltratorRoundWin())
+      const results = store.getState().cureOrSabotage[socket.game].voteStatus;
+      const totalVotes = store.getState().cureOrSabotage[socket.game].deployedVoteCount;
+      log(chalk.bold.black(store.getState(), 'STORE after vote dispatch'
+));
+      totalVotes === grid[playerCount][round - 1] && results === 1
+        ? store.dispatch(infiltratorRoundWin(socket.game))
         : console.log(chalk.magenta('not a great day to be a scientist'));
-      totalVotes === grid[socket.numberOfPlayers][round - 1] && results === 0
-        ? store.dispatch(scientistRoundWin())
+      totalVotes === grid[playerCount][round - 1] && results === 0
+        ? store.dispatch(scientistRoundWin(socket.game))
         : console.log(chalk.magenta('great day to be a scientist'));
-      totalVotes === grid[socket.numberOfPlayers][round - 1]
+      totalVotes === grid[playerCount][round - 1]
         ? io.in(socket.game).emit('mission result', results) &&
           setTimeout(() => {
-            // reset PAL3000's voted status
             if (pal3000) {
+              // reset PAL3000's voted status
               pal3000.voted = false;
+              // send results to PAL
+              pal3000.updatePlayerRecords(results, roster);
             }
-            let scientistWinTotal = store.getState().game.scientistWins;
-            let infiltratorWinTotal = store.getState().game.infiltratorWins;
+            const scientistWinTotal = store.getState().game[socket.game].scientistWins;
+            const infiltratorWinTotal = store.getState().game[socket.game].infiltratorWins;  
             let winner;
             if (scientistWinTotal === 3) {
               winner = false;
@@ -176,10 +174,11 @@ module.exports = server => {
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
-              store.dispatch(resetUsers());
-              store.dispatch(restartGame());
-              store.dispatch(restartRounds());
-              store.dispatch(resetVotes());
+              store.dispatch(resetUsers(socket.game));
+              store.dispatch(restartGame(socket.game));
+              store.dispatch(restartRounds(socket.game));
+              store.dispatch(resetVotes(socket.game));
+              gameRooms[socket.game] = {};
             } else if (infiltratorWinTotal === 3) {
               winner = true;
               // if PAL3000 played, update his stats
@@ -191,15 +190,16 @@ module.exports = server => {
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------
               setTimeout(() => socket.leave(socket.game), 3000);
-              store.dispatch(resetUsers());
-              store.dispatch(restartGame());
-              store.dispatch(restartRounds());
-              store.dispatch(resetVotes());
+              store.dispatch(resetUsers(socket.game));
+              store.dispatch(restartGame(socket.game));
+              store.dispatch(restartRounds(socket.game));
+              store.dispatch(resetVotes(socket.game));
+              gameRooms[socket.game] = {};
             } else {
               // store.dispatch(incrementRound());
-              store.dispatch(resetVotes());
-              const round = store.getState().game.round;
-              const rosterLength = grid[socket.numberOfPlayers][round - 1];
+              store.dispatch(resetVotes(socket.game));
+              const round = store.getState().game[socket.game].round;
+              const rosterLength = grid[playerCount][round - 1];
               const roundLeader =
                 leaderStorage[socket.game].leaderLoop[
                   leaderStorage[socket.game].index
@@ -216,7 +216,7 @@ module.exports = server => {
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   io.in(socket.game).emit('team chosen', roster);
-                }, 3000);
+                }, 5000);
               }
             }
           }, 3000)
@@ -230,28 +230,28 @@ module.exports = server => {
         // add PAL3000 vote to proposalResults
         proposalResults.push({ name: 'PAL3000', vote: palVote });
         palVote === 'YES'
-          ? store.dispatch(voteYes())
-          : store.dispatch(voteNo());
+          ? store.dispatch(voteYes(socket.game))
+          : store.dispatch(voteNo(socket.game));
         pal3000.voted = true;
         pal3000.isLeader = false;
       }
       // track each players vote
       proposalResults.push({ name: username, vote });
-      // increment yes and no votes as individual votes come in
-      vote === 'YES' ? store.dispatch(voteYes()) : store.dispatch(voteNo());
+      //increment yes and no votes as individual votes come in
+      vote === 'YES' ? store.dispatch(voteYes(socket.game)) : store.dispatch(voteNo(socket.game));
       // If everyone has voted
       if (
-        store.getState().proposalVotes.totalMissionVotes ===
-        socket.numberOfPlayers
+        store.getState().proposalVotes[socket.game].totalMissionVotes ===
+        playerCount
       ) {
         // More accepts than rejects for team proposal
         const voteSucceeds =
-          store.getState().proposalVotes.voteSuccess >
-          store.getState().proposalVotes.voteFail;
+          store.getState().proposalVotes[socket.game].voteSuccess >
+          store.getState().proposalVotes[socket.game].voteFail;
         let results;
         voteSucceeds === false ? (results = 1) : (results = 0);
-        const round = store.getState().game.round;
-        const rosterLength = grid[socket.numberOfPlayers][round - 1];
+        const round = store.getState().game[socket.game].round;
+        const rosterLength = grid[playerCount][round - 1];
         const roundLeader =
           leaderStorage[socket.game].leaderLoop[
             leaderStorage[socket.game].index
@@ -268,25 +268,25 @@ module.exports = server => {
         // If vote succeeds, reset fail count, mission votes,
         // move to cure or sabotage vote via on mission event
         if (voteSucceeds) {
-          store.dispatch(resetMissionVotes());
+          store.dispatch(resetMissionVotes(socket.game));
           console.log(
             chalk.bgWhite.blue(
-              store.getState().proposalVotes.totalMissionVotes,
+              store.getState().proposalVotes[socket.game].totalMissionVotes,
               'totalMissionVotes after success'
             )
           );
-          store.dispatch(resetFail());
+          store.dispatch(resetFail(socket.game));
           proposalResults = [];
           io.in(socket.game).emit('on mission');
         } else if (!voteSucceeds) {
           // If vote fails, check if this is third fail on current
-          if (store.getState().game.failCount === 2) {
+          if (store.getState().game[socket.game].failCount === 2) {
             // If this is the third failed vote on current round,
             // check if the infiltrators already have 2 wins
             io.in(socket.game).emit('mission result', results);
             // If this is the third round win for the infiltrators
             setTimeout(() => {
-              const infiltratorWinTotal = store.getState().game.infiltratorWins;
+              const infiltratorWinTotal = store.getState().game[socket.game].infiltratorWins;
               console.log(chalk.bgYellow.black(infiltratorWinTotal));
               let winner;
               if (infiltratorWinTotal === 2) {
@@ -299,19 +299,20 @@ module.exports = server => {
                 }
                 io.in(socket.game).emit('game over', winner);
                 setTimeout(() => socket.leave(socket.game), 3000);
-                store.dispatch(resetUsers());
-                store.dispatch(restartGame());
-                store.dispatch(restartRounds());
-                store.dispatch(resetVotes());
+                store.dispatch(resetUsers(socket.game));
+                store.dispatch(restartGame(socket.game));
+                store.dispatch(restartRounds(socket.game));
+                store.dispatch(resetVotes(socket.game));
+                gameRooms[socket.game] = {};
               } else {
                 // If this is not the third win for the infiltrators,
                 // reset appropriate state and start new new round
-                store.dispatch(infiltratorRoundWin());
-                store.dispatch(resetFail());
-                store.dispatch(resetMissionVotes());
+                store.dispatch(infiltratorRoundWin(socket.game));
+                store.dispatch(resetFail(socket.game));
+                store.dispatch(resetMissionVotes(socket.game));
                 // store.dispatch(incrementRound());
-                const round = store.getState().game.round;
-                const rosterLength = grid[socket.numberOfPlayers][round - 1];
+                const round = store.getState().game[socket.game].round;
+                const rosterLength = grid[playerCount][round - 1];
                 proposalResults = [];
                 leaderStorage[socket.game].index++;
                 setTimeout(
@@ -329,15 +330,15 @@ module.exports = server => {
                     // PAL3000 chooses roster
                     roster = pal3000.chooseMissionRoster(rosterLength);
                     io.in(socket.game).emit('team chosen', roster);
-                  }, 3000);
+                  }, 5000);
                 }
               }
             }, 3000);
           } else {
             // If this is not the third failed vote, reset mission votes,
             // increment fail, assign new leader, wait for next proposal
-            store.dispatch(incrementFail());
-            store.dispatch(resetMissionVotes());
+            store.dispatch(incrementFail(socket.game));
+            store.dispatch(resetMissionVotes(socket.game));
             proposalResults = [];
             leaderStorage[socket.game].index++;
             setTimeout(() => {
@@ -352,7 +353,7 @@ module.exports = server => {
                   // PAL3000 chooses roster
                   roster = pal3000.chooseMissionRoster(rosterLength);
                   io.in(socket.game).emit('team chosen', roster);
-                }, 3000);
+                }, 5000);
               }
             }, 5000);
           }
