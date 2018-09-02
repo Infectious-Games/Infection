@@ -12,17 +12,18 @@ const RosterVote = ({
   usersVoteRecord,
   votedOnRoster,
 }) =>
-  votedOnRoster
-    ? allUsersVotedOnRoster
-      ? <UsersVoteOnRosterList
-          usersVoteRecord={usersVoteRecord}
-        ></UsersVoteOnRosterList>
-      : <WaitingForRosterVote></WaitingForRosterVote>
-    : <Vote
+  votedOnRoster ? (
+    allUsersVotedOnRoster ? (
+      <UsersVoteOnRosterList usersVoteRecord={usersVoteRecord} />
+    ) : (
+      <WaitingForRosterVote />
+    )
+  ) : (
+    <Vote
       handleRosterVote={handleRosterVote}
       leader={leader}
       missionRoster={missionRoster}
-      ></Vote>
-
+    />
+  );
 
 export default RosterVote;

@@ -7,11 +7,11 @@ const SelectRosterEntry = ({ member, roster, handleSelectRosterEntryClick }) =>
       onClick={() => handleSelectRosterEntryClick(member)}
       disabled
     >
-      Team Member {member}
+      {member}
     </ListGroupItem>
   ) : (
     <ListGroupItem onClick={() => handleSelectRosterEntryClick(member)}>
-      Team Member {member}
+      {member}
     </ListGroupItem>
   );
 

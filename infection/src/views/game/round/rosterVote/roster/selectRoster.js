@@ -20,7 +20,7 @@ const SelectRoster = ({
         />
       ))}
     </ListGroup>
-    <Button bsStyle="danger" bsSize="large" onClick={handleSubmitRoster}>
+    <Button bsStyle="success" bsSize="large" onClick={handleSubmitRoster}>
       SUBMIT ROSTER
     </Button>
   </Row>

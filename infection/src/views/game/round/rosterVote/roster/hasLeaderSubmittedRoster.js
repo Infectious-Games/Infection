@@ -9,8 +9,8 @@ const HasLeaderSubmittedRoster = ({
   handleSubmitRoster,
   handleRosterVote,
 }) =>
-  game.leaderSubmitRoster
-    ? <RosterVote
+  game.leaderSubmitRoster ? (
+    <RosterVote
       rosterApproved={game.rosterApproved}
       missionRoster={game.missionRoster}
       leader={game.leader}
@@ -18,12 +18,13 @@ const HasLeaderSubmittedRoster = ({
       votedOnRoster={game.votedOnRoster}
       allUsersVotedOnRoster={game.allUsersVotedOnRoster}
       usersVoteRecord={game.usersVoteRecord}
-    ></RosterVote>
-    : <Roster
+    />
+  ) : (
+    <Roster
       game={game}
       handleSelectRosterEntryClick={handleSelectRosterEntryClick}
       handleSubmitRoster={handleSubmitRoster}
-    ></Roster>
-
+    />
+  );
 
 export default HasLeaderSubmittedRoster;

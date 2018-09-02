@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Leader from '../roster/leader';
-import NotLeader from '../roster/notLeader';
+import Leader from './leader';
+import NotLeader from './notLeader';
 
 const Roster = ({ game, handleSelectRosterEntryClick, handleSubmitRoster }) =>
   game.leader === game.username ? (
