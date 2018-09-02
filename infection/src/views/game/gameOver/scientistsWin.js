@@ -6,7 +6,7 @@ import scientist from '../../../images/scientist1.png';
 const ScientistsWin = () => (
   <Row className="scientist-win">
     <br />
-    <h1>The Scientists Have Prevailed!</h1>
+    <h1>The World Is Safe!</h1>
     <br />
     <Row>
       <Col md={4} xs={2} />
@@ -15,7 +15,7 @@ const ScientistsWin = () => (
       </Col>
       <Col md={4} xs={2} />
     </Row>
-    <h3>The World Is Safe!</h3>
+    <h3>The Scientists Have Prevailed!</h3>
   </Row>
 );
 
