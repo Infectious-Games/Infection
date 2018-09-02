@@ -5,7 +5,7 @@ import Waiting from '../../../waiting/waiting';
 
 const NotLeader = ({ leader }) => (
   <Row>
-    <h2>{leader} Is The Current Leader.</h2>
+    <h2>{leader} Is Your Current Leader.</h2>
     <Col md={2} />
     <Col md={8}>
       <h4>Try To Influence Your Leader's Choice For Mission Roster</h4>
