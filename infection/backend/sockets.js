@@ -106,13 +106,11 @@ module.exports = server => {
             setTimeout(() => {
               // PAL3000 chooses roster
               roster = pal3000.chooseMissionRoster(rosterLength);
-              console.log(roster, 'roster chosen by PAL sockets.js 105');
               io.in(socket.game).emit('team chosen', roster);
             }, 5000);
           }
         }, 25000); 
       };
-      console.log(store.getState().users[socket.game].users, 'USERS, USERS, USERS');
       store.getState().users[socket.game].users.length === playerCount
         ? store.dispatch(assignRoles(socket.game)) && getPlayerProfile()
         : console.log(
@@ -178,6 +176,7 @@ module.exports = server => {
               store.dispatch(restartGame(socket.game));
               store.dispatch(restartRounds(socket.game));
               store.dispatch(resetVotes(socket.game));
+              store.dispatch(resetMissionVotes(socket.game));
               gameRooms[socket.game] = {};
             } else if (infiltratorWinTotal === 3) {
               winner = true;
@@ -194,6 +193,7 @@ module.exports = server => {
               store.dispatch(restartGame(socket.game));
               store.dispatch(restartRounds(socket.game));
               store.dispatch(resetVotes(socket.game));
+              store.dispatch(resetMissionVotes(socket.game));
               gameRooms[socket.game] = {};
             } else {
               // store.dispatch(incrementRound());
@@ -301,8 +301,9 @@ module.exports = server => {
                 setTimeout(() => socket.leave(socket.game), 3000);
                 store.dispatch(resetUsers(socket.game));
                 store.dispatch(restartGame(socket.game));
-                store.dispatch(restartRounds(socket.game));
+                store.dispatch(restartRounds(socket.game));             
                 store.dispatch(resetVotes(socket.game));
+                store.dispatch(resetMissionVotes(socket.game));
                 gameRooms[socket.game] = {};
               } else {
                 // If this is not the third win for the infiltrators,
