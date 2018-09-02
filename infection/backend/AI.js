@@ -41,6 +41,7 @@ class PAL3000 {
         this.playerRecords[player].numberOfSuccesses /
         this.playerRecords[player].numberOfMissions;
     });
+    console.log(this.playerRecords, 'playerRecords AI 44');
   }
 
   // CURE vs. SABOTAGE choice
@@ -73,7 +74,7 @@ class PAL3000 {
         // if a player hasn't been on a mission, set default success rate to 50%
         const playerDefault = player;
         if (!playerDefault.numberOfMissions) {
-          playerDefault.missionSuccessRate = 0.5;
+          playerDefault.missionSuccessRate = 0.49;
         }
         return playerDefault;
       })
