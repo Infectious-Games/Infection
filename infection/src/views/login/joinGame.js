@@ -11,9 +11,13 @@ import {
 
 const JoinGame = ({ game, handleSubmit, handleChange }) => (
   <Row>
+    <br />
     <Col xs={3} />
     <Col xs={6}>
-      <ControlLabel>JOIN A GAME</ControlLabel>
+      <h4>
+        <b>JOIN A GAME</b>
+      </h4>
+      {/* <ControlLabel>JOIN A GAME</ControlLabel> */}
       <Form className="login" inline>
         <FormGroup controlId="formInlineName">
           <FormControl
@@ -24,11 +28,13 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
             onSubmit={handleSubmit}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <Button
             type="submit"
-            bsStyle="success"
+            bsStyle="info"
             onClick={handleSubmit}
-            // bsSize="large"
+            bsSize="small"
           >
             Enter Game
           </Button>

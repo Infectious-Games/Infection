@@ -6,7 +6,7 @@ import scientist from '../../../images/scientist1.png';
 const Scientist = () => (
   <Row className="scientist">
     <br />
-    <h4>YOU'VE BEEN ADDED TO THE TASK FORCE!</h4>
+    <h4>YOU HAVE BEEN ADDED TO THE TASK FORCE</h4>
     <Col md={4} xs={2} />
     <Col md={4} xs={8}>
       <Image src={scientist} responsive />

@@ -32,6 +32,7 @@ const GameView = ({
     </Row>
     <br />
     <Row className="game-view">
+      <br />
       <Col md={2} />
       <Col md={8} xs={12} className="game-view-col">
         {!game.teamAssembled ? (
@@ -63,9 +64,7 @@ const GameView = ({
       </Col>
       <Col md={2} />
     </Row>
-    <Row>
-      <br />
-    </Row>
+    <br />
     <Row className="game-footer">
       <Col md={3} xs={0} />
       <Col md={6} xs={12}>
