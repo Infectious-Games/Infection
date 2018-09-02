@@ -13,7 +13,7 @@ const InfiltratorsWin = () => (
       <Col md={4} xs={8}>
         <Image
           width={125}
-          height={150} //if setting dimsions image cannot be responsive
+          height={150} // if setting dimsions image cannot be responsive
           src={infiltratorsWin}
           // responsive
         />
