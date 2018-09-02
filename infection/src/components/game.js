@@ -1,4 +1,3 @@
-/*eslint-disbale*/
 import React, { Component } from 'react';
 import axios from 'axios';
 import socket from '../socket';
