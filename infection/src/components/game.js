@@ -1,4 +1,3 @@
-/*eslint-disbale*/
 import React, { Component } from 'react';
 import axios from 'axios';
 import socket from '../socket';
@@ -56,32 +55,27 @@ class Game extends Component {
       );
     });
     socket.on('start round', data => {
-      data.round === this.state.round
-        ? this.setState({
-            round: data.round,
-            leader: data.leader,
-            rosterLength: data.rosterLength,
-            missionRoster: [],
-            missionActive: false,
-            choiceMade: false,
-            leaderSubmitRoster: false,
-            allUsersVotedOnRoster: false,
-            usersVoteRecord: [],
-            votedOnRoster: false,
-          })
-        : this.setState({
-            round: data.round,
-            leader: data.leader,
-            rosterLength: data.rosterLength,
-            missionRoster: [],
-            missionActive: false,
-            choiceMade: false,
-            leaderSubmitRoster: false,
-            allUsersVotedOnRoster: false,
-            usersVoteRecord: [],
-            votedOnRoster: false,
-            rosterUnapproved: 0,
-          });
+      this.setState(
+        {
+          round: data.round,
+          leader: data.leader,
+          rosterLength: data.rosterLength,
+          missionRoster: [],
+          missionActive: false,
+          choiceMade: false,
+          leaderSubmitRoster: false,
+          allUsersVotedOnRoster: false,
+          usersVoteRecord: [],
+          votedOnRoster: false,
+        },
+        () => {
+          if (data.round === this.state.round) {
+            this.setState({
+              rosterUnapproved: 0,
+            });
+          }
+        }
+      );
     });
     socket.on('team chosen', proposedRoster => {
       this.setState({
@@ -116,9 +110,8 @@ class Game extends Component {
       const updatedResults = this.state.missionResults.map((current, i) => {
         if (i === this.state.round - 1) {
           return result;
-        } else {
-          return current;
         }
+        return current;
       });
       this.setState({ missionResults: updatedResults });
     });
@@ -144,6 +137,7 @@ class Game extends Component {
       );
     });
   }
+
   handleSelectRosterEntryClick(member) {
     const roster = this.state.missionRoster;
     roster.includes(member)

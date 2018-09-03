@@ -7,13 +7,13 @@ import infiltrator from '../../../../images/gasmask-alt-2.png';
 const Infiltrator = ({ infiltrators }) => (
   <Row className="infiltrator">
     <br />
-    <h4>YOU HAVE INFILTRATED THE TASK FORCE</h4>
+    <h4>YOU HAVE INFILTRATED THE TASK FORCE!</h4>
     <Row>
       <Col md={4} xs={2} />
       <Col md={4} xs={8}>
         <Image
-          width={150}
-          height={175} // if setting dimsions image cannot be responsive
+          width={125}
+          height={150} // if setting dimsions image cannot be responsive
           src={infiltrator}
           // responsive
           // class="img-responsive center-block"

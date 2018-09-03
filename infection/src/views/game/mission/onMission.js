@@ -7,7 +7,7 @@ const OnMission = ({ choose, choiceMade }) =>
       <h1>What Will You Do?</h1>
       <br />
       <Button onClick={() => choose('CURE')} bsSize="large" bsStyle="success">
-        CURE
+        C
       </Button>
       <br />
       <br />
@@ -18,7 +18,7 @@ const OnMission = ({ choose, choiceMade }) =>
         bsSize="large"
         bsStyle="danger"
       >
-        SABOTAGE
+        S
       </Button>
     </Row>
   ) : (
@@ -26,8 +26,7 @@ const OnMission = ({ choose, choiceMade }) =>
       <br />
       <br />
       <br />
-      <h1>Your Hard Work Is Appreciated</h1>
-      {/* add gif? */}
+      <h1>Your Hard Work Is Appreciated!</h1>
     </Row>
   );
 

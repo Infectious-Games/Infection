@@ -171,10 +171,10 @@
 .sparky-text {
   color: black;
 }
-.container {
+/* .container {
   position: relative;
   width: 50%;
-}
+} */
 .sparky-container:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;
@@ -213,4 +213,8 @@
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
+}
+.select-roster {
+  background-color: antiquewhite;
+  color: green;
 }
