@@ -102,7 +102,8 @@ class PAL3000 {
   }
 
   // Voting for mission team
-  voteForMissionTeam(proposedRoster) {
+  voteForMissionTeam(proposedRoster, failedRosterVotes) {
+    console.log(failedRosterVotes, 'failedRosterVotes AI 106');
     // checks if proposedRoster includes an Infiltrator
     const includesInfiltrator = proposedRoster.some(player =>
       this.infiltrators.includes(player)
@@ -113,6 +114,12 @@ class PAL3000 {
     }
     // if scientist
     if (this.scientist) {
+      // if 2 failed roster votes already
+      if (failedRosterVotes === 2) {
+        console.log('PAL voted YES to avoid mission failure AI 119');
+        // vote 'YES' to avoid mission fail
+        return 'YES';
+      }
       // check to see if each member of proposedRoster has > 49% mission success record
       const approveProposedRoster = proposedRoster
         // filter out PAL: he's not concerned with his own record

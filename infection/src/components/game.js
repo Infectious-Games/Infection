@@ -55,6 +55,12 @@ class Game extends Component {
       );
     });
     socket.on('start round', data => {
+      console.log(data, 'data, start round game 58');
+      if (data.round > this.state.round) {
+        this.setState({
+          rosterUnapproved: 0,
+        });
+      }
       this.setState(
         {
           round: data.round,
@@ -69,11 +75,7 @@ class Game extends Component {
           votedOnRoster: false,
         },
         () => {
-          if (data.round === this.state.round) {
-            this.setState({
-              rosterUnapproved: 0,
-            });
-          }
+          console.log(this.state, 'this.state game 59');
         }
       );
     });
@@ -84,15 +86,24 @@ class Game extends Component {
       });
     });
     socket.on('roster vote result', ({ voteSucceeds, vote }) => {
+      console.log(voteSucceeds, 'voteSucceeds game 87');
+      console.log(vote, 'vote game 88');
       this.setState(
         { allUsersVotedOnRoster: true, usersVoteRecord: vote },
         () => {
           // set state of rosterUnapproved based on result
           // for every failed vote increment by one
           if (!voteSucceeds) {
-            this.setState({
-              rosterUnapproved: this.state.rosterUnapproved + 1,
-            });
+            this.setState(
+              {
+                rosterUnapproved: this.state.rosterUnapproved + 1,
+              },
+              () =>
+                console.log(
+                  this.state.rosterUnapproved,
+                  'this.state.rosterUnapproved game 95'
+                )
+            );
           }
         }
       );
@@ -102,6 +113,7 @@ class Game extends Component {
       this.setState({ missionActive: true });
     });
     socket.on('mission result', result => {
+      console.log(result, 'result game 105');
       if (result === 0) {
         result = 'success';
       } else if (result === 1) {
@@ -113,7 +125,9 @@ class Game extends Component {
         }
         return current;
       });
-      this.setState({ missionResults: updatedResults });
+      this.setState({ missionResults: updatedResults }, () =>
+        console.log(this.state.missionResults, 'this.state.missionResults')
+      );
     });
     socket.on('game over', winner => {
       this.setState(
