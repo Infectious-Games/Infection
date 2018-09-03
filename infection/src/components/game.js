@@ -24,6 +24,9 @@ class Game extends Component {
       leader: undefined,
       leaderSubmitRoster: false,
       missionActive: false,
+
+      missionFailed: false,
+
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
       rosterLength: 0,
@@ -68,6 +71,7 @@ class Game extends Component {
           rosterLength: data.rosterLength,
           missionRoster: [],
           missionActive: false,
+          missionFailed: false,
           choiceMade: false,
           leaderSubmitRoster: false,
           allUsersVotedOnRoster: false,
@@ -118,6 +122,13 @@ class Game extends Component {
         result = 'success';
       } else if (result === 1) {
         result = 'fail';
+
+        this.setState({ missionFailed: true }, () =>
+          console.log(
+            this.state.missionFailed,
+            'this.state.missionFailed game 122'
+          )
+        );
       }
       const updatedResults = this.state.missionResults.map((current, i) => {
         if (i === this.state.round - 1) {
