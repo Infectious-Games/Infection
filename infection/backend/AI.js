@@ -22,7 +22,8 @@ class PAL3000 {
   }
 
   // update player records
-  updatePlayerRecords(result, roster) { // result: 0 = success, 1 = fail; roster = []; array of names
+  updatePlayerRecords(result, roster) {
+    // result: 0 = success, 1 = fail; roster = []; array of names
     let success;
     if (result === 0) {
       success = true;
@@ -102,7 +103,7 @@ class PAL3000 {
   }
 
   // Voting for mission team
-  voteForMissionTeam(proposedRoster) {
+  voteForMissionTeam(proposedRoster, failedRosterVotes) {
     // checks if proposedRoster includes an Infiltrator
     const includesInfiltrator = proposedRoster.some(player =>
       this.infiltrators.includes(player)
@@ -113,6 +114,11 @@ class PAL3000 {
     }
     // if scientist
     if (this.scientist) {
+      // if 2 failed roster votes already
+      if (failedRosterVotes === 2) {
+        // vote 'YES' to avoid mission fail
+        return 'YES';
+      }
       // check to see if each member of proposedRoster has > 49% mission success record
       const approveProposedRoster = proposedRoster
         // filter out PAL: he's not concerned with his own record

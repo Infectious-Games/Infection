@@ -17,7 +17,7 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         bsSize="large"
         bsStyle="success"
       >
-        Y
+        YES
       </Button>
       <Row>---OR---</Row>
       <Button
@@ -26,7 +26,7 @@ const Vote = ({ handleRosterVote, leader, missionRoster }) => (
         bsStyle="danger"
         // block
       >
-        N
+        NO
       </Button>
     </Col>
     <Col md={4} xs={3} />

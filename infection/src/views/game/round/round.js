@@ -10,7 +10,9 @@ const Round = ({
   handleRosterVote,
 }) =>
   // ?TODO: change line 13, server will update game state on client instead
-  game.rosterUnapproved === 3 ? (
+  game.missionFailed ? (
+    // game.rosterUnapproved === 3 ? (
+
     <Fail />
   ) : (
     <HasLeaderSubmitredRoster
