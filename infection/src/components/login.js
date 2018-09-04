@@ -74,9 +74,6 @@ class Login extends React.Component {
 
   handleCreateGame(num) {
     // check to see if PAL3000 has been selected
-    this.state.pal3000Active
-      ? console.log('PAL3000 needs to be added to this game')
-      : console.log('PAL3000 not selected for this game');
     const gameParams = {
       playerCount: num,
       pal3000Active: this.state.pal3000Active,
@@ -98,10 +95,7 @@ class Login extends React.Component {
   }
 
   activatePal() {
-    console.log('activate Pal3000');
-    this.setState({ pal3000Active: !this.state.pal3000Active }, () =>
-      console.log(this.state.pal3000Active, 'this.state.pal3000Active')
-    );
+    this.setState({ pal3000Active: !this.state.pal3000Active });
   }
 
   render() {

@@ -7,7 +7,7 @@ import infiltrator from '../../../../images/gasmask-alt-2.png';
 const Infiltrator = ({ infiltrators }) => (
   <Row className="infiltrator">
     <br />
-    <h4>YOU HAVE INFILTRATED THE TASK FORCE!</h4>
+    <h4>YOU HAVE INFILTRATED THE TASK FORCE</h4>
     <Row>
       <Col md={4} xs={2} />
       <Col md={4} xs={8}>

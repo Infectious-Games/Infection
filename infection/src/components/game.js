@@ -24,6 +24,8 @@ class Game extends Component {
       leader: undefined,
       leaderSubmitRoster: false,
       missionActive: false,
+      // added missionFailed to track mission failed due to 3rd failed roster vote
+      missionFailed: false,
       missionResults: [undefined, undefined, undefined, undefined, undefined],
       missionRoster: [],
       rosterLength: 0,
@@ -55,27 +57,24 @@ class Game extends Component {
       );
     });
     socket.on('start round', data => {
-      this.setState(
-        {
-          round: data.round,
-          leader: data.leader,
-          rosterLength: data.rosterLength,
-          missionRoster: [],
-          missionActive: false,
-          choiceMade: false,
-          leaderSubmitRoster: false,
-          allUsersVotedOnRoster: false,
-          usersVoteRecord: [],
-          votedOnRoster: false,
-        },
-        () => {
-          if (data.round === this.state.round) {
-            this.setState({
-              rosterUnapproved: 0,
-            });
-          }
-        }
-      );
+      if (data.round > this.state.round) {
+        this.setState({
+          rosterUnapproved: 0,
+        });
+      }
+      this.setState({
+        round: data.round,
+        leader: data.leader,
+        rosterLength: data.rosterLength,
+        missionRoster: [],
+        missionActive: false,
+        missionFailed: false,
+        choiceMade: false,
+        leaderSubmitRoster: false,
+        allUsersVotedOnRoster: false,
+        usersVoteRecord: [],
+        votedOnRoster: false,
+      });
     });
     socket.on('team chosen', proposedRoster => {
       this.setState({
@@ -106,6 +105,7 @@ class Game extends Component {
         result = 'success';
       } else if (result === 1) {
         result = 'fail';
+        this.setState({ missionFailed: true });
       }
       const updatedResults = this.state.missionResults.map((current, i) => {
         if (i === this.state.round - 1) {
