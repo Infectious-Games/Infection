@@ -9,13 +9,15 @@ import {
   Col,
 } from 'react-bootstrap';
 
-import sparky from '../../images/sparky.png';
+import sparky from '../../images/pal3k-f.png';
 
 const StartGame = ({ setNumOfPlayers, activatePal }) => (
   <Row>
-    <h4>
-      <b>START A GAME</b>
-    </h4>
+    <div className="start-game-text">
+      <h4>
+        <b>START A GAME</b>
+      </h4>
+    </div>
     <h6 className="lesser">Select The Number Of Players For Your Game</h6>
     <ButtonGroup>
       {[4, 5, 6, 7, 8, 9, 10].map(num => (
@@ -45,7 +47,7 @@ const StartGame = ({ setNumOfPlayers, activatePal }) => (
     </ButtonGroup>
     <br />
     <h6 className="sparky-text">
-      <b>Click on Sparky to activate AI</b>
+      <b>Click on PAL-3000 to activate AI</b>
     </h6>
   </Row>
 );

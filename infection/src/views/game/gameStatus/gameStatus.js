@@ -17,6 +17,8 @@ const GameStatus = ({ missionResults }) => (
           : (round = undecided);
       return <Image src={round} height={50} width={31} key={i} />;
     })}
+    <br />
+    <br />
   </Row>
 );
 

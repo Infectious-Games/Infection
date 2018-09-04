@@ -20,10 +20,10 @@ const Infiltrator = ({ infiltrators }) => (
         />
         <h2 className="infiltrator-title">INFILTRATOR</h2>
         <h5>YOUR OBJECTIVES:</h5>
-        <ul>
-          <li>Sabotage Missions</li>
-          <li>Remain Undiscovered</li>
-          <li>Spread Discord</li>
+        <ul align="middle">
+          <ul>• Sabotage Missions</ul>
+          <ul>• Remain Undiscovered</ul>
+          <ul>• Spread Discord</ul>
         </ul>
         <InfiltratorList infiltrators={infiltrators} />
       </Col>
