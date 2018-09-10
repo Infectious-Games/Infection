@@ -21,7 +21,12 @@ const Leader = ({
         handleSelectRosterEntryClick={handleSelectRosterEntryClick}
         handleSubmitRoster={handleSubmitRoster}
       />
-      <h6>Selected: {roster.map(member => `*${member}* `)}</h6>
+      <h5>
+        Selected:{' '}
+        {roster.map(member => (
+          <ul>{member}</ul>
+        ))}
+      </h5>
     </Col>
     <Col md={4} xs={3} />
   </Row>

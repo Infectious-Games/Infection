@@ -3,7 +3,6 @@ import {
   Button,
   Col,
   Form,
-  ControlLabel,
   FormControl,
   FormGroup,
   Row,
@@ -14,9 +13,12 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
     <br />
     <Col xs={3} />
     <Col xs={6}>
-      <h4>
-        <b>JOIN A GAME</b>
-      </h4>
+      <div className="start-game-text">
+        <h4>
+          <b>JOIN A GAME</b>
+        </h4>
+      </div>
+      {/* <h6 className="lesser">Ask game creator for your code.</h6> */}
       {/* <ControlLabel>JOIN A GAME</ControlLabel> */}
       <Form className="login" inline>
         <FormGroup controlId="formInlineName">
