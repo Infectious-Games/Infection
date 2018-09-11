@@ -1,6 +1,6 @@
 # INFECTION
 
-A full-stack javascript social deduction game where a team of scientists have been infiltrated by bioterrorists and both teams are trying either cure the world or destroy it. 
+A full-stack javascript social deduction game where a team of scientists have been infiltrated by bioterrorists and both teams are trying to either cure the world or destroy it. 
 
 ### Demo for this app is coming soon.
 
@@ -49,7 +49,10 @@ GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_SECRET_HERE
 ```
 yarn dev 
 ```
-You can stop the server with Ctrl+c.
+### Stopping the Server
+```
+ctrl + C
+```
 
 
 ```
