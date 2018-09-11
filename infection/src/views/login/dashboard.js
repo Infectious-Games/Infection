@@ -1,15 +1,6 @@
 /* eslint-disable */
 import React from 'react';
-import {
-  Grid,
-  Row,
-  Col,
-  Image,
-  Media,
-  Well,
-  Modal,
-  Button,
-} from 'react-bootstrap';
+import { Grid, Row, Col, Image, Media, Modal, Button } from 'react-bootstrap';
 
 import Clearance from './clearance';
 import JoinGame from './joinGame';
