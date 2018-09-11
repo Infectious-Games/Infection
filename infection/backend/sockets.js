@@ -37,17 +37,10 @@ const log = console.log;
 
 module.exports = server => {
   const io = sockets(server);
-  // let playerCount;
-  // let dbGameID;
-  // let proposalResults = [];
-  // let pal3000;
-  // let roster;
 
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
       const game = playerProps.game.toUpperCase();
-      //socket.playerCount = gameRooms[game].playerCount;
-      console.log(gameRooms[socket.game], 'gameRooms[socket.game]');
       const dbGameID = gameRooms[game].dbGameID;
       const { username } = playerProps;
       socket.game = game;
@@ -192,8 +185,6 @@ module.exports = server => {
               // if PAL3000 played, update his stats
               if (gameRooms[socket.game].pal3000) {
                 gameRooms[socket.game].pal3000.updateStats(winner);
-                // reset PAL for next game
-                //gameRooms[game].pal3000 = undefined;
               }
               io.in(socket.game).emit('game over', winner);
               // DISCONNECT SOCKET--------------------------------------------

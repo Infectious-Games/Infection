@@ -26,9 +26,9 @@ module.exports = app => {
     const { body } = req;
     const { playerCount } = body;
     // check for empty games in store, return that game room;
-    const joinCodes = Object.keys(gameRooms).filter(gameName => {
-      return gameRooms[gameName].playerCount === 0;
-    });
+    const joinCodes = Object.keys(gameRooms).filter(
+      gameName => gameRooms[gameName].playerCount === 0
+    );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
     db.createGameAndGetJoinCode(body, gameId => gameId)
