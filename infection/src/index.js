@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
-ReactDOM.render(<App />, document.getElementById('root') || document.createElement('div'));
-registerServiceWorker();
+ReactDOM.render(
+  <App />,
+  document.getElementById('root') || document.createElement('div')
+);
+// registerServiceWorker();
+unregister();
