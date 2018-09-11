@@ -34,7 +34,9 @@ const Dashboard = ({
 }) => (
   <Grid className="dashboard">
     <div className="static-modal">
-      <Modal.Dialog>
+      <Modal.Dialog
+        style={{ 'max-height': 'calc(100vh)', 'overflow-y': 'auto' }}
+      >
         <Modal.Header>
           <Modal.Title>
             <Row className="clearance-lvl">
@@ -45,22 +47,22 @@ const Dashboard = ({
         <Modal.Body>
           <Media className="user-info">
             <Media.Left align="left">
-              <img max0width={130} height={130} src={photo} alt="thumbnail" />
+              <img max0width={90} height={90} src={photo} alt="thumbnail" />
             </Media.Left>
             <Media.Body align="center">
-              <h2>
-                <b>{username}</b>
-              </h2>
               <h4>
+                <b>{username}</b>
+              </h4>
+              <h6>
                 <b>Games Played: </b>
                 {gamesPlayed}
-              </h4>
-              <h4>
+              </h6>
+              <h6>
                 <b>Wins: </b>
                 {wins}
                 <b> / Losses: </b>
                 {losses}
-              </h4>
+              </h6>
             </Media.Body>
           </Media>
         </Modal.Body>
@@ -68,7 +70,6 @@ const Dashboard = ({
           <Row className="start-game">
             {newGame ? (
               <Row>
-                <br />
                 <h4 className="game-code">Game Code: {newGame}</h4>
               </Row>
             ) : (
@@ -79,7 +80,6 @@ const Dashboard = ({
                 />
               </Col>
             )}
-
             <Col md={6}>
               <JoinGame
                 game={game}
@@ -88,15 +88,12 @@ const Dashboard = ({
               />
             </Col>
           </Row>
-          <Row>
-            <Modal.Header />
-          </Row>
+          <Row />
           <br />
           <Logout />
         </Modal.Body>
       </Modal.Dialog>
     </div>
-    ;
   </Grid>
 );
 

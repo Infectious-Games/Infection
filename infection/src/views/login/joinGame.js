@@ -14,9 +14,9 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
     <Col xs={3} />
     <Col xs={6}>
       <div className="start-game-text">
-        <h4>
+        <h5>
           <b>JOIN A GAME</b>
-        </h4>
+        </h5>
       </div>
       {/* <h6 className="lesser">Ask game creator for your code.</h6> */}
       {/* <ControlLabel>JOIN A GAME</ControlLabel> */}
@@ -24,19 +24,19 @@ const JoinGame = ({ game, handleSubmit, handleChange }) => (
         <FormGroup controlId="formInlineName">
           <FormControl
             type="text"
-            placeholder="Enter Game Code"
+            placeholder="Enter Code"
             // bsSize="large"
             value={game}
             onSubmit={handleSubmit}
             onChange={handleChange}
           />
           <br />
-          <br />
           <Button
             type="submit"
             bsStyle="info"
             onClick={handleSubmit}
             bsSize="small"
+            className="enter-button"
           >
             Enter Game
           </Button>
