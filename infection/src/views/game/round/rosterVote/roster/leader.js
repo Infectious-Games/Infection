@@ -24,7 +24,7 @@ const Leader = ({
       <h5>
         Selected:{' '}
         {roster.map(member => (
-          <ul>{member}</ul>
+          <p>{member}</p>
         ))}
       </h5>
     </Col>
