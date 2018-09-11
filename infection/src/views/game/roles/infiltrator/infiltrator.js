@@ -13,18 +13,18 @@ const Infiltrator = ({ infiltrators }) => (
       <Col md={4} xs={8}>
         <Image
           width={125}
-          height={150} // if setting dimsions image cannot be responsive
+          height={150} // if setting dimensions image cannot be responsive
           src={infiltrator}
           // responsive
           // class="img-responsive center-block"
         />
         <h2 className="infiltrator-title">INFILTRATOR</h2>
         <h5>YOUR OBJECTIVES:</h5>
-        <ul align="middle">
-          <ul>• Sabotage Missions</ul>
-          <ul>• Remain Undiscovered</ul>
-          <ul>• Spread Discord</ul>
-        </ul>
+        <div alignContent="middle">
+          <p>• Sabotage Missions</p>
+          <p>• Remain Undiscovered</p>
+          <p>• Spread Discord</p>
+        </div>
         <InfiltratorList infiltrators={infiltrators} />
       </Col>
       <Col md={4} xs={2} />
