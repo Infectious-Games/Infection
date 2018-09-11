@@ -113,6 +113,12 @@ const createGameAndGetJoinCode = ({ playerCount, pal3000Active }) => {
     });
 };
 
+const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
+  User.find({ where: { username } })
+    .then(user => user.update({ wins, losses, gamesPlayed, clearanceLevel }))
+    .catch(err => console.error(err));
+};
+
 const palActive = (id, callback) => {
   Game.find({
     where: {
@@ -186,4 +192,5 @@ module.exports = {
   User,
   Game,
   palActive,
+  superTeam,
 };
