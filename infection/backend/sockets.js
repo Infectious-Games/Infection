@@ -45,7 +45,7 @@ module.exports = server => {
 
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
-      const { game } = playerProps;
+      const game = playerProps.game.toUpperCase();
       playerCount = gameRooms[game].playerCount;
       dbGameID = gameRooms[game].dbGameID;
       const { username } = playerProps;
@@ -365,6 +365,18 @@ module.exports = server => {
         }, 5000);
       } else {
         console.log(chalk.bgCyan.red('Waiting for votes '));
+      }
+    });
+    socket.on('disconnect', () => {
+      if (socket.game) {
+        io.in(socket.game).emit('game over');
+        // DISCONNECT SOCKET--------------------------------------------
+        store.dispatch(resetUsers(socket.game));
+        store.dispatch(restartGame(socket.game));
+        store.dispatch(restartRounds(socket.game));
+        store.dispatch(resetVotes(socket.game));
+        store.dispatch(resetMissionVotes(socket.game));
+        gameRooms[socket.game] = {};
       }
     });
   });
