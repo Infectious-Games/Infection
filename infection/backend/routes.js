@@ -26,18 +26,16 @@ module.exports = app => {
     const { body } = req;
     const { playerCount } = body;
     // check for empty games in store, return that game room;
-    const joinCodes = Object.keys(gameRooms).filter(
-      gameName => !gameRooms[gameName].playerCount
-    );
+    const joinCodes = Object.keys(gameRooms).filter(gameName => {
+      return gameRooms[gameName].playerCount === 0;
+    });
     // join code becomes first empty game
     const joinCode = joinCodes[0];
     db.createGameAndGetJoinCode(body, gameId => gameId)
       .then(gameId => gameId)
       .then(gameId => {
-        gameRooms[joinCode] = Object.assign({}, gameRooms[joinCode], {
-          playerCount,
-          dbGameID: gameId,
-        });
+        gameRooms[joinCode].playerCount = playerCount;
+        gameRooms[joinCode].dbGameID = gameId;
       });
     res.json(joinCode);
   });
