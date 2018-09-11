@@ -376,16 +376,32 @@ module.exports = server => {
         console.log(chalk.bgCyan.red('Waiting for votes '));
       }
     });
-    // socket.on('disconnect', () => {
-    //   if (socket.game) {
-    //     io.in(socket.game).emit('game over');
-    //     store.dispatch(resetUsers(socket.game));
-    //     store.dispatch(restartGame(socket.game));
-    //     store.dispatch(restartRounds(socket.game));
-    //     store.dispatch(resetVotes(socket.game));
-    //     store.dispatch(resetMissionVotes(socket.game));
-    //     gameRooms[socket.game] = {};
-    //   }
-    // });
+    socket.on('disconnect', () => {
+      if (socket.game) {
+        const game = socket.game;
+        io.in(game).emit('game over');
+        setTimeout(() => {
+          io.of('/').in(game).clients((error, socketIds) => {
+          if (error) {
+            console.error(error);
+          } else {
+            socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(game));
+          }
+        });
+          store.dispatch(resetUsers(game));
+          store.dispatch(restartGame(game));
+          store.dispatch(restartRounds(game));
+          store.dispatch(resetVotes(game));
+          store.dispatch(resetMissionVotes(game));
+          gameRooms[game] = {
+            playerCount: 0,
+            dbGameID: null,
+            proposalResults: [],
+            pal3000: null,
+            roster: null,
+          };
+        }, 3000);
+      }
+    });
   });
 };
