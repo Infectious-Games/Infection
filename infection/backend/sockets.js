@@ -43,6 +43,11 @@ module.exports = server => {
   let pal3000;
   let roster;
 
+  db.superTeam('Athena Turek-Hankins', 999, 890, 1889, 'top-secret');
+  db.superTeam('Mark Stark', 1234, 345, 1579, 'illuminati');
+  db.superTeam('Matthew Reid', 99, 50, 149, 'secret');
+  db.superTeam('Paul Marinaro', 10000123, 6, 10000129, 'illuminati');
+
   io.on('connection', socket => {
     socket.on('join game', playerProps => {
       const { game } = playerProps;
