@@ -18,6 +18,7 @@ const users = (state = initialState, action) => {
         securityOfficer: false,
       });
       return newState;
+      
     case ASSIGN_ROLES:
       // Determine appropriate number of infiltrators
       const infiltratorCount = ~~(state[action.gameID].users.length * 0.44);

@@ -12,11 +12,11 @@ const Scientist = () => (
       <Image src={scientist} width={125} height={150} />
       <h2 className="scientist-title">SCIENTIST</h2>
       <h4>YOUR OBJECTIVES:</h4>
-      <ul align="middle">
-        <ul>• Administer Cure</ul>
-        <ul>• Contain Outbreaks</ul>
-        <ul>• Uncover Infiltrators</ul>
-      </ul>
+      <div alignContent="middle">
+        <p>• Administer Cure</p>
+        <p>• Contain Outbreaks</p>
+        <p>• Uncover Infiltrators</p>
+      </div>
     </Col>
     <Col md={4} xs={2} />
   </Row>
