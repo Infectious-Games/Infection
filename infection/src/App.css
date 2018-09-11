@@ -43,7 +43,7 @@
   color: black;
 }
 .game-footer {
-  height: 10%;
+  height: 7%;
   width: 100%;
 }
 .game-header {
@@ -54,12 +54,16 @@
   height: 100%;
   background-color: blueviolet;
 }
+.waiting {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+}
 .leave-game {
   top: 100;
 }
 .game-view {
   width: 100%;
-  height: 70%;
 }
 .game-view-col {
   width: 100%;
@@ -110,7 +114,7 @@
 }
 .infiltrator-title {
   font-family: 'Metrophobic', sans-serif;
-  color: #ffffffbd;
+  color: black;
 }
 .infiltrator-list-entry {
   color: black;
@@ -118,7 +122,7 @@
 }
 .infiltrators-win {
   font-family: 'Metrophobic', sans-serif;
-  color: black;
+  color: #ffffffbd;
 }
 .appreciated {
   top: 50%;
@@ -127,15 +131,15 @@
   color: orange;
 }
 .dashboard {
-  background-size: auto;
-  height: 25%;
-  width: 40%;
-  top: 20px;
+  overflow: scroll;
 }
 .user-info {
   color: black;
   text-align: left;
   z-index: 999;
+}
+.enter-button {
+  margin: 5px;
 }
 .clearance {
   border: darkgray;
@@ -178,10 +182,6 @@
 .sparky-text {
   color: black;
 }
-/* .container {
-  position: relative;
-  width: 50%;
-} */
 .sparky-container:hover {
   animation: shake 0.5s;
   animation-iteration-count: infinite;

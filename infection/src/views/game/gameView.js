@@ -35,7 +35,7 @@ const GameView = ({
     <br />
     <Row className="game-view">
       <br />
-      <Col md={2} />
+      <Col md={2} xs={0} />
       <Col md={8} xs={12} className="game-view-col">
         {!game.teamAssembled ? (
           <WaitingForTeam />
@@ -64,7 +64,7 @@ const GameView = ({
           <GameOver infiltratorsWin={game.infiltratorsWin} />
         )}
       </Col>
-      <Col md={2} />
+      <Col md={2} xs={0} />
     </Row>
     <br />
     <Row className="game-footer">

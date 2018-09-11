@@ -9,14 +9,14 @@ import {
   Col,
 } from 'react-bootstrap';
 
-import sparky from '../../images/pal3k-f.png';
+import sparky from '../../images/pal3k.png';
 
 const StartGame = ({ setNumOfPlayers, activatePal }) => (
   <Row>
     <div className="start-game-text">
-      <h4>
+      <h5>
         <b>START A GAME</b>
-      </h4>
+      </h5>
     </div>
     <h6 className="lesser">Select The Number Of Players For Your Game</h6>
     <ButtonGroup>
