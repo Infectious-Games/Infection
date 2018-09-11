@@ -116,7 +116,7 @@ class Game extends Component {
       this.setState({ missionResults: updatedResults });
     });
     socket.on('game over', winner => {
-      winner
+      winner === false || winner === true
         ? this.setState(
             { gameOver: true, infiltratorsWin: winner, missionActive: true },
             () => {
