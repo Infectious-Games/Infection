@@ -1,1 +1,0 @@
-web: cd infection && yarn && yarn start
