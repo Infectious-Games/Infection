@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "start": "cd infection && yarn && node ./backend/server.js"
+    "start": "node ./backend/server.js"
   }
 }
