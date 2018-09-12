@@ -3,3 +3,4 @@
     "start": "cd infection && yarn && node ./backend/server.js"
   }
 }
+
