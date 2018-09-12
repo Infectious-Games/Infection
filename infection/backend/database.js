@@ -1,6 +1,4 @@
 const Sequelize = require('sequelize');
-
-// commment out for heroku
 const dotenv = require('dotenv');
 
 dotenv.load();

@@ -3,15 +3,13 @@ const { join } = require('path');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
-// heroku?
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
 const { SESSION_OPTIONS } = require('../config');
 const store = require('./redux/store');
 const gameRooms = require('./gameRooms');
 
-// heroku deploy?
-// dotenv.load();
+dotenv.load();
 
 const db = require('./database');
 
