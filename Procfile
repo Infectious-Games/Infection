@@ -1,0 +1,1 @@
+web: cd infection && npm start
