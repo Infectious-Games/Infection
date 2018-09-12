@@ -1,1 +1,1 @@
-web: cd infection && npm start
+web: cd infection && yarn && yarn start
