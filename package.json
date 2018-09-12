@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "start": "cd infection && yarn && yarn start"
+  }
+}
