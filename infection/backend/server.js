@@ -5,8 +5,8 @@ const routes = require('./routes.js');
 const sockets = require('./sockets.js');
 
 const app = express();
-
 const port = process.env.PORT || 3005;
+console.log(`using port ${port}`);
 app.set('port', port);
 
 app.use(bodyParser.json());
