@@ -1,10 +1,9 @@
 # INFECTION
 
-A full-stack javascript social deduction game where a team of scientists have been infiltrated by bioterrorists and both teams are trying either cure the world or destroy it. 
+A full-stack javascript social deduction game where a team of scientists have been infiltrated by bioterrorists and both teams are trying to either cure the world or destroy it. 
 
 ### Demo for this app is coming soon.
 
-Note: Some features may not work until you add your API keys
 
 ## Stack 
 * [ReactJS](https://reactjs.org)
@@ -22,13 +21,24 @@ Note: Some features may not work until you add your API keys
 Download node.js if you have not already http://nodejs.org/. You can confirm that node is successfully installed on your machine by opening up Terminal and typing 'node'. If you don't get an error,it's installed! You can exit the node process with Ctrl+c.
 ```
 
-### Once you are in the code, run npm install to get all required libraries.
+### Once you have the repo in your editor.
 ```
 yarn install
 ```
-### You will need to create your database and link it in the database file. 
+### You will need to link your SQL database and Google Auth Credentials. 
+#### You should put these credentials into a .env file.
 ```
-XXXXXXXXXXXX
+Inside of the /infection directory, do the following:
+
+- Create a .env file
+- Add the following to the file:
+
+DATABASE_NAME=YOUR_DATABASE_NAME_HERE
+DATABASE_USERNAME=YOUR_DATABASE_USERNAME_HERE
+DATABASE_PASSWORD=YOUR_DATABASE_PASSWORD_HERE
+DATABASE_URI=YOUR_DATABASE_URI_HERE
+GOOGLE_CLIENT_ID=YOUR_GOOGLE_CLIENT_ID_HERE
+GOOGLE_CLIENT_SECRET=YOUR_GOOGLE_SECRET_HERE
 ```
 
 # Getting started with your local development server  
@@ -39,14 +49,17 @@ XXXXXXXXXXXX
 ```
 yarn dev 
 ```
-You can stop the server with Ctrl+c.
+### Stopping the Server
+```
+ctrl + C
+```
 
 
 ```
 Open web browser to http://localhost:3000 to view the web app.
 
 Stop the web server press Ctrl+c in the Terminal window.
-
+```
 ## Authors
 
 
