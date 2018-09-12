@@ -38,8 +38,8 @@
     ]
   },
   "scripts": {
-    "precommit": "lint-staged",
     "start": "node ./backend/server.js",
+    "precommit": "lint-staged",
     "dev": "concurrently \"yarn server\" \"yarn static\"",
     "static": "react-scripts start",
     "server": "nodemon ./backend/server.js",
