@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "start": "node ./backend/server.js"
+    "start": "node infection/backend/server.js"
   }
 }
