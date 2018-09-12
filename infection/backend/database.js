@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
 // commment out for heroku
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
-// dotenv.load();
+dotenv.load();
 
 const db = new Sequelize(
   `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${
