@@ -1,25 +1,25 @@
-const port = process.env.PORT || '0.0.0.0';
-console.log(`using port ${port}`);
-// const express = require('express');
-// // const http = require('http');
-// const bodyParser = require('body-parser');
-// const routes = require('./routes.js');
-// const sockets = require('./sockets.js');
+const express = require('express');
+// const http = require('http');
+const bodyParser = require('body-parser');
+const routes = require('./routes.js');
+const sockets = require('./sockets.js');
 
-// const app = express();
-// app.set('port', port);
+const app = express();
 
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+const port = process.env.PORT || 3005;
+app.set('port', port);
 
-// routes(app);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// const server = app.listen(port, err => {
-//   if (err) {
-//     console.error(err);
-//   } else {
-//     console.error('listening on port', port);
-//   }
-// });
+routes(app);
 
-// sockets(server);
+const server = app.listen(port, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.error('listening on port', port);
+  }
+});
+
+sockets(server);
