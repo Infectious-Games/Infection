@@ -1,4 +1,4 @@
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || '0.0.0.0';
 console.log(`using port ${port}`);
 // const express = require('express');
 // // const http = require('http');
