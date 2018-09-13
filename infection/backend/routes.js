@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
 const dotenv = require('dotenv');
 
-const { SESSION_OPTIONS } = require('../config');
+// const { SESSION_OPTIONS } = require('../config');
 const store = require('./redux/store');
 const gameRooms = require('./gameRooms');
 
