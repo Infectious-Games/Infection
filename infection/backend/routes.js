@@ -61,8 +61,17 @@ module.exports = app => {
   //   });
   // });
 
+  const SESSION_OPTIONS = {
+    secret: process.env.SESSION_SECRET || process.env.SECRET,
+    cookie: {
+      maxAge: 172800000,
+      secure: true,
+    },
+  };
+
   // Passport
-  app.use(session(process.env.SESSION_OPTIONS));
+  // app.use(session(process.env.SESSION_OPTIONS));
+  app.use(session(SESSION_OPTIONS));
   app.use(passport.initialize());
   app.use(passport.session());
 
