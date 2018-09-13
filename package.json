@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "8.11.1"
+  },
   "scripts": {
     "preinstall": "cd infection && yarn",
     "start": "cd infection && yarn start"
