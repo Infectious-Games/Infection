@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "start": "cd infection && yarn && yarn start"
+    "preinstall": "cd infection && yarn",
+    "start": "cd infection && yarn start"
   }
 }
