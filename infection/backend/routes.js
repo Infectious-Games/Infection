@@ -6,7 +6,7 @@ const session = require('cookie-session');
 const dotenv = require('dotenv');
 
 // const { SESSION_OPTIONS } = require('../config');
-const store = require('./redux/store');
+// const store = require('./redux/store');
 const gameRooms = require('./gameRooms');
 
 dotenv.load();
@@ -29,20 +29,16 @@ module.exports = app => {
     const { body } = req;
     const { playerCount } = body;
     // check for empty games in store, return that game room;
-    const joinCodes = Object.keys(store.getState().users).filter(
-      gameName => store.getState().users[gameName].users.length === 0
+    const joinCodes = Object.keys(gameRooms).filter(
+      gameName => gameRooms[gameName].playerCount === 0
     );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
     db.createGameAndGetJoinCode(body, gameId => gameId)
+      .then(gameId => gameId)
       .then(gameId => {
-        return gameId;
-      })
-      .then(gameId => {
-        gameRooms[joinCode] = Object.assign({}, gameRooms[joinCode], {
-          playerCount,
-          dbGameID: gameId,
-        }); // TODO: reset at end of game
+        gameRooms[joinCode].playerCount = playerCount;
+        gameRooms[joinCode].dbGameID = gameId;
       });
     res.json(joinCode);
   });
@@ -92,10 +88,7 @@ module.exports = app => {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       },
       (accessToken, refreshToken, profile, done) => {
-        db.findOrCreateUser(profile, user => {
-          console.log(`user is ${user}`);
-          return done(null, user);
-        });
+        db.findOrCreateUser(profile, user => done(null, user));
       }
     )
   );
