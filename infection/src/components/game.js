@@ -116,25 +116,57 @@ class Game extends Component {
       this.setState({ missionResults: updatedResults });
     });
     socket.on('game over', winner => {
-      this.setState(
-        { gameOver: true, infiltratorsWin: winner, missionActive: true },
-        () => {
-          // update user stats
-          // if player is an infiltrator and infiltrators have won the game, or
-          // if player is a scientist and scientists have won the game
-          if (
-            (this.state.infiltrator && winner) ||
-            (!this.state.infiltrator && !winner)
-          ) {
-            const update = { username: this.state.username, win: true };
-            axios.post('/userStats', update);
-            // otherwise the player has lost the game
-          } else {
-            const update = { username: this.state.username, win: false };
-            axios.post('/userStats', update);
-          }
-        }
-      );
+      winner === false || winner === true
+        ? this.setState(
+            { gameOver: true, infiltratorsWin: winner, missionActive: true },
+            () => {
+              // update user stats
+              // if player is an infiltrator and infiltrators have won the game, or
+              // if player is a scientist and scientists have won the game
+              if (
+                (this.state.infiltrator && winner) ||
+                (!this.state.infiltrator && !winner)
+              ) {
+                const update = { username: this.state.username, win: true };
+                axios.post('/userStats', update);
+                // otherwise the player has lost the game
+              } else {
+                const update = { username: this.state.username, win: false };
+                axios.post('/userStats', update);
+              }
+            }
+          )
+        : this.setInGameStatus() &&
+          this.setState({
+            allUsersVotedOnRoster: false,
+            choiceMade: false,
+            gameOver: false,
+            id: undefined,
+            infiltrator: false,
+            infiltrators: [],
+            infiltratorsWin: false,
+            leader: undefined,
+            leaderSubmitRoster: false,
+            missionActive: false,
+            // added missionFailed to track mission failed due to 3rd failed roster vote
+            missionFailed: false,
+            missionResults: [
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+            ],
+            missionRoster: [],
+            rosterLength: 0,
+            round: 0,
+            rosterUnapproved: 0,
+            team: [],
+            teamAssembled: false,
+            username: undefined,
+            usersVoteRecord: [],
+            votedOnRoster: false,
+          });
     });
   }
 
