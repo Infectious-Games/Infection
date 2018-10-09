@@ -2,7 +2,8 @@ import React from 'react';
 import { Image, Grid, Row, Col } from 'react-bootstrap';
 
 import infectionLogo from '../../images/infection-logo-alt-1.png';
-import LoginView from './loginView';
+// import LoginView from './loginView';
+import LoginForm from '../../components/loginForm';
 
 const Welcome = () => (
   <Grid className="welcome">
@@ -24,7 +25,8 @@ const Welcome = () => (
     <Row className="login">
       <Col md={4} />
       <Col md={4}>
-        <LoginView />
+        {/* <LoginView /> */}
+        <LoginForm />
       </Col>
       <Col md={4} />
     </Row>

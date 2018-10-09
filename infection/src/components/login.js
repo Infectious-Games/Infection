@@ -32,6 +32,7 @@ class Login extends React.Component {
       wins: 0,
     };
   }
+
   componentDidMount() {
     // check if user is logged in
     axios.get('/loggedIn', {}).then(({ data }) => {
@@ -58,18 +59,9 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setInGameStatus();
-    socket.emit('join game', {
-      username: this.state.username,
-      game: this.state.game,
-      pal3000Active: this.state.pal3000Active,
-    });
-  }
-
-  handleChange(e) {
-    this.setState({ game: e.target.value });
+  setNumOfPlayers(num) {
+    this.setState({ numOfPlayers: num });
+    this.handleCreateGame(num);
   }
 
   handleCreateGame(num) {
@@ -89,9 +81,18 @@ class Login extends React.Component {
       });
   }
 
-  setNumOfPlayers(num) {
-    this.setState({ numOfPlayers: num });
-    this.handleCreateGame(num);
+  handleChange(e) {
+    this.setState({ game: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setInGameStatus();
+    socket.emit('join game', {
+      username: this.state.username,
+      game: this.state.game,
+      pal3000Active: this.state.pal3000Active,
+    });
   }
 
   activatePal() {
