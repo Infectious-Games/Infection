@@ -12,14 +12,38 @@ const db = require('./database');
 
 module.exports = app => {
   // find or add a user to the db
-  app.post('/user', (req, res) => {
-    const { body } = req;
-    db.findOrCreateUser(body, data => {
+  // app.post('/user', (req, res) => {
+  //   const { body } = req;
+  //   db.findOrCreateUser(body, data => {
+  //     // Response is true if user has been added to db
+  //     // False if user already exists
+  //     res.json(data);
+  //   });
+  // });
+
+  // find user in the db
+  app.get('/user', (req, res) => {
+    // const { params } = req;
+    const credentials = req.query;
+    // const { credentials } = req.query;
+    console.log(credentials, 'credentials in routes 29');
+    db.findUser(credentials, data => {
       // Response is true if user has been added to db
       // False if user already exists
       res.json(data);
     });
   });
+  // add a user to the db
+  app.post('/user', (req, res) => {
+    const { body } = req;
+    console.log(body, 'body in routes 38');
+    db.createUser(body, user => {
+      // Response is true if user has been added to db
+      // False if user already exists
+      res.json(user);
+    });
+  });
+
   // Get join code for new game
   app.post('/start', (req, res) => {
     // Take player count from body and use it to create game instance

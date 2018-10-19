@@ -5,7 +5,7 @@ import infectionLogo from '../../images/infection-logo-alt-1.png';
 // import LoginView from './loginView';
 import LoginForm from '../../components/loginForm';
 
-const Welcome = () => (
+const Welcome = ({ setLoggedIn }) => (
   <Grid className="welcome">
     <Row className="welcome">
       <Col md={2} />
@@ -26,7 +26,7 @@ const Welcome = () => (
       <Col md={4} />
       <Col md={4}>
         {/* <LoginView /> */}
-        <LoginForm />
+        <LoginForm setLoggedIn={setLoggedIn} />
       </Col>
       <Col md={4} />
     </Row>

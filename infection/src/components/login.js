@@ -35,27 +35,48 @@ class Login extends React.Component {
 
   componentDidMount() {
     // check if user is logged in
-    axios.get('/loggedIn', {}).then(({ data }) => {
-      const loggedIn = data.loggedIn;
-      if (loggedIn) {
-        const {
-          clearanceLevel,
-          gamesPlayed,
-          losses,
-          photo,
-          username,
-          wins,
-        } = data.user;
-        this.setState({
-          loggedIn,
-          username,
-          clearanceLevel,
-          gamesPlayed,
-          losses,
-          wins,
-          photo,
-        });
-      }
+    // axios.get('/loggedIn', {}).then(({ data }) => {
+    //   const loggedIn = data.loggedIn;
+    //   if (loggedIn) {
+    //     const {
+    //       clearanceLevel,
+    //       gamesPlayed,
+    //       losses,
+    //       photo,
+    //       username,
+    //       wins,
+    //     } = data.user;
+    //     this.setState({
+    //       loggedIn,
+    //       username,
+    //       clearanceLevel,
+    //       gamesPlayed,
+    //       losses,
+    //       wins,
+    //       photo,
+    //     });
+    //   }
+    // });
+  }
+
+  setLoggedIn(profile) {
+    console.log(profile, 'profile in login 63');
+    const {
+      clearanceLevel,
+      gamesPlayed,
+      losses,
+      photo,
+      username,
+      wins,
+    } = profile;
+    this.setState({
+      loggedIn: true,
+      username,
+      clearanceLevel,
+      gamesPlayed,
+      losses,
+      wins,
+      photo,
     });
   }
 
@@ -120,7 +141,7 @@ class Login extends React.Component {
             activatePal={this.activatePal.bind(this)}
           />
         ) : (
-          <Welcome />
+          <Welcome setLoggedIn={this.setLoggedIn.bind(this)} />
         )}
       </Grid>
     );
