@@ -107,36 +107,16 @@ const createUser = (profile, callback) => {
 // };
 
 const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, callback) => {
-  console.log(playerCount, pal3000Active, 'playerCount, palActive in db 110');
   // grab user id to pass into game
   const newGame = new Game({ numberOfPlayers: playerCount, pal3000Active });
-  console.log(newGame, 'newGame in db 113');
   newGame.save((err, game) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(game.id, 'game.id in db 119');
       callback(game.id);
     }
   });
-  // return newGame.save((err, game) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     return new Promise((resolve, reject) => {
-  //       resolve(game.id);
-  //     });
-  //   }
-  // });
 };
-
-// newUser.save((err, user) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     callback(user);
-//   }
-// });
 
 // const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
 //   User.find({ where: { username } })
@@ -210,15 +190,23 @@ const clearanceLevels = wins => {
 // update user stats
 const updateUserStats = ({ win, username }, callback) => {
   // check for win or loss
-  const result = win ? 'wins' : 'losses';
+  // const result = win ? 'wins' : 'losses';
+  // console.log(result, 'result in db 194');
+  let toIncrement = {};
+  if (win) {
+    toIncrement = { '$inc': { 'gamesPlayed': 1, 'wins': 1 } };
+  } else {
+    toIncrement = { '$inc': { 'gamesPlayed': 1, 'losses': 1 } };
+  }
+  console.log(toIncrement, 'toIncrement in db 201');
   // create array of attributes to increment
-  const toIncrement = ['gamesPlayed', result];
-  // find user
-  User.find({ username })
-    // increment fields
-    .then(user => user.increment(toIncrement))
+  // const toIncrement = ['gamesPlayed', result];
+  // find user and increment fields
+  User.findOneAndUpdate({ username }, toIncrement)
     .then(user => {
-      const wins = user.wins;
+      const { wins } = user;
+      console.log(user, 'user in db 208');
+      console.log(wins, 'user in db 208');
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
       return user.update({ clearanceLevel });

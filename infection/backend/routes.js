@@ -31,17 +31,12 @@ module.exports = app => {
     // Take player count from body and use it to create game instance
     const { body } = req;
     const { playerCount } = body;
-    console.log(playerCount, 'playercount in routes 34');
     // check for empty games in store, return that game room;
     const joinCodes = Object.keys(gameRooms).filter(
       gameName => gameRooms[gameName].playerCount === 0
     );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
-    console.log(joinCode, 'joinCode in routes 41');
-    console.log(body, 'body in routes 42');
-    // ERROR: game.id in db 119 is not a number anymore
-    // due to mongo db instead of SQL db ???
     db.createGameAndGetJoinCode(body, gameId => {
       gameRooms[joinCode].playerCount = playerCount;
       gameRooms[joinCode].dbGameID = gameId;
@@ -52,7 +47,6 @@ module.exports = app => {
     //     gameRooms[joinCode].playerCount = playerCount;
     //     gameRooms[joinCode].dbGameID = gameId;
     //   });
-    console.log(joinCode, 'joinCode in routes 51');
     res.json(joinCode);
   });
   // Update user's stats in the db
