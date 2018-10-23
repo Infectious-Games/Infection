@@ -60,7 +60,6 @@ class Login extends React.Component {
   }
 
   setLoggedIn(profile) {
-    console.log(profile, 'profile in login 63');
     const {
       clearanceLevel,
       gamesPlayed,

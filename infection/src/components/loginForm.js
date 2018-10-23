@@ -4,7 +4,6 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  // HelpBlock,
   Form,
   Col,
   Button,
@@ -14,10 +13,7 @@ class LoginForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // this.handleChange = this.handleChange.bind(this);
-
     this.state = {
-      // value: '',
       username: '',
       password: '',
       authFail: false,
@@ -25,11 +21,9 @@ class LoginForm extends React.Component {
   }
 
   getValidationState() {
-    // const length = this.state.value.length;
-    // if (length > 10) return 'success';
-    // else if (length > 5) return 'warning';
-    // else if (length > 0) return 'error';
-    if (this.state.authFail) {
+    const { authFail } = this.state;
+    if (authFail) {
+      // if (this.state.authFail) {
       return 'error';
     }
     return null;
@@ -37,20 +31,12 @@ class LoginForm extends React.Component {
 
   handleSignIn(e) {
     e.preventDefault();
-    console.log(this.state.username, 'username');
-    console.log(this.state.password, 'password');
-    // this.setState({ username: '', password: '' });
     const { username } = this.state;
     const { password } = this.state;
-    // const credentials = { username, password };
     // check to see if user is already in db
     axios
       .get(`/user?username=${username}&password=${password}`)
-      // , {
-      // params: { credentials },
-      // })
       .then(response => {
-        console.log(response.data, 'response.data in loginForm 52');
         // if there is no user with those credentials
         if (!response.data.length) {
           this.setState({ authFail: true });
@@ -63,9 +49,6 @@ class LoginForm extends React.Component {
 
   handleCreateProfile(e) {
     e.preventDefault();
-    console.log(this.state.username, 'username');
-    console.log(this.state.password, 'password');
-    // this.setState({ username: '', password: '' });
     const { username } = this.state;
     const { password } = this.state;
     const credentials = { username, password };
@@ -73,14 +56,12 @@ class LoginForm extends React.Component {
     axios
       .get(`/user?username=${username}&password=${password}`)
       .then(response => {
-        console.log(response.data, 'response.data in loginForm 77');
         // if so, prompt user to use a different username
         if (response.data.length) {
           this.setState({ authFail: true });
         } else {
           // otherwise, create user profile
           axios.post('/user', credentials).then(res => {
-            console.log(res.data, 'res.data in loginForm 84');
             // log in user
             this.props.setLoggedIn(res.data);
           });
@@ -98,22 +79,6 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      // <form>
-      //   <FormGroup
-      //     controlId="formBasicText"
-      //     validationState={this.getValidationState()}
-      //   >
-      //     <ControlLabel>Working example with validation</ControlLabel>
-      //     <FormControl
-      //       type="text"
-      //       value={this.state.value}
-      //       placeholder="Enter text"
-      //       onChange={this.handleChange}
-      //     />
-      //     <FormControl.Feedback />
-      //     <HelpBlock>Validation is based on string length.</HelpBlock>
-      //   </FormGroup>
-      // </form>
       <Form horizontal>
         <FormGroup
           controlId="formHorizontalUsername"
@@ -149,12 +114,6 @@ class LoginForm extends React.Component {
           </Col>
         </FormGroup>
 
-        {/* <FormGroup>
-          <Col smOffset={2} sm={10}>
-            <Checkbox>Remember me</Checkbox>
-          </Col>
-        </FormGroup> */}
-
         <FormGroup>
           <Col smOffset={2} sm={10}>
             <Button type="submit" onClick={this.handleSignIn.bind(this)}>
@@ -175,5 +134,4 @@ class LoginForm extends React.Component {
   }
 }
 
-// render(<LoginForm />);
 export default LoginForm;

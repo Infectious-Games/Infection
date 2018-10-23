@@ -11,35 +11,17 @@ dotenv.load();
 const db = require('./database');
 
 module.exports = app => {
-  // find or add a user to the db
-  // app.post('/user', (req, res) => {
-  //   const { body } = req;
-  //   db.findOrCreateUser(body, data => {
-  //     // Response is true if user has been added to db
-  //     // False if user already exists
-  //     res.json(data);
-  //   });
-  // });
-
   // find user in the db
   app.get('/user', (req, res) => {
-    // const { params } = req;
     const credentials = req.query;
-    // const { credentials } = req.query;
-    console.log(credentials, 'credentials in routes 29');
     db.findUser(credentials, data => {
-      // Response is true if user has been added to db
-      // False if user already exists
       res.json(data);
     });
   });
   // add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
-    console.log(body, 'body in routes 38');
     db.createUser(body, user => {
-      // Response is true if user has been added to db
-      // False if user already exists
       res.json(user);
     });
   });
@@ -49,18 +31,28 @@ module.exports = app => {
     // Take player count from body and use it to create game instance
     const { body } = req;
     const { playerCount } = body;
+    console.log(playerCount, 'playercount in routes 34');
     // check for empty games in store, return that game room;
     const joinCodes = Object.keys(gameRooms).filter(
       gameName => gameRooms[gameName].playerCount === 0
     );
     // join code becomes first empty game
     const joinCode = joinCodes[0];
-    db.createGameAndGetJoinCode(body, gameId => gameId)
-      .then(gameId => gameId)
-      .then(gameId => {
-        gameRooms[joinCode].playerCount = playerCount;
-        gameRooms[joinCode].dbGameID = gameId;
-      });
+    console.log(joinCode, 'joinCode in routes 41');
+    console.log(body, 'body in routes 42');
+    // ERROR: game.id in db 119 is not a number anymore
+    // due to mongo db instead of SQL db ???
+    db.createGameAndGetJoinCode(body, gameId => {
+      gameRooms[joinCode].playerCount = playerCount;
+      gameRooms[joinCode].dbGameID = gameId;
+    });
+    // db.createGameAndGetJoinCode(body, gameId => gameId)
+    //   // .then(gameId => gameId)
+    //   .then(gameId => {
+    //     gameRooms[joinCode].playerCount = playerCount;
+    //     gameRooms[joinCode].dbGameID = gameId;
+    //   });
+    console.log(joinCode, 'joinCode in routes 51');
     res.json(joinCode);
   });
   // Update user's stats in the db
