@@ -41,20 +41,19 @@ const gameSchema = mongoose.Schema({
 const Game = mongoose.model('Game', gameSchema);
 
 const findUser = (profile, callback) => {
-  User.find(
-    profile,
-    // callback
-    (err, user) => {
-      if (err) {
-        console.log(err);
-      } else {
-        callback(user);
-      }
+  console.log('profile in database 44', profile);
+  User.find(profile, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('user in database 52', user);
+      callback(user);
     }
-  );
+  });
 };
 
 const createUser = (profile, callback) => {
+  console.log('profile in database 60', profile);
   const { username } = profile;
   const { password } = profile;
   const { photo } = profile;
@@ -130,21 +129,9 @@ const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
     .catch(err => console.error(err));
 };
 
-// const palActive = (id, callback) => {
-//   Game.find({
-//     where: {
-//       id,
-//     },
-//   }).then(game => {
-//     // console.log(game, 'game db 115');
-//     callback(game.pal3000Active);
-//   });
-// };
-
 const palActive = (id, callback) => {
-  Game.find({ id }).then(game => {
-    // console.log(game, 'game db 115');
-    callback(game.pal3000Active);
+  Game.find({ _id: id }).then(game => {
+    callback(game[0].pal3000Active);
   });
 };
 
@@ -191,12 +178,11 @@ const clearanceLevels = wins => {
 const updateUserStats = ({ win, username }, callback) => {
   // check for win or loss
   // const result = win ? 'wins' : 'losses';
-  // console.log(result, 'result in db 194');
   let toIncrement = {};
   if (win) {
-    toIncrement = { '$inc': { 'gamesPlayed': 1, 'wins': 1 } };
+    toIncrement = { $inc: { gamesPlayed: 1, wins: 1 } };
   } else {
-    toIncrement = { '$inc': { 'gamesPlayed': 1, 'losses': 1 } };
+    toIncrement = { $inc: { gamesPlayed: 1, losses: 1 } };
   }
   console.log(toIncrement, 'toIncrement in db 201');
   // create array of attributes to increment
