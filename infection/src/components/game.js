@@ -12,6 +12,7 @@ class Game extends Component {
     this.handleRosterVote = this.handleRosterVote.bind(this);
 
     this.setInGameStatus = props.setInGameStatus;
+    this.setLoggedIn = props.setLoggedIn;
 
     this.state = {
       allUsersVotedOnRoster: false,
@@ -128,11 +129,17 @@ class Game extends Component {
                 (!this.state.infiltrator && !winner)
               ) {
                 const update = { username: this.state.username, win: true };
-                axios.post('/userStats', update);
+                axios.post('/userStats', update).then(res => {
+                  // log user back in
+                  this.setLoggedIn(res.data[0]);
+                });
                 // otherwise the player has lost the game
               } else {
                 const update = { username: this.state.username, win: false };
-                axios.post('/userStats', update);
+                axios.post('/userStats', update).then(res => {
+                  // log user back in
+                  this.setLoggedIn(res.data[0]);
+                });
               }
             }
           )

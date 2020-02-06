@@ -11,6 +11,7 @@ class Login extends React.Component {
     super(props, context);
 
     this.setInGameStatus = props.setInGameStatus;
+    this.setLoggedIn = props.setLoggedIn;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,17 +20,10 @@ class Login extends React.Component {
     this.activatePal = this.activatePal.bind(this);
 
     this.state = {
-      clearanceLevel: 'unclassified',
       game: '',
-      gamesPlayed: 0,
-      loggedIn: false,
-      losses: 0,
       newGameCode: undefined,
       numOfPlayers: 4,
       pal3000Active: false,
-      photo: undefined,
-      username: undefined,
-      wins: 0,
     };
   }
 
@@ -59,29 +53,9 @@ class Login extends React.Component {
     // });
   }
 
-  setLoggedIn(profile) {
-    const {
-      clearanceLevel,
-      gamesPlayed,
-      losses,
-      photo,
-      username,
-      wins,
-    } = profile;
-    this.setState({
-      loggedIn: true,
-      username,
-      clearanceLevel,
-      gamesPlayed,
-      losses,
-      wins,
-      photo,
-    });
-  }
-
-  setNumOfPlayers(num) {
-    this.setState({ numOfPlayers: num });
-    this.handleCreateGame(num);
+  setNumOfPlayers(numOfPlayers) {
+    this.setState({ numOfPlayers });
+    this.handleCreateGame(numOfPlayers);
   }
 
   handleCreateGame(playerCount) {
@@ -89,7 +63,6 @@ class Login extends React.Component {
     // check to see if PAL3000 has been selected
     const gameParams = {
       playerCount,
-      // pal3000Active: this.state.pal3000Active,
       pal3000Active,
     };
     axios
@@ -109,39 +82,44 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setInGameStatus();
+    const { game, pal3000Active } = this.state;
+    const { user } = this.props;
+    const { username } = user;
     socket.emit('join game', {
-      username: this.state.username,
-      game: this.state.game,
-      pal3000Active: this.state.pal3000Active,
+      username,
+      game,
+      pal3000Active,
     });
   }
 
   activatePal() {
-    this.setState({ pal3000Active: !this.state.pal3000Active });
+    const { pal3000Active } = this.state;
+    this.setState({ pal3000Active: !pal3000Active });
   }
 
   render() {
-    const user = this.state;
+    const { user } = this.props;
+    const { game, newGameCode } = this.state;
     return (
       <Grid className="login">
         {user.loggedIn ? (
           <Dashboard
-            game={user.game}
+            game={game}
+            newGame={newGameCode}
+            username={user.username}
             gamesPlayed={user.gamesPlayed}
-            newGame={user.newGameCode}
             clearance={user.clearanceLevel}
             losses={user.losses}
-            username={user.username}
             wins={user.wins}
             photo={user.photo}
-            handleChange={this.handleChange.bind(this)}
-            handleSubmit={this.handleSubmit.bind(this)}
-            setNumOfPlayers={this.setNumOfPlayers.bind(this)}
-            handleCreateGame={this.handleCreateGame.bind(this)}
-            activatePal={this.activatePal.bind(this)}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            setNumOfPlayers={this.setNumOfPlayers}
+            handleCreateGame={this.handleCreateGame}
+            activatePal={this.activatePal}
           />
         ) : (
-          <Welcome setLoggedIn={this.setLoggedIn.bind(this)} />
+          <Welcome setLoggedIn={this.setLoggedIn} />
         )}
       </Grid>
     );

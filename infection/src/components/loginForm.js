@@ -13,6 +13,8 @@ class LoginForm extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.setLoggedIn = props.setLoggedIn;
+
     this.state = {
       username: '',
       password: '',
@@ -23,7 +25,6 @@ class LoginForm extends React.Component {
   getValidationState() {
     const { authFail } = this.state;
     if (authFail) {
-      // if (this.state.authFail) {
       return 'error';
     }
     return null;
@@ -42,7 +43,7 @@ class LoginForm extends React.Component {
           this.setState({ authFail: true });
         } else {
           // log in user
-          this.props.setLoggedIn(response.data[0]);
+          this.setLoggedIn(response.data[0]);
         }
       });
   }
@@ -63,7 +64,7 @@ class LoginForm extends React.Component {
           // otherwise, create user profile
           axios.post('/user', credentials).then(res => {
             // log in user
-            this.props.setLoggedIn(res.data);
+            this.setLoggedIn(res.data);
           });
         }
       });
