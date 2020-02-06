@@ -41,19 +41,16 @@ const gameSchema = mongoose.Schema({
 const Game = mongoose.model('Game', gameSchema);
 
 const findUser = (profile, callback) => {
-  console.log('profile in database 44', profile);
   User.find(profile, (err, user) => {
     if (err) {
       console.log(err);
     } else {
-      console.log('user in database 52', user);
       callback(user);
     }
   });
 };
 
 const createUser = (profile, callback) => {
-  console.log('profile in database 60', profile);
   const { username } = profile;
   const { password } = profile;
   const { photo } = profile;
@@ -75,35 +72,30 @@ const createUser = (profile, callback) => {
   });
 };
 
-// Add PAL3000 to the db
-// const pal3000 = new User({
-//   username: 'PAL3000',
-//   gamesPlayed: 0,
-//   wins: 0,
-//   losses: 0,
-//   clearanceLevel: 'unclassified',
-// });
-// pal3000.save((err, pal) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(pal, 'PAL3000 added to the db');
-//   }
-// });
-
-// const createGameAndGetJoinCode = ({ playerCount, pal3000Active }) => {
-//   // grab user id to pass into game
-//   // FIXME: no longer need cb
-//   return Game.create({ numberOfPlayers: playerCount, pal3000Active })
-//     .then(game => {
-//       return new Promise((resolve, reject) => {
-//         resolve(game.get('id'));
-//       });
-//     })
-//     .catch(err => {
-//       console.error(err);
-//     });
-// };
+// Add PAL3000 to users in db, if PAL3000 isn't already there
+User.find({ username: 'PAL3000' })
+  .then(PAL3000 => {
+    // if PAL3000 isn't on the db
+    if (!PAL3000.length) {
+      // initiate PAL3000
+      const pal3000 = new User({
+        username: 'PAL3000',
+        gamesPlayed: 0,
+        wins: 0,
+        losses: 0,
+        clearanceLevel: 'unclassified',
+      });
+      // add PAL3000 to the db
+      pal3000.save((err, pal) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('PAL3000 added to the db', pal);
+        }
+      });
+    }
+  })
+  .catch(err => console.error(err));
 
 const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, callback) => {
   // grab user id to pass into game
@@ -116,12 +108,6 @@ const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, callback) => {
     }
   });
 };
-
-// const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
-//   User.find({ where: { username } })
-//     .then(user => user.update({ wins, losses, gamesPlayed, clearanceLevel }))
-//     .catch(err => console.error(err));
-// };
 
 const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
   User.find({ username })
@@ -136,79 +122,47 @@ const palActive = (id, callback) => {
 };
 
 const clearanceLevels = wins => {
+  let clearanceLevel = '';
   if (wins < 10) {
-    return 'unclassified';
+    clearanceLevel = 'unclassified';
   }
   if (wins > 9 && wins < 20) {
-    return 'confidential';
+    clearanceLevel = 'confidential';
   }
   if (wins > 19 && wins < 50) {
-    return 'secret';
+    clearanceLevel = 'secret';
   }
   if (wins > 49 && wins < 100) {
-    return 'top-secret';
+    clearanceLevel = 'top-secret';
   }
   if (wins > 99 && wins < 1000) {
-    return 'illuminati';
+    clearanceLevel = 'illuminati';
   }
+  return clearanceLevel;
 };
-
-// // update user stats
-// const updateUserStats = ({ win, username }, callback) => {
-//   // check for win or loss
-//   const result = win ? 'wins' : 'losses';
-//   // create array of attributes to increment
-//   const toIncrement = ['gamesPlayed', result];
-//   // find user
-//   User.find({ where: { username } })
-//     // increment fields
-//     .then(user => user.increment(toIncrement))
-//     .then(user => {
-//       const wins = user.wins;
-//       // check clearanceLevel
-//       const clearanceLevel = clearanceLevels(wins);
-//       return user.update({ clearanceLevel });
-//     })
-//     .then(() => User.find({ where: { username } }))
-//     // return the updated user
-//     .then(user => callback(user));
-// };
 
 // update user stats
 const updateUserStats = ({ win, username }, callback) => {
-  // check for win or loss
-  // const result = win ? 'wins' : 'losses';
   let toIncrement = {};
+  // check for win or loss
   if (win) {
     toIncrement = { $inc: { gamesPlayed: 1, wins: 1 } };
   } else {
     toIncrement = { $inc: { gamesPlayed: 1, losses: 1 } };
   }
-  console.log(toIncrement, 'toIncrement in db 201');
-  // create array of attributes to increment
-  // const toIncrement = ['gamesPlayed', result];
   // find user and increment fields
-  User.findOneAndUpdate({ username }, toIncrement)
+  User.findOneAndUpdate({ username }, toIncrement, { new: true })
     .then(user => {
       const { wins } = user;
-      console.log(user, 'user in db 208');
-      console.log(wins, 'user in db 208');
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
       return user.update({ clearanceLevel });
     })
     .then(() => User.find({ username }))
     // return the updated user
-    .then(user => callback(user));
+    .then(user => callback(user))
+    .catch(err => console.error(err));
 };
-
-// get user stats
-// const getUserStats = ({ username }, callback) => {
-//   // find user
-//   User.find({ where: { username } })
-//     // return the user
-//     .then(user => callback(user));
-// };
 
 // get user stats
 const getUserStats = ({ username }, callback) => {
@@ -228,7 +182,6 @@ const getUserStats = ({ username }, callback) => {
 // });
 
 module.exports = {
-  // createGame,
   createGameAndGetJoinCode,
   findUser,
   createUser,
