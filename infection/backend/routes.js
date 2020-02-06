@@ -41,12 +41,6 @@ module.exports = app => {
       gameRooms[joinCode].playerCount = playerCount;
       gameRooms[joinCode].dbGameID = gameId;
     });
-    // db.createGameAndGetJoinCode(body, gameId => gameId)
-    //   // .then(gameId => gameId)
-    //   .then(gameId => {
-    //     gameRooms[joinCode].playerCount = playerCount;
-    //     gameRooms[joinCode].dbGameID = gameId;
-    //   });
     res.json(joinCode);
   });
   // Update user's stats in the db
