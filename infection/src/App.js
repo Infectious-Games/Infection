@@ -24,7 +24,8 @@ class App extends Component {
 
   // pass a function to setInGameStatus to set state.
   setInGameStatus() {
-    this.setState({ inGame: !this.state.inGame });
+    const { inGame } = this.state;
+    this.setState({ inGame: !inGame });
   }
 
   // pass to Game and Login
@@ -50,17 +51,18 @@ class App extends Component {
 
   render() {
     const user = this.state;
+    const { inGame } = this.state;
     return (
       <Grid className="App">
-        {this.state.inGame ? (
+        {inGame ? (
           <Game
-            setInGameStatus={this.setInGameStatus.bind(this)}
-            setLoggedIn={this.setLoggedIn.bind(this)}
+            setInGameStatus={this.setInGameStatus}
+            setLoggedIn={this.setLoggedIn}
           />
         ) : (
           <Login
-            setInGameStatus={this.setInGameStatus.bind(this)}
-            setLoggedIn={this.setLoggedIn.bind(this)}
+            setInGameStatus={this.setInGameStatus}
+            setLoggedIn={this.setLoggedIn}
             user={user}
           />
         )}

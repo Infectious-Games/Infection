@@ -15,6 +15,11 @@ class LoginForm extends React.Component {
 
     this.setLoggedIn = props.setLoggedIn;
 
+    this.handleUsernameInputChange = this.handleUsernameInputChange.bind(this);
+    this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleCreateProfile = this.handleCreateProfile.bind(this);
+
     this.state = {
       username: '',
       password: '',
@@ -79,6 +84,7 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { username, password } = this.state;
     return (
       <Form horizontal>
         <FormGroup
@@ -92,8 +98,8 @@ class LoginForm extends React.Component {
             <FormControl
               type="username"
               placeholder="Username"
-              username={this.state.username}
-              onChange={this.handleUsernameInputChange.bind(this)}
+              username={username}
+              onChange={this.handleUsernameInputChange}
             />
           </Col>
         </FormGroup>
@@ -109,15 +115,15 @@ class LoginForm extends React.Component {
             <FormControl
               type="password"
               placeholder="Password"
-              password={this.state.password}
-              onChange={this.handlePasswordInputChange.bind(this)}
+              password={password}
+              onChange={this.handlePasswordInputChange}
             />
           </Col>
         </FormGroup>
 
         <FormGroup>
           <Col smOffset={2} sm={10}>
-            <Button type="submit" onClick={this.handleSignIn.bind(this)}>
+            <Button type="submit" onClick={this.handleSignIn}>
               Sign in
             </Button>
           </Col>
@@ -125,7 +131,7 @@ class LoginForm extends React.Component {
 
         <FormGroup>
           <Col smOffset={2} sm={10}>
-            <Button type="submit" onClick={this.handleCreateProfile.bind(this)}>
+            <Button type="submit" onClick={this.handleCreateProfile}>
               Create Profile
             </Button>
           </Col>

@@ -9,7 +9,7 @@ const Round = ({
   handleSubmitRoster,
   handleRosterVote,
 }) =>
-  // ?TODO: change line 13, server will update game state on client instead
+  // TODO?: change line 13, server will update game state on client instead
   game.missionFailed ? (
     // game.rosterUnapproved === 3 ? (
 
