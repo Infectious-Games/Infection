@@ -12,6 +12,7 @@ class Login extends React.Component {
 
     this.setInGameStatus = props.setInGameStatus;
     this.setLoggedIn = props.setLoggedIn;
+    this.changePhoto = props.changePhoto;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -117,9 +118,10 @@ class Login extends React.Component {
             setNumOfPlayers={this.setNumOfPlayers}
             handleCreateGame={this.handleCreateGame}
             activatePal={this.activatePal}
+            changePhoto={this.changePhoto}
           />
         ) : (
-          <Welcome setLoggedIn={this.setLoggedIn} />
+          <Welcome setLoggedIn={this.setLoggedIn} user={user} />
         )}
       </Grid>
     );

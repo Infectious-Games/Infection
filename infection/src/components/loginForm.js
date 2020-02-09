@@ -37,8 +37,7 @@ class LoginForm extends React.Component {
 
   handleSignIn(e) {
     e.preventDefault();
-    const { username } = this.state;
-    const { password } = this.state;
+    const { username, password } = this.state;
     // check to see if user is already in db
     axios
       .get(`/user?username=${username}&password=${password}`)
@@ -55,9 +54,10 @@ class LoginForm extends React.Component {
 
   handleCreateProfile(e) {
     e.preventDefault();
-    const { username } = this.state;
-    const { password } = this.state;
-    const credentials = { username, password };
+    const { username, password } = this.state;
+    const { user } = this.props;
+    const { photo } = user;
+    const credentials = { username, password, photo };
     // check if username & password already exists
     axios
       .get(`/user?username=${username}&password=${password}`)
