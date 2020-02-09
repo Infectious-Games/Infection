@@ -28,6 +28,7 @@ const userSchema = mongoose.Schema({
   losses: Number,
   clearanceLevel: String,
   photo: String,
+  photoIndex: Number,
 });
 
 const User = mongoose.model('User', userSchema);
@@ -62,6 +63,7 @@ const createUser = (profile, callback) => {
     losses: 0,
     clearanceLevel: 'unclassified',
     photo,
+    photoIndex: 0,
   });
   newUser.save((err, user) => {
     if (err) {
@@ -141,6 +143,15 @@ const clearanceLevels = wins => {
   return clearanceLevel;
 };
 
+const updatePhoto = (profile, callback) => {
+  const { username, photo, photoIndex } = profile;
+  User.findOneAndUpdate({ username }, { photo, photoIndex }, { new: true })
+    .then(user => {
+      callback(user);
+    })
+    .catch(err => console.error(err));
+};
+
 // update user stats
 const updateUserStats = ({ win, username }, callback) => {
   let toIncrement = {};
@@ -192,4 +203,5 @@ module.exports = {
   Game,
   palActive,
   superTeam,
+  updatePhoto,
 };

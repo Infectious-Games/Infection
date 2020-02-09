@@ -1,7 +1,7 @@
 const express = require('express');
 const { join } = require('path');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const session = require('cookie-session');
 const dotenv = require('dotenv');
 const { SESSION_OPTIONS } = require('../config');
@@ -18,6 +18,7 @@ module.exports = app => {
       res.json(data);
     });
   });
+
   // add a user to the db
   app.post('/user', (req, res) => {
     const { body } = req;
@@ -43,6 +44,15 @@ module.exports = app => {
     });
     res.json(joinCode);
   });
+
+  // update user photo on db
+  app.post('/updatePhoto', (req, res) => {
+    const { body } = req;
+    db.updatePhoto(body, user => {
+      res.json(user);
+    });
+  });
+
   // Update user's stats in the db
   app.post('/userStats', (req, res) => {
     const { body } = req;
@@ -50,6 +60,7 @@ module.exports = app => {
       res.json(data);
     });
   });
+
   // get user's stats from the db
   // app.get('/userStats', (req, res) => {
   //   const query = req.query;
@@ -60,8 +71,8 @@ module.exports = app => {
 
   // Passport
   app.use(session(SESSION_OPTIONS));
-  app.use(passport.initialize());
-  app.use(passport.session());
+  // app.use(passport.initialize());
+  // app.use(passport.session());
 
   passport.serializeUser((user, done) => done(null, user.id));
 
@@ -72,33 +83,33 @@ module.exports = app => {
   });
 
   // Passport Google Strategy
-  passport.use(
-    new GoogleStrategy(
-      {
-        callbackURL: '/auth/google/redirect',
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      },
-      (accessToken, refreshToken, profile, done) => {
-        db.findOrCreateUser(profile, user => done(null, user));
-      }
-    )
-  );
+  // passport.use(
+  //   new GoogleStrategy(
+  //     {
+  //       callbackURL: '/auth/google/redirect',
+  //       clientID: process.env.GOOGLE_CLIENT_ID,
+  //       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  //     },
+  //     (accessToken, refreshToken, profile, done) => {
+  //       db.findOrCreateUser(profile, user => done(null, user));
+  //     }
+  //   )
+  // );
 
-  app.get(
-    '/auth/google',
-    passport.authenticate('google', {
-      scope: ['profile'],
-    })
-  );
+  // app.get(
+  //   '/auth/google',
+  //   passport.authenticate('google', {
+  //     scope: ['profile'],
+  //   })
+  // );
 
-  app.get(
-    '/auth/google/redirect',
-    passport.authenticate('google', {
-      failureRedirect: '/',
-      successRedirect: '/',
-    })
-  );
+  // app.get(
+  //   '/auth/google/redirect',
+  //   passport.authenticate('google', {
+  //     failureRedirect: '/',
+  //     successRedirect: '/',
+  //   })
+  // );
 
   // Check if user is loggedIn
   app.get('/loggedIn', (req, res) => {
