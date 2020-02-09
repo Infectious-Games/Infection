@@ -1,8 +1,8 @@
 const express = require('express');
 const { join } = require('path');
-const passport = require('passport');
+// const passport = require('passport');
 // const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const session = require('cookie-session');
+// const session = require('cookie-session');
 const dotenv = require('dotenv');
 
 // const { SESSION_OPTIONS } = require('../config');
@@ -72,27 +72,27 @@ module.exports = app => {
   //   });
   // });
 
-  const SESSION_OPTIONS = {
-    secret: process.env.SESSION_SECRET || process.env.SECRET,
-    cookie: {
-      maxAge: 172800000,
-      secure: true,
-    },
-  };
+  // const SESSION_OPTIONS = {
+  //   secret: process.env.SESSION_SECRET || process.env.SECRET,
+  //   cookie: {
+  //     maxAge: 172800000,
+  //     secure: true,
+  //   },
+  // };
 
   // Passport
   // app.use(session(process.env.SESSION_OPTIONS));
-  app.use(session(SESSION_OPTIONS));
+  // app.use(session(SESSION_OPTIONS));
   // app.use(passport.initialize());
   // app.use(passport.session());
 
-  passport.serializeUser((user, done) => done(null, user.id));
+  // passport.serializeUser((user, done) => done(null, user.id));
 
-  passport.deserializeUser((id, done) => {
-    db.User.findById(id)
-      .then(user => done(null, user))
-      .catch(err => done(err));
-  });
+  // passport.deserializeUser((id, done) => {
+  //   db.User.findById(id)
+  //     .then(user => done(null, user))
+  //     .catch(err => done(err));
+  // });
 
   // Passport Google Strategy
   // passport.use(
