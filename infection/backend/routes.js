@@ -82,7 +82,7 @@ module.exports = app => {
   };
 
   // Passport
-  app.use(session(process.env.SESSION_OPTIONS));
+  // app.use(session(process.env.SESSION_OPTIONS));
   app.use(session(SESSION_OPTIONS));
   // app.use(passport.initialize());
   // app.use(passport.session());
