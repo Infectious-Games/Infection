@@ -1,13 +1,6 @@
 const express = require('express');
 const { join } = require('path');
-
-// const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-// const session = require('cookie-session');
 const dotenv = require('dotenv');
-
-// const { SESSION_OPTIONS } = require('../config');
-// const store = require('./redux/store');
 const gameRooms = require('./gameRooms');
 
 dotenv.load();
@@ -71,71 +64,6 @@ module.exports = app => {
   //   db.getUserStats(query, (data) => {
   //     res.json(data);
   //   });
-  // });
-
-  // const SESSION_OPTIONS = {
-  //   secret: process.env.SESSION_SECRET || process.env.SECRET,
-  //   cookie: {
-  //     maxAge: 172800000,
-  //     secure: true,
-  //   },
-  // };
-
-  // Passport
-  // app.use(session(process.env.SESSION_OPTIONS));
-  // app.use(session(SESSION_OPTIONS));
-  // app.use(passport.initialize());
-  // app.use(passport.session());
-
-  // passport.serializeUser((user, done) => done(null, user.id));
-
-  // passport.deserializeUser((id, done) => {
-  //   db.User.findById(id)
-  //     .then(user => done(null, user))
-  //     .catch(err => done(err));
-  // });
-
-  // Passport Google Strategy
-  // passport.use(
-  //   new GoogleStrategy(
-  //     {
-  //       callbackURL: '/auth/google/redirect',
-  //       clientID: process.env.GOOGLE_CLIENT_ID,
-  //       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  //     },
-  //     (accessToken, refreshToken, profile, done) => {
-  //       db.findOrCreateUser(profile, user => done(null, user));
-  //     }
-  //   )
-  // );
-
-  // app.get(
-  //   '/auth/google',
-  //   passport.authenticate('google', {
-  //     scope: ['profile'],
-  //   })
-  // );
-
-  // app.get(
-  //   '/auth/google/redirect',
-  //   passport.authenticate('google', {
-  //     failureRedirect: '/',
-  //     successRedirect: '/',
-  //   })
-  // );
-
-  // Check if user is loggedIn
-  // app.get('/loggedIn', (req, res) => {
-  //   res.json({
-  //     loggedIn: !!req.user,
-  //     user: req.user,
-  //   });
-  // });
-
-  // Logout user
-  // app.get('/logout', (req, res) => {
-  // req.logout();
-  //   res.redirect('/');
   // });
 
   app.use(express.static(join(__dirname, '../build')));

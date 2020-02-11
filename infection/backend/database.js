@@ -52,9 +52,7 @@ const findUser = (profile, callback) => {
 };
 
 const createUser = (profile, callback) => {
-  const { username } = profile;
-  const { password } = profile;
-  const { photo } = profile;
+  const { username, password, photo } = profile;
   const newUser = new User({
     username,
     password,
