@@ -1,6 +1,9 @@
 import io from 'socket.io-client';
 
-// change to const socket = io(); for deployment
+// for deployment:
+// const socket = io();
+
+// for development:
 const socket = io('http://localhost:3005');
 
 socket.on('connect', () => {

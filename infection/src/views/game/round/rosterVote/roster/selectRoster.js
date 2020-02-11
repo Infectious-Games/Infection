@@ -14,7 +14,7 @@ const SelectRoster = ({
       {team.map(member => (
         <SelectRosterEntry
           roster={roster}
-          key={member} //change in future
+          key={member} // change in future
           member={member}
           handleSelectRosterEntryClick={handleSelectRosterEntryClick}
         />

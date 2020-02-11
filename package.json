@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "dotenv": "^6.0.0"
+  "engines": {
+    "node": "8.11.1"
+  },
+  "scripts": {
+    "preinstall": "cd infection && yarn && yarn build",
+    "start": "cd infection && yarn start"
   }
 }

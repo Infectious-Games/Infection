@@ -6,8 +6,8 @@ import Clearance from './clearance';
 import JoinGame from './joinGame';
 import StartGame from './startGame';
 import Logout from './logout';
-import id from '../../images/id_bg-40pct-prod.png';
-import logo from '../../images/Logo-vector.png';
+// import id from '../../images/id_bg-40pct-prod.png';
+// import logo from '../../images/Logo-vector.png';
 
 const Dashboard = ({
   activatePal,
@@ -22,12 +22,11 @@ const Dashboard = ({
   setNumOfPlayers,
   username,
   wins,
+  changePhoto,
 }) => (
   <Grid className="dashboard">
     <div className="static-modal">
-      <Modal.Dialog
-        style={{ 'max-height': 'calc(100vh)', 'overflow-y': 'auto' }}
-      >
+      <Modal.Dialog style={{ maxHeight: 'calc(100vh)', overflowY: 'auto' }}>
         <Modal.Header>
           <Modal.Title>
             <Row className="clearance-lvl">
@@ -37,10 +36,16 @@ const Dashboard = ({
         </Modal.Header>
         <Modal.Body>
           <Media className="user-info">
-            <Media.Left align="left">
-              <img max0width={90} height={90} src={photo} alt="thumbnail" />
+            <Media.Left align="top">
+              <img
+                max0width={90}
+                height={90}
+                src={photo}
+                alt="change photo"
+                onClick={changePhoto}
+              />
             </Media.Left>
-            <Media.Body align="center">
+            <Media.Body align="middle">
               <h4>
                 <b>{username}</b>
               </h4>

@@ -1,174 +1,182 @@
-const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 
 dotenv.load();
 
-const db = new Sequelize(
-  `mysql://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${
-    process.env.DATABASE_URI
-  }:3306/${process.env.DATABASE_NAME}`,
-  {}
+const mongoose = require('mongoose');
+
+mongoose.connect(
+  `mongodb://${process.env.DATABASE_USERNAME}:${
+    process.env.DATABASE_PASSWORD
+  }@${process.env.DATABASE_URI}/${process.env.DATABASE_NAME}`
 );
 
-db.authenticate()
-  .then(() => {
-    console.log('Connection to db has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+const db = mongoose.connection;
 
-const User = db.define('User', {
-  username: Sequelize.STRING,
-  gamesPlayed: Sequelize.INTEGER,
-  wins: Sequelize.INTEGER,
-  losses: Sequelize.INTEGER,
-  clearanceLevel: Sequelize.STRING,
-  photo: Sequelize.STRING,
-  email: Sequelize.STRING,
+db.on('error', () => {
+  console.log('mongoose connection error');
 });
 
-// game schema
-const Game = db.define('game', {
-  numberOfPlayers: Sequelize.INTEGER,
-  pal3000Active: Sequelize.BOOLEAN,
-  winner: Sequelize.STRING,
-  results: {
-    type: Sequelize.STRING,
-    allowNull: true,
-    get() {
-      return this.getDataValue('results').split(';');
-    },
-    set(val) {
-      this.setDataValue('results', val.join(';'));
-    },
-  },
+db.once('open', () => {
+  console.log('mongoose connected successfully');
 });
 
-Game.sync({ force: false })
-  .then(game => {
-    // console.log('game model created in db');
-  })
-  .catch(err => {
-    console.error(err);
-  });
+const userSchema = mongoose.Schema({
+  username: String,
+  password: String,
+  gamesPlayed: Number,
+  wins: Number,
+  losses: Number,
+  clearanceLevel: String,
+  photo: String,
+  photoIndex: Number,
+});
 
-const findOrCreateUser = (profile, callback) => {
-  const username = profile.displayName;
-  const photo = profile.photos[0].value.slice(
-    0,
-    profile.photos[0].value.indexOf('?')
-  );
-  User.findOrCreate({
-    where: { username },
-    defaults: {
-      gamesPlayed: 0,
-      wins: 0,
-      losses: 0,
-      clearanceLevel: 'unclassified',
-      photo,
-      email: '',
-    },
-  }).spread((user, created) => {
-    console.log(
-      user.get({
-        plain: true,
-      })
-    );
-    callback(user);
+const User = mongoose.model('User', userSchema);
+
+const gameSchema = mongoose.Schema({
+  numberOfPlayers: Number,
+  pal3000Active: Boolean,
+  winner: String,
+});
+
+const Game = mongoose.model('Game', gameSchema);
+
+const findUser = (profile, callback) => {
+  User.find(profile, (err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(user);
+    }
   });
 };
 
-// Add PAL3000 to the db
-User.findOrCreate({
-  where: { username: 'PAL3000' },
-  defaults: {
+const createUser = (profile, callback) => {
+  const { username, password, photo } = profile;
+  const newUser = new User({
+    username,
+    password,
     gamesPlayed: 0,
     wins: 0,
     losses: 0,
     clearanceLevel: 'unclassified',
-    photo: '',
-    email: '',
-  },
-}).spread((user, created) => {
-  console.log(
-    user.get({
-      plain: true,
-    })
-  );
-  console.log('PAL3000 added to the db:', created, ', false = already in db');
-});
+    photo,
+    photoIndex: 0,
+  });
+  newUser.save((err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(user);
+    }
+  });
+};
 
-const createGameAndGetJoinCode = ({ playerCount, pal3000Active }) => {
-  // grab user id to pass into game
-  // FIXME: no longer need cb
-  return Game.create({ numberOfPlayers: playerCount, pal3000Active })
-    .then(game => {
-      return new Promise((resolve, reject) => {
-        resolve(game.get('id'));
+// Add PAL3000 to users in db, if PAL3000 isn't already there
+User.find({ username: 'PAL3000' })
+  .then(PAL3000 => {
+    // if PAL3000 isn't on the db
+    if (!PAL3000.length) {
+      // initiate PAL3000
+      const pal3000 = new User({
+        username: 'PAL3000',
+        gamesPlayed: 0,
+        wins: 0,
+        losses: 0,
+        clearanceLevel: 'unclassified',
       });
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      // add PAL3000 to the db
+      pal3000.save((err, pal) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('PAL3000 added to the db', pal);
+        }
+      });
+    }
+  })
+  .catch(err => console.error(err));
+
+const createGameAndGetJoinCode = ({ playerCount, pal3000Active }, callback) => {
+  // grab user id to pass into game
+  const newGame = new Game({ numberOfPlayers: playerCount, pal3000Active });
+  newGame.save((err, game) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(game.id);
+    }
+  });
 };
 
 const superTeam = (username, wins, losses, gamesPlayed, clearanceLevel) => {
-  User.find({ where: { username } })
+  User.find({ username })
     .then(user => user.update({ wins, losses, gamesPlayed, clearanceLevel }))
     .catch(err => console.error(err));
 };
 
 const palActive = (id, callback) => {
-  Game.find({
-    where: {
-      id,
-    },
-  }).then(game => {
-    // console.log(game, 'game db 115');
-    callback(game.pal3000Active);
+  Game.find({ _id: id }).then(game => {
+    callback(game[0].pal3000Active);
   });
 };
 
 const clearanceLevels = wins => {
+  let clearanceLevel = '';
   if (wins < 10) {
-    return 'unclassified';
-  } else if (wins > 9 && wins < 20) {
-    return 'confidential';
-  } else if (wins > 19 && wins < 50) {
-    return 'secret';
-  } else if (wins > 49 && wins < 100) {
-    return 'top-secret';
-  } else if (wins > 99 && wins < 1000) {
-    return 'illuminati';
+    clearanceLevel = 'unclassified';
   }
+  if (wins > 9 && wins < 20) {
+    clearanceLevel = 'confidential';
+  }
+  if (wins > 19 && wins < 50) {
+    clearanceLevel = 'secret';
+  }
+  if (wins > 49 && wins < 100) {
+    clearanceLevel = 'top-secret';
+  }
+  if (wins > 99 && wins < 1000) {
+    clearanceLevel = 'illuminati';
+  }
+  return clearanceLevel;
+};
+
+const updatePhoto = (profile, callback) => {
+  const { username, photo, photoIndex } = profile;
+  User.findOneAndUpdate({ username }, { photo, photoIndex }, { new: true })
+    .then(user => {
+      callback(user);
+    })
+    .catch(err => console.error(err));
 };
 
 // update user stats
 const updateUserStats = ({ win, username }, callback) => {
+  let toIncrement = {};
   // check for win or loss
-  const result = win ? 'wins' : 'losses';
-  // create array of attributes to increment
-  const toIncrement = ['gamesPlayed', result];
-  // find user
-  User.find({ where: { username } })
-    // increment fields
-    .then(user => user.increment(toIncrement))
+  if (win) {
+    toIncrement = { $inc: { gamesPlayed: 1, wins: 1 } };
+  } else {
+    toIncrement = { $inc: { gamesPlayed: 1, losses: 1 } };
+  }
+  // find user and increment fields
+  User.findOneAndUpdate({ username }, toIncrement, { new: true })
     .then(user => {
-      const wins = user.wins;
+      const { wins } = user;
       // check clearanceLevel
       const clearanceLevel = clearanceLevels(wins);
       return user.update({ clearanceLevel });
     })
-    .then(() => User.find({ where: { username } }))
+    .then(() => User.find({ username }))
     // return the updated user
-    .then(user => callback(user));
+    .then(user => callback(user))
+    .catch(err => console.error(err));
 };
 
 // get user stats
 const getUserStats = ({ username }, callback) => {
   // find user
-  User.find({ where: { username } })
+  User.find({ username })
     // return the user
     .then(user => callback(user));
 };
@@ -183,9 +191,9 @@ const getUserStats = ({ username }, callback) => {
 // });
 
 module.exports = {
-  // createGame,
   createGameAndGetJoinCode,
-  findOrCreateUser,
+  findUser,
+  createUser,
   updateUserStats,
   getUserStats,
   db,
@@ -193,4 +201,5 @@ module.exports = {
   Game,
   palActive,
   superTeam,
+  updatePhoto,
 };

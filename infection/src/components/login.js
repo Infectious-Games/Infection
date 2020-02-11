@@ -11,6 +11,8 @@ class Login extends React.Component {
     super(props, context);
 
     this.setInGameStatus = props.setInGameStatus;
+    this.setLoggedIn = props.setLoggedIn;
+    this.changePhoto = props.changePhoto;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,69 +21,54 @@ class Login extends React.Component {
     this.activatePal = this.activatePal.bind(this);
 
     this.state = {
-      clearanceLevel: 'unclassified',
       game: '',
-      gamesPlayed: 0,
-      loggedIn: false,
-      losses: 0,
       newGameCode: undefined,
       numOfPlayers: 4,
       pal3000Active: false,
-      photo: undefined,
-      username: undefined,
-      wins: 0,
     };
   }
+
   componentDidMount() {
     // check if user is logged in
-    axios.get('/loggedIn', {}).then(({ data }) => {
-      const loggedIn = data.loggedIn;
-      if (loggedIn) {
-        const {
-          clearanceLevel,
-          gamesPlayed,
-          losses,
-          photo,
-          username,
-          wins,
-        } = data.user;
-        this.setState({
-          loggedIn,
-          username,
-          clearanceLevel,
-          gamesPlayed,
-          losses,
-          wins,
-          photo,
-        });
-      }
-    });
+    // axios.get('/loggedIn', {}).then(({ data }) => {
+    //   const loggedIn = data.loggedIn;
+    //   if (loggedIn) {
+    //     const {
+    //       clearanceLevel,
+    //       gamesPlayed,
+    //       losses,
+    //       photo,
+    //       username,
+    //       wins,
+    //     } = data.user;
+    //     this.setState({
+    //       loggedIn,
+    //       username,
+    //       clearanceLevel,
+    //       gamesPlayed,
+    //       losses,
+    //       wins,
+    //       photo,
+    //     });
+    //   }
+    // });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setInGameStatus();
-    socket.emit('join game', {
-      username: this.state.username,
-      game: this.state.game,
-      pal3000Active: this.state.pal3000Active,
-    });
+  setNumOfPlayers(numOfPlayers) {
+    this.setState({ numOfPlayers });
+    this.handleCreateGame(numOfPlayers);
   }
 
-  handleChange(e) {
-    this.setState({ game: e.target.value });
-  }
-
-  handleCreateGame(num) {
+  handleCreateGame(playerCount) {
+    const { pal3000Active } = this.state;
     // check to see if PAL3000 has been selected
     const gameParams = {
-      playerCount: num,
-      pal3000Active: this.state.pal3000Active,
+      playerCount,
+      pal3000Active,
     };
     axios
       .post('/start', gameParams)
       .then(joinCode => {
-        console.log(joinCode.data, 'joinCode in handleCreateGame');
         this.setState({ newGameCode: joinCode.data });
       })
       .catch(error => {
@@ -89,37 +76,52 @@ class Login extends React.Component {
       });
   }
 
-  setNumOfPlayers(num) {
-    this.setState({ numOfPlayers: num });
-    this.handleCreateGame(num);
+  handleChange(e) {
+    this.setState({ game: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.setInGameStatus();
+    const { game, pal3000Active } = this.state;
+    const { user } = this.props;
+    const { username } = user;
+    socket.emit('join game', {
+      username,
+      game,
+      pal3000Active,
+    });
   }
 
   activatePal() {
-    this.setState({ pal3000Active: !this.state.pal3000Active });
+    const { pal3000Active } = this.state;
+    this.setState({ pal3000Active: !pal3000Active });
   }
 
   render() {
-    const user = this.state;
+    const { user } = this.props;
+    const { game, newGameCode } = this.state;
     return (
       <Grid className="login">
         {user.loggedIn ? (
           <Dashboard
-            game={user.game}
+            game={game}
+            newGame={newGameCode}
+            username={user.username}
             gamesPlayed={user.gamesPlayed}
-            newGame={user.newGameCode}
             clearance={user.clearanceLevel}
             losses={user.losses}
-            username={user.username}
             wins={user.wins}
             photo={user.photo}
-            handleChange={this.handleChange.bind(this)}
-            handleSubmit={this.handleSubmit.bind(this)}
-            setNumOfPlayers={this.setNumOfPlayers.bind(this)}
-            handleCreateGame={this.handleCreateGame.bind(this)}
-            activatePal={this.activatePal.bind(this)}
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            setNumOfPlayers={this.setNumOfPlayers}
+            handleCreateGame={this.handleCreateGame}
+            activatePal={this.activatePal}
+            changePhoto={this.changePhoto}
           />
         ) : (
-          <Welcome />
+          <Welcome setLoggedIn={this.setLoggedIn} user={user} />
         )}
       </Grid>
     );
