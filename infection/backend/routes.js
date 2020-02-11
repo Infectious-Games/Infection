@@ -125,18 +125,18 @@ module.exports = app => {
   // );
 
   // Check if user is loggedIn
-  app.get('/loggedIn', (req, res) => {
-    res.json({
-      loggedIn: !!req.user,
-      user: req.user,
-    });
-  });
+  // app.get('/loggedIn', (req, res) => {
+  //   res.json({
+  //     loggedIn: !!req.user,
+  //     user: req.user,
+  //   });
+  // });
 
   // Logout user
-  app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-  });
+  // app.get('/logout', (req, res) => {
+  // req.logout();
+  //   res.redirect('/');
+  // });
 
   app.use(express.static(join(__dirname, '../build')));
 };
