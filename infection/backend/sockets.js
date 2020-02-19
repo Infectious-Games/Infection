@@ -236,7 +236,7 @@ module.exports = server => {
 
     // PLAYERS VOTE YES OR NO ON LEADER'S MISSION ROSTER SELECTION------------
     socket.on('chose YES or NO', ({ vote, username }) => {
-      console.log(gameRooms[socket.game], 'gameRooms[socket.game]');
+      // console.log(gameRooms[socket.game], 'gameRooms[socket.game]');
       if (gameRooms[socket.game].pal3000 && !gameRooms[socket.game].pal3000.voted) {
         const failedRosterVotes = store.getState().game[socket.game].failCount;
         const palVote = gameRooms[socket.game].pal3000.voteForMissionTeam(gameRooms[socket.game].roster, failedRosterVotes);
