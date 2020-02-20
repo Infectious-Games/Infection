@@ -1,9 +1,24 @@
 import React from 'react';
 import { Col, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 
-const UsersVoteOnRosterList = ({ usersVoteRecord }) => (
+const UsersVoteOnRosterList = ({
+  usersVoteRecord,
+  missionRosterUnapprovedCount,
+  missionRosterApproved,
+}) => (
   <Row>
-    <h4>How the Team Voted</h4>
+    {missionRosterApproved ? (
+      <h2>Mission Roster Approved!</h2>
+    ) : (
+      <div>
+        <h2>Mission Roster Not Approved!</h2>
+        <h3>
+          Vote {missionRosterUnapprovedCount}
+          /3 Failed
+        </h3>
+      </div>
+    )}
+    <h4>How the Team Voted:</h4>
     <Col md={4} xs={3} />
     <Col md={4} xs={6}>
       <ListGroup>
