@@ -258,11 +258,11 @@ module.exports = server => {
         gameRooms[socket.game].playerCount
       ) {
         // More accepts than rejects for team proposal
-        const voteSucceeds =
+        const missionRosterApproved =
           store.getState().proposalVotes[socket.game].voteSuccess >
           store.getState().proposalVotes[socket.game].voteFail;
         let results;
-        voteSucceeds === false ? (results = 1) : (results = 0);
+        missionRosterApproved === false ? (results = 1) : (results = 0);
         const round = store.getState().game[socket.game].round;
         const rosterLength = grid[gameRooms[socket.game].playerCount][round - 1];
         const roundLeader =
@@ -271,7 +271,7 @@ module.exports = server => {
           ];
         // Send roster vote results back to client
         io.in(socket.game).emit('roster vote result', {
-          voteSucceeds,
+          missionRosterApproved,
           vote: gameRooms[socket.game].proposalResults,
         });
         // reset PAL3000's voted status
@@ -282,7 +282,7 @@ module.exports = server => {
         setTimeout(() => {
           // If vote succeeds, reset fail count, mission votes,
           // move to cure or sabotage vote via on mission event
-          if (voteSucceeds) {
+          if (missionRosterApproved) {
             store.dispatch(resetMissionVotes(socket.game));
             console.log(
               chalk.bgWhite.blue(
@@ -293,7 +293,7 @@ module.exports = server => {
             store.dispatch(resetFail(socket.game));
             gameRooms[socket.game].proposalResults = [];
             io.in(socket.game).emit('on mission');
-          } else if (!voteSucceeds) {
+          } else if (!missionRosterApproved) {
             // If vote fails, check if this is third fail on current
             if (store.getState().game[socket.game].failCount === 2) {
               // If this is the third failed vote on current round,
