@@ -26,7 +26,7 @@ const GameView = ({
       <Col md={5} />
       <Col md={2}>
         <Header
-          rosterUnapproved={game.rosterUnapproved}
+          missionRosterUnapprovedCount={game.missionRosterUnapprovedCount}
           leaderSubmitRoster={game.leaderSubmitRoster}
         />
       </Col>

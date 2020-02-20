@@ -11,6 +11,8 @@ const HasLeaderSubmittedRoster = ({
 }) =>
   game.leaderSubmitRoster ? (
     <RosterVote
+      missionRosterApproved={game.missionRosterApproved}
+      missionRosterUnapprovedCount={game.missionRosterUnapprovedCount}
       rosterApproved={game.rosterApproved}
       missionRoster={game.missionRoster}
       leader={game.leader}

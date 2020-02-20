@@ -37,12 +37,13 @@ class Game extends Component {
       missionRoster: [],
       rosterLength: 0,
       round: 0,
-      rosterUnapproved: 0,
+      missionRosterUnapprovedCount: 0,
       team: [],
       teamAssembled: false,
       username: undefined,
       usersVoteRecord: [],
       votedOnRoster: false,
+      missionRosterApproved: false,
     };
   }
 
@@ -67,7 +68,7 @@ class Game extends Component {
       const { round } = this.state;
       if (data.round > round) {
         this.setState({
-          rosterUnapproved: 0,
+          missionRosterUnapprovedCount: 0,
         });
       }
       this.setState({
@@ -90,16 +91,20 @@ class Game extends Component {
         leaderSubmitRoster: true,
       });
     });
-    socket.on('roster vote result', ({ voteSucceeds, vote }) => {
+    socket.on('roster vote result', ({ missionRosterApproved, vote }) => {
       this.setState(
-        { allUsersVotedOnRoster: true, usersVoteRecord: vote },
+        {
+          allUsersVotedOnRoster: true,
+          usersVoteRecord: vote,
+          missionRosterApproved,
+        },
         () => {
-          // set state of rosterUnapproved based on result
+          // set state of missionRosterUnapprovedCount based on result
           // for every failed vote increment by one
-          if (!voteSucceeds) {
-            const { rosterUnapproved } = this.state;
+          if (!missionRosterApproved) {
+            const { missionRosterUnapprovedCount } = this.state;
             this.setState({
-              rosterUnapproved: rosterUnapproved + 1,
+              missionRosterUnapprovedCount: missionRosterUnapprovedCount + 1,
             });
           }
         }
@@ -176,7 +181,7 @@ class Game extends Component {
             missionRoster: [],
             rosterLength: 0,
             round: 0,
-            rosterUnapproved: 0,
+            missionRosterUnapprovedCount: 0,
             team: [],
             teamAssembled: false,
             username: undefined,

@@ -5,6 +5,8 @@ import WaitingForRosterVote from '../../waiting/waitingForRosterVote';
 import Vote from './vote';
 
 const RosterVote = ({
+  missionRosterApproved,
+  missionRosterUnapprovedCount,
   allUsersVotedOnRoster,
   handleRosterVote,
   leader,
@@ -14,7 +16,11 @@ const RosterVote = ({
 }) =>
   votedOnRoster ? (
     allUsersVotedOnRoster ? (
-      <UsersVoteOnRosterList usersVoteRecord={usersVoteRecord} />
+      <UsersVoteOnRosterList
+        usersVoteRecord={usersVoteRecord}
+        missionRosterUnapprovedCount={missionRosterUnapprovedCount}
+        missionRosterApproved={missionRosterApproved}
+      />
     ) : (
       <WaitingForRosterVote />
     )
